@@ -11,7 +11,7 @@
   import Hatch from '@gaw/ui/Hatch.svelte';
   import Header from '@gaw/ui/Header.svelte';
   import { GRADIENTS } from '@gaw/ui/icons.ts';
-  import { DITHER, HATCH, MENU, SPECULATION, THEME, THEME_HEAD, TILT, TOUCH, inline } from '@gaw/ui/scripts.ts';
+  import { DITHER, FIT, FIT_HEAD, HATCH, MENU, SPECULATION, THEME, THEME_HEAD, TILT, TOUCH, inline } from '@gaw/ui/scripts.ts';
   import { stylesheet } from '@gaw/ui/styles.ts';
   import type { LangLink, NavItem } from '@gaw/ui/types.ts';
   import { page } from '$app/state';
@@ -66,11 +66,11 @@
   {#if locale === DEFAULT_LOCALE}{@html inline(LANG_HEAD)}{/if}
   <title>{title}</title>
   {@html stylesheet(meta.head, [...meta.tail, SITE_CSS])}
-  {@html inline(THEME_HEAD)}
+  {@html inline(THEME_HEAD, FIT_HEAD)}
   {@html SPECULATION}
   {#if noindex}<meta name="robots" content="noindex" />{:else}<Alternates origin={ORIGIN} route={meta.route} {locale} />{/if}
 </svelte:head>
 
 {@html defs}<div class="frame"><Hatch page={name} /><Header {badge} home={pathOf('/', locale)} {items} {langs} {labels} />
 {@render before?.()}<main>{@render children()}</main>
-<Footer {langs} themeLabel={labels.theme}><span>{@html t('chrome.copyright')}</span><span>{t('chrome.trademark')}</span></Footer><div class="noise"></div></div>{@html inline(THEME, MENU, HATCH, TILT, DITHER, TOUCH, LANG)}
+<Footer {langs} themeLabel={labels.theme}><span>{@html t('chrome.copyright')}</span><span>{t('chrome.trademark')}</span></Footer><div class="noise"></div></div>{@html inline(FIT, THEME, MENU, HATCH, TILT, DITHER, TOUCH, LANG)}
