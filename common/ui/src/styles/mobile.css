@@ -45,8 +45,9 @@
   h1{font-size:50px;line-height:1}
   .lead{font-size:17px;line-height:1.4706}
   .divider{gap:14px;margin:64px 0 24px}
-  .divider h2{font-size:22px;line-height:1.0909}
-  .divider .ticks{height:14px;background-size:100% 6px,100% 14px}
+  /* a long title (German, Czech) wraps rather than pushing the index off the screen; the ruler keeps a stub */
+  .divider h2{font-size:22px;line-height:1.0909;white-space:normal;min-width:0}
+  .divider .ticks{height:14px;background-size:100% 6px,100% 14px;min-width:24px}
   .divider .idx{font-size:15px}
   .card{border-radius:48px;padding:24px;box-shadow:0 20px 40px var(--sh1)}
   .scene{height:300px}
