@@ -33,7 +33,7 @@
   <article class="card appcard">
     <div class="scene"></div><div class="fade"></div>
     <div class="content">
-      <span class="tag">{t('home.mac_app')}</span>
+      <span class="tag mac">{t('home.mac_app')}</span>
       <h2>{t('home.apps')}</h2>
       <p>{t('home.midi_control_for_fireface_a')}</p>
       <div class="app"><span class="ic"><svg viewBox="0 0 1254 1254" role="img" aria-label="MIDI Control for Fireface"><use href="#appicon"/></svg></span><span><b>{t('common.midi_control_for_fireface')}</b>
