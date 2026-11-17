@@ -2,7 +2,6 @@
 // mockups: base rules first, then the page's own rules, then the mobile rules, then the page's tail.
 import font from './assets/kumbh.ttf?url';
 import noise from './assets/noise.png?url';
-import dither from './assets/dither.png?url';
 import base from './styles/base.css?raw';
 import mobile from './styles/mobile.css?raw';
 
@@ -23,7 +22,7 @@ function narrowDesktop(): string {
   return rules.join('\n');
 }
 
-export const BASE_CSS = `${base.replace('%FONT%', font).replace('%NOISE%', noise).replace('%DITHER%', dither)}\n${narrowDesktop()}`;
+export const BASE_CSS = `${base.replace('%FONT%', font).replace('%NOISE%', noise)}\n${narrowDesktop()}`;
 export const MOBILE_CSS = mobile;
 
 /** One `<style>` element in the design's cascade order. */
