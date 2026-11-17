@@ -5,9 +5,9 @@
 .hub .scene{height:420px}
 .hub .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 220px,rgba(var(--cr),.85) 340px,rgb(var(--cr)) 420px)}
 /* the product card alone carries the app's orange */
-.prodc{--x:#fc9127;--xt:#fc9127;--xr:249,130,15;--xr2:255,160,64;--g1:#FFA040;--g2:#F9820F;--blue:#fc9127;
+.prodc{--x:#fc9127;--xt:#fc9127;--xr:249,130,15;--xr2:255,160,64;--g1:#FFA040;--g2:#F9820F;--blue:#fc9127;--br:252,145,39;--sel:#FFA040;--on-sel:#0F0F0F;
   --xg:linear-gradient(135deg,#FFA040,#F9820F)}
-:root[data-theme="light"] .prodc{--x:#C76000;--xt:#C76000;--xr:199,96,0;--xr2:199,96,0;--g1:#C76000;--g2:#C76000;--blue:#C76000;
+:root[data-theme="light"] .prodc{--x:#C76000;--xt:#C76000;--xr:199,96,0;--xr2:199,96,0;--g1:#C76000;--g2:#C76000;--blue:#C76000;--br:199,96,0;--sel:#C76000;--on-sel:#0F0F0F;
   --xg:linear-gradient(135deg,#C76000,#C76000)}
 .prodc .scene{background:radial-gradient(40% 55% at 50% 42%,rgba(var(--xr),.24),transparent 70%),var(--sd)}
 .prodc .pic{position:absolute;left:50%;top:84px;width:200px;height:200px;transform:translateX(-50%);

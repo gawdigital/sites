@@ -20,7 +20,7 @@
     "message": "Message",
     "verification": "Verification",
     "send": "SEND",
-    "we_use_your_email_and": "We use your email and message only to answer you. Nothing is stored on this site.\n          <a href=\"{{p}}/privacy\">Privacy</a>",
+    "we_use_your_email_and": "We use your email and message only to answer you. Nothing is stored on this site.\n          <a class=\"ln\" href=\"{{p}}/privacy\">Privacy</a>",
     "thank_you": "THANK YOU.",
     "well_reply_to_your_email": "We’ll reply to your email.",
     "company": "Company",
