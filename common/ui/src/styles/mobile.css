@@ -76,7 +76,6 @@
   .dots{gap:5px;margin-top:8px} .dots i{box-shadow:inset 0 0 0 2px var(--ring)}
   .footer{flex-direction:column;align-items:flex-start;gap:20px;margin-top:64px;padding:0 8px;font-size:14px;line-height:21px}
   .footer .fr{gap:24px;font-size:14px;flex-wrap:nowrap}
-  .noise{height:600px}
   /* home */
   .hero{grid-template-columns:1fr 112px;column-gap:8px;align-items:end}
   .hero .txt{display:contents}
