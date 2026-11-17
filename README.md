@@ -12,7 +12,10 @@ SvelteKit and deployed to Cloudflare Workers.
 
 ## Commands
 
-Bun 1.4.4 is the runtime and package manager (`bun install` writes `bun.lock`, which is committed).
+Bun 1.4.4 is the runtime and package manager (`bun install` writes `bun.lock`, which is committed). The scripts
+run Vite, svelte-check and Wrangler with `bun --bun`, so Bun executes them rather than the Node their bin files
+name; the one exception is `serve`, because `wrangler dev` cannot forward requests to the Worker under Bun
+(oven-sh/bun#39247) and runs on Node. In production the site runs on Cloudflare Workers, not on Bun or Node.
 
 | Command | Purpose |
 |---------|---------|
@@ -21,8 +24,8 @@ Bun 1.4.4 is the runtime and package manager (`bun install` writes `bun.lock`, w
 | `bun run build` | Build it for Cloudflare (`packages/gawdigital/.svelte-kit/cloudflare`) |
 | `bun run check` | Type-check (svelte-check) |
 | `bun run test` | Unit tests (`bun test`: the contact form's validation, locale routing) |
-| `bun run --filter gawdigital serve` | Serve the build locally with `wrangler dev` (bindings included) |
-| `bunx wrangler …` | Any other Wrangler command, from `packages/gawdigital` |
+| `bun run --filter gawdigital serve` | Serve the build locally with `wrangler dev` (bindings included; needs Node) |
+| `bunx --bun wrangler …` | Any other Wrangler command, from `packages/gawdigital` |
 
 ## gawdigital.cz
 
@@ -76,16 +79,17 @@ secret:
 | `CONTACT_LIMITER` | binding | Workers Rate Limiting, 5 messages a minute per IP (`wrangler.jsonc`) |
 | `SEND_EMAIL` | binding | `send_email`, the fallback sender (`wrangler.jsonc`) |
 
-Set the secrets with `bunx wrangler secret put <NAME>` in `packages/gawdigital`. For `wrangler dev`, put them in
+Set the secrets with `bunx --bun wrangler secret put <NAME>` in `packages/gawdigital`. For `wrangler dev`, put them in
 `packages/gawdigital/.dev.vars` (ignored by git), for example with Cloudflare's always-passing Turnstile test secret
 `1x0000000000000000000000000000000AA`.
 
 ### CI and deployment
 
 - **Pull requests** (`.github/workflows/ci.yml`): install, check, test, build, then upload a preview version with
-  `wrangler versions upload --preview-alias pr-<number>`; the step summary names its URL.
-- **`main`** (`.github/workflows/deploy.yml`): the same checks, then `wrangler deploy`.
+  `bun --bun wrangler versions upload --preview-alias pr-<number>`; the step summary names its URL.
+- **`main`** (`.github/workflows/deploy.yml`): the same checks, then `bun run deploy` (`bun --bun wrangler deploy`).
 
+In both, `node` on the runner's PATH is a link to Bun, so install scripts run on Bun too.
 Both need the repository secrets `CLOUDFLARE_API_TOKEN` (Workers edit rights) and `CLOUDFLARE_ACCOUNT_ID`.
 
 ### Owner steps
