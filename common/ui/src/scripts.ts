@@ -1,6 +1,8 @@
 // The design's interactivity is a handful of small plain scripts, inlined into each prerendered page: no
 // hydration, no client bundle. Every page works without them.
 import dither from './scripts/dither.js?raw';
+import fit from './scripts/fit.js?raw';
+import fitHead from './scripts/fit-head.js?raw';
 import hatch from './scripts/hatch.js?raw';
 import menu from './scripts/menu.js?raw';
 import theme from './scripts/theme.js?raw';
@@ -9,6 +11,9 @@ import tilt from './scripts/tilt.js?raw';
 import touch from './scripts/touch.js?raw';
 
 export const THEME_HEAD = themeHead;
+/** Scales the desktop frame to a window narrower than the design: the head part before the first paint. */
+export const FIT_HEAD = fitHead;
+export const FIT = fit;
 export const THEME = theme;
 export const MENU = menu;
 export const HATCH = hatch;

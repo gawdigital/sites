@@ -31,7 +31,7 @@ c.addEventListener('pointerenter',sheen);
 c.addEventListener('pointermove',function(e){if(e.pointerType!=='mouse')return;var r=c.getBoundingClientRect(),
 x=Math.min(1,Math.max(0,(e.clientX-r.left)/r.width)),y=Math.min(1,Math.max(0,(e.clientY-r.top)/r.height));
 on=true;
-/* the cursor from the centre (layout px, untouched by the tilt and the zoom), the card's farthest reach that way (its support), and the tip that sets it down by Z
+/* the cursor from the centre (layout px, untouched by the tilt and the frame's scale), the card's farthest reach that way (its support), and the tip that sets it down by Z
    once the cursor reaches it */
 var w=c.offsetWidth,h=c.offsetHeight,px=(x-.5)*w,py=(y-.5)*h,d=Math.sqrt(px*px+py*py);
 if(d<.5){tx=ty=0}else{var ux=px/d,uy=py/d,sp=Math.abs(ux)*w/2+Math.abs(uy)*h/2,

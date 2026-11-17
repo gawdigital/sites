@@ -68,8 +68,8 @@ function origin(v){return!v||/^(0(px|%)?\s+0(px|%)?)(,\s*0(px|%)?\s+0(px|%)?)*$/
 
 /* what to redraw: every element (and ::before/::after) outside the inline art with a large gradient background; a
    gradient mask is baked in where the element is empty, and one that cuts a pattern (the hatch, the plug's ring) is left
-   alone with its element */
-function zoom(e){var z=1;for(;e&&e.nodeType===1;e=e.parentElement)z*=parseFloat(getComputedStyle(e).zoom)||1;return z}
+   alone with its element. A bitmap has the resolution it is shown at: the frame's scale (fit-head.js) or its zoom */
+function zoom(e){var z=root.classList.contains('fit')&&parseFloat(root.style.getPropertyValue('--fit'))||1;for(;e&&e.nodeType===1;e=e.parentElement)z*=parseFloat(getComputedStyle(e).zoom)||1;return z}
 function scan(){var o=[],dpr=Math.min(2,window.devicePixelRatio||1);sheet.disabled=true;
 [].forEach.call(D.querySelectorAll('.frame,.frame *:not(svg *):not(svg)'),function(e){[null,'::before','::after'].forEach(function(ps){var s=getComputedStyle(e,ps),bi=s.backgroundImage;
 if(!bi||bi.indexOf('gradient(')<0||/repeating|url\(/.test(bi)||s.display==='none'||ps&&s.content==='none')return;
