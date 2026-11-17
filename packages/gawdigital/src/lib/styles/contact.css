@@ -26,7 +26,8 @@
 .cp svg{width:15px;height:15px;flex:none}
 .cp .ok{display:none}
 .cp{border-color:transparent;background:color-mix(in srgb,var(--text) 8%,transparent)}
-.cp:hover{color:var(--text);background:color-mix(in srgb,var(--text) 13%,transparent)}
+@media (hover:hover){.cp:hover{color:var(--text);background:color-mix(in srgb,var(--text) 13%,transparent)}}
+.cp:active{color:var(--text);background:color-mix(in srgb,var(--text) 13%,transparent)}
 .cp:focus-visible{outline:none;box-shadow:0 0 0 3px var(--card),0 0 0 6px var(--blue)}
 .cp.is-copied{color:var(--xt);background:color-mix(in srgb,var(--x) 16%,transparent)}
 .cp.is-copied .ic{display:none}
