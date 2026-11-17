@@ -25,7 +25,8 @@
   font-weight:800;font-size:16px;color:var(--soft);white-space:nowrap}
 /* no border: a transparent one let the selected pill's gradient repeat into it as a seam around the edge */
 .seg span{border:0;padding:0 24px;background:color-mix(in srgb,var(--text) 8%,transparent);transition:background-color .2s,color .2s,box-shadow .2s}
-.seg label:hover input:not(:checked) + span{background:color-mix(in srgb,var(--text) 13%,transparent)}
+@media (hover:hover){.seg label:hover input:not(:checked) + span{background:color-mix(in srgb,var(--text) 13%,transparent)}}
+.seg label:active input:not(:checked) + span{background:color-mix(in srgb,var(--text) 13%,transparent)}
 .seg input:checked + span{background:var(--xg);color:var(--on-x)}
 .seg input:focus-visible + span{box-shadow:0 0 0 3px var(--card),0 0 0 6px var(--x)}
 legend.lb{margin-bottom:10px}

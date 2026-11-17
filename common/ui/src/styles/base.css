@@ -46,9 +46,11 @@ a.ln{color:var(--blue);text-decoration:underline;text-underline-offset:.25em;tex
 /* a link's arrow: larger, outside the underline (an inline-block takes no text-decoration from its parent) */
 a.ln .arr{display:inline-block;margin-left:.4em;line-height:0;text-decoration:none}
 a.ln .arr svg{display:block;width:1.05em;height:auto;transform:translateY(-.08em);transition:transform .25s cubic-bezier(.2,.7,.3,1)}
-a.ln:hover .arr svg{transform:translate(.15em,-.08em)}
+@media (hover:hover){a.ln:hover .arr svg{transform:translate(.15em,-.08em)}}
+a.ln:active .arr svg{transform:translate(.15em,-.08em)}
 a.ln .arr.ext svg{width:.84em;transform:translateY(.15em)}
-a.ln:hover .arr.ext svg{transform:translate(.16em,-.01em)}
+@media (hover:hover){a.ln:hover .arr.ext svg{transform:translate(.16em,-.01em)}}
+a.ln:active .arr.ext svg{transform:translate(.16em,-.01em)}
 .x{color:var(--xt)}
 /* The frame spans the whole window, so the background (blob, vignette, hatch, noise) is never cut off at the
    content's edges; the content keeps the design's 1560 px column (1680 less its 60 px gutters), centred. It clips
@@ -69,16 +71,21 @@ a.ln:hover .arr.ext svg{transform:translate(.16em,-.01em)}
 .home{position:absolute;left:var(--gut);top:0;width:132px;height:180px;z-index:5;display:block;border-radius:0 0 66px 66px;
   transition:box-shadow .25s}
 .home .badge{display:block;width:100%;height:100%;transition:filter .25s}
-.home:hover,.home:focus-visible{box-shadow:0 6px 18px rgba(var(--xm),.4)} /* the badge's own accent */
-.home:hover .badge,.home:focus-visible .badge{filter:brightness(1.1)}
+@media (hover:hover){.home:hover{box-shadow:0 6px 18px rgba(var(--xm),.4)}}
+.home:focus-visible,.home:active{box-shadow:0 6px 18px rgba(var(--xm),.4)} /* the badge's own accent */
+@media (hover:hover){.home:hover .badge{filter:brightness(1.1)}}
+.home:focus-visible .badge,.home:active .badge{filter:brightness(1.1)}
 .home:focus-visible{outline:3px solid var(--blue);outline-offset:4px}
 .menu{position:absolute;right:var(--gut);top:60px;height:60px;display:flex;align-items:center;gap:36px;font-weight:800;font-size:18px;z-index:5}
 .menu a.on{color:var(--xt)}
 .menu a{transition:color .2s}
-.menu a:not(.on):not(.off):hover{color:var(--xt)}
+@media (hover:hover){.menu a:not(.on):not(.off):hover{color:var(--xt)}}
+.menu a:not(.on):not(.off):active{color:var(--xt)}
 .menu a:focus-visible{outline:2px solid currentColor;outline-offset:6px;border-radius:4px}
 .menu a.off{opacity:.35;cursor:default;pointer-events:none}
-.lang{display:flex;gap:16px} .lang a{color:var(--dim);transition:color .2s} .lang a[href]:hover{color:var(--xt)} .lang a.cur{color:var(--text)}
+.lang{display:flex;gap:16px} .lang a{color:var(--dim);transition:color .2s}
+@media (hover:hover){.lang a[href]:hover{color:var(--xt)}}
+.lang a[href]:active{color:var(--xt)} .lang a.cur{color:var(--text)}
 .acct{width:25px;height:25px;display:block}
 .mnav,.mmenu{display:none}
 main{position:relative;z-index:2;padding-top:250px}
@@ -127,14 +134,15 @@ h1{font-weight:800;font-size:110px;line-height:104px;text-transform:uppercase}
 .btn{height:70px;min-width:237px;padding:0 48px;border-radius:100px;display:inline-flex;align-items:center;
   justify-content:center;font-weight:800;font-size:18px;background:var(--blue);color:var(--on-blue);margin-left:auto;white-space:nowrap;
   transition:box-shadow .2s,filter .2s}
-.btn:hover{filter:brightness(1.1);box-shadow:0 0 28px rgba(var(--br),.4)} /* --br: the button colour, --blue, as r,g,b */
-.btn.mint:hover{box-shadow:0 0 28px rgba(var(--xm),.36)}
+@media (hover:hover){.btn:hover{filter:brightness(1.1);box-shadow:0 0 28px rgba(var(--br),.4)}} /* --br: the button colour, --blue, as r,g,b */
+@media (hover:hover){.btn.mint:hover{box-shadow:0 0 28px rgba(var(--xm),.36)}}
 .btn:active{filter:brightness(.95);box-shadow:none;transition-duration:.06s}
 .btn:focus-visible{outline:none;box-shadow:0 0 0 3px var(--page),0 0 0 6px var(--x)}
 .btn.mint{background:var(--xg);color:var(--on-x)}
 .btn .arr.ext{display:inline-block;margin-left:.5em;line-height:0}
 .btn .arr.ext svg{display:block;width:.9em;height:auto;transition:transform .25s cubic-bezier(.2,.7,.3,1)}
-.btn:hover .arr.ext svg{transform:translate(.14em,-.14em)}
+@media (hover:hover){.btn:hover .arr.ext svg{transform:translate(.14em,-.14em)}}
+.btn:active .arr.ext svg{transform:translate(.14em,-.14em)}
 .toggle{display:inline-flex;align-items:center;gap:20px;font-weight:800;font-size:18px;color:var(--xt)}
 .toggle i{width:80px;height:40px;border-radius:20px;background:var(--x);position:relative;flex:none}
 .toggle i:after{content:"";position:absolute;right:5px;top:5px;width:30px;height:30px;border-radius:50%;background:#fff}
@@ -204,12 +212,14 @@ h1{font-weight:800;font-size:110px;line-height:104px;text-transform:uppercase}
 :root[data-theme="light"] .theme .moon{color:var(--dim)}
 :root[data-theme="light"] .theme .sun{color:var(--on-x)}
 .theme{transition:box-shadow .2s,color .2s}
-.theme:hover{box-shadow:inset 0 0 0 2px var(--x)}
+@media (hover:hover){.theme:hover{box-shadow:inset 0 0 0 2px var(--x)}}
+.theme:active{box-shadow:inset 0 0 0 2px var(--x)}
 .theme:focus-visible{outline:2px solid var(--x);outline-offset:3px}
 .theme svg{transition:color .2s}
-/* links: underlined at rest, the underline fades out on hover */
+/* links: underlined at rest, the underline fades out on hover (on a press, where nothing hovers) */
 a.ln{transition:color .2s,text-decoration-color .2s}
-a.ln:hover{text-decoration-color:transparent}
+@media (hover:hover){a.ln:hover{text-decoration-color:transparent}}
+a.ln:active{text-decoration-color:transparent}
 a.ln:focus-visible{outline:2px solid currentColor;outline-offset:3px;border-radius:2px}
 /* page changes: where the browser supports it, one page cross-fades into the next instead of blanking */
 @media (prefers-reduced-motion:no-preference){@view-transition{navigation:auto}}

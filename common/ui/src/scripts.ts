@@ -6,6 +6,7 @@ import menu from './scripts/menu.js?raw';
 import theme from './scripts/theme.js?raw';
 import themeHead from './scripts/theme-head.js?raw';
 import tilt from './scripts/tilt.js?raw';
+import touch from './scripts/touch.js?raw';
 
 export const THEME_HEAD = themeHead;
 export const THEME = theme;
@@ -13,6 +14,8 @@ export const MENU = menu;
 export const HATCH = hatch;
 export const TILT = tilt;
 export const DITHER = dither;
+/** iOS Safari applies :active (the touch stand-in for the hover effects) only once a page listens for touches. */
+export const TOUCH = touch;
 
 /**
  * Speculation rules: a page a visitor is about to open (a pointer resting on its link, or a press starting) is
