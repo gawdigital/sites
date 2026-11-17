@@ -21,17 +21,23 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: 1.4.4
+      - name: Run the Node tooling on Bun
+        # Lifecycle scripts (workerd's postinstall) call `node`; this `node` is Bun, so nothing runs on the runner's Node.
+        run: |
+          mkdir -p "$RUNNER_TEMP/bun-as-node"
+          ln -s "$(command -v bun)" "$RUNNER_TEMP/bun-as-node/node"
+          echo "$RUNNER_TEMP/bun-as-node" >> "$GITHUB_PATH"
+      - run: node -e 'if (!globalThis.Bun) process.exit(1)'
       - run: bun install --frozen-lockfile
       - run: bun run check
       - run: bun run test
       - run: bun run build
         env:
           PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.PUBLIC_TURNSTILE_SITE_KEY }}
-      - uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          workingDirectory: packages/gawdigital
-          packageManager: bun
-          wranglerVersion: 4.163.0
-          command: deploy
+      - name: Deploy
+        working-directory: packages/gawdigital
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        # Wrangler runs on Bun (`--bun`), not on the runner's Node.
+        run: bun run deploy
