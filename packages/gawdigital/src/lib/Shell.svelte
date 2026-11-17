@@ -70,6 +70,6 @@
   {#if noindex}<meta name="robots" content="noindex" />{:else}<Alternates origin={ORIGIN} route={meta.route} {locale} />{/if}
 </svelte:head>
 
-{@html defs}<div class="frame"><Hatch page={name} /><Header {badge} {items} {langs} {labels} />
+{@html defs}<div class="frame"><Hatch page={name} /><Header {badge} home={pathOf('/', locale)} {items} {langs} {labels} />
 {@render before?.()}<main>{@render children()}</main>
 <Footer {langs} themeLabel={labels.theme}><span>{@html t('chrome.copyright')}</span><span>{t('chrome.trademark')}</span></Footer><div class="noise"></div></div>{@html inline(THEME, MENU, HATCH, LANG)}
