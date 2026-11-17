@@ -24,3 +24,5 @@ so Bun, not Node, executes them; `serve` (`wrangler dev`) alone needs Node, sinc
   JavaScript (Turnstile excepted). `/api/contact` is the only server route.
 - English paths in every locale: `/de/contact`, never `/de/kontakt`. English is unprefixed.
 - `src/params.ts` is loaded by the runtime directly: it must not import anything that pulls in CSS.
+- The language redirect is an inline script in the `<head>` of the English pages (`common/i18n/src/scripts`); the
+  switch's choice is kept in localStorage `lang`, like the theme. No cookie, no Worker of our own, no language bar.

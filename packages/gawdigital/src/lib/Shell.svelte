@@ -5,21 +5,21 @@
   import type { Snippet } from 'svelte';
 
   import Alternates from '@gaw/i18n/Alternates.svelte';
-  import { LOCALES, localeOf, pathOf, routeOf } from '@gaw/i18n/locale.ts';
+  import { DEFAULT_LOCALE, localeOf, pathOf, routeOf } from '@gaw/i18n/locale.ts';
+  import { LANG, LANG_HEAD } from '@gaw/i18n/scripts.ts';
   import Footer from '@gaw/ui/Footer.svelte';
   import Hatch from '@gaw/ui/Hatch.svelte';
   import Header from '@gaw/ui/Header.svelte';
   import { GRADIENTS } from '@gaw/ui/icons.ts';
-  import LangBar from '@gaw/ui/LangBar.svelte';
-  import { HATCH, LANGBAR, MENU, THEME, THEME_HEAD, inline } from '@gaw/ui/scripts.ts';
+  import { HATCH, MENU, THEME, THEME_HEAD, inline } from '@gaw/ui/scripts.ts';
   import { stylesheet } from '@gaw/ui/styles.ts';
-  import type { LangLink, LangOffer, NavItem } from '@gaw/ui/types.ts';
+  import type { LangLink, NavItem } from '@gaw/ui/types.ts';
   import { page } from '$app/state';
 
   import appicon from './art/appicon.svg?raw';
   import badge from './art/badge.svg?raw';
   import { NAV, ORIGIN, PAGES, SITE_CSS, type PageName } from './site.ts';
-  import { BASE, get } from './translations/index.ts';
+  import { get } from './translations/index.ts';
 
   let {
     name,
@@ -51,15 +51,6 @@
       current: code === locale,
     })),
   );
-  const offers: LangOffer[] = $derived(
-    LOCALES.filter((code) => code !== locale).map((code) => ({
-      code,
-      href: pathOf(route, code),
-      text: BASE[code].langbar.text,
-      link: BASE[code].langbar.link,
-      close: BASE[code].langbar.close,
-    })),
-  );
   const labels = $derived({
     menu: t('chrome.menu'),
     close: t('chrome.close_menu'),
@@ -71,6 +62,8 @@
 </script>
 
 <svelte:head>
+  <!-- Before anything renders: an English page sends a visitor who prefers German or Czech to that locale. -->
+  {#if locale === DEFAULT_LOCALE}{@html inline(LANG_HEAD)}{/if}
   <title>{title}</title>
   {@html stylesheet(meta.head, [...meta.tail, SITE_CSS])}
   {@html inline(THEME_HEAD)}
@@ -79,4 +72,4 @@
 
 {@html defs}<div class="frame"><Hatch page={name} /><Header {badge} {items} {langs} {labels} />
 {@render before?.()}<main>{@render children()}</main>
-<Footer {langs} themeLabel={labels.theme}><span>{@html t('chrome.copyright')}</span><span>{t('chrome.trademark')}</span></Footer><div class="noise"></div></div><LangBar {offers} current={locale} />{@html inline(THEME, MENU, HATCH, LANGBAR)}
+<Footer {langs} themeLabel={labels.theme}><span>{@html t('chrome.copyright')}</span><span>{t('chrome.trademark')}</span></Footer><div class="noise"></div></div>{@html inline(THEME, MENU, HATCH, LANG)}

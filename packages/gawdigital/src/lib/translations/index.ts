@@ -21,7 +21,7 @@ export const NAMESPACES = [
   { namespace: 'privacy', routes: [page('/privacy')] },
 ];
 
-/** The shared strings (`common`, `chrome`, `form`, `error`, `langbar`) are base translations: every page has them. */
+/** The shared strings (`common`, `chrome`, `form`, `error`) are base translations: every page has them. */
 export const BASE = { en, de, cs } as const;
 
 export const config = {
