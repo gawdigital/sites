@@ -11,7 +11,7 @@
   import Hatch from '@gaw/ui/Hatch.svelte';
   import Header from '@gaw/ui/Header.svelte';
   import { GRADIENTS } from '@gaw/ui/icons.ts';
-  import { DITHER, HATCH, MENU, THEME, THEME_HEAD, TILT, inline } from '@gaw/ui/scripts.ts';
+  import { DITHER, HATCH, MENU, SPECULATION, THEME, THEME_HEAD, TILT, inline } from '@gaw/ui/scripts.ts';
   import { stylesheet } from '@gaw/ui/styles.ts';
   import type { LangLink, NavItem } from '@gaw/ui/types.ts';
   import { page } from '$app/state';
@@ -67,6 +67,7 @@
   <title>{title}</title>
   {@html stylesheet(meta.head, [...meta.tail, SITE_CSS])}
   {@html inline(THEME_HEAD)}
+  {@html SPECULATION}
   {#if noindex}<meta name="robots" content="noindex" />{:else}<Alternates origin={ORIGIN} route={meta.route} {locale} />{/if}
 </svelte:head>
 
