@@ -11,7 +11,7 @@
   import Hatch from '@gaw/ui/Hatch.svelte';
   import Header from '@gaw/ui/Header.svelte';
   import { GRADIENTS } from '@gaw/ui/icons.ts';
-  import { HATCH, MENU, THEME, THEME_HEAD, inline } from '@gaw/ui/scripts.ts';
+  import { HATCH, MENU, THEME, THEME_HEAD, TILT, inline } from '@gaw/ui/scripts.ts';
   import { stylesheet } from '@gaw/ui/styles.ts';
   import type { LangLink, NavItem } from '@gaw/ui/types.ts';
   import { page } from '$app/state';
@@ -72,4 +72,4 @@
 
 {@html defs}<div class="frame"><Hatch page={name} /><Header {badge} home={pathOf('/', locale)} {items} {langs} {labels} />
 {@render before?.()}<main>{@render children()}</main>
-<Footer {langs} themeLabel={labels.theme}><span>{@html t('chrome.copyright')}</span><span>{t('chrome.trademark')}</span></Footer><div class="noise"></div></div>{@html inline(THEME, MENU, HATCH, LANG)}
+<Footer {langs} themeLabel={labels.theme}><span>{@html t('chrome.copyright')}</span><span>{t('chrome.trademark')}</span></Footer><div class="noise"></div></div>{@html inline(THEME, MENU, HATCH, TILT, LANG)}

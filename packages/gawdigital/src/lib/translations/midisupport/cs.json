@@ -1,5 +1,5 @@
 {
-  "apps_midi_control_support": "<a href=\"{{p}}/apps/midi-control\">APLIKACE</a> / <a href=\"{{p}}/apps/midi-control\">MIDI CONTROL</a> / PODPORA",
+  "apps_midi_control_support": "<a class=\"ln\" href=\"{{p}}/apps/midi-control\">APLIKACE</a> / <a class=\"ln\" href=\"{{p}}/apps/midi-control\">MIDI CONTROL</a> / PODPORA",
   "support_for_fireface": "PODPORA<br><span class=\"x\">PRO <br class=\"brm\" hidden>FIREFACE…</span>",
   "answers_for_midi_control_for": "Odpovědi k MIDI Control for Fireface a přímá linka k nám, když něco nefunguje.",
   "get_in_touch": "Spojte se s námi",
