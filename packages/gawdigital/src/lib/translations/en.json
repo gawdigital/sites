@@ -45,11 +45,6 @@
     "trademark": "Fireface is a trademark of RME. Not affiliated with RME.",
     "languages": "Language"
   },
-  "langbar": {
-    "text": "This page is also available in English.",
-    "link": "Read in English",
-    "close": "Close"
-  },
   "form": {
     "filled": "Required, filled in.",
     "copied": "Copied",

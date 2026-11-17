@@ -51,7 +51,7 @@
   "local_storage": "Lokaler Speicher",
   "one_item_theme_keeps_your": "Ein Eintrag, <strong>theme</strong>, merkt sich Ihre Wahl zwischen Tag- und Nachtmodus. Er bleibt in Ihrem Browser; Sie können ihn dort jederzeit löschen.",
   "language": "Sprache",
-  "your_choice_of_cs_en": "Ihre Wahl zwischen CS, EN und DE ist Teil der Seitenadresse.",
+  "one_item_lang_keeps_the": "Ein zweiter Eintrag, <strong>lang</strong>, merkt sich die Sprache, die Sie mit dem Umschalter CS · EN · DE wählen, damit sich die Website beim nächsten Mal in ihr öffnet. Wie <strong>theme</strong> bleibt er in Ihrem Browser; es wird kein Cookie gesetzt.",
   "access": "Auskunft",
   "ask_what_data_we_hold": "Erfahren Sie, welche Daten wir über Sie haben, und erhalten Sie eine Kopie. <span class=\"art\">(Art. 15 DSGVO)</span>",
   "rectification": "Berichtigung",

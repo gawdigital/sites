@@ -6,8 +6,8 @@ SvelteKit and deployed to Cloudflare Workers.
 | Path | What it is |
 |------|------------|
 | `packages/gawdigital` | The gawdigital.cz site (SvelteKit 3, Svelte 5, `@sveltejs/adapter-cloudflare`) |
-| `common/ui` | Shared components (header, footer, mobile menu, language switch and bar, hatch), the theme and its inline scripts |
-| `common/i18n` | Locale routing (English unprefixed, `/de` and `/cs` prefixed), `hreflang` alternates |
+| `common/ui` | Shared components (header, footer, mobile menu, language switch, hatch), the theme and its inline scripts |
+| `common/i18n` | Locale routing (English unprefixed, `/de` and `/cs` prefixed), `hreflang` alternates, the language redirect's inline scripts |
 | `sanity/` | Placeholder for the Sanity content studio (see its README) |
 
 ## Commands
@@ -23,15 +23,15 @@ name; the one exception is `serve`, because `wrangler dev` cannot forward reques
 | `bun run dev` | Develop gawdigital.cz with Vite |
 | `bun run build` | Build it for Cloudflare (`packages/gawdigital/.svelte-kit/cloudflare`) |
 | `bun run check` | Type-check (svelte-check) |
-| `bun run test` | Unit tests (`bun test`: the contact form's validation, locale routing) |
+| `bun run test` | Unit tests (`bun test`: the contact form's validation, locale routing, the language redirect's scripts) |
 | `bun run --filter gawdigital serve` | Serve the build locally with `wrangler dev` (bindings included; needs Node) |
 | `bunx --bun wrangler …` | Any other Wrangler command, from `packages/gawdigital` |
 
 ## gawdigital.cz
 
 Every page is prerendered and ships no client framework (`csr = false`); the small inline scripts only add the
-theme switch, the mobile menu, copy buttons and the form's in-page submit. Everything works without JavaScript
-except Turnstile.
+language redirect, the theme switch, the mobile menu, copy buttons and the form's in-page submit. Everything works
+without JavaScript except Turnstile.
 
 | Route | Page |
 |-------|------|
@@ -46,8 +46,18 @@ except Turnstile.
 
 Each page exists in English at the bare path and in German and Czech under `/de` and `/cs`, with the same English
 path segments. Pages carry `<html lang>`, a canonical link and `hreflang` alternates with `x-default`; the CS · EN · DE
-switch links to the same page in the other locale. A dismissable bar offers the page in the browser's language and
-never redirects. Unknown paths get a translated 404.
+switch links to the same page in the other locale. Unknown paths get a translated 404.
+
+### Language
+
+An inline script decides the language in the browser, before the page renders (`common/i18n/src/scripts`):
+
+- On an unprefixed (English) page, a language chosen with the CS · EN · DE switch wins: a click on the switch stores
+  its locale in localStorage `lang`, like the theme. Without one, the first of `navigator.languages` (or
+  `navigator.language`) whose primary subtag is English, German or Czech decides. German or Czech replaces the page
+  with the same page under `/de` or `/cs`, query and hash kept; anything else stays English.
+- Prefixed pages never redirect. Without JavaScript nothing redirects and the bare paths stay English; crawlers
+  follow the `hreflang` alternates.
 
 Permanent (301) redirects from the old paths, also under `/de` and `/cs`:
 `/midi-control` → `/apps/midi-control`, `/midi-control/support` → `/apps/midi-control/support`,

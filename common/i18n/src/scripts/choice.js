@@ -1,0 +1,1 @@
+document.querySelectorAll('.lang a[hreflang]').forEach(function(a){a.addEventListener('click',function(){try{localStorage.setItem('lang',a.getAttribute('hreflang'))}catch(e){}})});

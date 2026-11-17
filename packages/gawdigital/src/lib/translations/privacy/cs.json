@@ -51,7 +51,7 @@
   "local_storage": "Místní úložiště",
   "one_item_theme_keeps_your": "Jedna položka, <strong>theme</strong>, si pamatuje vaši volbu denního či nočního režimu. Zůstává ve vašem prohlížeči a můžete ji tam kdykoli smazat.",
   "language": "Jazyk",
-  "your_choice_of_cs_en": "Vaše volba CS, EN nebo DE je součástí adresy stránky.",
+  "one_item_lang_keeps_the": "Druhá položka, <strong>lang</strong>, si pamatuje jazyk, který zvolíte přepínačem CS · EN · DE, aby se web příště otevřel v něm. Stejně jako <strong>theme</strong> zůstává ve vašem prohlížeči; žádná cookie se nenastavuje.",
   "access": "Přístup",
   "ask_what_data_we_hold": "Zjistěte, jaké údaje o vás máme, a získejte jejich kopii. <span class=\"art\">(čl. 15 GDPR)</span>",
   "rectification": "Oprava",

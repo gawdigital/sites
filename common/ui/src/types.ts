@@ -14,11 +14,3 @@ export interface LangLink {
   current: boolean;
 }
 
-/** The language bar's offer of one other locale, written in that locale. */
-export interface LangOffer {
-  code: string;
-  href: string;
-  text: string;
-  link: string;
-  close: string;
-}
