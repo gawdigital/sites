@@ -1,7 +1,8 @@
 /* The cursor tilts a card or a tile a little, and a faint sheen follows it. The angles ease toward the cursor in a frame loop
    (no CSS transition, which restarted on every pointer move and lagged); on leave they ease back to flat and the
-   transform is dropped, so the card rasterises flat and sharp. Every card lifts its edges by the same few pixels, so a
-   small tile tilts by a larger angle than a wide card and both read alike.
+   transform is dropped, so the card rasterises flat and sharp. One angle serves both axes, taken from the card's
+   area (as if it were a square that lifts its edges by the same few pixels): a small tile tilts further than a large card,
+   and a wide card tilts as far one way as the other.
    The sheen is drawn here rather than as a CSS gradient: so faint a glow has only a handful of shades, and a gradient
    rounds each pixel to the nearest one, which stepped into visible rings. Drawn once per theme into a canvas, each pixel is
    rounded with a little noise (dithered before it is quantised, strongly enough to survive the tilt's resampling), so
@@ -26,6 +27,6 @@ function go(){if(!raf)raf=requestAnimationFrame(frame)}
 c.addEventListener('pointerenter',sheen);
 c.addEventListener('pointermove',function(e){if(e.pointerType!=='mouse')return;var r=c.getBoundingClientRect(),
 x=Math.min(1,Math.max(0,(e.clientX-r.left)/r.width)),y=Math.min(1,Math.max(0,(e.clientY-r.top)/r.height));
-on=true;ty=(x-.5)*2*lim(r.width);tx=(.5-y)*2*lim(r.height);c.style.setProperty('--mx',x.toFixed(4));c.style.setProperty('--my',y.toFixed(4));
+on=true;var a=lim(Math.sqrt(r.width*r.height));ty=(x-.5)*2*a;tx=(.5-y)*2*a;c.style.setProperty('--mx',x.toFixed(4));c.style.setProperty('--my',y.toFixed(4));
 c.classList.add('tilt','mv');go()});
 c.addEventListener('pointerleave',function(){on=false;tx=ty=0;c.classList.remove('mv');go()})})})();
