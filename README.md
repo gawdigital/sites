@@ -21,6 +21,7 @@ name; the one exception is `serve`, because `wrangler dev` cannot forward reques
 |---------|---------|
 | `bun install` | Install the workspace |
 | `bun run dev` | Develop gawdigital.cz with Vite |
+| `bun run --filter gawdigital dev:https` | The same over HTTPS on the local network (self-signed certificate), e.g. to try it on a phone |
 | `bun run build` | Build it for Cloudflare (`packages/gawdigital/.svelte-kit/cloudflare`) |
 | `bun run check` | Type-check (svelte-check) |
 | `bun run test` | Unit tests (`bun test`: the contact form's validation, locale routing, the language redirect's scripts) |
