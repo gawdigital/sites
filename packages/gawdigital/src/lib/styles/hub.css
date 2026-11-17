@@ -7,7 +7,7 @@
 /* the product card alone carries the app's orange */
 .prodc{--x:#fc9127;--xt:#fc9127;--xr:249,130,15;--xr2:255,160,64;--g1:#FFA040;--g2:#F9820F;--blue:#fc9127;--br:252,145,39;--xm:252,145,39;--sel:#fc9127;--on-sel:#0F0F0F;
   --xg:linear-gradient(135deg,#FFA040,#F9820F)}
-:root[data-theme="light"] .prodc{--x:#F07300;--xt:#F07300;--xr:240,115,0;--xr2:240,115,0;--g1:#F07300;--g2:#F07300;--blue:#DE6A00;--br:240,115,0;--xm:240,115,0;--sel:#F07300;--on-sel:#fff;
+:root[data-theme="light"] .prodc{--x:#F07300;--xt:#F07300;--xr:240,115,0;--xr2:240,115,0;--g1:#F07300;--g2:#F07300;--blue:#F07300;--br:240,115,0;--xm:240,115,0;--sel:#F07300;--on-sel:#fff;
   --xg:linear-gradient(135deg,#F07300,#F07300)}
 .prodc .scene{background:radial-gradient(40% 55% at 50% 42%,rgba(var(--xr),.24),transparent 70%),var(--sd)}
 .prodc .pic{position:absolute;left:50%;top:84px;width:200px;height:200px;transform:translateX(-50%);
