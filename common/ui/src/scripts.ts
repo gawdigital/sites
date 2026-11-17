@@ -14,6 +14,20 @@ export const HATCH = hatch;
 export const TILT = tilt;
 export const DITHER = dither;
 
+/**
+ * Speculation rules: a page a visitor is about to open (a pointer resting on its link, or a press starting) is
+ * fetched ahead, so the navigation lands at once. Only a prefetch, never a prerender, so no page runs its scripts
+ * unseen; the API route is left alone. Browsers without the API ignore the element.
+ */
+export const SPECULATION = `<script type="speculationrules">${JSON.stringify({
+  prefetch: [
+    {
+      where: { and: [{ href_matches: '/*' }, { not: { href_matches: '/api/*' } }] },
+      eagerness: 'moderate',
+    },
+  ],
+})}</script>`;
+
 /** A script element around trusted, inline source. */
 export function inline(...sources: string[]): string {
   return sources.map((s) => `<script>${s}</script>`).join('');
