@@ -54,7 +54,7 @@
     <article class="card support">
       <div class="scene sc"><div class="vis">{@html art['home-art']}</div></div><div class="fade"></div>
       <div class="content">
-        <span class="tag neutral">{t('home.help')}</span>
+        <span class="tag hl">{t('home.help')}</span>
         <h2>{t('common.support')}</h2>
         <p>{t('home.faq_and_report_a_problem')}</p>
         <div class="row"><span class="links"><a class="ln" href={href('/apps/midi-control/support')}>{t('common.faq')}</a></span><a class="btn" href={href('/support')}>{t('home.get_help')}</a></div>
