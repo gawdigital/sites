@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "bun --bun vite dev",
+    "dev:https": "HTTPS=1 bun --bun vite dev --host 0.0.0.0",
     "build": "bun --bun vite build",
     "preview": "bun --bun vite preview",
     "serve": "wrangler dev",
@@ -25,6 +26,7 @@
     "@sveltejs/vite-plugin-svelte": "7.3.1",
     "@sveltekit-i18n/typegen": "3.1.1",
     "@types/bun": "1.4.4",
+    "@vitejs/plugin-basic-ssl": "2.3.0",
     "svelte": "5.57.3",
     "svelte-check": "4.7.8",
     "typescript": "6.0.3",
