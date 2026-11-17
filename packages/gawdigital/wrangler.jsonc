@@ -1,0 +1,31 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "gawdigital",
+  "main": ".svelte-kit/cloudflare/_worker.js",
+  "compatibility_date": "2026-11-01",
+  // nodejs_als for SvelteKit's request context, nodejs_compat for worker-mailer.
+  "compatibility_flags": ["nodejs_als", "nodejs_compat"],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": ".svelte-kit/cloudflare"
+  },
+  "observability": { "enabled": true },
+  // Contact form: five messages a minute per visitor address.
+  "ratelimits": [
+    {
+      "name": "CONTACT_LIMITER",
+      "namespace_id": "1001",
+      "simple": { "limit": 5, "period": 60 }
+    }
+  ],
+  // The fallback when SMTP fails. Sending needs Email Routing on the sender's domain and a verified destination
+  // (owner step); the addresses come from the SMTP_USER and MAIL_TO secrets, never from this file.
+  "send_email": [{ "name": "SEND_EMAIL" }],
+  // Owner step: once the zone is on Cloudflare, uncomment to serve the site on its domain.
+  // "routes": [
+  //   { "pattern": "gawdigital.cz", "custom_domain": true },
+  //   { "pattern": "www.gawdigital.cz", "custom_domain": true }
+  // ],
+  // Public build-time configuration only; secrets are set with `wrangler secret put`.
+  "vars": {}
+}

@@ -1,0 +1,73 @@
+{
+  "common": {
+    "g_a_w_digital": "G.A.W.Digital",
+    "midi_control_for_fireface": "MIDI Control for Fireface",
+    "coming_soon": "DEMNÄCHST",
+    "games": "SPIELE",
+    "something_fun_is_in_the": "Etwas Unterhaltsames ist in Arbeit. Bleiben Sie dran!",
+    "support": "SUPPORT",
+    "faq": "FAQ",
+    "contact": "Kontakt",
+    "email": "E-Mail",
+    "required_not_filled_in_yet": "Pflichtfeld, noch nicht ausgefüllt.",
+    "product": "Produkt",
+    "choose_a_product": "Produkt wählen",
+    "other": "Sonstiges",
+    "topic": "Thema",
+    "problem": "Problem",
+    "purchase_trial": "Kauf &amp; Testphase",
+    "for_a_bug_help_report": "Bei einem Fehler hängt Help ▸ Report a Problem… in der App ein Diagnoseprotokoll an.",
+    "message": "Nachricht",
+    "verification": "Überprüfung",
+    "send": "SENDEN",
+    "we_use_your_email_and": "Wir verwenden Ihre E-Mail-Adresse und Nachricht nur, um Ihnen zu antworten. Auf dieser Website wird nichts gespeichert.\n          <a href=\"{{p}}/privacy\">Datenschutz</a>",
+    "thank_you": "DANKE.",
+    "well_reply_to_your_email": "Wir antworten Ihnen per E-Mail.",
+    "company": "Firma",
+    "g_a_w_group_s": "G.A.W.Group, s.r.o.",
+    "address": "Anschrift",
+    "u_smaltovny_1375_25_170": "U smaltovny 1375/25<br>170 00 Praha 7 – Holešovice<br>Tschechische Republik",
+    "company_id_i_o": "Firmennummer (IČO)",
+    "register": "Register",
+    "registered_in_the_commercial_register": "Eingetragen im Handelsregister beim Stadtgericht Prag, Abteilung C, Einlage 405235."
+  },
+  "chrome": {
+    "home": "START",
+    "apps": "APPS",
+    "games": "SPIELE",
+    "support": "SUPPORT",
+    "contact": "KONTAKT",
+    "coming_soon": "Demnächst",
+    "menu": "Menü",
+    "close_menu": "Menü schließen",
+    "theme": "Zwischen Tag- und Nachtmodus wechseln",
+    "copyright": "© 2026 <a class=\"ln\" href=\"https://gawgroup.cz\" target=\"_blank\" rel=\"noopener\">G.A.W.Group<span class=\"sr\">(öffnet in einem neuen Tab)</span></a>, s.r.o.",
+    "trademark": "Fireface ist eine Marke von RME. Keine Verbindung zu RME.",
+    "languages": "Sprache"
+  },
+  "langbar": {
+    "text": "Diese Seite gibt es auch auf Deutsch.",
+    "link": "Auf Deutsch lesen",
+    "close": "Schließen"
+  },
+  "form": {
+    "filled": "Pflichtfeld, ausgefüllt.",
+    "copied": "Kopiert",
+    "copied_note": "{{what}} kopiert.",
+    "invalid": "Bitte prüfen Sie die Felder: Nötig sind eine gültige E-Mail-Adresse, ein Produkt und eine Nachricht.",
+    "verification": "Die Überprüfung ist fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "rate": "Zu viele Nachrichten in kurzer Zeit. Bitte warten Sie eine Minute und versuchen Sie es erneut.",
+    "failed": "Ihre Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es später erneut.",
+    "sending": "Wird gesendet…"
+  },
+  "error": {
+    "kicker": "Fehler {{status}}",
+    "title_404": "NICHT GEFUNDEN.",
+    "title": "ETWAS IST SCHIEFGEGANGEN.",
+    "text_404": "Unter dieser Adresse gibt es keine Seite. Vielleicht wurde sie verschoben, oder der Link enthält einen Tippfehler.",
+    "text": "Die Seite konnte nicht angezeigt werden. Bitte versuchen Sie es gleich noch einmal.",
+    "home": "ZUR STARTSEITE",
+    "page_title": "Nicht gefunden · G.A.W.Digital",
+    "page_title_other": "Fehler · G.A.W.Digital"
+  }
+}

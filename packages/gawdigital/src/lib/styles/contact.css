@@ -1,0 +1,46 @@
+
+/* contact.html: the hub's two columns, MESSAGE (the canonical form) and COMPANY (the registered details) */
+.cgrid{display:grid;grid-template-columns:750px 750px;column-gap:60px;align-items:start;margin-top:120px}
+.cgrid .divider{margin:0 0 60px}
+.cgrid .hcol{display:flex;flex-direction:column;min-width:0}
+.cgrid .formc{max-width:none}
+.coc{justify-content:flex-start;padding:60px 60px 56px}
+.coc .scene{height:240px;background:radial-gradient(50% 80% at 70% 0,rgba(var(--xr),.10),transparent 70%)}
+.coc h2,.coc dl{position:relative;z-index:2}
+.coc h2{font-size:40px;line-height:44px;margin-bottom:28px;text-transform:none}
+.coc dl{display:flex;flex-direction:column;gap:28px}
+.crow{display:grid;grid-template-columns:180px minmax(0,1fr) auto;column-gap:20px;align-items:baseline}
+.coc .sr{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.crow dd.nw{white-space:nowrap}
+.crow dt{padding-top:3px}
+.crow dd{font-weight:500;font-size:19px;line-height:28px;color:var(--text);-webkit-user-select:text;user-select:text;
+  font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.crow dd small{display:block;font-size:inherit;color:var(--soft)}
+.cp{align-self:center;display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border:2px solid var(--fb);border-radius:100px;
+  background:transparent;color:var(--soft);font:inherit;font-weight:800;font-size:13px;letter-spacing:.06em;cursor:pointer;white-space:nowrap;
+  transition:background-color .15s,color .15s}
+.cp svg{width:15px;height:15px;flex:none}
+.cp .ok{display:none}
+.cp{border-color:transparent;background:color-mix(in srgb,var(--text) 8%,transparent)}
+.cp:hover{color:var(--text);background:color-mix(in srgb,var(--text) 13%,transparent)}
+.cp:focus-visible{outline:none;box-shadow:0 0 0 3px var(--card),0 0 0 6px var(--blue)}
+.cp.is-copied{color:var(--xt);background:color-mix(in srgb,var(--x) 16%,transparent)}
+.cp.is-copied .ic{display:none}
+.cp.is-copied .ok{display:block}
+.cnote{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (max-width:700px){
+  .cgrid{display:block;margin-top:56px}
+  .cgrid .divider{margin:0 0 24px}
+  .cgrid .hcol + .hcol .divider{margin-top:64px}
+  .coc{padding:28px 20px 28px}
+  .coc .scene{height:160px}
+  .coc h2{font-size:26px;line-height:30px;margin-bottom:22px}
+  .coc dl{gap:22px}
+  .crow{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"l c" "v v";row-gap:6px;align-items:center}
+  .crow dt{grid-area:l;padding-top:0;min-height:26px;display:flex;align-items:center}
+  .crow dd{grid-area:v}
+  .crow .cp{grid-area:c}
+  .crow dd{font-size:16px;line-height:23px}
+  .cp{height:26px;padding:0 10px;gap:6px;font-size:11px;border-width:1.5px}
+  .cp svg{width:13px;height:13px}
+}

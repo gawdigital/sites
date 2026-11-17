@@ -1,0 +1,57 @@
+
+/* MIDI Control page: the app's palette (Theme.swift), the site badge (#bg, --b1/--b2) included. */
+:root{--b1:#FFA040;--b2:#F9820F;--page:#0F0F0F;--card:#171717;--cr:23,23,23;--line:#2B2B2B;--x:#fc9127;--xt:#fc9127;--xr:249,130,15;--xr2:255,160,64;
+  --g1:#FFA040;--g2:#F9820F;--xg:linear-gradient(135deg,#FFA040,#F9820F);--mute:#E5484D;--on-x:#0F0F0F;--on-blue:#0F0F0F;--blue:#fc9127;--pink:#2B2B2B;
+  --tab:#1F1F1F;--text:#FDFCFD;--dim:#8B8B8B;--soft:rgba(253,252,253,.78);
+  --t1:#2B2B2B;--t2:#3A3A3A;--rail:#2B2B2B;--cap:#E6E6E6;--capline:#0F0F0F;--blob:#131313;--chip:#1F1F1F;
+  --panel:#141414;--ghost:rgba(253,252,253,.16);--ring:rgba(253,252,253,.28);
+  --sh1:rgba(0,0,0,.6);--sh2:rgba(0,0,0,.4);--vig:0,0,0;--h1:#1F1F1F;--h2:#2B2B2B;
+  --sa:linear-gradient(160deg,#242424,#131313);--sc:linear-gradient(200deg,#222,#131313);--sd:linear-gradient(170deg,#1F1F1F,#131313);
+  --se:linear-gradient(160deg,#222,#131313);--sx:linear-gradient(160deg,#242424,#131313 70%)}
+/* light: one flat orange, #C76000 (3.68:1 on #F2F2F2, 4.12:1 on #FFF; #0F0F0F on it 4.66:1) */
+:root[data-theme="light"]{--b1:#C76000;--b2:#C76000;--page:#F2F2F2;--card:#FFFFFF;--cr:255,255,255;--line:#E0E0E0;--x:#C76000;--xt:#C76000;--xr:199,96,0;--xr2:199,96,0;
+  --g1:#C76000;--g2:#C76000;--xg:linear-gradient(135deg,#C76000,#C76000);--mute:#E5484D;--on-x:#fff;--on-blue:#fff;--blue:#C76000;--pink:#2B2B2B;
+  --tab:#E6E6E6;--text:#0F0F0F;--dim:rgba(15,15,15,.58);--soft:rgba(15,15,15,.76);
+  --t1:#D4D4D4;--t2:#ABABAB;--rail:#E0E0E0;--cap:#FFFFFF;--capline:#0F0F0F;--blob:#E9E9E9;--chip:#F7F7F7;
+  --panel:#FFFFFF;--ghost:rgba(15,15,15,.14);--ring:rgba(15,15,15,.25);
+  --sh1:rgba(0,0,0,.10);--sh2:rgba(0,0,0,.06);--vig:110,110,110;--h1:#D4D4D4;--h2:#BDBDBD;
+  --sa:linear-gradient(160deg,#E6E6E6,#F7F7F7);--sc:linear-gradient(200deg,#ECECEC,#F7F7F7);--sd:linear-gradient(170deg,#E9E9E9,#F7F7F7);
+  --se:linear-gradient(160deg,#EAEAEA,#F7F7F7);--sx:linear-gradient(160deg,#E6E6E6,#F7F7F7 70%)}
+.tag,.pill.plan,:root[data-theme="light"] .tag,:root[data-theme="light"] .pill.plan{background:#2B2B2B;color:#FDFCFD}
+:root[data-theme="light"] h1 .x,:root[data-theme="light"] h2 .x{background:none;color:var(--xt);-webkit-text-fill-color:var(--xt)}
+.btn,.btn.mint{background:var(--xg);color:var(--on-x)}
+.se{background:radial-gradient(70% 70% at 50% 30%,rgba(var(--xr),.22),transparent 70%),var(--se)}
+.compat .scene{background:radial-gradient(50% 80% at 0 0,rgba(var(--xr),.14),transparent 70%)}
+:root[data-theme="light"] .plug{background:#E6E6E6}
+:root[data-theme="light"] .plug i{background:#2B2B2B}
+:root[data-theme="light"] .plug i:nth-of-type(3){background:var(--xg)}
+.prod{display:flex;align-items:center;gap:22px;margin-bottom:6px}
+.prod .pic{flex:none;width:88px;height:88px;filter:drop-shadow(0 12px 22px rgba(0,0,0,.35))}
+.prod .pic svg{display:block;width:100%;height:100%}
+.prod .tag{margin-bottom:0}
+.inapp{display:grid;grid-template-columns:750px 750px;column-gap:60px;align-items:stretch}
+.wincard{padding:44px 44px 56px;justify-content:flex-start}
+.wincard .scene{height:520px;background:radial-gradient(60% 60% at 50% 20%,rgba(var(--xr),.14),transparent 70%),var(--sd)}
+.wincard .win{position:relative;z-index:2;height:452px;display:flex;align-items:flex-start;margin-bottom:44px}
+.wincard .content{padding:0 16px}
+.store{display:flex;margin-top:22px;padding:12px 0}
+.store,.store .asb{line-height:0}
+.asb{display:block;flex:none;height:48px}
+.asb img{display:block;height:100%;width:auto}
+.asb .asb-b{display:none}
+:root[data-theme="light"] .asb .asb-w{display:none}
+:root[data-theme="light"] .asb .asb-b{display:block}
+.start .r{padding-top:0;gap:0}
+.start .trial{z-index:1}
+@media (max-width:700px){
+  .store{margin-top:8px;padding:10px 0}
+  .asb{height:40px}
+  .prod{gap:14px;margin-bottom:2px}
+  .prod .pic{width:56px;height:56px}
+  .pside .prod .tags{gap:8px}
+  .inapp{grid-template-columns:1fr;row-gap:16px}
+  .wincard{padding:14px 14px 24px}
+  .wincard .scene{height:260px}
+  .wincard .win{height:auto;margin-bottom:22px}
+  .wincard .content{padding:0 10px}
+}

@@ -1,0 +1,41 @@
+
+.hero{display:grid;grid-template-columns:1fr 470px;column-gap:60px;align-items:center}
+.hero h1{margin-top:28px;font-size:140px;line-height:132px}
+.hero .lead{margin-top:36px;max-width:740px}
+.hero .bank{width:470px;height:500px;display:block}
+.hero .jump{display:flex;gap:36px;margin-top:44px;font-weight:800;font-size:20px}
+.hero .jump a{display:inline-flex;align-items:center;gap:12px}
+.hero .jump b{color:var(--xt);font-size:16px}
+.hero{position:relative}
+.hero .hatch{position:absolute;left:930px;bottom:-10px;transform:scale(.55);transform-origin:left bottom}
+.appcard{display:grid;grid-template-columns:520px 1fr;column-gap:72px;align-items:center;padding:80px 80px 80px 88px}
+.appcard .scene{height:100%;background:radial-gradient(45% 70% at 72% 30%,rgba(var(--xr),.22),transparent 70%),var(--sx)}
+.appcard .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 45%,rgba(var(--cr),.8) 85%,rgb(var(--cr)) 100%),
+  linear-gradient(90deg,rgba(var(--cr),.9) 0,rgba(var(--cr),.55) 32%,rgba(var(--cr),0) 50%)}
+.appcard h2{font-size:86px;line-height:86px}
+.appcard .row{justify-content:flex-start}
+.appcard .btn{margin-left:0}
+.appcard .shot{position:relative;z-index:2}
+.duo{display:grid;grid-template-columns:900px 600px;column-gap:60px;align-items:stretch;margin-top:60px}
+.duo .card{padding:52px 60px}
+/* GAMES has no section yet: the same dimmed card on Home and Support */
+.games .scene{filter:saturate(.35);opacity:.6}
+.games h2,.games p{color:var(--dim)}
+.games .tag{background:var(--t1);color:var(--soft)}
+.duo .games{height:620px}
+.duo .games .scene{height:400px}
+.duo .games .pixwrap{top:24px}
+.duo .games .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 200px,rgba(var(--cr),.85) 330px,rgb(var(--cr)) 400px)}
+.duo .support{height:620px}
+.duo .support .scene{height:400px}
+.duo .support .vis{left:110px;right:110px;top:56px}
+.tag.neutral{background:#2f4157}
+.support .links{display:flex;gap:28px;font-weight:800;font-size:20px}
+.duo .support .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 200px,rgba(var(--cr),.85) 330px,rgb(var(--cr)) 400px)}
+.duo .row{min-height:40px;margin-top:28px}
+.app{display:flex;align-items:center;gap:18px;margin-top:28px;padding:18px 28px 18px 18px;border-radius:calc(52px * .225 + 18px);background:var(--chip);
+  box-shadow:inset 0 0 0 2px var(--line)}
+.app .ic{flex:none;width:52px;height:52px;border-radius:22.5%;overflow:hidden}
+.app .ic svg{display:block;width:100%;height:100%}
+.app b{display:block;font-weight:800;font-size:20px;line-height:24px}
+.app small{display:block;font-weight:500;font-size:16px;line-height:22px;color:var(--dim)}

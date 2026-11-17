@@ -1,0 +1,13 @@
+{
+  "name": "sites",
+  "private": true,
+  "type": "module",
+  "workspaces": ["packages/*", "common/*"],
+  "scripts": {
+    "dev": "bun run --filter gawdigital dev",
+    "build": "bun run --filter gawdigital build",
+    "preview": "bun run --filter gawdigital preview",
+    "check": "bun run --filter '*' check",
+    "test": "bun test"
+  }
+}

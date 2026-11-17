@@ -1,0 +1,73 @@
+{
+  "common": {
+    "g_a_w_digital": "G.A.W.Digital",
+    "midi_control_for_fireface": "MIDI Control for Fireface",
+    "coming_soon": "JIŽ BRZY",
+    "games": "HRY",
+    "something_fun_is_in_the": "Chystáme něco zábavného. Sledujte nás!",
+    "support": "PODPORA",
+    "faq": "FAQ",
+    "contact": "Kontakt",
+    "email": "E-mail",
+    "required_not_filled_in_yet": "Povinné, zatím nevyplněno.",
+    "product": "Produkt",
+    "choose_a_product": "Vyberte produkt",
+    "other": "Jiné",
+    "topic": "Téma",
+    "problem": "Problém",
+    "purchase_trial": "Nákup &amp; zkušební verze",
+    "for_a_bug_help_report": "Při chybě přiloží Help ▸ Report a Problem… v aplikaci diagnostický protokol.",
+    "message": "Zpráva",
+    "verification": "Ověření",
+    "send": "ODESLAT",
+    "we_use_your_email_and": "Váš e-mail a zprávu použijeme jen k odpovědi. Na tomto webu se nic neukládá.\n          <a href=\"{{p}}/privacy\">Ochrana soukromí</a>",
+    "thank_you": "DĚKUJEME.",
+    "well_reply_to_your_email": "Odpovíme vám e-mailem.",
+    "company": "Společnost",
+    "g_a_w_group_s": "G.A.W.Group, s.r.o.",
+    "address": "Adresa",
+    "u_smaltovny_1375_25_170": "U smaltovny 1375/25<br>170 00 Praha 7 – Holešovice<br>Česká republika",
+    "company_id_i_o": "IČO",
+    "register": "Rejstřík",
+    "registered_in_the_commercial_register": "Zapsaná v obchodním rejstříku vedeném Městským soudem v Praze, oddíl C, vložka 405235."
+  },
+  "chrome": {
+    "home": "ÚVOD",
+    "apps": "APLIKACE",
+    "games": "HRY",
+    "support": "PODPORA",
+    "contact": "KONTAKT",
+    "coming_soon": "Již brzy",
+    "menu": "Nabídka",
+    "close_menu": "Zavřít nabídku",
+    "theme": "Přepnout denní či noční režim",
+    "copyright": "© 2026 <a class=\"ln\" href=\"https://gawgroup.cz\" target=\"_blank\" rel=\"noopener\">G.A.W.Group<span class=\"sr\">(otevře se v nové kartě)</span></a>, s.r.o.",
+    "trademark": "Fireface je ochranná známka společnosti RME. Nejsme s RME nijak spojeni.",
+    "languages": "Jazyk"
+  },
+  "langbar": {
+    "text": "Tato stránka je k dispozici i v češtině.",
+    "link": "Číst česky",
+    "close": "Zavřít"
+  },
+  "form": {
+    "filled": "Povinné, vyplněno.",
+    "copied": "Zkopírováno",
+    "copied_note": "Zkopírováno: {{what}}.",
+    "invalid": "Zkontrolujte prosím pole: je potřeba platný e-mail, produkt a zpráva.",
+    "verification": "Ověření neproběhlo. Zkuste to prosím znovu.",
+    "rate": "Příliš mnoho zpráv v krátké době. Počkejte prosím minutu a zkuste to znovu.",
+    "failed": "Zprávu se nepodařilo odeslat. Zkuste to prosím později.",
+    "sending": "Odesílá se…"
+  },
+  "error": {
+    "kicker": "Chyba {{status}}",
+    "title_404": "NENALEZENO.",
+    "title": "NĚCO SE POKAZILO.",
+    "text_404": "Na této adrese žádná stránka není. Možná byla přesunuta, nebo je v odkazu překlep.",
+    "text": "Stránku se nepodařilo zobrazit. Zkuste to prosím za chvíli znovu.",
+    "home": "NA ÚVOD",
+    "page_title": "Nenalezeno · G.A.W.Digital",
+    "page_title_other": "Chyba · G.A.W.Digital"
+  }
+}

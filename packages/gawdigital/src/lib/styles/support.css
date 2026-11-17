@@ -1,0 +1,67 @@
+
+.shead{position:relative;z-index:3}
+.shead h1{margin-top:28px;font-size:96px;line-height:92px}
+.shead .lead{margin-top:32px;max-width:720px}
+.shead + .divider{margin-top:120px}
+/* 01: two cards, a visual on top of each */
+.touch{display:grid;grid-template-columns:1fr 1fr;column-gap:60px;align-items:stretch}
+.touch .card{justify-content:flex-start;padding:296px 64px 60px}
+.touch .scene{height:260px;background:radial-gradient(45% 70% at 50% 0,rgba(var(--xr),.14),transparent 70%),var(--sd)}
+.touch .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 150px,rgba(var(--cr),.85) 220px,rgb(var(--cr)) 260px)}
+.touch h2{font-size:44px;line-height:48px;margin-bottom:18px}
+.touch p + p{margin-top:16px}
+.touch .go{margin-top:24px;font-weight:800;font-size:22px}
+.touch .hint{margin-top:28px;font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:16px;line-height:24px;color:var(--dim)}
+.hmenu{position:absolute;left:50%;top:56px;width:440px;transform:translateX(-50%);padding:8px;border-radius:14px;
+  background:var(--panel);box-shadow:0 24px 48px var(--sh1),inset 0 0 0 1.5px var(--line);list-style:none;
+  font-weight:500;font-size:19px;line-height:24px}
+.hmenu li{display:flex;justify-content:space-between;align-items:center;gap:20px;height:40px;padding:0 14px;border-radius:8px}
+.hmenu li.on{background:var(--xg);color:var(--on-x);font-weight:700}
+.hmenu li.sep{height:2px;margin:6px 14px;padding:0;background:var(--line);border-radius:1px}
+.hmenu kbd{font:inherit;color:var(--dim)}
+.envl{position:absolute;left:50%;top:52px;width:150px;height:150px;transform:translateX(-50%)}
+/* 02: the FAQ, one card, a group per row */
+.qa{justify-content:flex-start;padding:64px 80px 56px}
+.qg{display:grid;grid-template-columns:240px 1fr;column-gap:60px}
+.qg + .qg{margin-top:52px}
+.qg h3{font-weight:800;font-size:15px;line-height:30px;letter-spacing:.14em;color:var(--xt);padding-top:26px}
+.qg .ql{border-top:2px solid var(--line)}
+.qa details{border-bottom:2px solid var(--line)}
+.qa summary{display:flex;align-items:center;justify-content:space-between;gap:32px;padding:24px 0;cursor:pointer;list-style:none;
+  font-weight:800;font-size:24px;line-height:30px}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary:after{content:"";flex:none;width:36px;height:36px;border-radius:50%;box-shadow:inset 0 0 0 2px var(--line);
+  background:linear-gradient(var(--xt),var(--xt)) center/14px 2.5px no-repeat,linear-gradient(var(--xt),var(--xt)) center/2.5px 14px no-repeat}
+.qa details[open] summary:after{background-size:14px 2.5px,0 0}
+.qa details p{max-width:880px;padding:0 0 30px;font-size:20px;line-height:30px}
+/* 03 and the hub's contact line: the product page's Help row */
+.faq .links a{white-space:nowrap}
+.touch ~ .faq p{max-width:none}
+.hub ~ .faq{gap:40px}
+.hub ~ .faq .links{margin-left:0}
+@media (max-width:700px){
+  .shead h1{margin-top:20px;font-size:50px;line-height:50px}
+  .shead h1 .brm{display:inline}
+  .shead .lead{margin-top:24px;max-width:none}
+  .shead + .divider{margin-top:56px}
+  .touch{grid-template-columns:1fr;row-gap:16px}
+  .touch .card{padding:200px 24px 28px}
+  .touch .scene{height:180px}
+  .touch .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 110px,rgba(var(--cr),.85) 155px,rgb(var(--cr)) 180px)}
+  .touch h2{font-size:28px;line-height:32px;margin-bottom:12px}
+  .touch p + p{margin-top:12px}
+  .touch .go{margin-top:16px;font-size:17px}
+  .touch .hint{margin-top:20px;font-size:13px;line-height:20px}
+  .hmenu{top:28px;width:auto;left:24px;right:24px;transform:none;padding:6px;border-radius:12px;font-size:15px;line-height:20px}
+  .hmenu li{height:34px;padding:0 12px;gap:12px}
+  .hmenu li.sep{margin:4px 12px}
+  .envl{top:30px;width:110px;height:110px}
+  .qa{padding:28px 20px 16px}
+  .qg{grid-template-columns:1fr}
+  .qg + .qg{margin-top:32px}
+  .qg h3{font-size:11px;line-height:16px;letter-spacing:.12em;padding:0 0 10px}
+  .qa summary{gap:16px;padding:16px 0;font-size:17px;line-height:23px}
+  .qa summary:after{width:28px;height:28px;background-size:11px 2px,2px 11px}
+  .qa details[open] summary:after{background-size:11px 2px,0 0}
+  .qa details p{padding:0 0 18px;font-size:15px;line-height:22px}
+}

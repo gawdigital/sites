@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.4
+      - run: bun install --frozen-lockfile
+      - run: bun run check
+      - run: bun run test
+      - run: bun run build
+        env:
+          # A public build-time value (a repository variable, not a secret); unset, the Turnstile test key is used.
+          PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.PUBLIC_TURNSTILE_SITE_KEY }}
+      - name: Upload a preview version
+        # Secrets are not available to pull requests from forks.
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        id: preview
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: packages/gawdigital
+          packageManager: bun
+          wranglerVersion: 4.163.0
+          command: versions upload --preview-alias pr-${{ github.event.pull_request.number }} --message "PR #${{ github.event.pull_request.number }}"
+      - name: Report the preview
+        if: steps.preview.outcome == 'success'
+        env:
+          OUTPUT: ${{ steps.preview.outputs.command-output }}
+        run: |
+          {
+            echo '### Preview'
+            echo '```'
+            echo "$OUTPUT" | grep -iE 'preview|version id' || echo "$OUTPUT"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"

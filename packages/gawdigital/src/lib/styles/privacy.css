@@ -1,0 +1,37 @@
+
+/* privacy.html: the contact page's shell; the company card's rows carry the sections, two cards a row on desktop */
+.lb{display:block;padding:0;font-weight:800;font-size:14px;line-height:18px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft)}
+.shead .upd{margin-top:16px;font-weight:700;font-size:18px;line-height:24px;color:var(--dim)}
+.pgrid{display:grid;grid-template-columns:750px 750px;column-gap:60px;align-items:stretch;margin-top:140px}
+.shead + .pgrid{margin-top:120px}
+.pgrid .divider{margin:0 0 60px}
+.pgrid .hcol{display:flex;flex-direction:column;min-width:0}
+.pgrid .hcol.full{grid-column:1/-1}
+.pbody.two{display:grid;grid-template-columns:750px minmax(0,1fr);column-gap:60px;max-width:none;align-items:start}
+.pcol{display:flex;flex-direction:column;gap:28px}
+.pgrid .pc{flex:1}
+.pbody{position:relative;z-index:2;display:flex;flex-direction:column;gap:28px;max-width:70ch}
+.pc p,.pc .crow dd{font-weight:500;font-size:20px;line-height:30px;color:var(--soft)}
+.pc p strong,.pc dd strong{color:var(--text);font-weight:700}
+.pc .crow{grid-template-columns:180px minmax(0,1fr)}
+.pc .crow dt{padding-top:4px}
+.pc .art{color:var(--dim);white-space:nowrap}
+.pdl{display:flex;flex-direction:column;gap:28px}
+.gl{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:60px}
+.gl div{display:flex;flex-direction:column;gap:10px}
+.gl p{color:var(--text)}
+@media (max-width:700px){
+  .lb{font-size:12px;line-height:16px}
+  .shead .upd{margin-top:12px;font-size:14px;line-height:20px}
+  .pgrid{display:block;margin-top:64px}
+  .shead + .pgrid{margin-top:56px}
+  .pgrid .divider{margin:0 0 24px}
+  .pgrid .hcol + .hcol .divider{margin-top:64px}
+  .pbody,.pdl,.pcol{gap:22px}
+  .pbody.two{display:flex}
+  .pc p,.pc .crow dd{font-size:16px;line-height:24px}
+  .pc .crow{grid-template-columns:minmax(0,1fr);grid-template-areas:"l" "v";row-gap:6px}
+  .pc .crow dt{padding-top:0;min-height:0}
+  .gl{grid-template-columns:minmax(0,1fr);row-gap:22px}
+  .gl div{gap:6px}
+}

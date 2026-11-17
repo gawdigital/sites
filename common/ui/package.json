@@ -1,0 +1,16 @@
+{
+  "name": "@gaw/ui",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    "./*": {
+      "types": "./src/*",
+      "svelte": "./src/*",
+      "default": "./src/*"
+    }
+  },
+  "peerDependencies": {
+    "svelte": "^5.57.3"
+  }
+}

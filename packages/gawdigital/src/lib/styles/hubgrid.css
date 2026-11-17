@@ -1,0 +1,35 @@
+
+.hubgrid{display:grid;grid-template-columns:750px 750px;column-gap:60px;align-items:stretch;margin-top:120px}
+.hubgrid .divider{margin:0 0 60px}
+.hcol{display:flex;flex-direction:column;min-width:0}
+.hcol .hub{grid-template-columns:1fr;row-gap:40px}
+.hcol .prodc{height:560px}
+.hcol .prodc .scene{height:380px}
+.hcol .prodc .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 200px,rgba(var(--cr),.85) 310px,rgb(var(--cr)) 380px)}
+.hcol .prodc .pic{top:64px;width:180px;height:180px}
+.hcol .games{height:380px;padding:0 60px 48px}
+.hcol .games .scene{height:250px}
+.hcol .games .pixwrap{top:-24px}
+.hcol .games .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 160px,rgba(var(--cr),.85) 215px,rgb(var(--cr)) 250px)}
+.hcol .contact{flex:1;display:flex}
+.hcol .formc{flex:1;max-width:none}
+.hcol .cform{flex:1}
+.hcol .fld.msg{flex:1}
+.hcol .fld.msg textarea{flex:1}
+.hcol .formc.is-sent{justify-content:center}
+.hcol .formc.is-sent .sent{align-items:center;text-align:center;padding:0}
+@media (max-width:700px){
+  .hubgrid{display:block;margin-top:56px}
+  .hubgrid .divider{margin:0 0 24px}
+  .hcol + .hcol .divider{margin-top:64px}
+  .hcol .hub{row-gap:16px}
+  .hcol .prodc,.hcol .games{height:auto}
+  .hcol .prodc .scene{height:240px}
+  .hcol .prodc .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 130px,rgba(var(--cr),.85) 200px,rgb(var(--cr)) 240px)}
+  .hcol .prodc .pic{top:36px;width:120px;height:120px}
+  .hcol .games{padding:170px 24px 28px}
+  .hcol .games .scene{height:190px}
+  .hcol .games .pixwrap{top:20px}
+  .hcol .games .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 90px,rgba(var(--cr),.85) 150px,rgb(var(--cr)) 190px)}
+  .hcol .contact{display:block}
+}

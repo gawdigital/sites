@@ -1,0 +1,14 @@
+node_modules
+.svelte-kit
+.wrangler
+build
+dist
+.DS_Store
+.env
+.env.*
+!.env.example
+.dev.vars
+.dev.vars.*
+
+# Written by @sveltekit-i18n/typegen
+**/src/i18n-schema.d.ts

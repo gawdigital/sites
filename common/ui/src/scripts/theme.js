@@ -1,0 +1,1 @@
+(function(){var r=document.documentElement;try{var t=localStorage.getItem('theme');if(t)r.setAttribute('data-theme',t)}catch(e){}document.querySelectorAll('.theme').forEach(function(b){b.addEventListener('click',function(){var n=r.getAttribute('data-theme')==='light'?'dark':'light';r.setAttribute('data-theme',n);try{localStorage.setItem('theme',n)}catch(e){}})})})();

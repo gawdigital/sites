@@ -1,0 +1,69 @@
+
+/* the contact form: site colours, field borders >= 3:1 against the card and the field (both themes) */
+:root{--fb:#5f7590;--fbg:var(--chip)}
+:root[data-theme="light"]{--fb:#7d8b9d}
+.contact{display:flex;justify-content:center}
+.formc{justify-content:flex-start;padding:60px 60px 52px;width:100%;max-width:720px}
+.formc .scene{height:240px;background:radial-gradient(50% 80% at 70% 0,rgba(var(--xr),.10),transparent 70%)}
+.cform{position:relative;z-index:2;display:flex;flex-direction:column;gap:28px}
+.fld{display:flex;flex-direction:column;gap:10px;border:0;min-width:0}
+.lb{display:block;padding:0;font-weight:800;font-size:14px;line-height:18px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft)}
+.cform input[type=email],.cform select,.cform textarea{display:block;width:100%;font:inherit;font-weight:500;font-size:19px;line-height:26px;
+  color:var(--text);background:var(--fbg);border:2px solid var(--fb);border-radius:18px;padding:15px 20px;outline:none;
+  -webkit-appearance:none;appearance:none;transition:border-color .15s,box-shadow .15s}
+.cform textarea{min-height:180px;resize:vertical}
+.sel{position:relative;display:block}
+.sel select{padding-right:56px;cursor:pointer}
+.sel:after{content:"";position:absolute;right:24px;top:50%;width:11px;height:11px;margin-top:-9px;pointer-events:none;
+  border-right:3px solid var(--soft);border-bottom:3px solid var(--soft);transform:rotate(45deg)}
+.cform input:focus-visible,.cform select:focus-visible,.cform textarea:focus-visible{border-color:var(--x);box-shadow:0 0 0 4px rgba(var(--xr),.30)}
+.seg{display:flex;flex-wrap:wrap;gap:10px}
+.seg label{position:relative;cursor:pointer}
+.seg input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}
+.seg span{display:inline-flex;align-items:center;height:48px;padding:0 22px;border-radius:100px;border:2px solid var(--fb);
+  font-weight:800;font-size:16px;color:var(--soft);white-space:nowrap}
+.seg span{border-color:transparent;background:color-mix(in srgb,var(--text) 8%,transparent);transition:background-color .15s}
+.seg label:hover input:not(:checked) + span{background:color-mix(in srgb,var(--text) 13%,transparent)}
+.seg input:checked + span{background:var(--xg);border-color:transparent;color:var(--on-x)}
+.seg input:focus-visible + span{box-shadow:0 0 0 3px var(--card),0 0 0 6px var(--x)}
+legend.lb{margin-bottom:10px}
+.fhint{padding-left:16px;border-left:3px solid var(--x);font-weight:500;font-size:16px;line-height:24px;color:var(--soft)}
+.fhint[hidden]{display:none}
+.fend{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.ts{flex:none;display:flex;align-items:center;gap:14px;width:300px;height:65px;padding:0 18px;border-radius:12px;
+  background:var(--fbg);box-shadow:inset 0 0 0 2px var(--line)}
+.ts i{flex:none;width:26px;height:26px;border-radius:6px;box-shadow:inset 0 0 0 2px var(--fb)}
+.ts span{font-weight:700;font-size:14px;letter-spacing:.06em;color:var(--dim)}
+.cform .btn{margin-left:0;border:0;cursor:pointer;font-family:inherit}
+form.cform .btn{background:var(--blue);color:var(--on-blue)}
+.cform .btn:focus-visible{outline:none;box-shadow:0 0 0 3px var(--card),0 0 0 6px var(--x)}
+.pnote{font-weight:500;font-size:15px;line-height:22px;color:var(--dim)}
+.pnote a{color:var(--text);text-decoration:underline;text-decoration-color:var(--x);text-underline-offset:.25em;text-decoration-thickness:2px}
+.pnote a:focus-visible{outline:2px solid var(--x);outline-offset:3px;border-radius:2px}
+.sent{display:none;position:relative;z-index:2;flex-direction:column;align-items:flex-start;padding:24px 0 12px}
+.sent svg{width:72px;height:72px;margin-bottom:28px}
+.formc .sent h2{font-size:48px;line-height:52px;margin-bottom:12px}
+.formc.is-sent .cform{display:none}
+.formc.is-sent .sent{display:flex}
+@media (max-width:700px){
+  .contact{display:block}
+  .formc{padding:28px 20px 24px;max-width:none}
+  .cform{gap:22px}
+  .lb{font-size:12px;line-height:16px}
+  .cform input[type=email],.cform select,.cform textarea{font-size:16px;line-height:22px;border-radius:14px;padding:12px 14px}
+  .sel select{padding-right:44px}
+  .sel:after{right:18px;width:9px;height:9px;margin-top:-8px}
+  .cform textarea{min-height:150px}
+  .seg{gap:6px}
+  legend.lb{margin-bottom:8px}
+  .seg span{height:40px;padding:0 12px;font-size:13px}
+  .fhint{padding-left:12px;font-size:14px;line-height:21px}
+  .fend{flex-direction:column;align-items:stretch;justify-content:flex-start;gap:22px}
+  .fend > *{flex:none}
+  .ts{width:100%;max-width:none}
+  .cform .btn{width:100%;min-width:0}
+  .pnote{font-size:13px;line-height:19px}
+  .sent{padding:12px 0 8px}
+  .sent svg{width:56px;height:56px;margin-bottom:20px}
+  .formc .sent h2{font-size:32px;line-height:36px}
+}
