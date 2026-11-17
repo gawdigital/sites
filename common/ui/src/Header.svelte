@@ -12,10 +12,11 @@
 
   let {
     badge,
+    home,
     items,
     langs,
     labels,
-  }: { badge: string; items: readonly NavItem[]; langs: readonly LangLink[]; labels: Labels } = $props();
+  }: { badge: string; home: string; items: readonly NavItem[]; langs: readonly LangLink[]; labels: Labels } = $props();
 </script>
 
-<svg class="blob" viewBox="0 0 1680 2207" preserveAspectRatio="none"><path style="fill:var(--blob)" d={BLOB_PATH}/></svg><div class="vig"></div>{@html badge}<nav class="menu">{#each items as it (it.label)}{#if it.href === undefined}<a class="off" aria-disabled="true" title={labels.soon}>{it.label}</a>{:else}<a href={it.href} class={it.current ? 'on' : undefined} aria-current={it.current ? 'page' : undefined}>{it.label}</a>{/if}{/each}</nav><MobileMenu {items} {langs} {labels} />
+<svg class="blob" viewBox="0 0 1680 2207" preserveAspectRatio="none"><path style="fill:var(--blob)" d={BLOB_PATH}/></svg><div class="vig"></div><a class="home" href={home} aria-label="G.A.W.Digital">{@html badge}</a><nav class="menu">{#each items as it (it.label)}{#if it.href === undefined}<a class="off" aria-disabled="true" title={labels.soon}>{it.label}</a>{:else}<a href={it.href} class={it.current ? 'on' : undefined} aria-current={it.current ? 'page' : undefined}>{it.label}</a>{/if}{/each}</nav><MobileMenu {items} {langs} {labels} />
