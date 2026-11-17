@@ -123,8 +123,8 @@ h1{font-weight:800;font-size:110px;line-height:104px;text-transform:uppercase}
 .btn{height:70px;min-width:237px;padding:0 48px;border-radius:100px;display:inline-flex;align-items:center;
   justify-content:center;font-weight:800;font-size:18px;background:var(--blue);color:var(--on-blue);margin-left:auto;white-space:nowrap;
   transition:box-shadow .2s,filter .2s}
-.btn:hover{filter:brightness(1.1);box-shadow:0 10px 24px rgba(var(--br),.32)} /* --br: the button colour, --blue, as r,g,b */
-.btn.mint:hover{box-shadow:0 10px 24px rgba(var(--xm),.28)}
+.btn:hover{filter:brightness(1.1);box-shadow:0 0 28px rgba(var(--br),.4)} /* --br: the button colour, --blue, as r,g,b */
+.btn.mint:hover{box-shadow:0 0 28px rgba(var(--xm),.36)}
 .btn:active{filter:brightness(.95);box-shadow:none;transition-duration:.06s}
 .btn:focus-visible{outline:none;box-shadow:0 0 0 3px var(--page),0 0 0 6px var(--x)}
 .btn.mint{background:var(--xg);color:var(--on-x)}
