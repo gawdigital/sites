@@ -1,5 +1,5 @@
 {
-  "apps_midi_control_support": "<a href=\"{{home}}#apps\">APPS</a> / <a href=\"{{p}}/apps/midi-control\">MIDI CONTROL</a> / SUPPORT",
+  "apps_midi_control_support": "<a href=\"{{p}}/apps/midi-control\">APPS</a> / <a href=\"{{p}}/apps/midi-control\">MIDI CONTROL</a> / SUPPORT",
   "support_for_fireface": "SUPPORT<br><span class=\"x\">FOR <br class=\"brm\" hidden>FIREFACE…</span>",
   "answers_for_midi_control_for": "Answers for MIDI Control for Fireface, and a direct line to us when something does not work.",
   "get_in_touch": "Get in touch",

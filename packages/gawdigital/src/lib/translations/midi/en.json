@@ -1,5 +1,5 @@
 {
-  "apps_midi_control": "<a href=\"{{home}}#apps\">APPS</a> / MIDI CONTROL",
+  "apps_midi_control": "<a href=\"{{p}}/apps/midi-control\">APPS</a> / MIDI CONTROL",
   "midi_control_for_fireface": "MIDI<br>CONTROL<br><span class=\"x\">FOR <br class=\"brm\" hidden>FIREFACE…</span>",
   "control_the_fireface_800s_stand": "Control the Fireface 800’s stand-alone mixer from your Mac. Plain MIDI, no FireWire.",
   "download_on_the_mac_app": "Download on the Mac App Store (opens in a new tab)",

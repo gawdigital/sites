@@ -24,13 +24,13 @@
       <div class="kicker">{t('common.g_a_w_digital')}</div>
       <h1>{@html t('home.apps_games')}</h1>
       <p class="lead">{t('home.g_a_w_digital_is')}</p>
-      <div class="jump"><a href={href('/') + '#apps'}>{@html t('home.01_apps')}</a><!-- svelte-ignore a11y_missing_attribute (GAMES has no page yet) --><a>{@html t('home.02_games')}</a><a href={href('/support')}>{@html t('home.03_support')}</a></div>
+      <div class="jump"><a href={href('/apps/midi-control')}>{@html t('home.01_apps')}</a><!-- svelte-ignore a11y_missing_attribute (GAMES has no page yet) --><a>{@html t('home.02_games')}</a><a href={href('/support')}>{@html t('home.03_support')}</a></div>
     </div>
     <div class="peek" aria-hidden="true"><div class="tilt">{@html art['home-appwin-aw-d']}{@html art['home-appwin-aw-l']}</div></div>
   </section>
 
   <div class="divider"><h2>{t('home.what_we_make')}</h2><i class="ticks"></i><span class="idx">01</span></div>
-  <article class="card appcard" id="apps">
+  <article class="card appcard">
     <div class="scene"></div><div class="fade"></div>
     <div class="content">
       <span class="tag">{t('home.mac_app')}</span>
@@ -56,8 +56,8 @@
       <div class="content">
         <span class="tag neutral">{t('home.help')}</span>
         <h2>{t('common.support')}</h2>
-        <p>{t('home.faq_setup_guides_and_report')}</p>
-        <div class="row"><span class="links"><a class="ln" href={href('/apps/midi-control/support')}>{t('common.faq')}</a><!-- svelte-ignore a11y_missing_attribute (the guides have no page yet) --><a class="ln">{t('home.guides')}</a></span><a class="btn" href={href('/support')}>{t('home.get_help')}</a></div>
+        <p>{t('home.faq_and_report_a_problem')}</p>
+        <div class="row"><span class="links"><a class="ln" href={href('/apps/midi-control/support')}>{t('common.faq')}</a></span><a class="btn" href={href('/support')}>{t('home.get_help')}</a></div>
       </div>
     </article>
   </section>

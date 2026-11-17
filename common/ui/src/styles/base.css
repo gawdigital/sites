@@ -40,7 +40,7 @@ a.ln:hover .arr.ext svg{transform:translate(.16em,-.01em)}
 .x{color:var(--xt)}
 /* The frame spans the whole window, so the background (blob, vignette, hatch, noise) is never cut off at the
    content's edges; the content keeps the design's 1560 px column (1680 less its 60 px gutters), centred. It clips
-   rather than hides its overflow: a hidden overflow is still a scroll container, and a jump to a fragment (/#apps)
+   rather than hides its overflow: a hidden overflow is still a scroll container, and a jump to a fragment
    scrolled the frame inside the page, cutting its top off and leaving an empty band below. */
 .frame{--gut:max(60px,calc((100% - 1560px) / 2));position:relative;width:100%;min-width:1680px;min-height:100vh;margin:0;
   overflow:hidden;overflow:clip;padding:0 var(--gut) 60px}
@@ -61,8 +61,6 @@ a.ln:hover .arr.ext svg{transform:translate(.16em,-.01em)}
 .menu a{transition:color .2s}
 .menu a:not(.on):not(.off):hover{color:var(--xt)}
 .menu a:focus-visible{outline:2px solid currentColor;outline-offset:6px;border-radius:4px}
-#apps{scroll-margin-top:124px}
-@media (max-width:700px){#apps{scroll-margin-top:16px}}
 .menu a.off{opacity:.35;cursor:default;pointer-events:none}
 .lang{display:flex;gap:16px} .lang a{color:var(--dim);transition:color .2s} .lang a[href]:hover{color:var(--xt)} .lang a.cur{color:var(--text)}
 .acct{width:25px;height:25px;display:block}

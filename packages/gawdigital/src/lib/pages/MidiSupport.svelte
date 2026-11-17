@@ -15,7 +15,7 @@
 <Shell name="midi-support" title={t('midisupport.support_midi_control_for_fireface')}>
 
   <section class="shead">
-    <div class="crumb">{@html t('midisupport.apps_midi_control_support', { home: href('/'), p: prefix })}</div>
+    <div class="crumb">{@html t('midisupport.apps_midi_control_support', { p: prefix })}</div>
     <h1>{@html t('midisupport.support_for_fireface')}</h1>
     <p class="lead">{t('midisupport.answers_for_midi_control_for')}</p>
   </section>
