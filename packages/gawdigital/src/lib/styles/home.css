@@ -32,8 +32,8 @@
 .duo .support .scene{height:400px}
 .duo .support .vis{left:110px;right:110px;top:56px}
 .tag.hl{background:var(--xg);color:var(--on-x)}
-/* on the light theme the app's tag takes the dark theme's mint, which the pink highlight beside it would otherwise echo */
-:root[data-theme="light"] .tag.mac{background:linear-gradient(135deg,#00ffbc,#1ca5b5);color:#0d0e11}
+/* on the light theme the app's tag takes the dark theme's solid mint (its gradient's midpoint), which the pink highlight beside it would otherwise echo */
+:root[data-theme="light"] .tag.mac{background:#0ed2b8;color:#0d0e11}
 .support .links{display:flex;gap:28px;font-weight:800;font-size:20px}
 .duo .support .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 200px,rgba(var(--cr),.85) 330px,rgb(var(--cr)) 400px)}
 .duo .row{min-height:40px;margin-top:28px}
