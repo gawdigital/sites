@@ -33,6 +33,8 @@ a{color:inherit;text-decoration:none}
 /* selected text: one solid accent everywhere, the gradient headings included (their text fill is overridden). A solid
    accent is always the gradient's midpoint: --x / --sel as a colour, --xm as r,g,b for glows */
 ::selection{background:var(--sel);color:var(--on-sel);-webkit-text-fill-color:var(--on-sel)}
+/* gradient words under a selection go solid (scripts/selection.js), so Safari can't paint their gradient over it */
+:root :is(h1,h2) .x.selx,:root .mm-b li>a.selx{background:none;color:var(--x);-webkit-text-fill-color:currentcolor}
 a.ln{color:var(--blue);text-decoration:underline;text-underline-offset:.25em;text-decoration-thickness:2px}
 /* a link's arrow: larger, outside the underline (an inline-block takes no text-decoration from its parent) */
 a.ln .arr{display:inline-block;margin-left:.4em;line-height:0;text-decoration:none}

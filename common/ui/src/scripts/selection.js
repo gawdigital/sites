@@ -1,0 +1,3 @@
+/* A selection in a gradient heading drops its gradient while it lasts: the gradient is a background clipped to the
+   text, which Safari paints over the selection colour, so those words go solid and take the selection like any text */
+(function(){var q=':is(h1,h2) .x,.mm-b li>a[aria-current]',on=[];document.addEventListener('selectionchange',function(){var s=getSelection(),k=[];if(s&&!s.isCollapsed)document.querySelectorAll(q).forEach(function(e){if(s.containsNode(e,true))k.push(e)});on.forEach(function(e){if(k.indexOf(e)<0)e.classList.remove('selx')});k.forEach(function(e){e.classList.add('selx')});on=k})})();
