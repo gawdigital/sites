@@ -20,7 +20,7 @@
     "message": "Nachricht",
     "verification": "Überprüfung",
     "send": "SENDEN",
-    "we_use_your_email_and": "Wir verwenden Ihre E-Mail-Adresse und Nachricht nur, um Ihnen zu antworten. Auf dieser Website wird nichts gespeichert.\n          <a class=\"ln\" href=\"{{p}}/privacy\">Datenschutz</a>",
+    "we_use_your_email_and": "Wir verwenden Ihre E-Mail-Adresse und Nachricht nur, um Ihnen zu antworten. Auf dieser Website wird nichts gespeichert. Mehr dazu in unserer <a class=\"ln\" href=\"{{p}}/privacy\">Datenschutzerklärung</a>.",
     "thank_you": "DANKE.",
     "well_reply_to_your_email": "Wir antworten Ihnen per E-Mail.",
     "company": "Firma",
