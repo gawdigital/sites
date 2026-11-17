@@ -1,7 +1,7 @@
 
 .hub{display:grid;grid-template-columns:1fr 1fr;column-gap:60px;align-items:stretch}
 .hub .card{height:640px;padding:52px 60px}
-.hub .card h2{font-size:48px;line-height:52px;margin-bottom:16px}
+.hub .card h2{font-size:48px;line-height:1.0833;margin-bottom:16px}
 .hub .scene{height:420px}
 .hub .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 220px,rgba(var(--cr),.85) 340px,rgb(var(--cr)) 420px)}
 /* the product card alone carries the app's orange */
@@ -23,7 +23,7 @@
   .hub .card{height:auto;padding:220px 24px 28px}
   .hub .scene{height:240px}
   .hub .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 130px,rgba(var(--cr),.85) 200px,rgb(var(--cr)) 240px)}
-  .hub .card h2{font-size:30px;line-height:34px;margin-bottom:10px}
+  .hub .card h2{font-size:30px;line-height:1.1333;margin-bottom:10px}
   .prodc .pic{top:36px;width:120px;height:120px}
   .prodc .go{margin-top:18px;font-size:17px}
   .hub .games{padding-top:170px}

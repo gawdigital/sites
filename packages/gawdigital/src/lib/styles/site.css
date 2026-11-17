@@ -1,6 +1,6 @@
 /* The site's own additions on top of the approved design, in its tokens: the contact form's error line, the live
    Turnstile widget in the verification box, and the error page. None of them matches anything on a page at rest. */
-.ferr{padding-left:16px;border-left:3px solid var(--pink);font-weight:600;font-size:16px;line-height:24px;color:var(--text)}
+.ferr{padding-left:16px;border-left:3px solid var(--pink);font-weight:600;font-size:16px;line-height:1.5;color:var(--text)}
 .ferr[hidden]{display:none}
 /* Turnstile runs with appearance "interaction-only": the widget stays out of sight unless Cloudflare asks the visitor
    to tick it, so the live box takes no room of its own and the send button keeps its place at the row's end. Only
@@ -10,6 +10,6 @@
 .cform.is-busy .btn{opacity:.6;pointer-events:none}
 .epage .row{margin-top:56px}
 @media (max-width:700px){
-  .ferr{padding-left:12px;font-size:14px;line-height:21px}
+  .ferr{padding-left:12px;font-size:14px;line-height:1.5}
   .epage .row{margin-top:36px}
 }

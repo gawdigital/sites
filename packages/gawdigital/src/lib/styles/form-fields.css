@@ -12,14 +12,14 @@
 .fg .fbox:active{box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--text) 40%,var(--line))}
 .fg .fbox:focus-within{background:var(--card);box-shadow:inset 0 0 0 2px var(--blue),0 0 28px var(--sh1)}
 .fg .ts{border-radius:18px}
-.fg .fbox .lb{position:absolute;z-index:1;top:15px;left:18px;right:40px;font-size:12px;line-height:15px;letter-spacing:.12em;
+.fg .fbox .lb{position:absolute;z-index:1;top:15px;left:18px;right:40px;font-size:12px;line-height:1.25;letter-spacing:.12em;
   color:var(--soft);pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .fg .dot{position:absolute;z-index:1;top:15px;right:15px;width:6px;height:6px;border-radius:50%;background:var(--fdot);
   pointer-events:none;transition:background-color .15s}
 .fg .fbox.is-ok .dot{background:var(--fok)}
 .fg .sr{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .fg .cform .fbox input[type=email],.fg .cform .fbox select,.fg .cform .fbox textarea{height:100%;background:transparent;border:0;
-  border-radius:18px;padding:34px 18px 13px;font-size:17px;line-height:23px;box-shadow:none}
+  border-radius:18px;padding:34px 18px 13px;font-size:17px;line-height:1.3529;box-shadow:none}
 .fg .cform .fbox input:focus-visible,.fg .cform .fbox select:focus-visible,.fg .cform .fbox textarea:focus-visible{border:0;box-shadow:none}
 .fg .fsel select{padding-right:52px;cursor:pointer}
 .fg .fsel select:invalid{color:var(--dim)}
@@ -29,9 +29,9 @@
 .fg .cform .fbox.msg textarea{flex:1;height:auto;min-height:0;resize:none}
 @media (max-width:700px){
   .fg .fbox{height:64px;border-radius:18px}
-  .fg .fbox .lb{top:12px;left:15px;font-size:11px;line-height:14px}
+  .fg .fbox .lb{top:12px;left:15px;font-size:11px;line-height:1.2727}
   .fg .dot{top:12px;right:12px}
-  .fg .cform .fbox input[type=email],.fg .cform .fbox select,.fg .cform .fbox textarea{padding:30px 15px 10px;font-size:16px;line-height:22px;border-radius:18px}
+  .fg .cform .fbox input[type=email],.fg .cform .fbox select,.fg .cform .fbox textarea{padding:30px 15px 10px;font-size:16px;line-height:1.375;border-radius:18px}
   .fg .fsel select{padding-right:44px}
   .fg .fsel:after{right:19px;top:35px;width:7px;height:7px;margin-top:0}
   .fg .fbox.msg{min-height:150px}

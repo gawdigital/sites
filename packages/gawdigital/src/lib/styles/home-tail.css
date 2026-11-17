@@ -13,13 +13,13 @@
 .fpanel ul{list-style:none;display:flex;flex-direction:column;gap:22px}
 .fpanel li{display:flex;align-items:center;gap:20px}
 .fpanel li svg{flex:none;width:52px;height:52px}
-.fpanel li b{display:block;font-weight:800;font-size:22px;line-height:26px}
-.fpanel li span{display:block;font-weight:500;font-size:16px;line-height:22px;color:var(--dim)}
+.fpanel li b{display:block;font-weight:800;font-size:22px;line-height:1.1818}
+.fpanel li span{display:block;font-weight:500;font-size:16px;line-height:1.375;color:var(--dim)}
 @media (max-width:700px){
   .peek{display:none}
   .peek-hero{min-height:0}
   .peek-hero .txt{display:block}
-  .peek-hero h1{margin-top:16px;font-size:56px;line-height:54px}
+  .peek-hero h1{margin-top:16px;font-size:56px;line-height:0.9643}
   .peek-hero .lead{margin-top:20px}
   .peek-hero + .divider{display:none}
   .peek-hero ~ .appcard{margin-top:28px}

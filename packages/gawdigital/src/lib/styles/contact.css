@@ -11,13 +11,13 @@
 .coc.v2 .scene{background:radial-gradient(60% 50% at 50% 0,rgba(var(--xm),.16),transparent 70%),var(--sd)}
 .coc.v3 .scene{background:radial-gradient(40% 50% at 100% 0,rgba(var(--xr2),.18),transparent 70%),radial-gradient(40% 50% at 0 100%,rgba(var(--xr),.15),transparent 70%),var(--se)}
 .coc h2,.coc dl{position:relative;z-index:2}
-.coc h2{font-size:40px;line-height:44px;margin-bottom:28px;text-transform:none}
+.coc h2{font-size:40px;line-height:1.1;margin-bottom:28px;text-transform:none}
 .coc dl{display:flex;flex-direction:column;gap:28px}
 .crow{display:grid;grid-template-columns:180px minmax(0,1fr) auto;column-gap:20px;align-items:baseline}
 .coc .sr{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .crow dd.nw{white-space:nowrap}
 .crow dt{padding-top:3px}
-.crow dd{font-weight:500;font-size:19px;line-height:28px;color:var(--text);-webkit-user-select:text;user-select:text;
+.crow dd{font-weight:500;font-size:19px;line-height:1.4737;color:var(--text);-webkit-user-select:text;user-select:text;
   font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 .crow dd small{display:block;font-size:inherit;color:var(--soft)}
 .cp{align-self:center;display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border:2px solid var(--fb);border-radius:100px;
@@ -38,13 +38,13 @@
   .cgrid .divider{margin:0 0 24px}
   .cgrid .hcol + .hcol .divider{margin-top:64px}
   .coc{padding:28px 20px 28px}
-  .coc h2{font-size:26px;line-height:30px;margin-bottom:22px}
+  .coc h2{font-size:26px;line-height:1.1538;margin-bottom:22px}
   .coc dl{gap:22px}
   .crow{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"l c" "v v";row-gap:6px;align-items:center}
   .crow dt{grid-area:l;padding-top:0;min-height:26px;display:flex;align-items:center}
   .crow dd{grid-area:v}
   .crow .cp{grid-area:c}
-  .crow dd{font-size:16px;line-height:23px}
+  .crow dd{font-size:16px;line-height:1.4375}
   .cp{height:26px;padding:0 10px;gap:6px;font-size:11px;border-width:1.5px}
   .cp svg{width:13px;height:13px}
 }
