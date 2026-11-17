@@ -18,7 +18,7 @@
   --sa:linear-gradient(160deg,#E6E6E6,#F7F7F7);--sc:linear-gradient(200deg,#ECECEC,#F7F7F7);--sd:linear-gradient(170deg,#E9E9E9,#F7F7F7);
   --se:linear-gradient(160deg,#EAEAEA,#F7F7F7);--sx:linear-gradient(160deg,#E6E6E6,#F7F7F7 70%)}
 .tag,.pill.plan,:root[data-theme="light"] .tag,:root[data-theme="light"] .pill.plan{background:#2B2B2B;color:#FDFCFD}
-:root[data-theme="light"] h1 .x,:root[data-theme="light"] h2 .x{background:none;color:var(--xt);-webkit-text-fill-color:var(--xt)}
+:root[data-theme="light"] h1 .x,:root[data-theme="light"] h2 .x{background:none;color:var(--xt);-webkit-text-fill-color:currentcolor}
 .btn,.btn.mint{background:var(--xg);color:var(--on-x)}
 .se{background:radial-gradient(70% 70% at 50% 30%,rgba(var(--xr),.22),transparent 70%),var(--se)}
 .compat .scene{background:radial-gradient(50% 80% at 0 0,rgba(var(--xr),.14),transparent 70%)}
