@@ -22,9 +22,10 @@
 .seg input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}
 .seg span{display:inline-flex;align-items:center;height:48px;padding:0 22px;border-radius:100px;border:2px solid var(--fb);
   font-weight:800;font-size:16px;color:var(--soft);white-space:nowrap}
-.seg span{border-color:transparent;background:color-mix(in srgb,var(--text) 8%,transparent);transition:background-color .15s}
+/* no border: a transparent one let the selected pill's gradient repeat into it as a seam around the edge */
+.seg span{border:0;padding:0 24px;background:color-mix(in srgb,var(--text) 8%,transparent);transition:background-color .2s,color .2s,box-shadow .2s}
 .seg label:hover input:not(:checked) + span{background:color-mix(in srgb,var(--text) 13%,transparent)}
-.seg input:checked + span{background:var(--xg);border-color:transparent;color:var(--on-x)}
+.seg input:checked + span{background:var(--xg);color:var(--on-x)}
 .seg input:focus-visible + span{box-shadow:0 0 0 3px var(--card),0 0 0 6px var(--x)}
 legend.lb{margin-bottom:10px}
 .fhint{padding-left:16px;border-left:3px solid var(--x);font-weight:500;font-size:16px;line-height:24px;color:var(--soft)}
@@ -56,7 +57,7 @@ form.cform .btn{background:var(--blue);color:var(--on-blue)}
   .cform textarea{min-height:150px}
   .seg{gap:6px}
   legend.lb{margin-bottom:8px}
-  .seg span{height:40px;padding:0 12px;font-size:13px}
+  .seg span{height:40px;padding:0 14px;font-size:13px}
   .fhint{padding-left:12px;font-size:14px;line-height:21px}
   .fend{flex-direction:column;align-items:stretch;justify-content:flex-start;gap:22px}
   .fend > *{flex:none}

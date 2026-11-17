@@ -36,16 +36,16 @@ export const PAGES: Record<PageName, PageMeta> = {
   home: { route: '/', nav: 'home', head: [home], tail: [homeTail] },
   'midi-control': { route: '/apps/midi-control', nav: 'apps', head: [product], tail: [midiTail, midiHead, midiHeadM5] },
   support: { route: '/support', nav: 'support', head: [home, product], tail: [support, hub, form, hubgrid, formFields] },
-  'midi-support': { route: '/apps/midi-control/support', nav: 'support', head: [product], tail: [midiTail, support] },
+  'midi-support': { route: '/apps/midi-control/support', nav: 'apps', head: [product], tail: [midiTail, support] },
   contact: { route: '/contact', nav: 'contact', head: [home, product], tail: [support, form, formFields, contact] },
   privacy: { route: '/privacy', head: [home, product], tail: [support, contact, privacy] },
   error: { route: '/', head: [home, product], tail: [support] },
 };
 
-/** The main navigation, in the design's order. GAMES has no section yet: shown, not clickable. */
+/** The main navigation, in the design's order. APPS opens the one app's page; GAMES has no section yet: shown, not clickable. */
 export const NAV: readonly { id: NavId; route?: string }[] = [
   { id: 'home', route: '/' },
-  { id: 'apps', route: '/#apps' },
+  { id: 'apps', route: '/apps/midi-control' },
   { id: 'games' },
   { id: 'support', route: '/support' },
   { id: 'contact', route: '/contact' },

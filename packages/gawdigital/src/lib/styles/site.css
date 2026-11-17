@@ -2,7 +2,10 @@
    Turnstile widget in the verification box, and the error page. None of them matches anything on a page at rest. */
 .ferr{padding-left:16px;border-left:3px solid var(--pink);font-weight:600;font-size:16px;line-height:24px;color:var(--text)}
 .ferr[hidden]{display:none}
-.ts.ts-on{padding:0;background:none;box-shadow:none;overflow:hidden}
+/* Turnstile runs with appearance "interaction-only": the widget stays out of sight unless Cloudflare asks the visitor
+   to tick it, so the live box takes no room of its own and the send button keeps its place at the row's end. Only
+   the options Cloudflare documents (theme, size, appearance, language) style it; its iframe cannot be styled. */
+.ts.ts-on{flex:1 1 auto;width:auto;height:auto;min-width:0;padding:0;border-radius:0;background:none;box-shadow:none;overflow:visible}
 .ts.ts-on > i,.ts.ts-on > span{display:none}
 .cform.is-busy .btn{opacity:.6;pointer-events:none}
 .epage .row{margin-top:56px}
