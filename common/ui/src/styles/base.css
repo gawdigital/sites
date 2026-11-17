@@ -30,11 +30,8 @@
 html,body{background:var(--page)}
 body{font-family:"Kumbh Sans",sans-serif;color:var(--text);-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
-/* selected text: the accent's solid end (a selection takes no gradient), text fill included for the gradient headings */
+/* selected text: one solid accent everywhere, the gradient headings included (their text fill is overridden) */
 ::selection{background:var(--sel);color:var(--on-sel);-webkit-text-fill-color:var(--on-sel)}
-/* the gradient words keep their gradient (their text is the clipped background, which a selection paints over in
-   WebKit): a translucent tint of the accent marks them instead */
-:root h1 .x::selection,:root h2 .x::selection{background:rgba(var(--xr),.22);color:transparent;-webkit-text-fill-color:transparent}
 a.ln{color:var(--blue);text-decoration:underline;text-underline-offset:.25em;text-decoration-thickness:2px}
 /* a link's arrow: larger, outside the underline (an inline-block takes no text-decoration from its parent) */
 a.ln .arr{display:inline-block;margin-left:.4em;line-height:0;text-decoration:none}
