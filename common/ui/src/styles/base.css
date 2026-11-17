@@ -1,7 +1,7 @@
 
 @font-face{font-family:"Kumbh Sans";src:url(%FONT%) format("truetype");font-weight:100 900}
 :root{--on-blue:#fff;--page:#1c2734;--card:#0d0e11;--cr:13,14,17;--line:#243244;--x:#0ed2b8;--xt:#0ed2b8;--b1:#00ffbc;--b2:#1ca5b5;--xr:0,255,188;--xr2:28,165,181;--g1:#00ffbc;--g2:#1ca5b5;--xg:linear-gradient(135deg,#00ffbc,#1ca5b5);--mute:#d75c90;--on-x:#0d0e11;--blue:#0097ff;--pink:#d75c90;
-  --br:0,151,255;--xm:14,210,184;--sel:#0ed2b8;--on-sel:#0d0e11;--sheen:.03;--tab:#454f57;--text:#fff;--dim:rgba(255,255,255,.5);--soft:rgba(255,255,255,.78);
+  --br:0,151,255;--xm:14,210,184;--sel:#0ed2b8;--on-sel:#0d0e11;--sheen:.03;--sheen-rgb:255,255,255;--tab:#454f57;--text:#fff;--dim:rgba(255,255,255,.5);--soft:rgba(255,255,255,.78);
   --t1:#2f4157;--t2:#46607f;--rail:#243244;--cap:#e9eef5;--capline:#0d0e11;--blob:#17212c;--chip:#161f2b;
   --panel:#151d28;--bar:#e9eef5;--ghost:rgba(255,255,255,.18);--ring:rgba(255,255,255,.3);
   --sh1:rgba(5,8,12,.55);--sh2:rgba(5,8,12,.35);--vig:9,12,16;--h1:#243244;--h2:#2f4157;
@@ -10,7 +10,7 @@
   --se:linear-gradient(160deg,#2a3346,#121925);--sx:linear-gradient(160deg,#2b3d5a,#141b26 70%);
   --noise-blend:screen;--noise-filter:none;--noise-op:.14;color-scheme:dark}
 :root[data-theme="light"]{--on-blue:#fff;--page:#eef1f5;--card:#fff;--cr:255,255,255;--line:#dde3ea;--x:#de4679;--xt:#de4679;--b1:#e66363;--b2:#d72990;--xr:215,41,144;--xr2:230,99,99;--g1:#e66363;--g2:#d72990;--xg:linear-gradient(135deg,#e66363,#d72990);--mute:url(#xg);--on-x:#fff;
-  --xm:222,70,121;--sel:#de4679;--on-sel:#fff;--sheen:.14;--tab:#dde3ea;--text:#121a24;--dim:rgba(18,26,36,.55);--soft:rgba(18,26,36,.76);
+  --xm:222,70,121;--sel:#de4679;--on-sel:#fff;--sheen:.09;--sheen-rgb:18,26,36;--tab:#dde3ea;--text:#121a24;--dim:rgba(18,26,36,.55);--soft:rgba(18,26,36,.76);
   --t1:#cbd4df;--t2:#9fb0c4;--rail:#dde3ea;--cap:#fff;--capline:#121a24;--blob:#e4e9f0;--chip:#f3f6f9;
   --panel:#fff;--bar:#2f4157;--ghost:rgba(18,26,36,.14);--ring:rgba(18,26,36,.25);
   --sh1:rgba(30,45,70,.12);--sh2:rgba(30,45,70,.08);--vig:120,135,155;--h1:#b7c4d4;--h2:#9cadc2;
