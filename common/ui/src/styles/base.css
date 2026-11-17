@@ -136,7 +136,7 @@ h1{font-weight:800;font-size:110px;line-height:104px;text-transform:uppercase}
 .toggle i:after{content:"";position:absolute;right:5px;top:5px;width:30px;height:30px;border-radius:50%;background:#fff}
 .toggle.off{color:var(--dim)} .toggle.off i{background:var(--t1)}
 .toggle.off i:after{right:auto;left:5px}
-.num{flex:none;width:60px;height:60px;border-radius:50%;box-shadow:inset 0 0 0 3px var(--text);display:flex;
+.num{flex:none;width:60px;height:60px;border-radius:50%;box-shadow:inset 0 0 0 4px var(--text);display:flex;
   align-items:center;justify-content:center;font-weight:800;font-size:32px}
 .steps{list-style:none;display:flex;flex-direction:column;gap:28px}
 .steps li{display:flex;align-items:center;gap:30px;font-weight:500;font-size:24px;line-height:30px}
