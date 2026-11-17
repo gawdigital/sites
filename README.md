@@ -111,7 +111,6 @@ Both need the repository secrets `CLOUDFLARE_API_TOKEN` (Workers edit rights) an
 3. Put `SMTP_USER`, `SMTP_PASSWORD` and `MAIL_TO` into the Worker's secrets.
 4. For the `send_email` fallback: enable Email Routing on the sender's domain and verify the `MAIL_TO` address as a
    destination.
-5. Once the zone is on Cloudflare, uncomment the custom-domain routes in `packages/gawdigital/wrangler.jsonc`.
-6. When the app is live, replace the `#app-store` placeholder links with its Mac App Store URL.
-7. Create the Sanity project (see `sanity/README.md`).
-8. Have the German and Czech drafts reviewed.
+5. When the app is live, replace the `#app-store` placeholder links with its Mac App Store URL.
+6. Create the Sanity project (see `sanity/README.md`).
+7. Have the German and Czech drafts reviewed.

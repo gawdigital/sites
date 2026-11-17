@@ -21,11 +21,11 @@
   // The fallback when SMTP fails. Sending needs Email Routing on the sender's domain and a verified destination
   // (owner step); the addresses come from the SMTP_USER and MAIL_TO secrets, never from this file.
   "send_email": [{ "name": "SEND_EMAIL" }],
-  // Owner step: once the zone is on Cloudflare, uncomment to serve the site on its domain.
-  // "routes": [
-  //   { "pattern": "gawdigital.cz", "custom_domain": true },
-  //   { "pattern": "www.gawdigital.cz", "custom_domain": true }
-  // ],
+  // The site's own domain; the zone is on Cloudflare, which creates the DNS records for both hostnames.
+  "routes": [
+    { "pattern": "gawdigital.cz", "custom_domain": true },
+    { "pattern": "www.gawdigital.cz", "custom_domain": true }
+  ],
   // Public build-time configuration only; secrets are set with `wrangler secret put`.
   "vars": {}
 }
