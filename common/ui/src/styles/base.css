@@ -17,7 +17,7 @@
   --sa:linear-gradient(160deg,#dfe7f1,#f6f8fb);--sb:linear-gradient(180deg,#bfe0ff,#d6fbef 70%,#e8eef6);
   --sc:linear-gradient(200deg,#ebe4f4,#f6f8fb);--sd:linear-gradient(170deg,#e2e9f2,#f6f8fb);
   --se:linear-gradient(160deg,#e3eaf3,#f6f8fb);--sx:linear-gradient(160deg,#dfe7f1,#f6f8fb 70%);
-  --noise-blend:multiply;--noise-filter:invert(1);--noise-op:.10;color-scheme:light}
+  --noise-blend:multiply;--noise-filter:invert(1);--noise-op:.24;color-scheme:light}
 :root[data-theme="light"] .pill.plan{background:#2f4157;color:#fff}
 :root h1 .x,:root h2 .x{background:var(--xg);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
 :root .sa{background:radial-gradient(45% 50% at 34% 30%,rgba(var(--xr2),.26),transparent 70%),radial-gradient(50% 55% at 64% 34%,rgba(var(--xr),.24),transparent 70%),var(--sa)}
