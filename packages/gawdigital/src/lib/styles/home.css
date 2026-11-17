@@ -21,8 +21,9 @@
 /* GAMES has no section yet: the same dimmed card on Home and Support */
 .games .scene{filter:saturate(.35);opacity:.6}
 .games h2,.games p{color:var(--dim)}
-/* tags rank by state, in both themes: the brand pink for what is out, slate for a service, an outline for what is not out yet */
-.games .tag{background:none;box-shadow:inset 0 0 0 2px var(--t1);color:var(--dim)}
+/* tags rank by state, in both themes: the brand pink for what is out, slate for a service, and what is not out yet muted
+   as the MIDI page's planned pill is: a step off the card with the text in the body colour */
+.games .tag{background:color-mix(in srgb,var(--text) 10%,var(--card));color:var(--text)}
 .duo .games{height:620px}
 .duo .games .scene{height:400px}
 .duo .games .pixwrap{top:24px}
