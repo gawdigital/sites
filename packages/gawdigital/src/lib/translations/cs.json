@@ -20,7 +20,7 @@
     "message": "Zpráva",
     "verification": "Ověření",
     "send": "ODESLAT",
-    "we_use_your_email_and": "Váš e-mail a zprávu použijeme jen k odpovědi. Na tomto webu se nic neukládá.\n          <a class=\"ln\" href=\"{{p}}/privacy\">Ochrana soukromí</a>",
+    "we_use_your_email_and": "Váš e-mail a zprávu použijeme jen k odpovědi. Na tomto webu se nic neukládá. Více se dočtete v <a class=\"ln\" href=\"{{p}}/privacy\">Ochraně soukromí</a>.",
     "thank_you": "DĚKUJEME.",
     "well_reply_to_your_email": "Odpovíme vám e-mailem.",
     "company": "Společnost",
