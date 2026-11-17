@@ -27,7 +27,7 @@
 <Shell name="midi-control" title={t('common.midi_control_for_fireface')}>
   {#snippet before()}<svg class="blob b2" viewBox="0 0 1680 2207" preserveAspectRatio="none"><path style="fill:var(--blob)" d={BLOB_PATH}/></svg>{/snippet}
 
-  <section class="mhead m4 m5 m5b"><div class="mt"><div class="crumb">{@html t('midi.apps_midi_control', { home: href('/') })}</div><h1>{@html t('midi.midi_control_for_fireface')}</h1><p class="lead">{t('midi.control_the_fireface_800s_stand')}</p><div class="store"><a class="asb" href="#app-store" target="_blank" rel="noopener" aria-label={t('midi.download_on_the_mac_app')}><img class="asb-w" src="/badges/mac-app-store-white.svg" alt={t('midi.download_on_the_mac_app_2')}><img class="asb-b" src="/badges/mac-app-store-black.svg" alt=""></a></div></div><div class="mwin" aria-hidden="true">{@html art['midi-control-appwin-aw-d']}{@html art['midi-control-appwin-aw-l']}</div></section>
+  <section class="mhead m4 m5 m5b"><div class="mt"><div class="crumb">{@html t('midi.apps_midi_control', { p: prefix })}</div><h1>{@html t('midi.midi_control_for_fireface')}</h1><p class="lead">{t('midi.control_the_fireface_800s_stand')}</p><div class="store"><a class="asb" href="#app-store" target="_blank" rel="noopener" aria-label={t('midi.download_on_the_mac_app')}><img class="asb-w" src="/badges/mac-app-store-white.svg" alt={t('midi.download_on_the_mac_app_2')}><img class="asb-b" src="/badges/mac-app-store-black.svg" alt=""></a></div></div><div class="mwin" aria-hidden="true">{@html art['midi-control-appwin-aw-d']}{@html art['midi-control-appwin-aw-l']}</div></section>
 
   <article class="card wide" style="margin-top:100px">
     <div class="scene"></div><div class="fade"></div>

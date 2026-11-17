@@ -1,5 +1,5 @@
 {
-  "apps_midi_control": "<a href=\"{{home}}#apps\">APLIKACE</a> / MIDI CONTROL",
+  "apps_midi_control": "<a href=\"{{p}}/apps/midi-control\">APLIKACE</a> / MIDI CONTROL",
   "midi_control_for_fireface": "MIDI<br>CONTROL<br><span class=\"x\">FOR <br class=\"brm\" hidden>FIREFACE…</span>",
   "control_the_fireface_800s_stand": "Ovládejte samostatný mix Fireface 800 ze svého Macu. Čisté MIDI, bez FireWire.",
   "download_on_the_mac_app": "Stáhnout v Mac App Store (otevře se v nové kartě)",
