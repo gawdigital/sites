@@ -8,7 +8,7 @@
   --sa:linear-gradient(160deg,#2b3d5a,#141b26);--sb:linear-gradient(180deg,#141a3a,#16564e 70%,#1a2240);
   --sc:linear-gradient(200deg,#3a2a4f,#141b26);--sd:linear-gradient(170deg,#24324a,#121925);
   --se:linear-gradient(160deg,#2a3346,#121925);--sx:linear-gradient(160deg,#2b3d5a,#141b26 70%);
-  --noise-blend:screen;--noise-filter:none;--noise-op:.14;color-scheme:dark}
+  --noise-filter:none;--noise-op:.14;color-scheme:dark}
 :root[data-theme="light"]{--on-blue:#fff;--page:#eef1f5;--card:#fff;--cr:255,255,255;--line:#dde3ea;--x:#de4679;--xt:#de4679;--b1:#e66363;--b2:#d72990;--xr:215,41,144;--xr2:230,99,99;--g1:#e66363;--g2:#d72990;--xg:linear-gradient(135deg,#e66363,#d72990);--mute:url(#xg);--on-x:#fff;
   --xm:222,70,121;--sel:#de4679;--on-sel:#fff;--sheen:.09;--sheen-rgb:18,26,36;--tab:#dde3ea;--text:#121a24;--dim:rgba(18,26,36,.55);--soft:rgba(18,26,36,.76);
   --t1:#cbd4df;--t2:#9fb0c4;--rail:#dde3ea;--cap:#fff;--capline:#121a24;--blob:#e4e9f0;--chip:#f3f6f9;
@@ -17,7 +17,7 @@
   --sa:linear-gradient(160deg,#dfe7f1,#f6f8fb);--sb:linear-gradient(180deg,#bfe0ff,#d6fbef 70%,#e8eef6);
   --sc:linear-gradient(200deg,#ebe4f4,#f6f8fb);--sd:linear-gradient(170deg,#e2e9f2,#f6f8fb);
   --se:linear-gradient(160deg,#e3eaf3,#f6f8fb);--sx:linear-gradient(160deg,#dfe7f1,#f6f8fb 70%);
-  --noise-blend:multiply;--noise-filter:invert(1);--noise-op:.16;color-scheme:light}
+  --noise-filter:brightness(0);--noise-op:.16;color-scheme:light}
 :root[data-theme="light"] .pill.plan{background:#2f4157;color:#fff}
 :root h1 .x,:root h2 .x{background:var(--xg);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
 :root .sa{background:radial-gradient(45% 50% at 34% 30%,rgba(var(--xr2),.26),transparent 70%),radial-gradient(50% 55% at 64% 34%,rgba(var(--xr),.24),transparent 70%),var(--sa)}
@@ -57,9 +57,10 @@ a.ln:hover .arr.ext svg{transform:translate(.16em,-.01em)}
 .blob.b2{top:auto;bottom:-400px;height:2400px;transform:scaleX(-1)}
 .vig{position:absolute;inset:0 0 auto 0;height:240px;pointer-events:none;
   background:linear-gradient(180deg,rgba(var(--vig),.16) 0,rgba(var(--vig),0) 240px)}
-/* the grain covers the whole page, under the content */
+/* the grain covers the whole page, under the content: white specks on transparency, turned black on light. No blend
+   mode: Safari re-blends a mix-blend-mode layer per composited tile, so a card's tilt left a light patch in the grain */
 .noise{position:absolute;inset:0;background:url(%NOISE%) repeat;opacity:var(--noise-op);
-  mix-blend-mode:var(--noise-blend);filter:var(--noise-filter);pointer-events:none;z-index:1}
+  filter:var(--noise-filter);pointer-events:none;z-index:1}
 /* The logo's hover glow is a box-shadow, not a drop-shadow filter: the link's radius is the badge's outline, and
    Safari renders an animated filter on its own layer, clipped to the 132x180 box, which cut the glow off square. */
 .home{position:absolute;left:var(--gut);top:0;width:132px;height:180px;z-index:5;display:block;border-radius:0 0 66px 66px;
