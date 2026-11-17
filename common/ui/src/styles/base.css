@@ -105,7 +105,12 @@ h1{font-weight:800;font-size:110px;line-height:104px;text-transform:uppercase}
 /* The cursor tilts a card or a tile slightly (scripts/tilt.js eases the angles and moves the sheen's centre) */
 :is(.card,.tile).tilt{transform:perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));will-change:transform}
 :is(.card,.tile).tilt:after{content:'';position:absolute;inset:0;z-index:3;border-radius:inherit;pointer-events:none;opacity:0;
-  background:radial-gradient(520px circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,var(--sheen)),transparent 70%);
+  --s:rgba(255,255,255,var(--sheen));
+  /* eased falloff, so no ring marks where it ends; a faint noise (up to 5/255, light and dark) dithers the few shades so faint a
+     sheen has, which otherwise stepped into visible bands */
+  background:url(%DITHER%),radial-gradient(520px circle at var(--mx,50%) var(--my,50%),var(--s) 0,
+    rgba(255,255,255,calc(var(--sheen)*.72)) 18%,rgba(255,255,255,calc(var(--sheen)*.42)) 36%,
+    rgba(255,255,255,calc(var(--sheen)*.18)) 52%,rgba(255,255,255,calc(var(--sheen)*.05)) 64%,rgba(255,255,255,0) 74%);
   transition:opacity .3s}
 :is(.card,.tile).mv:after{opacity:1}
 .scene{position:absolute;inset:0 0 auto 0;height:520px;overflow:hidden}
