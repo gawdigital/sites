@@ -21,7 +21,7 @@
 /* GAMES has no section yet: the same dimmed card on Home and Support */
 .games .scene{filter:saturate(.35);opacity:.6}
 .games h2,.games p{color:var(--dim)}
-/* tags rank by state, in both themes: the brand pink for what is out, slate for a service, and what is not out yet muted
+/* tags rank by state, in both themes: the brand pink for what is out, a service light on dark and slate on light, and what is not out yet muted
    as the MIDI page's planned pill is: a step off the card with the text in the body colour */
 .games .tag{background:color-mix(in srgb,var(--text) 10%,var(--card));color:var(--text)}
 .duo .games{height:620px}
@@ -31,7 +31,8 @@
 .duo .support{height:620px}
 .duo .support .scene{height:400px}
 .duo .support .vis{left:110px;right:110px;top:56px}
-.tag.neutral{background:#2f4157}
+.tag.neutral{background:#dde3ea;color:#121a24} /* a service: light on dark, slate on light */
+:root[data-theme="light"] .tag.neutral{background:#2f4157;color:#fff}
 .support .links{display:flex;gap:28px;font-weight:800;font-size:20px}
 .duo .support .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 200px,rgba(var(--cr),.85) 330px,rgb(var(--cr)) 400px)}
 .duo .row{min-height:40px;margin-top:28px}
