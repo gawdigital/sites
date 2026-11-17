@@ -8,8 +8,8 @@
 .formc .scene{height:100%;opacity:.55;background:radial-gradient(45% 60% at 78% 0,rgba(var(--xr2),.18),transparent 70%),radial-gradient(35% 50% at 92% 0,rgba(var(--xr),.18),transparent 70%),var(--sa)}
 .cform{position:relative;z-index:2;display:flex;flex-direction:column;gap:28px}
 .fld{display:flex;flex-direction:column;gap:10px;border:0;min-width:0}
-.lb{display:block;padding:0;font-weight:800;font-size:14px;line-height:18px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft)}
-.cform input[type=email],.cform select,.cform textarea{display:block;width:100%;font:inherit;font-weight:500;font-size:19px;line-height:26px;
+.lb{display:block;padding:0;font-weight:800;font-size:14px;line-height:1.2857;letter-spacing:.12em;text-transform:uppercase;color:var(--soft)}
+.cform input[type=email],.cform select,.cform textarea{display:block;width:100%;font:inherit;font-weight:500;font-size:19px;line-height:1.3684;
   color:var(--text);background:var(--fbg);border:2px solid var(--fb);border-radius:18px;padding:15px 20px;outline:none;
   -webkit-appearance:none;appearance:none;transition:border-color .15s,box-shadow .15s}
 .cform textarea{min-height:180px;resize:vertical}
@@ -30,7 +30,7 @@
 .seg input:checked + span{background:var(--xg);color:var(--on-x)}
 .seg input:focus-visible + span{box-shadow:0 0 0 3px var(--card),0 0 0 6px var(--x)}
 legend.lb{margin-bottom:10px}
-.fhint{padding-left:16px;border-left:3px solid var(--x);font-weight:500;font-size:16px;line-height:24px;color:var(--soft)}
+.fhint{padding-left:16px;border-left:3px solid var(--x);font-weight:500;font-size:16px;line-height:1.5;color:var(--soft)}
 .fhint[hidden]{display:none}
 .fend{display:flex;align-items:center;justify-content:space-between;gap:24px}
 .ts{flex:none;display:flex;align-items:center;gap:14px;width:300px;height:65px;padding:0 18px;border-radius:12px;
@@ -40,31 +40,31 @@ legend.lb{margin-bottom:10px}
 .cform .btn{margin-left:0;border:0;cursor:pointer;font-family:inherit}
 form.cform .btn{background:var(--blue);color:var(--on-blue)}
 .cform .btn:focus-visible{outline:none;box-shadow:0 0 0 3px var(--card),0 0 0 6px var(--x)}
-.pnote{font-weight:500;font-size:15px;line-height:22px;color:var(--dim)}
+.pnote{font-weight:500;font-size:15px;line-height:1.4667;color:var(--dim)}
 .sent{display:none;position:relative;z-index:2;flex-direction:column;align-items:flex-start;padding:24px 0 12px}
 .sent svg{width:72px;height:72px;margin-bottom:28px}
-.formc .sent h2{font-size:48px;line-height:52px;margin-bottom:12px}
+.formc .sent h2{font-size:48px;line-height:1.0833;margin-bottom:12px}
 .formc.is-sent .cform{display:none}
 .formc.is-sent .sent{display:flex}
 @media (max-width:700px){
   .contact{display:block}
   .formc{padding:28px 20px 24px;max-width:none}
   .cform{gap:22px}
-  .lb{font-size:12px;line-height:16px}
-  .cform input[type=email],.cform select,.cform textarea{font-size:16px;line-height:22px;border-radius:14px;padding:12px 14px}
+  .lb{font-size:12px;line-height:1.3333}
+  .cform input[type=email],.cform select,.cform textarea{font-size:16px;line-height:1.375;border-radius:14px;padding:12px 14px}
   .sel select{padding-right:44px}
   .sel:after{right:18px;width:9px;height:9px;margin-top:-8px}
   .cform textarea{min-height:150px}
   .seg{gap:6px}
   legend.lb{margin-bottom:8px}
   .seg span{height:40px;padding:0 14px;font-size:13px}
-  .fhint{padding-left:12px;font-size:14px;line-height:21px}
+  .fhint{padding-left:12px;font-size:14px;line-height:1.5}
   .fend{flex-direction:column;align-items:stretch;justify-content:flex-start;gap:22px}
   .fend > *{flex:none}
   .ts{width:100%;max-width:none}
   .cform .btn{width:100%;min-width:0}
-  .pnote{font-size:13px;line-height:19px}
+  .pnote{font-size:13px;line-height:1.4615}
   .sent{padding:12px 0 8px}
   .sent svg{width:56px;height:56px;margin-bottom:20px}
-  .formc .sent h2{font-size:32px;line-height:36px}
+  .formc .sent h2{font-size:32px;line-height:1.125}
 }

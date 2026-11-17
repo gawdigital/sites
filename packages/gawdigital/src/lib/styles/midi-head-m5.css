@@ -1,7 +1,7 @@
 
 .m5 + .card.wide .cwin{display:none}
 .glance{display:flex;align-items:center;gap:28px;margin-bottom:34px}
-.glance h3{font-weight:800;font-size:22px;line-height:24px;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.glance h3{font-weight:800;font-size:22px;line-height:1.0909;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
 .glance .ticks{flex:1;height:18px;
   background:repeating-linear-gradient(90deg,var(--t1) 0 2px,transparent 2px 12px) left bottom/100% 8px no-repeat,
              repeating-linear-gradient(90deg,var(--t2) 0 2px,transparent 2px 96px) left bottom/100% 18px no-repeat}
@@ -10,8 +10,8 @@
 .ident .ipic{flex:none;width:64px;height:64px;filter:drop-shadow(0 0 10px rgba(0,0,0,.45)) drop-shadow(0 0 28px rgba(var(--xr),.26))}
 :root[data-theme="light"] .ident .ipic{filter:drop-shadow(0 0 8px rgba(0,0,0,.12)) drop-shadow(0 0 24px rgba(var(--xr),.16))}
 .ident .ipic svg{display:block;width:100%;height:100%}
-.ident b{display:block;font-weight:800;font-size:24px;line-height:30px}
-.ident .itx span{display:block;margin-top:2px;font-weight:500;font-size:17px;line-height:24px;color:var(--dim)}
+.ident b{display:block;font-weight:800;font-size:24px;line-height:1.25}
+.ident .itx span{display:block;margin-top:2px;font-weight:500;font-size:17px;line-height:1.4118;color:var(--dim)}
 .sic{display:block;width:40px;height:40px;margin-bottom:14px}
 .sic svg{display:block;width:100%;height:100%}
 @media (max-width:700px){
@@ -19,12 +19,12 @@
   .m5 + .card.wide{margin-top:64px !important;padding:0 12px 24px}
   .m5 + .card.wide .cwin{display:block;margin-top:-28px;margin-bottom:28px}
   .glance{gap:14px;margin:0 12px 22px}
-  .glance h3{font-size:15px;line-height:18px}
+  .glance h3{font-size:15px;line-height:1.2}
   .glance .ticks{height:12px;background-size:100% 6px,100% 12px}
   .ident{gap:14px;margin:0 12px 22px}
   .ident .ipic{width:48px;height:48px}
-  .ident b{font-size:17px;line-height:22px}
-  .ident .itx span{font-size:13px;line-height:18px}
+  .ident b{font-size:17px;line-height:1.2941}
+  .ident .itx span{font-size:13px;line-height:1.3846}
   .sic{width:30px;height:30px;margin-bottom:8px}
   /* M5b (picked): the whole window inside the box, inset as far as the stats (12px card + 12px content) */
   .m5b + .card.wide{padding:24px 12px 24px}

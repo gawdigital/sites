@@ -18,12 +18,12 @@
   .mmenu nav{margin:auto 0;flex:0 0 auto}
   .mmenu ul{list-style:none;margin:0;padding:32px 0 40px;display:flex;flex-direction:column;align-items:center;gap:24px}
   .mmenu li{position:relative;display:flex;justify-content:center}
-  .mmenu li > a,.mmenu li > span{display:block;font-weight:800;font-size:34px;line-height:40px;letter-spacing:.02em;text-transform:uppercase}
+  .mmenu li > a,.mmenu li > span{display:block;font-weight:800;font-size:34px;line-height:1.1765;letter-spacing:.02em;text-transform:uppercase}
   .mmenu li > span.off{cursor:default}
   .mmenu li > span.off b{font-weight:inherit;opacity:.45}
   .mmenu li > span.off small{position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:-2px;white-space:nowrap;
-    font-size:13px;line-height:16px;font-weight:700;letter-spacing:.06em;text-transform:none;opacity:.8}
-  .mmenu .mfoot{display:flex;align-items:center;justify-content:center;gap:28px;font-weight:800;font-size:19px;line-height:28px;flex:0 0 auto}
+    font-size:13px;line-height:1.2308;font-weight:700;letter-spacing:.06em;text-transform:none;opacity:.8}
+  .mmenu .mfoot{display:flex;align-items:center;justify-content:center;gap:28px;font-weight:800;font-size:19px;line-height:1.4737;flex:0 0 auto}
   .mmenu .mfoot .lang{gap:18px}
   html.mm-lock,html.mm-lock body{overflow:hidden}
   /* A: the brand gradient, everything in --on-x; the page's item underlined, not recoloured */
@@ -42,24 +42,24 @@
   .mm-b li > a[aria-current]{background:var(--xg);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
   main{padding-top:128px}
   .kicker,.crumb{font-size:12px;letter-spacing:.12em}
-  h1{font-size:50px;line-height:50px}
-  .lead{font-size:17px;line-height:25px}
+  h1{font-size:50px;line-height:1}
+  .lead{font-size:17px;line-height:1.4706}
   .divider{gap:14px;margin:64px 0 24px}
-  .divider h2{font-size:22px;line-height:24px}
+  .divider h2{font-size:22px;line-height:1.0909}
   .divider .ticks{height:14px;background-size:100% 6px,100% 14px}
   .divider .idx{font-size:15px}
   .card{border-radius:48px;padding:24px;box-shadow:0 20px 40px var(--sh1)}
   .scene{height:300px}
   .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 120px,rgba(var(--cr),.85) 230px,rgb(var(--cr)) 300px)}
   .tag{height:32px;padding:0 16px;font-size:13px;margin-bottom:12px}
-  .card h2{font-size:36px;line-height:40px;margin-bottom:12px}
-  .card p{font-size:16px;line-height:24px}
+  .card h2{font-size:36px;line-height:1.1111;margin-bottom:12px}
+  .card p{font-size:16px;line-height:1.5}
   .row{margin-top:22px;min-height:48px;gap:12px}
   .btn{height:48px;min-width:0;padding:0 24px;font-size:14px}
   .toggle{font-size:14px;gap:12px} .toggle i{width:56px;height:32px}
   .toggle i:after{width:24px;height:24px;top:4px;right:4px} .toggle.off i:after{left:4px;right:auto}
   .num{width:40px;height:40px;font-size:20px;box-shadow:inset 0 0 0 2px var(--text)}
-  .steps{gap:16px} .steps li{font-size:16px;line-height:23px;gap:16px}
+  .steps{gap:16px} .steps li{font-size:16px;line-height:1.4375;gap:16px}
   .vis{left:20px;right:20px;top:28px}
   .pixwrap{top:56px}
   .hatch{width:198px;height:220px;transform:none}
@@ -72,15 +72,15 @@
   .plug i{left:67px;top:67px;width:16px;height:16px;transform:rotate(var(--a)) translateY(-42px)}
   .cord{right:90px;top:172px;width:18px;height:76px}
   .days{left:24px;right:24px;top:20px}
-  .days .big{font-size:120px;line-height:110px;-webkit-text-stroke:2px var(--ghost)}
+  .days .big{font-size:120px;line-height:0.9167;-webkit-text-stroke:2px var(--ghost)}
   .dots{gap:5px;margin-top:8px} .dots i{box-shadow:inset 0 0 0 2px var(--ring)}
-  .footer{flex-direction:column;align-items:flex-start;gap:20px;margin-top:64px;padding:0 8px;font-size:14px;line-height:21px}
+  .footer{flex-direction:column;align-items:flex-start;gap:20px;margin-top:64px;padding:0 8px;font-size:14px;line-height:1.5}
   .footer .fr{gap:24px;font-size:14px;flex-wrap:nowrap}
   /* home */
   .hero{grid-template-columns:1fr 112px;column-gap:8px;align-items:end}
   .hero .txt{display:contents}
   .hero .kicker{grid-column:1/-1}
-  .hero h1{margin-top:16px;grid-column:1;grid-row:2;font-size:44px;line-height:44px}
+  .hero h1{margin-top:16px;grid-column:1;grid-row:2;font-size:44px;line-height:1}
   .hero .bank{width:112px;height:auto;grid-column:2;grid-row:2;align-self:end}
   .hero .lead{grid-column:1/-1;margin-top:20px}
   .hero .jump{grid-column:1/-1;gap:20px;margin-top:20px;font-size:15px}
@@ -90,7 +90,7 @@
   .appcard .shot{order:-1}
   .appcard .content{padding:0 8px}
   .appcard .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 120px,rgba(var(--cr),.85) 220px,rgb(var(--cr)) 280px)}
-  .appcard h2{font-size:44px;line-height:46px}
+  .appcard h2{font-size:44px;line-height:1.0455}
   .appwin{filter:drop-shadow(0 12px 20px rgba(0,0,0,.5))}
   .duo{grid-template-columns:1fr;row-gap:16px;margin-top:16px}
   .duo .card{padding:24px}
@@ -106,10 +106,10 @@
   .duo .row{margin-top:20px}
   .app{margin-top:20px;padding:12px 18px 12px 12px;gap:12px;border-radius:calc(40px * .225 + 12px)}
   .app .ic{width:40px;height:40px}
-  .app b{font-size:16px;line-height:20px} .app small{font-size:13px;line-height:18px}
+  .app b{font-size:16px;line-height:1.25} .app small{font-size:13px;line-height:1.3846}
   /* product */
   .phead{grid-template-columns:1fr;row-gap:20px}
-  .phead h1{margin-top:16px;font-size:50px;line-height:50px}
+  .phead h1{margin-top:16px;font-size:50px;line-height:1}
   .phead h1 .brm{display:inline}
   .tabs{gap:16px;margin-top:20px;height:36px;font-size:14px;flex-wrap:wrap}
   .tabs .info{height:36px;padding:0 20px}
@@ -124,8 +124,8 @@
   .spec{grid-template-columns:1fr 1fr;gap:20px 16px;margin-top:28px;padding:0 12px}
   .spec div{padding-top:10px}
   .spec dt{font-size:11px}
-  .spec dd{font-size:17px;line-height:22px;margin-top:4px}
-  .spec dd small{font-size:13px;line-height:18px}
+  .spec dd{font-size:17px;line-height:1.2941;margin-top:4px}
+  .spec dd small{font-size:13px;line-height:1.3846}
   .feat{grid-template-columns:1fr;row-gap:16px}
   .feat .big{min-height:0;padding-top:300px}
   .feat .big .scene{height:330px}
@@ -136,11 +136,11 @@
   .tile{border-radius:36px;padding:22px 22px 22px 96px;min-height:0;justify-content:center}
   .tile:before{height:100%;background:radial-gradient(60% 100% at 0 50%,rgba(var(--xr),.08),transparent 70%)}
   .tile svg{left:22px;top:24px;width:52px;height:52px}
-  .tile h3{font-size:20px;line-height:24px;margin-bottom:6px}
-  .tile p{font-size:15px;line-height:22px}
+  .tile h3{font-size:20px;line-height:1.2;margin-bottom:6px}
+  .tile p{font-size:15px;line-height:1.4667}
   .compat{grid-template-columns:1fr;gap:28px;padding:32px 24px}
-  .compat h2{font-size:36px;line-height:40px}
-  .compat .note{font-size:15px;line-height:22px;margin-top:16px}
+  .compat h2{font-size:36px;line-height:1.1111}
+  .compat .note{font-size:15px;line-height:1.4667;margin-top:16px}
   .list li{font-size:17px;padding:16px 0;gap:12px}
   .list li small{font-size:13px}
   .pill{height:28px;padding:0 12px;font-size:11px}
@@ -154,7 +154,7 @@
   .start .trial{padding-top:200px}
   .start .hatch{margin:24px auto 0}
   .faq{flex-direction:column;align-items:flex-start;gap:12px;padding:0 8px}
-  .faq h3{font-size:28px;line-height:32px}
-  .faq p{font-size:16px;line-height:24px}
+  .faq h3{font-size:28px;line-height:1.1429}
+  .faq p{font-size:16px;line-height:1.5}
   .faq .links{margin-left:0;gap:24px;font-size:18px}
 }

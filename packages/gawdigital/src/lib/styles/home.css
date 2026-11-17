@@ -1,6 +1,6 @@
 
 .hero{display:grid;grid-template-columns:1fr 470px;column-gap:60px;align-items:center}
-.hero h1{margin-top:28px;font-size:140px;line-height:132px}
+.hero h1{margin-top:28px;font-size:140px;line-height:0.9429}
 .hero .lead{margin-top:36px;max-width:740px}
 .hero .bank{width:470px;height:500px;display:block}
 .hero .jump{display:flex;gap:36px;margin-top:44px;font-weight:800;font-size:20px}
@@ -12,7 +12,7 @@
 .appcard .scene{height:100%;background:radial-gradient(45% 70% at 72% 30%,rgba(var(--xr),.22),transparent 70%),var(--sx)}
 .appcard .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 45%,rgba(var(--cr),.8) 85%,rgb(var(--cr)) 100%),
   linear-gradient(90deg,rgba(var(--cr),.9) 0,rgba(var(--cr),.55) 32%,rgba(var(--cr),0) 50%)}
-.appcard h2{font-size:86px;line-height:86px}
+.appcard h2{font-size:86px;line-height:1}
 .appcard .row{justify-content:flex-start}
 .appcard .btn{margin-left:0}
 .appcard .shot{position:relative;z-index:2}
@@ -41,5 +41,5 @@
   box-shadow:inset 0 0 0 2px var(--line)}
 .app .ic{flex:none;width:52px;height:52px;border-radius:22.5%;overflow:hidden}
 .app .ic svg{display:block;width:100%;height:100%}
-.app b{display:block;font-weight:800;font-size:20px;line-height:24px}
-.app small{display:block;font-weight:500;font-size:16px;line-height:22px;color:var(--dim)}
+.app b{display:block;font-weight:800;font-size:20px;line-height:1.2}
+.app small{display:block;font-weight:500;font-size:16px;line-height:1.375;color:var(--dim)}
