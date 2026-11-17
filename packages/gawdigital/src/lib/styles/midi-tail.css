@@ -17,7 +17,9 @@
   --sh1:rgba(0,0,0,.10);--sh2:rgba(0,0,0,.06);--vig:110,110,110;--h1:#D4D4D4;--h2:#BDBDBD;
   --sa:linear-gradient(160deg,#E6E6E6,#F7F7F7);--sc:linear-gradient(200deg,#ECECEC,#F7F7F7);--sd:linear-gradient(170deg,#E9E9E9,#F7F7F7);
   --se:linear-gradient(160deg,#EAEAEA,#F7F7F7);--sx:linear-gradient(160deg,#E6E6E6,#F7F7F7 70%)}
-.tag,.pill.plan,:root[data-theme="light"] .tag,:root[data-theme="light"] .pill.plan{background:#2B2B2B;color:#FDFCFD}
+/* tags and the planned pill are muted: a step off the card with the text in the body colour, in both themes */
+.tag,.pill.plan{background:#2B2B2B;color:#FDFCFD}
+:root[data-theme="light"] .tag,:root[data-theme="light"] .pill.plan{background:#E6E6E6;color:#2B2B2B}
 :root[data-theme="light"] h1 .x,:root[data-theme="light"] h2 .x{background:none;color:var(--xt);-webkit-text-fill-color:currentcolor}
 .btn,.btn.mint{background:var(--xg);color:var(--on-x)}
 .se{background:radial-gradient(70% 70% at 50% 30%,rgba(var(--xr),.22),transparent 70%),var(--se)}
@@ -31,7 +33,9 @@
 .prod .tag{margin-bottom:0}
 .inapp{display:grid;grid-template-columns:750px 750px;column-gap:60px;align-items:stretch}
 .wincard{padding:44px 44px 56px;justify-content:flex-start}
-.wincard .scene{height:520px;background:radial-gradient(60% 60% at 50% 20%,rgba(var(--xr),.14),transparent 70%),var(--sd)}
+/* the scene fades into the card below the window, so its end and the window's shadow leave no edge */
+.wincard .scene{height:520px;background:radial-gradient(60% 60% at 50% 20%,rgba(var(--xr),.14),transparent 70%),var(--sd);
+  -webkit-mask-image:linear-gradient(#000 55%,transparent);mask-image:linear-gradient(#000 55%,transparent)}
 .wincard .win{position:relative;z-index:2;height:452px;display:flex;align-items:flex-start;margin-bottom:44px}
 .wincard .content{padding:0 16px}
 .store{display:flex;margin-top:22px;padding:12px 0}
