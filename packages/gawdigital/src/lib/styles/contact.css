@@ -5,7 +5,7 @@
 .cgrid .hcol{display:flex;flex-direction:column;min-width:0}
 .cgrid .formc{max-width:none}
 .coc{justify-content:flex-start;padding:60px 60px 56px}
-.coc .scene{height:240px;background:radial-gradient(50% 80% at 70% 0,rgba(var(--xr),.10),transparent 70%)}
+.coc .scene{height:240px;background:radial-gradient(50% 80% at 70% 0,rgba(var(--xm),.10),transparent 70%)}
 .coc h2,.coc dl{position:relative;z-index:2}
 .coc h2{font-size:40px;line-height:44px;margin-bottom:28px;text-transform:none}
 .coc dl{display:flex;flex-direction:column;gap:28px}

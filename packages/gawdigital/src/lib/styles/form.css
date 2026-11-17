@@ -4,7 +4,7 @@
 :root[data-theme="light"]{--fb:#7d8b9d}
 .contact{display:flex;justify-content:center}
 .formc{justify-content:flex-start;padding:60px 60px 52px;width:100%;max-width:720px}
-.formc .scene{height:240px;background:radial-gradient(50% 80% at 70% 0,rgba(var(--xr),.10),transparent 70%)}
+.formc .scene{height:240px;background:radial-gradient(50% 80% at 70% 0,rgba(var(--xm),.10),transparent 70%)}
 .cform{position:relative;z-index:2;display:flex;flex-direction:column;gap:28px}
 .fld{display:flex;flex-direction:column;gap:10px;border:0;min-width:0}
 .lb{display:block;padding:0;font-weight:800;font-size:14px;line-height:18px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft)}
