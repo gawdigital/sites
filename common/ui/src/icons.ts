@@ -6,8 +6,8 @@ export const ARROW = "<svg viewBox=\"0 0 22 14\" width=\"22\" height=\"14\"><pat
 /** The arrow after a link that opens in a new tab. */
 export const EXT = "<svg viewBox=\"0 0 16 16\" width=\"16\" height=\"16\"><path d=\"M3.5 12.5 12.5 3.5M5.5 3.5h7v7\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>";
 
-/** The theme button, day. */
-export const SUN = "<svg class=\"sun\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\"><circle cx=\"12\" cy=\"12\" r=\"4.5\" fill=\"currentColor\"/><path d=\"M12 1.5v2.5M12 20v2.5M1.5 12h2.5M20 12h2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8\"/></svg>";
+/** The theme button, day: a disc without an outline, since a translucent colour would show the outline over the fill as a ring. */
+export const SUN = "<svg class=\"sun\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linecap=\"round\"><circle cx=\"12\" cy=\"12\" r=\"5.5\" fill=\"currentColor\" stroke=\"none\"/><path d=\"M12 1.5v2.5M12 20v2.5M1.5 12h2.5M20 12h2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8\"/></svg>";
 
 /** The theme button, night. */
 export const MOON = "<svg class=\"moon\" viewBox=\"0 0 24 24\"><path fill=\"currentColor\" d=\"M20.5 14.8A9 9 0 0 1 9.2 3.5a9 9 0 1 0 11.3 11.3z\"/></svg>";
