@@ -1,5 +1,5 @@
 
-@media (max-width:700px){
+@media (max-width:768px){
   .frame{width:100%;min-width:0;padding:0 16px 32px}
   .blob{width:220%;left:-60%;height:2400px;top:60px}
   .blob.b2{display:none}
@@ -161,7 +161,7 @@
 }
 /* A wide phone layout (a tablet's narrow window, a phone on its side) puts the feature tiles in two columns, each with its
    icon above its text; only a phone held upright stacks them in one. */
-@media (min-width:520px) and (max-width:700px){
+@media (min-width:520px) and (max-width:768px){
   .tiles{grid-template-columns:1fr 1fr}
   .tile{padding:88px 22px 24px;justify-content:flex-start}
   .tile:before{background:radial-gradient(100% 60% at 0 0,rgba(var(--xr),.08),transparent 70%)}

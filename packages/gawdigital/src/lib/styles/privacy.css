@@ -20,7 +20,7 @@
 .gl{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));column-gap:60px}
 .gl div{display:flex;flex-direction:column;gap:10px}
 .gl p{color:var(--text)}
-@media (max-width:700px){
+@media (max-width:768px){
   .lb{font-size:12px;line-height:1.3333}
   .shead .upd{margin-top:12px;font-size:14px;line-height:1.4286}
   .pgrid{display:block;margin-top:64px}

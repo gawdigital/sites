@@ -39,7 +39,7 @@
 .touch ~ .faq p{max-width:none}
 .hub ~ .faq{gap:40px}
 .hub ~ .faq .links{margin-left:0}
-@media (max-width:700px){
+@media (max-width:768px){
   .shead h1{margin-top:20px;font-size:50px;line-height:1}
   .shead h1 .brm{display:inline}
   .shead .lead{margin-top:24px;max-width:none}

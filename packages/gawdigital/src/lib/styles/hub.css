@@ -17,7 +17,7 @@
 .prodc .go{margin-top:28px;font-weight:800;font-size:22px}
 .prodc .go a.ln{color:#0097ff} /* the site's standard link blue, not the product orange the card's tokens give --blue */
 .hub .games .pixwrap{top:40px}
-@media (max-width:700px){
+@media (max-width:768px){
   .hub{grid-template-columns:1fr;row-gap:16px}
   .hub ~ .faq{gap:12px}
   .hub .card{height:auto;padding:220px 24px 28px}

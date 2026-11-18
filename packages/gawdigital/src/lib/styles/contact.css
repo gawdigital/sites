@@ -33,7 +33,7 @@
 .cp.is-copied .ic{display:none}
 .cp.is-copied .ok{display:block}
 .cnote{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-@media (max-width:700px){
+@media (max-width:768px){
   .cgrid{display:block;margin-top:56px}
   .cgrid .divider{margin:0 0 24px}
   .cgrid .hcol + .hcol .divider{margin-top:64px}

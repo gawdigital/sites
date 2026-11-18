@@ -46,7 +46,7 @@ form.cform .btn{background:var(--blue);color:var(--on-blue)}
 .formc .sent h2{font-size:48px;line-height:1.0833;margin-bottom:12px}
 .formc.is-sent .cform{display:none}
 .formc.is-sent .sent{display:flex}
-@media (max-width:700px){
+@media (max-width:768px){
   .contact{display:block}
   .formc{padding:28px 20px 24px;max-width:none}
   .cform{gap:22px}
