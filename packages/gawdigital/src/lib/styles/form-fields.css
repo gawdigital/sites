@@ -27,7 +27,7 @@
   border-right:2px solid var(--soft);border-bottom:2px solid var(--soft);transform:rotate(45deg)}
 .fg .fbox.msg{display:flex;flex-direction:column;height:auto;min-height:180px}
 .fg .cform .fbox.msg textarea{flex:1;height:auto;min-height:0;resize:none}
-@media (max-width:700px){
+@media (max-width:768px){
   .fg .fbox{height:64px;border-radius:18px}
   .fg .fbox .lb{top:12px;left:15px;font-size:11px;line-height:1.2727}
   .fg .dot{top:12px;right:12px}

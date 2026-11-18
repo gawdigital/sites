@@ -18,7 +18,7 @@
 .hcol .fld.msg textarea{flex:1}
 .hcol .formc.is-sent{justify-content:center}
 .hcol .formc.is-sent .sent{align-items:center;text-align:center;padding:0}
-@media (max-width:700px){
+@media (max-width:768px){
   .hubgrid{display:block;margin-top:56px}
   .hubgrid .divider{margin:0 0 24px}
   .hcol + .hcol .divider{margin-top:64px}

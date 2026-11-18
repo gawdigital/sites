@@ -15,7 +15,7 @@
 .fpanel li svg{flex:none;width:52px;height:52px}
 .fpanel li b{display:block;font-weight:800;font-size:22px;line-height:1.1818}
 .fpanel li span{display:block;font-weight:500;font-size:16px;line-height:1.375;color:var(--dim)}
-@media (max-width:700px){
+@media (max-width:768px){
   .peek{display:none}
   .peek-hero{min-height:0}
   .peek-hero .txt{display:block}

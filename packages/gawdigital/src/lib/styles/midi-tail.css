@@ -50,7 +50,7 @@
 :root[data-theme="light"] .asb .asb-b{display:block}
 .start .r{padding-top:0;gap:0}
 .start .trial{z-index:1}
-@media (max-width:700px){
+@media (max-width:768px){
   .store{margin-top:8px;padding:10px 0}
   .asb{height:40px}
   .prod{gap:14px;margin-bottom:2px}

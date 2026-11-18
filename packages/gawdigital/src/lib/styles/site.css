@@ -9,7 +9,7 @@
 .ts.ts-on > i,.ts.ts-on > span{display:none}
 .cform.is-busy .btn{opacity:.6;pointer-events:none}
 .epage .row{margin-top:56px}
-@media (max-width:700px){
+@media (max-width:768px){
   .ferr{padding-left:12px;font-size:14px;line-height:1.5}
   .epage .row{margin-top:36px}
 }

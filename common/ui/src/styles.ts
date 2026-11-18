@@ -21,9 +21,9 @@ const DESIGN_WIDTH = 1680;
  */
 function narrowDesktop(): string {
   const rules: string[] = [];
-  for (let w = DESIGN_WIDTH; w > 700; w -= 20) {
+  for (let w = DESIGN_WIDTH; w > 768; w -= 20) {
     const zoom = +((w - 20) / DESIGN_WIDTH).toFixed(4);
-    rules.push(`@media (min-width:701px) and (max-width:${w - 0.02}px){.frame{zoom:${zoom};min-height:calc(100vh / ${zoom})}}`);
+    rules.push(`@media (min-width:769px) and (max-width:${w - 0.02}px){.frame{zoom:${zoom};min-height:calc(100vh / ${zoom})}}`);
   }
   rules.push(
     '@media screen{html.fit{overflow-y:scroll}html.fit body{display:flow-root}' +
