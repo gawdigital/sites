@@ -102,7 +102,8 @@ Set the secrets with `bunx --bun wrangler secret put <NAME>` in `packages/gawdig
 ### CI and deployment
 
 - **Pull requests** (`.github/workflows/ci.yml`): install, check, test, build, then upload a preview version with
-  `bun --bun wrangler versions upload --preview-alias pr-<number>`; the step summary names its URL.
+  `bun --bun wrangler versions upload --preview-alias pr-<number>`; a comment on the pull request (updated on every
+  push) and the step summary name its URLs.
 - **`main`** (`.github/workflows/deploy.yml`): the same checks, then `bun run deploy` (`bun --bun wrangler deploy`).
 
 In both, `node` on the runner's PATH is a link to Bun, so install scripts run on Bun too.
