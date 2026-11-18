@@ -1,1 +1,1 @@
-try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}
+(function(){var t,l=document.createElement("link");try{t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}l.rel="icon";l.type="image/png";l.setAttribute("sizes","256x256");l.id="favicon";l.href=t==="light"?"/favicon-light.png":"/favicon.png";document.head.appendChild(l)})()
