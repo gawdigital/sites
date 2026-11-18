@@ -160,9 +160,17 @@
   .faq .links{margin-left:0;gap:24px;font-size:18px}
 }
 /* A wide phone layout (a tablet's narrow window, a phone on its side) puts the feature tiles in two columns, each with its
-   icon above its text; only a phone held upright stacks them in one. */
-@media (min-width:520px) and (max-width:768px){
+   icon above its text, and the two cards of a pair (Games and Support, Get started) side by side, the trial card shorter as on the desktop; only a phone held upright stacks them in one. */
+@media (min-width:640px) and (max-width:768px){
   .tiles{grid-template-columns:1fr 1fr}
   .tile{padding:88px 22px 24px;justify-content:flex-start}
   .tile:before{background:radial-gradient(100% 60% at 0 0,rgba(var(--xr),.08),transparent 70%)}
+  .start{grid-template-columns:1fr 1fr;column-gap:16px}
+  .start .trial{padding-top:170px}
+  .start .trial .scene{height:260px}
+  .duo{grid-template-columns:1fr 1fr;column-gap:16px}
+  .duo .games{padding-top:200px}
+  .duo .games .scene{height:250px}
+  .duo .games .pixwrap{top:50px}
+  .duo .games .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 120px,rgba(var(--cr),.85) 200px,rgb(var(--cr)) 250px)}
 }
