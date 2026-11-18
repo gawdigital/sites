@@ -26,6 +26,9 @@
     { "pattern": "gawdigital.cz", "custom_domain": true },
     { "pattern": "www.gawdigital.cz", "custom_domain": true }
   ],
+  // Pull requests upload a version with a preview alias (pr-N); since the custom domains turn workers.dev off, every
+  // deploy would turn the preview URLs off with it unless this says otherwise.
+  "preview_urls": true,
   // Public build-time configuration only; secrets are set with `wrangler secret put`.
   "vars": {}
 }
