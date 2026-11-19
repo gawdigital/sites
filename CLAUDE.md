@@ -2,7 +2,8 @@
 
 Bun workspace with the G.A.W.Digital websites. `packages/gawdigital` is gawdigital.cz (SvelteKit 3, Svelte 5,
 adapter-cloudflare on Workers); `common/ui` holds the shared components and theme, `common/i18n` the locale routing
-and `hreflang` helper. See `README.md` for the routes, the contact form and the owner steps.
+and `hreflang` helper, `sanity/` the content studio (products and FAQ, read at build time). See `README.md` for the
+routes, the contact form and the owner steps.
 
 ## Commands
 
@@ -17,9 +18,11 @@ so Bun, not Node, executes them; `serve` (`wrangler dev`) alone needs Node, sinc
 - **Secrets live only in Cloudflare** (`wrangler secret put`; `.dev.vars` locally, never committed):
   `TURNSTILE_SECRET_KEY`, `SMTP_USER`, `SMTP_PASSWORD`, `MAIL_TO`.
 - Every change goes through a pull request; CI checks, tests and builds it and uploads a preview. `main` deploys.
-- Commit message prefix = the area: `gawdigital:`, `common:`, `ci:`, `docs:`.
+- Commit message prefix = the area: `gawdigital:`, `common:`, `sanity:`, `ci:`, `docs:`.
 - English for every committed artifact. All page copy lives in the translation files (`en` is the approved
-  design copy; `de` and `cs` are drafts awaiting review).
+  design copy; `de` and `cs` are drafts awaiting review), except the products and the FAQ, which come from Sanity
+  and fall back to those files.
+- The Sanity project ID, dataset and tokens never go into the repository (GitHub variables, `sanity/.env`).
 - Pages are prerendered with `csr = false`; behaviour comes from small inline scripts and must work without
   JavaScript (Turnstile excepted). `/api/contact` is the only server route.
 - English paths in every locale: `/de/contact`, never `/de/kontakt`. English is unprefixed.

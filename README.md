@@ -8,7 +8,7 @@ SvelteKit and deployed to Cloudflare Workers.
 | `packages/gawdigital` | The gawdigital.cz site (SvelteKit 3, Svelte 5, `@sveltejs/adapter-cloudflare`) |
 | `common/ui` | Shared components (header, footer, mobile menu, language switch, hatch), the theme and its inline scripts |
 | `common/i18n` | Locale routing (English unprefixed, `/de` and `/cs` prefixed), `hreflang` alternates, the language redirect's inline scripts |
-| `sanity/` | Placeholder for the Sanity content studio (see its README) |
+| `sanity/` | The Sanity content studio: the products and the FAQ (see its README) |
 
 ## Commands
 
@@ -24,7 +24,8 @@ name; the one exception is `serve`, because `wrangler dev` cannot forward reques
 | `bun run --filter gawdigital dev:https` | The same over HTTPS on the local network (self-signed certificate), e.g. to try it on a phone |
 | `bun run build` | Build it for Cloudflare (`packages/gawdigital/.svelte-kit/cloudflare`) |
 | `bun run check` | Type-check (svelte-check) |
-| `bun run test` | Unit tests (`bun test`: the contact form's validation, locale routing, the language redirect's scripts) |
+| `bun run test` | Unit tests (`bun test`: the contact form's validation, locale routing, the language redirect's scripts, the CMS reads) |
+| `bun run --filter studio dev` | Run the Sanity studio locally (`sanity/README.md`) |
 | `bun run --filter gawdigital serve` | Serve the build locally with `wrangler dev` (bindings included; needs Node) |
 | `bunx --bun wrangler …` | Any other Wrangler command, from `packages/gawdigital` |
 
@@ -72,8 +73,23 @@ Permanent (301) redirects from the old paths, also under `/de` and `/cs`:
 ### Translations
 
 All copy lives in `packages/gawdigital/src/lib/translations`: the shared strings in `{en,de,cs}.json`, each page's in
-its folder. English is the approved design copy. **The German and Czech texts are drafts awaiting review by a
+its folder, except what the CMS holds (below). English is the approved design copy. **The German and Czech texts are drafts awaiting review by a
 native speaker**, the privacy policy most of all. Company data is not translated.
+
+### CMS
+
+The products (name and summary) and the MIDI Control FAQ come from Sanity, read **once per build** with a GROQ query
+against the public dataset (`src/lib/cms.ts`, loaded for every page by `src/routes/[[lang=locale]]/+layout.server.ts`).
+A field the CMS leaves empty falls back to English, and content it does not hold at all to the translation files
+(`src/lib/content.ts` names the keys), so a build without `SANITY_PROJECT_ID` renders the same pages as before. A
+failed read fails the build rather than deploying the fallback over published content. The pages are prerendered,
+so a publish reaches the site by redeploying it: the studio's webhook starts `deploy.yml` (`repository_dispatch`,
+type `sanity-publish`).
+
+| Name | Kind | Purpose |
+|------|------|---------|
+| `SANITY_PROJECT_ID` | build variable | The Sanity project (a GitHub repository variable); unset, the CMS is not read |
+| `SANITY_DATASET` | build variable | Its dataset, `production` by default |
 
 ### Contact form
 
@@ -105,6 +121,8 @@ Set the secrets with `bunx --bun wrangler secret put <NAME>` in `packages/gawdig
   `bun --bun wrangler versions upload --preview-alias pr-<number>`; a comment on the pull request (updated on every
   push) and the step summary name its URLs.
 - **`main`** (`.github/workflows/deploy.yml`): the same checks, then `bun run deploy` (`bun --bun wrangler deploy`).
+  A publish in the Sanity studio runs it too (`repository_dispatch`), so the site is rebuilt with the new content.
+- Pull requests also build the Sanity studio, which catches a schema it cannot load.
 
 In both, `node` on the runner's PATH is a link to Bun, so install scripts run on Bun too.
 Both need the repository secrets `CLOUDFLARE_API_TOKEN` (Workers edit rights) and `CLOUDFLARE_ACCOUNT_ID`.
@@ -118,5 +136,5 @@ Both need the repository secrets `CLOUDFLARE_API_TOKEN` (Workers edit rights) an
 4. For the `send_email` fallback: enable Email Routing on the sender's domain and verify the `MAIL_TO` address as a
    destination.
 5. When the app is live, replace the `#app-store` placeholder links with its Mac App Store URL.
-6. Create the Sanity project (see `sanity/README.md`).
+6. Set up the CMS: the repository variables, the seed, the studio and the publish webhook (`sanity/README.md`).
 7. Have the German and Czech drafts reviewed.
