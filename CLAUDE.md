@@ -20,7 +20,7 @@ so Bun, not Node, executes them; `serve` (`wrangler dev`) alone needs Node, sinc
 - Every change goes through a pull request; CI checks, tests and builds it and uploads a preview. `main` deploys.
 - Commit message prefix = the area: `gawdigital:`, `common:`, `sanity:`, `ci:`, `docs:`.
 - English for every committed artifact. All page copy lives in the translation files (`en` is the approved
-  design copy; `de` and `cs` are drafts awaiting review), except the products and the FAQ, which come from Sanity
+  design copy; `de` and `cs` are reviewed, and new copy in them needs a native speaker's review), except the products and the FAQ, which come from Sanity
   and fall back to those files.
 - The Sanity project ID, dataset and tokens never go into the repository (GitHub variables, `sanity/.env`).
 - Pages are prerendered with `csr = false`; behaviour comes from small inline scripts and must work without
