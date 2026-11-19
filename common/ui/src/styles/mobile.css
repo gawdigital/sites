@@ -5,8 +5,8 @@
   .blob.b2{display:none}
   .home{left:16px;width:88px;height:120px;border-radius:0 0 44px 44px}
   .menu{display:none}
-  /* mobile nav: three dots (48 x 48 target, centred on the logo: 36 px from the right, 60 px down) */
-  .mnav,.mmenu .mclose{display:flex;position:absolute;right:12px;top:36px;width:48px;height:48px;align-items:center;justify-content:center;
+  /* mobile nav: three dots (48 x 48 target, centred where the old burger's 40 px disc was: 36 px from the right, 45 px down) */
+  .mnav,.mmenu .mclose{display:flex;position:absolute;right:12px;top:21px;width:48px;height:48px;align-items:center;justify-content:center;
     padding:0;margin:0;border:0;background:none;-webkit-appearance:none;appearance:none;color:var(--text);cursor:pointer;z-index:5;
     -webkit-tap-highlight-color:transparent;border-radius:24px}
   .mnav svg{width:37px;height:8px;display:block;overflow:visible}
