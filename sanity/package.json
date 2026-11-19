@@ -1,0 +1,23 @@
+{
+  "name": "studio",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "bun --bun sanity dev",
+    "build": "bun --bun sanity build",
+    "deploy": "bun --bun sanity deploy",
+    "seed": "bun --bun sanity exec scripts/seed.ts --with-user-token",
+    "check": "bun --bun tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "sanity": "6.24.0",
+    "styled-components": "6.6.0"
+  },
+  "devDependencies": {
+    "@types/bun": "1.4.4",
+    "typescript": "6.0.3"
+  }
+}
