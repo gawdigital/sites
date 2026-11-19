@@ -1,6 +1,6 @@
 
 /* contact.html: the hub's two columns, MESSAGE (the canonical form) and COMPANY (the registered details) */
-.cgrid{display:grid;grid-template-columns:750px 750px;column-gap:60px;align-items:start;margin-top:120px}
+.cgrid{display:grid;grid-template-columns:630px 630px;column-gap:60px;align-items:start;margin-top:120px}
 .cgrid .divider{margin:0 0 60px}
 .cgrid .hcol{display:flex;flex-direction:column;min-width:0}
 .cgrid .formc{max-width:none}
@@ -15,7 +15,8 @@
 .coc dl{display:flex;flex-direction:column;gap:28px}
 .crow{display:grid;grid-template-columns:180px minmax(0,1fr) auto;column-gap:20px;align-items:baseline}
 .coc .sr{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.crow dd.nw{white-space:nowrap}
+/* the IBAN breaks only between its groups of four */
+.crow dd.nw{overflow-wrap:normal}
 .crow dt{padding-top:3px}
 .crow dd{font-weight:500;font-size:19px;line-height:1.4737;color:var(--text);-webkit-user-select:text;user-select:text;
   font-variant-numeric:tabular-nums;overflow-wrap:anywhere}

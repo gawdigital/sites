@@ -5,8 +5,8 @@ import noise from './assets/noise.png?url';
 import base from './styles/base.css?raw';
 import mobile from './styles/mobile.css?raw';
 
-/** The design's width: the desktop layout is drawn for a 1680 px window. */
-const DESIGN_WIDTH = 1680;
+/** The design's width: the desktop layout is drawn for a 1440 px window. */
+const DESIGN_WIDTH = 1440;
 
 /**
  * Between the mobile layout and the design's width, the desktop layout is shrunk to fit the window instead of running

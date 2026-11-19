@@ -5,7 +5,7 @@
    (styles.ts, the fallback without JavaScript) off; --fit is the scale, and --fit-m the bottom margin that takes the
    height the frame lost out of the page, since a transform leaves the layout box as it was. The width is the window's
    less its scrollbar, which `fit` keeps in place, so a scale never moves the scrollbar that set it. */
-(function(){var r=document.documentElement,W=1680,fr=null;if(!window.matchMedia||!window.ResizeObserver)return;var Q='(min-width:769px)';
+(function(){var r=document.documentElement,W=1440,fr=null;if(!window.matchMedia||!window.ResizeObserver)return;var Q='(min-width:769px)';
 /* the query is asked afresh: in a resize handler WebKit still answers a kept MediaQueryList with the old width */
 function wd(){return r.clientWidth||innerWidth}
 function fit(){var on=matchMedia(Q).matches&&wd()<W;r.classList.toggle('fit',on);if(on){r.style.setProperty('--fit',Math.floor(wd()/W*1e5)/1e5);tail()}}

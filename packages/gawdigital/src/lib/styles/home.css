@@ -16,7 +16,7 @@
 .appcard .row{justify-content:flex-start}
 .appcard .btn{margin-left:0}
 .appcard .shot{position:relative;z-index:2}
-.duo{display:grid;grid-template-columns:900px 600px;column-gap:60px;align-items:stretch;margin-top:60px}
+.duo{display:grid;grid-template-columns:760px 500px;column-gap:60px;align-items:stretch;margin-top:60px}
 .duo .card{padding:52px 60px}
 /* GAMES has no section yet: the same dimmed card on Home and Support */
 .games .scene{filter:saturate(.35);opacity:.6}

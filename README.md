@@ -35,7 +35,7 @@ Every page is prerendered and ships no client framework (`csr = false`); the sma
 language redirect, the theme switch, the mobile menu, copy buttons, the form's in-page submit and the desktop
 layout's scale. Everything works without JavaScript except Turnstile.
 
-The desktop layout is drawn 1680 px wide. Up to 768 px the phone layout shows; between that and 1680 px the desktop
+The desktop layout is drawn 1440 px wide. Up to 768 px the phone layout shows; between that and 1440 px the desktop
 frame is scaled to the window by a transform (`common/ui/src/scripts/fit-head.js`), and without JavaScript by a
 ladder of `zoom` steps (`common/ui/src/styles.ts`). The transform is the one to rely on: WebKit keeps zoomed text
 at 9 px or more while the layout around it goes on shrinking.
