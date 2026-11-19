@@ -154,7 +154,7 @@
   .start .r{padding-top:0;gap:16px}
   .start .trial{padding-top:200px}
   .start .hatch{margin:24px auto 0}
-  .faq{flex-direction:column;align-items:flex-start;gap:12px;padding:0 8px}
+  .faq{flex-direction:column;align-items:flex-start;gap:12px}
   .faq h3{font-size:28px;line-height:1.1429}
   .faq p{font-size:16px;line-height:1.5}
   .faq .links{margin-left:0;gap:24px;font-size:18px}
