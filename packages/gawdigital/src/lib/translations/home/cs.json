@@ -1,16 +1,16 @@
 {
   "apps_games": "APLIKACE<br><span class=\"x\">&amp; HRY…</span>",
-  "g_a_w_digital_is": "G.A.W.Digital je softwarové studio G.A.W.Group. Tvoříme aplikace a hry pro Mac.",
+  "g_a_w_digital_is": "G.A.W.Digital je softwarové studio společnosti G.A.W.Group. Tvoříme aplikace a hry pro Mac.",
   "01_apps": "<b>01</b>APLIKACE",
   "02_games": "<b>02</b>HRY",
   "03_support": "<b>03</b>PODPORA",
   "what_we_make": "Co tvoříme",
   "mac_app": "APLIKACE PRO MAC",
   "apps": "APLIKACE",
-  "midi_control_for_fireface_a": "MIDI Control for Fireface – ovládací plocha pro Mac k samostatnému mixu Fireface 800, přes MIDI. Bez FireWire.",
+  "midi_control_for_fireface_a": "MIDI Control for Fireface – ovládání samostatného mixeru Fireface 800 z Macu přes MIDI. Bez FireWire.",
   "fireface_800_macos_13": "Fireface 800 · macOS 13+",
-  "view_app": "ZOBRAZIT",
+  "view_app": "O APLIKACI",
   "help": "NÁPOVĚDA",
-  "faq_and_report_a_problem": "FAQ a Report a Problem přímo z nabídky Help v aplikaci.",
-  "get_help": "ZÍSKAT POMOC"
+  "faq_and_report_a_problem": "FAQ a Report a Problem najdete přímo v nabídce Help v aplikaci.",
+  "get_help": "POTŘEBUJI POMOC"
 }
