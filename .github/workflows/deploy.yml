@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # A publish in the Sanity studio: its webhook calls GitHub's `dispatches` endpoint (`sanity/README.md`).
+  repository_dispatch:
+    types: [sanity-publish]
 
 permissions:
   contents: read
@@ -34,6 +37,8 @@ jobs:
       - run: bun run build
         env:
           PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.PUBLIC_TURNSTILE_SITE_KEY }}
+          SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
+          SANITY_DATASET: ${{ vars.SANITY_DATASET }}
       - name: Deploy
         working-directory: packages/gawdigital
         env:
