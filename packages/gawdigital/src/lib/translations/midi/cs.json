@@ -43,7 +43,7 @@
   "supported": "PODPOROVÁNO",
   "fireface_400_same_scheme_fewer": "Fireface 400<small>Stejné schéma, méně kanálů</small>",
   "planned": "V PLÁNU",
-  "macos_13_to_macos_27": "macOS 13 až macOS 27 Golden Gate<small>Apple silicon; Intel po Tahoe</small>",
+  "macos_13_to_macos_27": "macOS 13 až macOS 27 Golden Gate<small>Apple silicon; Intel do Tahoe</small>",
   "midi_interface_any_usb_midi": "MIDI rozhraní<small>Libovolné USB-MIDI se vstupem a výstupem</small>",
   "required": "NUTNÉ",
   "get_started": "Začínáme",
