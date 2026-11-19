@@ -116,7 +116,6 @@
 
   <div class="divider"><h2>{t('midi.help')}</h2><i class="ticks"></i><span class="idx">05</span></div>
   <section class="faq">
-    <h3>{t('midi.questions')}</h3>
     <p>{t('midi.in_the_app_help_report')}</p>
     <div class="links"><a class="ln" href={href('/apps/midi-control/support')}>{t('common.faq')}</a><a class="ln" href={href('/apps/midi-control/support')}>{t('midi.support')}</a><a class="ln" href={href('/privacy')}>{t('midi.privacy')}</a></div>
   </section>

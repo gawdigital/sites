@@ -59,7 +59,7 @@
 .start .trial{height:740px}
 .start .trial .scene{height:440px}
 .start .hatch{margin-left:120px}
-.faq{display:flex;align-items:center;gap:60px;padding:0 20px}
+.faq{display:flex;align-items:center;gap:60px}
 .faq h3{font-weight:800;font-size:40px;line-height:1.1;text-transform:uppercase;white-space:nowrap}
 .faq p{font-weight:500;font-size:20px;line-height:1.4;color:var(--soft);max-width:560px}
 .faq .links{display:flex;gap:40px;margin-left:auto;font-weight:800;font-size:24px}

@@ -4,10 +4,12 @@
 .peek{position:absolute;left:880px;right:-60px;top:-50px;height:640px;z-index:1;pointer-events:none}
 /* the perspective is the window's own (perspective() between the translates is the same projection as perspective:2200px
    on .peek, seen from its centre, 340 px right of and 300 px below the window's top left): a view transition's
-   snapshot drops a parent's perspective, so the window came in flat and then snapped into its tilt */
+   snapshot drops a parent's perspective. The window is also a view transition of its own: WebKit paints a page's
+   snapshot without 3D, flattening the tilt, so the window came in flat and then snapped into it; captured on its own,
+   its tilt is the group's transform, which the compositor draws in 3D */
 .peek .tilt{position:absolute;left:30px;top:20px;width:980px;transform:translate(340px,calc(300px - 50%)) perspective(2200px) translate(-340px,calc(50% - 300px))
     rotateY(-14deg) rotateX(4deg) rotateZ(1deg);
-  transform-origin:left center}
+  transform-origin:left center;view-transition-name:peek}
 .peek .appwin{filter:drop-shadow(0 34px 56px rgba(0,0,0,.45))}
 :root[data-theme="light"] .peek .appwin{filter:drop-shadow(0 34px 56px rgba(30,45,70,.26))}
 .peek-hero + .divider{margin-top:130px}
