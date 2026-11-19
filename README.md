@@ -73,8 +73,8 @@ Permanent (301) redirects from the old paths, also under `/de` and `/cs`:
 ### Translations
 
 All copy lives in `packages/gawdigital/src/lib/translations`: the shared strings in `{en,de,cs}.json`, each page's in
-its folder, except what the CMS holds (below). English is the approved design copy; the German and Czech texts have been reviewed by native speakers. Company data
-is not translated.
+its folder, except what the CMS holds (below). English is the approved design copy. The German and Czech texts have been checked by AI; **a native speaker's review is
+still pending**, the privacy policy most of all. Company data is not translated.
 
 ### CMS
 
@@ -137,4 +137,4 @@ Both need the repository secrets `CLOUDFLARE_API_TOKEN` (Workers edit rights) an
    destination.
 5. When the app is live, replace the `#app-store` placeholder links with its Mac App Store URL.
 6. Set up the CMS: the repository variables, the seed, the studio and the publish webhook (`sanity/README.md`).
-7. Have any new German or Czech copy reviewed by a native speaker before it ships.
+7. Have the German and Czech texts reviewed by a native speaker (so far they have had an AI check only).
