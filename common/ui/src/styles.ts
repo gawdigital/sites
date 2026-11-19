@@ -36,7 +36,14 @@ function narrowDesktop(): string {
 export const BASE_CSS = `${base.replace('%FONT%', font).replace('%NOISE%', noise)}\n${narrowDesktop()}`;
 export const MOBILE_CSS = mobile;
 
-/** One `<style>` element in the design's cascade order. */
+/**
+ * The font is asked for before the stylesheet is parsed, so it is in hand when the page is first laid out: found only
+ * through the `@font-face` rule, it came late enough that Safari painted a reloaded page with its text still invisible.
+ * A font is always fetched in CORS mode, so the preload is too, or the browser would not reuse it.
+ */
+export const FONT_PRELOAD = `<link rel="preload" href="${font}" as="font" type="font/ttf" crossorigin>`;
+
+/** The font's preload, then one `<style>` element in the design's cascade order. */
 export function stylesheet(head: readonly string[], tail: readonly string[]): string {
-  return `<style>${BASE_CSS}${head.join('')}${MOBILE_CSS}${tail.join('')}</style>`;
+  return `${FONT_PRELOAD}<style>${BASE_CSS}${head.join('')}${MOBILE_CSS}${tail.join('')}</style>`;
 }

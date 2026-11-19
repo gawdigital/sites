@@ -84,7 +84,11 @@ o.push({e:e,ps:ps,k:[bw,bh,w.toFixed(2),h.toFixed(2),bi,mi].join('|'),j:{bw:bw,b
 /* the bitmaps as rules in one sheet of ours, keyed by a data attribute, ::before and ::after included */
 function rules(){sheet.textContent=T.filter(function(t){return C[t.k]}).map(function(t){return'[data-dz'+(t.ps?t.ps.slice(2,3):'')+'="'+t.id+'"]'+(t.ps||'')+'{background-image:url('+C[t.k]+')!important;background-size:100% 100%!important;background-repeat:no-repeat!important;background-position:0 0!important'+(t.m?';-webkit-mask-image:none!important;mask-image:none!important':'')+'}'}).join('\n')}
 function got(d){busy=0;put(d.k,d.b);next()}
-function put(k,b){if(C[k])return;C[k]=URL.createObjectURL(b);keep[k]=gen;rules()}
+/* the bitmap replaces the gradient only once it is decoded: swapped in at once, Safari showed the bare background colour
+   for a frame or two while it decoded, so a card flashed dark as a page came in */
+function put(k,b){if(C[k])return;var u=URL.createObjectURL(b),im=new Image();
+function ok(){if(C[k]){URL.revokeObjectURL(u);return}C[k]=u;keep[k]=gen;rules()}
+im.src=u;if(im.decode)im.decode().then(ok,ok);else im.onload=im.onerror=ok}
 function want(t){if(C[t.k]||t.q)return;t.q=1;Q.push(t);next()}
 function next(){if(busy)return;var t;while((t=Q.shift())&&(C[t.k]||T.indexOf(t)<0));if(!t)return;busy=1;var j=t.j;j.k=t.k;
 if(wk)wk.postMessage(j);else setTimeout(function(){got({k:j.k,b:png(draw(j),j.bw,j.bh)})},0)}
