@@ -16,4 +16,12 @@ export const variables = defineEnvVars({
   SMTP_USER: { schema: optional, description: 'SMTP login at mail.blueboard.cz; also the sender address.' },
   SMTP_PASSWORD: { schema: optional, description: 'SMTP password.' },
   MAIL_TO: { schema: optional, description: 'Where contact form messages are delivered.' },
+  // The CMS is read at build time only (every page is prerendered). Without a project ID the pages keep the copy of
+  // the translation files.
+  SANITY_PROJECT_ID: { static: true, schema: optional, description: 'Sanity project ID (a build-time variable).' },
+  SANITY_DATASET: {
+    static: true,
+    schema: (value) => value || 'production',
+    description: 'Sanity dataset the site reads, `production` by default.',
+  },
 });
