@@ -2,7 +2,7 @@
   "name": "sites",
   "private": true,
   "type": "module",
-  "workspaces": ["packages/*", "common/*"],
+  "workspaces": ["packages/*", "common/*", "sanity"],
   "scripts": {
     "dev": "bun run --filter gawdigital dev",
     "build": "bun run --filter gawdigital build",
