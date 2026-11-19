@@ -2,7 +2,7 @@
 /* privacy.html: the contact page's shell; the company card's rows carry the sections, two cards a row on desktop */
 .lb{display:block;padding:0;font-weight:800;font-size:14px;line-height:1.2857;letter-spacing:.12em;text-transform:uppercase;color:var(--soft)}
 .shead .upd{margin-top:16px;font-weight:700;font-size:18px;line-height:1.3333;color:var(--dim)}
-.pgrid{display:grid;grid-template-columns:750px 750px;column-gap:60px;align-items:stretch;margin-top:140px}
+.pgrid{display:grid;grid-template-columns:630px 630px;column-gap:60px;align-items:stretch;margin-top:140px}
 .shead + .pgrid{margin-top:120px}
 .pgrid .divider{margin:0 0 60px}
 .pgrid .hcol{display:flex;flex-direction:column;min-width:0}

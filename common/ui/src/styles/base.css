@@ -53,10 +53,10 @@ a.ln .arr.ext svg{width:.84em;transform:translateY(.15em)}
 a.ln:active .arr.ext svg{transform:translate(.16em,-.01em)}
 .x{color:var(--xt)}
 /* The frame spans the whole window, so the background (blob, vignette, hatch, noise) is never cut off at the
-   content's edges; the content keeps the design's 1560 px column (1680 less its 60 px gutters), centred. It clips
+   content's edges; the content keeps the design's 1320 px column (1440 less its 60 px gutters), centred. It clips
    rather than hides its overflow: a hidden overflow is still a scroll container, and a jump to a fragment
    scrolled the frame inside the page, cutting its top off and leaving an empty band below. */
-.frame{--gut:max(60px,calc((100% - 1560px) / 2));position:relative;width:100%;min-width:1680px;min-height:100vh;margin:0;
+.frame{--gut:max(60px,calc((100% - 1320px) / 2));position:relative;width:100%;min-width:1440px;min-height:100vh;margin:0;
   overflow:hidden;overflow:clip;padding:0 var(--gut) 60px}
 .blob{position:absolute;left:0;top:148px;width:100%;height:2900px;pointer-events:none}
 .blob.b2{top:auto;bottom:-400px;height:2400px;transform:scaleX(-1)}

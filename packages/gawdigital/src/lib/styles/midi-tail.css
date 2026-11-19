@@ -31,7 +31,7 @@
 .prod .pic{flex:none;width:88px;height:88px;filter:drop-shadow(0 12px 22px rgba(0,0,0,.35))}
 .prod .pic svg{display:block;width:100%;height:100%}
 .prod .tag{margin-bottom:0}
-.inapp{display:grid;grid-template-columns:750px 750px;column-gap:60px;align-items:stretch}
+.inapp{display:grid;grid-template-columns:630px 630px;column-gap:60px;align-items:stretch}
 .wincard{padding:44px 44px 56px;justify-content:flex-start}
 /* the scene fades into the card below the window, so its end and the window's shadow leave no edge */
 .wincard .scene{height:520px;background:radial-gradient(60% 60% at 50% 20%,rgba(var(--xr),.14),transparent 70%),var(--sd);

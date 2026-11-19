@@ -33,6 +33,8 @@ legend.lb{margin-bottom:10px}
 .fhint{padding-left:16px;border-left:3px solid var(--x);font-weight:500;font-size:16px;line-height:1.5;color:var(--soft)}
 .fhint[hidden]{display:none}
 .fend{display:flex;align-items:center;justify-content:space-between;gap:24px}
+/* Turnstile is a fixed 300 px; the button takes what the column leaves */
+.fend .btn{flex:1 1 auto;min-width:0}
 .ts{flex:none;display:flex;align-items:center;gap:14px;width:300px;height:65px;padding:0 18px;border-radius:12px;
   background:var(--fbg);box-shadow:inset 0 0 0 2px var(--line)}
 .ts i{flex:none;width:26px;height:26px;border-radius:6px;box-shadow:inset 0 0 0 2px var(--fb)}
