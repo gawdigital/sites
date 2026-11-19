@@ -9,11 +9,13 @@
   import { get } from '#lib/translations/index.ts';
   import { localeOf, pathOf } from '@gaw/i18n/locale.ts';
   import { page } from '$app/state';
+  import { productFor } from '#lib/cms.ts';
 
   const i18n = get();
   const t = i18n.t;
   const locale = $derived(localeOf(page.url.pathname));
   const href = (route: string) => pathOf(route, locale);
+  const games = $derived(productFor(page.data.cms, 'games', locale, t as unknown as (key: string) => string));
   const art: Record<string, string> = { 'home-appwin-aw-d': art_home_appwin_aw_d, 'home-appwin-aw-d-2': art_home_appwin_aw_d_2, 'home-appwin-aw-l': art_home_appwin_aw_l, 'home-appwin-aw-l-2': art_home_appwin_aw_l_2, 'home-art': art_home_art, 'home-pix': art_home_pix };
 </script>
 
@@ -47,8 +49,8 @@
       <div class="scene sb"><div class="pixwrap">{@html art['home-pix']}</div></div><div class="fade"></div>
       <div class="content">
         <span class="tag">{t('common.coming_soon')}</span>
-        <h2>{t('common.games')}</h2>
-        <p>{t('common.something_fun_is_in_the')}</p>
+        <h2>{games.name}</h2>
+        <p>{games.summary}</p>
       </div>
     </article>
     <article class="card support">

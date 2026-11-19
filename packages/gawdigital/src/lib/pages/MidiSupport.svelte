@@ -4,12 +4,14 @@
   import { get } from '#lib/translations/index.ts';
   import { localeOf, pathOf, prefixOf } from '@gaw/i18n/locale.ts';
   import { page } from '$app/state';
+  import { faqFor } from '#lib/cms.ts';
 
   const i18n = get();
   const t = i18n.t;
   const locale = $derived(localeOf(page.url.pathname));
   const prefix = $derived(prefixOf(locale));
   const href = (route: string) => pathOf(route, locale);
+  const faq = $derived(faqFor(page.data.cms, 'midi-control', locale, t as unknown as (key: string) => string));
 </script>
 
 <Shell name="midi-support" title={t('midisupport.support_midi_control_for_fireface')}>
@@ -41,7 +43,9 @@
   </section>
 
   <div class="divider"><h2>{t('common.faq')}</h2><i class="ticks"></i><span class="idx">02</span></div>
-  <article class="card qa"><div class="qg"><h3>{t('midisupport.getting_started')}</h3><div class="ql"><details open><summary><span>{t('midisupport.do_i_need_firewire_or')}</span></summary><p>{t('midisupport.no_the_app_talks_to')}</p></details><details><summary><span>{t('midisupport.do_i_have_to_enable')}</span></summary><p>{t('midisupport.no_the_units_stand_alone')}</p></details><details><summary><span>{t('midisupport.which_midi_interface_do_i')}</span></summary><p>{t('midisupport.any_usb_midi_interface_with')}</p></details><details><summary><span>{t('midisupport.which_macs_and_macos_versions')}</span></summary><p>{t('midisupport.macos_13_ventura_to_macos')}</p></details><details><summary><span>{t('midisupport.does_it_support_the_fireface')}</span></summary><p>{t('midisupport.the_fireface_800_is_supported')}</p></details></div></div><div class="qg"><h3>{t('midisupport.using_the_app')}</h3><div class="ql"><details><summary><span>{t('midisupport.why_cant_i_find_eq')}</span></summary><p>{t('midisupport.the_fireface_800s_stand_alone')}</p></details><details><summary><span>{t('midisupport.why_does_the_app_not')}</span></summary><p>{t('midisupport.the_front_panel_sends_nothing')}</p></details><details><summary><span>{t('midisupport.why_does_the_app_ask')}</span></summary><p>{t('midisupport.the_unit_never_reports_phantom')}</p></details><details><summary><span>{t('midisupport.what_happens_when_i_switch')}</span></summary><p>{t('midisupport.the_unit_reloads_its_stored')}</p></details><details><summary><span>{t('midisupport.can_i_use_more_than')}</span></summary><p>{t('midisupport.yes_each_unit_is_a')}</p></details></div></div><div class="qg"><h3>{@html t('midisupport.trial_purchase')}</h3><div class="ql"><details><summary><span>{t('midisupport.how_does_the_trial_work')}</span></summary><p>{t('midisupport.download_the_app_from_the')}</p></details><details><summary><span>{t('midisupport.what_happens_after_the_trial')}</span></summary><p>{t('midisupport.the_app_is_a_one')}</p></details><details><summary><span>{t('midisupport.i_bought_it_on_another')}</span></summary><p>{t('midisupport.choose_restore_purchases_in_the')}</p></details></div></div></article>
+  <article class="card qa">
+    {#each faq as group, g}<div class="qg"><h3>{group.title}</h3><div class="ql">{#each group.items as item, i}<details open={g === 0 && i === 0}><summary><span>{item.question}</span></summary><p>{item.answer}</p></details>{/each}</div></div>{/each}
+  </article>
 
   <div class="divider"><h2>{t('midisupport.still_stuck')}</h2><i class="ticks"></i><span class="idx">03</span></div>
   <section class="faq">
