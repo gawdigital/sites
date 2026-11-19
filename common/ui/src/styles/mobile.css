@@ -3,10 +3,10 @@
   .frame{width:100%;min-width:0;padding:0 16px 32px}
   .blob{width:220%;left:-60%;height:2400px;top:60px}
   .blob.b2{display:none}
-  .home{left:16px;width:66px;height:90px;border-radius:0 0 33px 33px}
+  .home{left:16px;width:88px;height:120px;border-radius:0 0 44px 44px}
   .menu{display:none}
-  /* mobile nav: three dots (48 x 48 target, centred where the old burger's 40 px disc was: 36 px from the right, 45 px down) */
-  .mnav,.mmenu .mclose{display:flex;position:absolute;right:12px;top:21px;width:48px;height:48px;align-items:center;justify-content:center;
+  /* mobile nav: three dots (48 x 48 target, centred on the logo: 36 px from the right, 60 px down) */
+  .mnav,.mmenu .mclose{display:flex;position:absolute;right:12px;top:36px;width:48px;height:48px;align-items:center;justify-content:center;
     padding:0;margin:0;border:0;background:none;-webkit-appearance:none;appearance:none;color:var(--text);cursor:pointer;z-index:5;
     -webkit-tap-highlight-color:transparent;border-radius:24px}
   .mnav svg{width:37px;height:8px;display:block;overflow:visible}
@@ -40,7 +40,7 @@
   /* B: the card, items in --text, the page's item in the brand gradient as on the desktop nav */
   .mmenu.mm-b{background:var(--card);color:var(--text)}
   .mm-b li > a[aria-current]{background:var(--xg);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
-  main{padding-top:128px}
+  main{padding-top:158px}
   .kicker,.crumb{font-size:12px;letter-spacing:.12em}
   h1{font-size:50px;line-height:1}
   .lead{font-size:17px;line-height:1.4706}
