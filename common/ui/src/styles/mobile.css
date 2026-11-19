@@ -75,7 +75,7 @@
   .days{left:24px;right:24px;top:20px}
   .days .big{font-size:120px;line-height:0.9167;-webkit-text-stroke:2px var(--ghost)}
   .dots{gap:5px;margin-top:8px} .dots i{box-shadow:inset 0 0 0 2px var(--ring)}
-  .footer{flex-direction:column;align-items:flex-start;gap:20px;margin-top:64px;padding:0 8px;font-size:14px;line-height:1.5}
+  .footer{flex-direction:column;align-items:flex-start;gap:20px;margin-top:64px;font-size:14px;line-height:1.5}
   .footer .fr{gap:24px;font-size:14px;flex-wrap:nowrap}
   /* home */
   .hero{grid-template-columns:1fr 112px;column-gap:8px;align-items:end}
