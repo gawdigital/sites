@@ -3,7 +3,7 @@
   import Shell from '#lib/Shell.svelte';
   import { get } from '#lib/translations/index.ts';
   import ContactForm from '#lib/ContactForm.svelte';
-  import { script } from '#lib/scripts.ts';
+  import { COPY, script } from '@gaw/ui/scripts.ts';
   import type { FormState } from '#lib/forms.ts';
   import { localeOf, prefixOf } from '@gaw/i18n/locale.ts';
   import { page } from '$app/state';
@@ -39,7 +39,7 @@
       <p class="cnote" id="cnote" aria-live="polite"></p>
     </article>
   </section>
-  {@html script('copy', { COPIED: t('form.copied'), NOTE: t('form.copied_note', { what: '%s' }), COPY: t('contact.copy') })}
+  {@html script(COPY, { COPIED: t('form.copied'), NOTE: t('form.copied_note', { what: '%s' }), COPY: t('contact.copy') })}
   </div>
   </div>
 

@@ -1,8 +1,9 @@
 // What each page of the site is: its route, which navigation item it sits under, and the stylesheet fragments the
 // approved design composes it from (head before the shared mobile rules, tail after them).
-import contact from './styles/contact.css?raw';
-import formFields from './styles/form-fields.css?raw';
-import form from './styles/form.css?raw';
+import { ADDITIONS_CSS, CONTACT_CSS, formCss, formFieldsCss } from '@gaw/ui/styles.ts';
+
+import formFieldsTokens from './styles/form-fields-tokens.css?raw';
+import formTokens from './styles/form-tokens.css?raw';
 import homeTail from './styles/home-tail.css?raw';
 import home from './styles/home.css?raw';
 import hub from './styles/hub.css?raw';
@@ -12,11 +13,15 @@ import midiHead from './styles/midi-head.css?raw';
 import midiTail from './styles/midi-tail.css?raw';
 import privacy from './styles/privacy.css?raw';
 import product from './styles/product.css?raw';
-import site from './styles/site.css?raw';
 import support from './styles/support.css?raw';
 
-/** The site's own rules on top of the design (the form's error line, the live verification widget, the error page). */
-export const SITE_CSS = site;
+// The shared form spec in this site's colours: its token rules go where the design declares them.
+const contact = CONTACT_CSS;
+const form = formCss(formTokens);
+const formFields = formFieldsCss(formFieldsTokens);
+
+/** The additions on top of the design (the form's error line, the live verification widget, the error page). */
+export const SITE_CSS = ADDITIONS_CSS;
 
 /** The canonical origin, for canonical and hreflang links. */
 export const ORIGIN = 'https://gawdigital.cz';

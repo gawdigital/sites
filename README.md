@@ -6,7 +6,7 @@ SvelteKit and deployed to Cloudflare Workers.
 | Path | What it is |
 |------|------------|
 | `packages/gawdigital` | The gawdigital.cz site (SvelteKit 3, Svelte 5, `@sveltejs/adapter-cloudflare`) |
-| `common/ui` | Shared components (header, footer, mobile menu, language switch, hatch), the theme and its inline scripts |
+| `common/ui` | Shared components (header, footer, mobile menu, language switch, hatch), the theme and its inline scripts, and the form spec: the fields, pills, verification box and form cards with their styles and scripts, in each site's colours |
 | `common/i18n` | Locale routing (English unprefixed, `/de` and `/cs` prefixed), `hreflang` alternates, the language redirect's inline scripts |
 | `sanity/` | The Sanity content studio: the products and the FAQ (see its README) |
 
