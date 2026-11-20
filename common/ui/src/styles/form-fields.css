@@ -1,12 +1,12 @@
 
 %TOKENS%
 /* fields share the verification box's surface: --chip fill, 2px --line edge, radius 18 on both, at every width */
-.fg .fbox{--edge:var(--line);position:relative;display:block;height:70px;border-radius:18px;background:var(--chip);box-shadow:inset 0 0 0 2px var(--edge);
+.fg .fbox{--edge:var(--line);--focus:var(--blue);position:relative;display:block;height:70px;border-radius:18px;background:var(--chip);box-shadow:inset 0 0 0 2px var(--edge);
   transition:box-shadow .15s,background-color .15s}
-/* hover: a stronger edge; focus: the edge in the links' blue, the card's own colour as a solid fill, and a shadow the size of the buttons' glow */
+/* hover: a stronger edge; focus: the edge in the focus colour (--focus, the links' blue unless a theme sets its own), the card's own colour as a solid fill, and a shadow the size of the buttons' glow */
 @media (hover:hover){.fg .fbox:hover{--edge:color-mix(in srgb,var(--text) 40%,var(--line))}}
 .fg .fbox:active{--edge:color-mix(in srgb,var(--text) 40%,var(--line))}
-.fg .fbox:focus-within{--edge:var(--blue);background:var(--card);box-shadow:inset 0 0 0 2px var(--edge),0 0 28px var(--sh1)}
+.fg .fbox:focus-within{--edge:var(--focus);background:var(--card);box-shadow:inset 0 0 0 2px var(--edge),0 0 28px var(--sh1)}
 .fg .ts{border-radius:18px}
 .fg .fbox .lb{position:absolute;z-index:1;top:15px;left:18px;right:40px;font-size:12px;line-height:1.25;letter-spacing:.12em;
   color:var(--soft);pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -22,9 +22,9 @@
 .fg .cform .fbox input:focus-visible,.fg .cform .fbox select:focus-visible,.fg .cform .fbox textarea:focus-visible{border:0;box-shadow:none}
 /* an autofilled field: the browser's own paint (a pale yellow in Safari) is held off by a background transition it
    never finishes; the field shows a little brighter instead, a light veil of the text colour over the box's fill and
-   an edge toward the accent, and the text keeps the page's colour; focus looks as on any field */
+   an edge toward the focus colour, and the text keeps the page's colour; focus looks as on any field */
 .fg .cform .fbox input:-webkit-autofill{-webkit-text-fill-color:var(--text);caret-color:var(--text);
-  box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--x) 30%,var(--line)),inset 0 0 0 200px color-mix(in srgb,var(--text) 6%,transparent);
+  box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--focus) 30%,var(--line)),inset 0 0 0 200px color-mix(in srgb,var(--text) 6%,transparent);
   transition:box-shadow .15s,background-color 0s 99999s}
 .fg .cform .fbox:focus-within input:-webkit-autofill{box-shadow:inset 0 0 0 2px var(--edge)}
 .fg .fsel select{padding-right:52px;cursor:pointer}
