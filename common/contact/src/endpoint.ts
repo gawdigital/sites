@@ -5,13 +5,14 @@
 import { readOrigin, resultPath, type Mail, type Origin, type Sender, type Sources } from './form.ts';
 import type { FormState } from './states.ts';
 
-const SMTP_HOST = 'mail.blueboard.cz';
 const SMTP_PORT = 587;
 const SITEVERIFY = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
 
 /** The secrets of a site's Worker, each optional so a deployment without them still answers. */
 export interface Secrets {
   TURNSTILE_SECRET_KEY?: string;
+  /** The SMTP server (port 587, STARTTLS); without it only the `send_email` fallback is tried. */
+  SMTP_HOST?: string;
   SMTP_USER?: string;
   SMTP_PASSWORD?: string;
   MAIL_TO?: string;
@@ -59,9 +60,13 @@ async function verified(secret: string | undefined, token: string, ip: string | 
   }
 }
 
-async function deliver(mail: Mail, { SMTP_USER, SMTP_PASSWORD, MAIL_TO }: Secrets, env: Bindings): Promise<boolean> {
+async function deliver(
+  mail: Mail,
+  { SMTP_HOST, SMTP_USER, SMTP_PASSWORD, MAIL_TO }: Secrets,
+  env: Bindings,
+): Promise<boolean> {
   if (!SMTP_USER || !MAIL_TO) return false;
-  if (SMTP_PASSWORD) {
+  if (SMTP_HOST && SMTP_PASSWORD) {
     try {
       const { WorkerMailer } = await import('worker-mailer');
       await WorkerMailer.send(
