@@ -47,6 +47,7 @@
   },
   "form": {
     "filled": "Povinné pole, vyplněné.",
+    "not_valid": "Povinné pole, zatím neplatné.",
     "copied": "Zkopírováno",
     "copied_note": "Zkopírováno: {{what}}.",
     "invalid": "Zkontrolujte prosím formulář: potřebujeme platný e-mail, produkt a zprávu.",

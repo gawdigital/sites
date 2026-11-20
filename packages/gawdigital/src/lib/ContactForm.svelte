@@ -43,4 +43,4 @@
       <div class="sent" role="status">{@html CHECK}<h2>{t('common.thank_you')}</h2><p>{t('common.well_reply_to_your_email')}</p></div>
     </article>
   </section>
-  {@html script('form')}{@html script('fields', { FILLED: t('form.filled'), EMPTY: empty })}{@html script('turnstile')}{@html script('submit', { MESSAGES: messages })}
+  {@html script('form')}{@html script('fields', { FILLED: t('form.filled'), INVALID: t('form.not_valid'), EMPTY: empty })}{@html script('turnstile')}{@html script('submit', { MESSAGES: messages })}

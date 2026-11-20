@@ -47,6 +47,7 @@
   },
   "form": {
     "filled": "Pflichtfeld, ausgefüllt.",
+    "not_valid": "Pflichtfeld, noch nicht gültig.",
     "copied": "Kopiert",
     "copied_note": "{{what}} kopiert.",
     "invalid": "Bitte prüfen Sie Ihre Angaben: Wir brauchen eine gültige E-Mail-Adresse, ein Produkt und eine Nachricht.",
