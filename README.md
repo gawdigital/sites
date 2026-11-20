@@ -1,12 +1,15 @@
 # sites
 
-The websites of G.A.W.Digital, one Bun workspace. Today it holds one site, **gawdigital.cz**, built with
-SvelteKit and deployed to Cloudflare Workers.
+The websites of the G.A.W. brands, one Bun workspace. It holds two sites, **gawdigital.cz** and **gawgroup.cz**, each
+built with SvelteKit and deployed to its own Cloudflare Worker.
 
 | Path | What it is |
 |------|------------|
 | `packages/gawdigital` | The gawdigital.cz site (SvelteKit 3, Svelte 5, `@sveltejs/adapter-cloudflare`) |
-| `common/ui` | Shared components (header, footer, mobile menu, language switch, hatch), the theme and its inline scripts, and the form spec: the fields, pills, verification box and form cards with their styles and scripts, in each site's colours |
+| `packages/gawgroup` | The gawgroup.cz site, the same stack and conventions |
+| `common/company` | What every site says about the company: its registered details and the list of brands, as data |
+| `common/contact` | The contact form's server side: reading and validating a post, Turnstile, the rate limit, SMTP delivery; a site adds its own fields and message |
+| `common/ui` | Shared components (header, footer, mobile menu, language switch, hatch), the themes (the default one and the group's gold one, `styles/gawgroup.css`) and their inline scripts, and the form spec: the fields, pills, verification box and form cards with their styles and scripts, in each site's colours |
 | `common/i18n` | Locale routing (English unprefixed, `/de` and `/cs` prefixed), `hreflang` alternates, the language redirect's inline scripts |
 | `sanity/` | The Sanity content studio: the products and the FAQ (see its README) |
 
@@ -22,12 +25,13 @@ name; the one exception is `serve`, because `wrangler dev` cannot forward reques
 | `bun install` | Install the workspace |
 | `bun run dev` | Develop gawdigital.cz with Vite |
 | `bun run --filter gawdigital dev:https` | The same over HTTPS on the local network (self-signed certificate), e.g. to try it on a phone |
-| `bun run build` | Build it for Cloudflare (`packages/gawdigital/.svelte-kit/cloudflare`) |
+| `bun run dev:gawgroup` | Develop gawgroup.cz with Vite |
+| `bun run build` | Build both sites for Cloudflare (`packages/<site>/.svelte-kit/cloudflare`) |
 | `bun run check` | Type-check (svelte-check) |
 | `bun run test` | Unit tests (`bun test`: the contact form's validation, locale routing, the language redirect's scripts, the CMS reads) |
 | `bun run --filter studio dev` | Run the Sanity studio locally (`sanity/README.md`) |
 | `bun run --filter gawdigital serve` | Serve the build locally with `wrangler dev` (bindings included; needs Node) |
-| `bunx --bun wrangler …` | Any other Wrangler command, from `packages/gawdigital` |
+| `bunx --bun wrangler …` | Any other Wrangler command, from the site's package |
 
 ## gawdigital.cz
 
@@ -117,17 +121,21 @@ Set the secrets with `bunx --bun wrangler secret put <NAME>` in `packages/gawdig
 
 ### CI and deployment
 
-- **Pull requests** (`.github/workflows/ci.yml`): install, check, test, build, then upload a preview version with
-  `bun --bun wrangler versions upload --preview-alias pr-<number>`; a comment on the pull request (updated on every
-  push) and the step summary name its URLs.
-- **`main`** (`.github/workflows/deploy.yml`): the same checks, then `bun run deploy` (`bun --bun wrangler deploy`).
+Both sites are checked, tested, built and deployed by the same two workflows.
+
+- **Pull requests** (`.github/workflows/ci.yml`): install, check, test, build, then upload a preview version of each
+  site with `bun --bun wrangler versions upload --preview-alias pr-<number>`; a comment on the pull request (updated
+  on every push) and the step summary name the URLs. gawgroup's upload may fail without failing the run (its row in
+  the comment then says so).
+- **`main`** (`.github/workflows/deploy.yml`): the same checks, then `bun run deploy` (`bun --bun wrangler deploy`)
+  for gawdigital and after it for gawgroup, so a failure of the second leaves the first deployed.
   A publish in the Sanity studio runs it too (`repository_dispatch`), so the site is rebuilt with the new content.
 - Pull requests also build the Sanity studio, which catches a schema it cannot load.
 
 In both, `node` on the runner's PATH is a link to Bun, so install scripts run on Bun too.
 Both need the repository secrets `CLOUDFLARE_API_TOKEN` (Workers edit rights) and `CLOUDFLARE_ACCOUNT_ID`.
 
-### Owner steps
+### Owner steps (gawdigital.cz)
 
 1. Add `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` to the GitHub repository secrets, and
    `PUBLIC_TURNSTILE_SITE_KEY` to its variables.
@@ -138,3 +146,45 @@ Both need the repository secrets `CLOUDFLARE_API_TOKEN` (Workers edit rights) an
 5. When the app is live, replace the `#app-store` placeholder links with its Mac App Store URL.
 6. Set up the CMS: the repository variables, the seed, the studio and the publish webhook (`sanity/README.md`).
 7. Have the German and Czech texts reviewed by a native speaker (so far they have had an AI check only).
+
+## gawgroup.cz
+
+The group's own site: what G.A.W.Group is, its brands with links to their sites, and the company's contact. It
+follows gawdigital.cz in everything above (prerendered, `csr = false`, the language redirect and switch, the theme
+switch, the desktop frame's scale, English paths in every locale, `hreflang`, a translated 404); only its theme,
+pages and copy are its own.
+
+| Route | Page |
+|-------|------|
+| `/` | Home: the claim, the brands, who we are, and a card that opens the contact form with a topic chosen |
+| `/contact` | Contact form and company details (`/contact?topic=studio` preselects the topic) |
+| `/privacy` | Privacy policy |
+| `/contact/{sent,invalid,verification,rate,failed}` | The form's result pages, `noindex` |
+| `/api/contact` | The contact form endpoint (`POST`, the only route not prerendered) |
+
+- **Shared with gawdigital.cz**: the company's details and the brand list (`common/company`), the contact endpoint
+  (`common/contact`), the header, footer, menus, form spec, company rows, copy buttons, dividers, brand cards and
+  hatched pills (`common/ui`). The gold theme is `common/ui/src/styles/gawgroup.css`, applied over the shared base.
+- **Copy**: `packages/gawgroup/src/lib/translations`, as on gawdigital.cz; nothing comes from the CMS. English is the
+  approved design copy. German and Czech have been checked by AI and await a native speaker's review. The Czech
+  home page claim ("HRAJ A BUDE TI HRÁNO.") is **provisional**: it is still open in issue #22.
+- **Contact form**: the form asks for an address, a topic (Digital, Studio or General) and a message; the topic
+  leads the mail's subject (`[gawgroup.cz] G.A.W.Studio`). The endpoint, its secrets and its bindings are the ones
+  described for gawdigital.cz, set on the Worker `gawgroup` (`bunx --bun wrangler secret put <NAME>` in
+  `packages/gawgroup`, `.dev.vars` locally). Its rate limit has its own namespace.
+- **Turnstile**: gawgroup.cz has its own widget. Its public site key is the default of
+  `PUBLIC_GAWGROUP_TURNSTILE_SITE_KEY` in `packages/gawgroup/src/env.ts` (a site key is printed in every page, so it
+  is not a secret); the name differs from gawdigital's variable so one build of the workspace cannot mix them up. For
+  a local build set Cloudflare's always-passing test key `1x00000000000000000000AA` in `packages/gawgroup/.env`.
+  The widget only runs on the hostnames it is configured for, so on a preview URL the form shows the widget's error.
+
+### Owner steps (gawgroup.cz)
+
+1. The Worker `gawgroup` and the Turnstile widget exist, and `TURNSTILE_SECRET_KEY` is set. Put `SMTP_USER`,
+   `SMTP_PASSWORD` and `MAIL_TO` into the Worker's secrets.
+2. Make the zone gawgroup.cz active on Cloudflare (switch the domain's nameservers). Until then the deploy of
+   gawgroup on `main` fails at attaching `gawgroup.cz` and `www.gawgroup.cz`; gawdigital is deployed before it and is
+   not affected. Keep the zone's mail records (MX, SPF, DKIM, DMARC) when moving it.
+3. For the `send_email` fallback: enable Email Routing on the sender's domain and verify the `MAIL_TO` address as a
+   destination.
+4. Decide the Czech claim (issue #22) and have the German and Czech texts reviewed by a native speaker.
