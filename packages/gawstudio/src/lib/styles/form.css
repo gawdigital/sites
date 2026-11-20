@@ -13,7 +13,7 @@
 .fg .cform .fbox input{height:100%;background:transparent;border:0;border-radius:18px;padding:34px 18px 13px;font-size:17px;line-height:1.3529;box-shadow:none}
 .fg .cform .fbox input[type=date]{min-height:100%}
 .cform select option{background:var(--panel);color:#fff}
-.cform .btn{align-self:stretch;margin-top:10px;border:0;color:inherit;font-family:inherit;cursor:pointer}
+.cform .btn{align-self:stretch;border:0;color:inherit;font-family:inherit;cursor:pointer}
 .cform .btn:disabled{opacity:.45;cursor:not-allowed;filter:none}
 .cform .btn:focus-visible{outline:none;box-shadow:0 0 0 3px var(--panel),0 0 0 6px var(--blue)}
 .fnote{padding-top:20px;border-top:1px solid var(--line);font-size:15px;line-height:1.4667;color:var(--dim)}
@@ -21,7 +21,8 @@
 .fnote a:hover{color:var(--orange)}
 @media (max-width:768px){
   .cform,.frow{gap:14px}
+  .cform h2:not(:first-child){margin-top:14px}
   .frow{grid-template-columns:1fr}
   .fg .cform .fbox input{padding:30px 15px 10px;font-size:16px;line-height:1.375}
-  .fnote{font-size:13px;line-height:1.4615}
+  .fnote{padding-top:14px;font-size:13px;line-height:1.4615}
 }
