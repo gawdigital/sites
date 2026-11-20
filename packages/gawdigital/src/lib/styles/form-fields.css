@@ -17,7 +17,7 @@
 .fg .ts{border-radius:18px}
 .fg .fbox .lb{position:absolute;z-index:1;top:15px;left:18px;right:40px;font-size:12px;line-height:1.25;letter-spacing:.12em;
   color:var(--soft);pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.fg .dot{position:absolute;z-index:1;top:15px;right:15px;width:6px;height:6px;border-radius:50%;background:var(--edge);
+.fg .dot{position:absolute;z-index:1;top:19.5px;right:27px;width:6px;height:6px;border-radius:50%;background:var(--edge);
   pointer-events:none;transition:background-color .15s}
 .fg .fbox.is-ok .dot{background:var(--fok)}
 .fg .fbox.is-bad .dot,.fg .fbox.req:focus-within:has(:invalid) .dot{background:var(--fbad)}
@@ -36,7 +36,7 @@
 @media (max-width:768px){
   .fg .fbox{height:64px;border-radius:18px}
   .fg .fbox .lb{top:12px;left:15px;font-size:11px;line-height:1.2727}
-  .fg .dot{top:12px;right:12px}
+  .fg .dot{top:15.5px;right:20.5px}
   .fg .cform .fbox input[type=email],.fg .cform .fbox select,.fg .cform .fbox textarea{padding:30px 15px 10px;font-size:16px;line-height:1.375;border-radius:18px}
   .fg .fsel select{padding-right:44px}
   .fg .fsel:after{right:19px;top:35px;width:7px;height:7px;margin-top:0}
