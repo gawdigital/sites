@@ -1,5 +1,5 @@
-// Kept apart from `site.ts`: the route param matcher imports this, and the build loads that matcher with Node
-// itself, which cannot import the stylesheets `site.ts` pulls in.
+// Kept free of every other import: a site's route param matcher imports this, and the build loads that matcher with
+// the runtime itself, which cannot import a stylesheet.
 
 /** The contact form's outcomes, each a prerendered page the form's endpoint sends a visitor without JavaScript to. */
 export const FORM_STATES = ['sent', 'invalid', 'verification', 'rate', 'failed'] as const;
