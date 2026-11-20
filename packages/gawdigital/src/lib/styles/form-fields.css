@@ -2,7 +2,9 @@
 /* form variant FG: only the fields restyled from the G.A.W.Group Sketch "input" symbol (70 high, radius 18 as the canonical form rather than the symbol's 15,
    translucent fill, no border, label inside top-left, required dot top-right), in G.A.W.Digital's tokens.
    The dot takes the field's edge colour (--edge) until something is typed or chosen; then it is affirmative (--fok) while the value
-   passes validation and destructive (--fbad) while it does not. The rule is shared by every site's forms; only the colours are the site's. */
+   passes validation and destructive (--fbad) while it does not. A submit that the browser refuses also turns every invalid field
+   destructive, typed in or not. A select whose empty state cannot be chosen has no indicator. The rule is shared by every site's forms;
+   only the colours are the site's. */
 :root{--fbad:#e5318f;--fok:#00ffbc}
 :root[data-theme="light"]{--fbad:#d72990;--fok:#0a8f63}
 /* fields share the verification box's surface: --chip fill, 2px --line edge, radius 18 on both, at every width */
