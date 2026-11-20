@@ -29,7 +29,7 @@
     registered: t('common.registered', { file: COMPANY.registerFile }),
     account: t('contact.bank_account'),
     iban: { label: t('contact.iban'), what: t('contact.iban'), copy: t('contact.copy_iban') },
-    bic: t('contact.bic'),
+    bic: { label: t('contact.bic'), what: t('contact.bic'), copy: t('contact.copy_bic') },
     copy: t('contact.copy'),
   });
   // The phone's hatches, in the frame's coordinates.

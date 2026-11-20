@@ -11,6 +11,7 @@
   "iban": "IBAN",
   "copy_iban": "Copy IBAN",
   "bic": "BIC",
+  "copy_bic": "Copy BIC",
   "page_title": "Contact · G.A.W.Group",
   "brands": "Brands"
 }

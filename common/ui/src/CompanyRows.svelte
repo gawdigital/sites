@@ -40,11 +40,11 @@
       registered: string;
       account: string;
       iban: Copied;
-      bic: string;
+      bic: Copied;
       /** The copy buttons' text. */
       copy: string;
     };
   } = $props();
 </script>
 
-<div class="crow"><dt class="lb">{labels.address}</dt><dd>{@html seat}</dd></div><div class="crow"><dt class="lb">{labels.ico.label}</dt><dd>{company.ico}</dd><CopyButton value={company.ico} what={labels.ico.what} label={labels.ico.copy}>{labels.copy}</CopyButton></div><div class="crow"><dt class="lb">{labels.dic.label}</dt><dd>{company.dic}</dd><CopyButton value={company.dic} what={labels.dic.what} label={labels.dic.copy}>{labels.copy}</CopyButton></div><div class="crow"><dt class="lb">{labels.register}</dt><dd>{labels.registered}</dd></div><div class="crow"><dt class="lb">{labels.account}</dt><dd>{company.account} <small>{company.bank}</small></dd></div><div class="crow"><dt class="lb">{labels.iban.label}</dt><dd class="nw">{iban}</dd><CopyButton value={company.iban} what={labels.iban.what} label={labels.iban.copy}>{labels.copy}</CopyButton></div><div class="crow"><dt class="lb">{labels.bic}</dt><dd>{company.bic}</dd></div>
+<div class="crow"><dt class="lb">{labels.address}</dt><dd>{@html seat}</dd></div><div class="crow"><dt class="lb">{labels.ico.label}</dt><dd>{company.ico}</dd><CopyButton value={company.ico} what={labels.ico.what} label={labels.ico.copy}>{labels.copy}</CopyButton></div><div class="crow"><dt class="lb">{labels.dic.label}</dt><dd>{company.dic}</dd><CopyButton value={company.dic} what={labels.dic.what} label={labels.dic.copy}>{labels.copy}</CopyButton></div><div class="crow"><dt class="lb">{labels.register}</dt><dd>{labels.registered}</dd></div><div class="crow"><dt class="lb">{labels.account}</dt><dd>{company.account} <small>{company.bank}</small></dd></div><div class="crow"><dt class="lb">{labels.iban.label}</dt><dd class="nw">{iban}</dd><CopyButton value={company.iban} what={labels.iban.what} label={labels.iban.copy}>{labels.copy}</CopyButton></div><div class="crow"><dt class="lb">{labels.bic.label}</dt><dd>{company.bic}</dd><CopyButton value={company.bic} what={labels.bic.what} label={labels.bic.copy}>{labels.copy}</CopyButton></div>
