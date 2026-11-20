@@ -46,3 +46,6 @@ const NOSCRIPT =
 export const STYLES = `<link rel="preload" href="${font}" as="font" type="font/ttf" crossorigin><style>${css
   .replace('%FONT%', font)
   .replace('%GRAIN%', grain)}</style><noscript><style>${NOSCRIPT}</style></noscript>`;
+
+/** A heading with its last line in the accent colour, as the design sets its claims: `Make it<br>happen...`. */
+export const accent = (html: string) => html.replace(/^(.*<br>)?(.*)$/s, '$1<em>$2</em>');

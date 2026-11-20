@@ -21,6 +21,8 @@
   }: { name: Service; images: { main: string; sample: string; how: string }; studio?: string } = $props();
 
   const { t } = get();
+  // Recording is booked, the online services are ordered.
+  const action = $derived(t(name === 'recording' ? 'common.book_now' : 'common.order_now'));
   const contact = $derived(pathOf('/contact', localeOf(page.url.pathname)));
 </script>
 
@@ -30,7 +32,7 @@
     <h2>{t(`common.${name}`)}</h2>
     <p>{t(`common.${name}_text`)}</p>
     <!-- Booking and ordering come next (issue #29); until then the way in is the contact page. -->
-    <a class="btn" href={contact}>{t('common.book_now')}</a>
+    <a class="btn" href={contact}>{action}</a>
   </Card>
 {/snippet}
 
@@ -53,7 +55,7 @@
   </Card>
 {/snippet}
 
-<Shell {name} title={t(`${name}.page_title`)} claim={t(`${name}.claim`)} tabs>
+<Shell {name} title={t(`${name}.page_title`)} claim={t(`${name}.claim`)} {action}>
   {#snippet left()}
     {@render main()}
     {#if studio}{@render sample()}{/if}

@@ -36,15 +36,19 @@ svg{display:block;width:100%;height:auto}
 .mnav,.mmenu{display:none}
 
 /* Two columns: the left one starts at once, the right one under the page's claim. */
-.cols{display:grid;grid-template-columns:1fr 1fr;column-gap:var(--pad);padding:0 var(--pad);isolation:isolate}
+.cols{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto 1fr;column-gap:var(--pad);padding:0 var(--pad);isolation:isolate}
 .col{display:flex;flex-direction:column;gap:var(--pad);position:relative}
 .col.a{grid-column:1;grid-row:1/3;align-self:start}
 .head{grid-column:2;grid-row:1;min-height:calc(318*var(--px));margin-bottom:var(--pad);display:flex;flex-direction:column;justify-content:flex-end;gap:calc(30*var(--px))}
 .col.b{grid-column:2;grid-row:2}
 h1{font-weight:800;font-size:var(--t86);line-height:1;text-transform:uppercase}
+h1 em{font-style:normal;color:var(--orange)}
+h2 em{font-style:normal;color:var(--green)}
 .tabs{display:flex;gap:calc(10*var(--px))}
 .tag{display:inline-flex;align-items:center;justify-content:center;text-align:center;height:calc(40*var(--px));min-height:28px;padding:0 calc(30*var(--px));border-radius:100px;background:var(--pink);font-weight:800;font-size:var(--t18);line-height:1;text-transform:uppercase;text-decoration:none;white-space:nowrap}
-.tag.cur{background:rgba(255,255,255,.2);color:var(--blue)}
+.tabs .tag{background:none}
+.tabs .tag.cur{background:rgba(255,255,255,.2);color:var(--orange)}
+.tabs a.tag:hover{color:var(--orange)}
 a.tag:hover{filter:brightness(1.12)}
 
 /* The card: a dimmed picture that fades into the dark at its foot and sides (the design's inner shadow, drawn as
@@ -58,6 +62,7 @@ a.tag:hover{filter:brightness(1.12)}
 h2{font-weight:800;font-size:var(--t60);line-height:1.2;text-transform:uppercase;text-wrap:balance}
 .card p{max-width:100%;text-wrap:pretty}
 .btn{align-self:flex-end;display:inline-flex;align-items:center;justify-content:center;text-align:center;height:calc(70*var(--px));min-height:44px;padding:0 var(--pad);border-radius:100px;background:var(--blue);font-weight:800;font-size:var(--t18);line-height:1;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:filter .15s}
+.btn.go{background:var(--green)}
 .btn:hover{filter:brightness(1.12)}
 .steps{list-style:none;display:flex;flex-direction:column;gap:calc(30*var(--px));counter-reset:step}
 .steps li{counter-increment:step;display:grid;grid-template-columns:auto 1fr;align-items:center;gap:calc(30*var(--px))}

@@ -3,12 +3,13 @@
     "online": "Online",
     "info": "Info",
     "book_now": "Jetzt buchen",
+    "order_now": "Jetzt bestellen",
     "show_more": "Mehr erfahren",
-    "lets_start": "Los geht’s",
+    "lets_start": "Los geht’s!",
     "how_it_works": "So läuft’s",
     "processed": "Bearbeitet",
     "sample": "Hörprobe: kommt bald",
-    "sale_title": "Jetzt Rabatt sichern!",
+    "sale_title": "Jetzt Rabatt<br>sichern!",
     "sale_action": "Ja, bitte!",
     "country": "Tschechische Republik",
     "opens_in_a_new_tab": "(öffnet in einem neuen Tab)",
@@ -16,8 +17,8 @@
     "mix": "Mix",
     "mastering": "Mastering",
     "recording_text": "Gesang, Instrumente oder die ganze Band: Nehmen Sie in unserem Studio in Prag auf, mit einem Tontechniker an Ihrer Seite. Gebucht wird in Blöcken von vier Stunden.",
-    "mix_text": "Schicken Sie uns Ihre Spuren von überall und erhalten Sie einen Mix, der zusammenhält. Online bestellt, Preis pro Track.",
-    "mastering_text": "Der letzte Schliff vor der Veröffentlichung: Lautheit, Balance und ein einheitlicher Klang auf jeder Plattform. Online bestellt, Preis pro Track."
+    "mix_text": "Unser Mix ist die perfekte Lösung für Künstler und Produzenten, die Aufnahmen in professioneller Qualität erreichen wollen. Unser erfahrenes Team balanciert Pegel und EQ mit modernster Technik zu einem ausgefeilten Endergebnis. Dank jahrelanger Erfahrung in der Branche wissen wir, wie Ihre Musik in Bewegung kommt. Zum Mix gehören mehrere Korrekturrunden, damit Ihre Vorstellung Wirklichkeit wird, und wir liefern schnell, damit Ihre Musik bald bei Ihrem Publikum ist. Vertrauen Sie uns Ihre Aufnahmen an, wir bringen sie auf das nächste Level.",
+    "mastering_text": "Unser Mastering ist der letzte Schliff, den Ihre Musik braucht, bevor sie wirklich strahlen kann. Unsere erfahrenen Mastering-Ingenieure geben Ihren Tracks mehr Klarheit, Präzision und Tiefe und damit einen professionellen Klang, der auf jeder Plattform heraussticht. Mit modernsten Werkzeugen und Techniken sorgen wir dafür, dass Ihre Musik perfekt gemastert ist: bereit für Streaming, Radio oder jedes andere Medium. Überlassen Sie das Mastering uns und lassen Sie Ihr bestes Werk für sich sprechen!"
   },
   "chrome": {
     "menu": "Menü",

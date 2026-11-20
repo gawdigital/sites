@@ -5,6 +5,7 @@
 
   import sale from './art/sale.webp';
   import Card from './Card.svelte';
+  import { accent } from './site.ts';
   import { get } from './translations/index.ts';
 
   let { order }: { order: number } = $props();
@@ -13,6 +14,6 @@
 </script>
 
 <Card image={sale} square {order}>
-  <h2>{t('common.sale_title')}</h2>
-  <a class="btn" href={pathOf('/contact', localeOf(page.url.pathname))}>{t('common.sale_action')}</a>
+  <h2>{@html accent(t('common.sale_title'))}</h2>
+  <a class="btn go" href={pathOf('/contact', localeOf(page.url.pathname))}>{t('common.sale_action')}</a>
 </Card>

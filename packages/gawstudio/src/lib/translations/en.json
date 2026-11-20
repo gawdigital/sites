@@ -3,12 +3,13 @@
     "online": "Online",
     "info": "Info",
     "book_now": "Book now",
+    "order_now": "Order now",
     "show_more": "Show more",
-    "lets_start": "Let’s start",
+    "lets_start": "Let’s start!",
     "how_it_works": "How it works",
     "processed": "Processed",
     "sample": "Sound sample: coming soon",
-    "sale_title": "Get your sale now!",
+    "sale_title": "Get your<br>sale now!",
     "sale_action": "Yes, please!",
     "country": "Czech Republic",
     "opens_in_a_new_tab": "(opens in a new tab)",
@@ -16,8 +17,8 @@
     "mix": "Mix",
     "mastering": "Mastering",
     "recording_text": "Vocals, instruments or the whole band: record in our studio in Prague with a sound engineer at your side. Sessions are booked in four-hour blocks.",
-    "mix_text": "Send us your tracks from anywhere and get back a mix that holds together. Ordered online, priced per track.",
-    "mastering_text": "The final polish before release: loudness, balance and a consistent sound on every platform. Ordered online, priced per track."
+    "mix_text": "Our Mix is the perfect solution for artists and producers who want to achieve professional quality recordings. Our experienced team uses state-of-the-art equipment and techniques to expertly balance levels and EQ for a polished final product. Thanks to years of experience in the industry, we know how to get your music moving. Our Mix is submitted with multiple revisions to ensure your vision is realized and we provide fast turnaround times to get your music to your audience quickly. Trust us to take your recordings to the next level.",
+    "mastering_text": "Our Mastering service is the final polishing touch that your music needs before it can truly shine. Our experienced mastering engineers enhance the clarity, crispness, and depth of your tracks, giving you a professional sound that stands out on any platform. With state-of-the-art tools and techniques, we ensure that your music is mastered to perfection and ready for streaming, radio play, or any other medium. Leave the mastering process to us and let your best work speak for itself! Try our Mastering service now and elevate your audio to the next level."
   },
   "chrome": {
     "menu": "Menu",

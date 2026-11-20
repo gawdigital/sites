@@ -17,14 +17,14 @@
   import logo from './art/logo.svg?raw';
   import shape from './art/shape.svg?raw';
   import user from './art/user.svg?raw';
-  import { LAUNCHED, NAV, ORIGIN, PAGES, STYLES, type PageName } from './site.ts';
+  import { LAUNCHED, NAV, ORIGIN, PAGES, STYLES, accent, type PageName } from './site.ts';
   import { get } from './translations/index.ts';
 
   let {
     name,
     title,
     claim,
-    tabs = false,
+    action,
     left,
     right,
   }: {
@@ -32,8 +32,8 @@
     title: string;
     /** The page's claim, with its line breaks. */
     claim: string;
-    /** The Info · Book now pair under the claim of a service's page. */
-    tabs?: boolean;
+    /** A service's page: the label of the way to book or order it, next to Info under the claim. */
+    action?: string;
     left: Snippet;
     right: Snippet;
   } = $props();
@@ -68,7 +68,7 @@
     <nav class="nav">
       {#each NAV as id (id)}<a href={pathOf(PAGES[id].route, locale)} aria-current={id === meta.nav ? 'page' : undefined}>{t(`chrome.${id}`)}</a>{/each}
       <!-- The cart and the account come with the orders (issue #29); until then they are only drawn. -->
-      <span class="icons" aria-hidden="true"><span class="ico cart">{@html cart}<b>0</b></span><span class="ico">{@html user}</span></span>
+      <span class="icons" aria-hidden="true"><span class="ico">{@html user}</span><span class="ico cart">{@html cart}<b>0</b></span></span>
     </nav>
     <!-- The phone's menu, as on the other sites: three dots open an overlay (`@gaw/ui/scripts/menu.js`). Without
          JavaScript the links above stay on the page instead (the `noscript` rule in `site.ts`). -->
@@ -81,8 +81,8 @@
   </header>
   <main class="cols wrap">
     <div class="head">
-      <h1>{@html claim}</h1>
-      {#if tabs}<div class="tabs"><span class="tag cur" aria-current="page">{t('common.info')}</span><a class="tag" href={pathOf('/contact', locale)}>{t('common.book_now')}</a></div>{/if}
+      <h1>{@html accent(claim)}</h1>
+      {#if action}<div class="tabs"><span class="tag cur" aria-current="page">{t('common.info')}</span><a class="tag" href={pathOf('/contact', locale)}>{action}</a></div>{/if}
     </div>
     <div class="col a">{@render left()}</div>
     <div class="col b">{@render right()}</div>
