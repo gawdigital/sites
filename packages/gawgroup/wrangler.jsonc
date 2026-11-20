@@ -32,6 +32,6 @@
   // deploy would turn the preview URLs off with it unless this says otherwise.
   "preview_urls": true,
   // Public build-time configuration only; secrets are set with `wrangler secret put`:
-  // TURNSTILE_SECRET_KEY, SMTP_USER, SMTP_PASSWORD, MAIL_TO.
+  // TURNSTILE_SECRET_KEY, SMTP_HOST, SMTP_USER, SMTP_PASSWORD, MAIL_TO.
   "vars": {}
 }

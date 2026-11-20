@@ -98,17 +98,18 @@ type `sanity-publish`).
 ### Contact form
 
 The form posts to `/api/contact`, which validates the fields, applies the rate limit, verifies Turnstile and sends the
-message by SMTP (worker-mailer, `mail.blueboard.cz:587`, STARTTLS), falling back to Cloudflare's `send_email`
+message by SMTP (worker-mailer, port 587, STARTTLS), falling back to Cloudflare's `send_email`
 binding. A plain form post is answered with a 303 to the form's result page; the inline script asks for JSON and
 stays on the page. The visitor's address is the Reply-To; From is the SMTP account.
 
-**No address of ours appears in this repository or on the site.** Every address and credential is a Cloudflare
-secret:
+**No address of ours appears in this repository or on the site**, the SMTP server's included. Every address and
+credential is a Cloudflare secret:
 
 | Name | Kind | Purpose |
 |------|------|---------|
 | `TURNSTILE_SECRET_KEY` | secret | Turnstile secret key; without it every submission fails verification |
-| `SMTP_USER` | secret | SMTP login at mail.blueboard.cz, and the From address |
+| `SMTP_HOST` | secret | The SMTP server; without it only the `send_email` fallback is tried |
+| `SMTP_USER` | secret | SMTP login, and the From address |
 | `SMTP_PASSWORD` | secret | SMTP password; without it only the `send_email` fallback is tried |
 | `MAIL_TO` | secret | Where messages are delivered |
 | `PUBLIC_TURNSTILE_SITE_KEY` | build variable | Turnstile site key, inlined at build time (a GitHub repository variable in CI); defaults to Cloudflare's test key |
@@ -140,7 +141,7 @@ Both need the repository secrets `CLOUDFLARE_API_TOKEN` (Workers edit rights) an
 1. Add `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` to the GitHub repository secrets, and
    `PUBLIC_TURNSTILE_SITE_KEY` to its variables.
 2. Create a Turnstile widget for the domain; put its secret in `TURNSTILE_SECRET_KEY`.
-3. Put `SMTP_USER`, `SMTP_PASSWORD` and `MAIL_TO` into the Worker's secrets.
+3. Put `SMTP_HOST`, `SMTP_USER`, `SMTP_PASSWORD` and `MAIL_TO` into the Worker's secrets.
 4. For the `send_email` fallback: enable Email Routing on the sender's domain and verify the `MAIL_TO` address as a
    destination.
 5. When the app is live, replace the `#app-store` placeholder links with its Mac App Store URL.
@@ -180,8 +181,8 @@ pages and copy are its own.
 
 ### Owner steps (gawgroup.cz)
 
-1. The Worker `gawgroup` and the Turnstile widget exist, and `TURNSTILE_SECRET_KEY` is set. Put `SMTP_USER`,
-   `SMTP_PASSWORD` and `MAIL_TO` into the Worker's secrets.
+1. The Worker `gawgroup` and the Turnstile widget exist, and `TURNSTILE_SECRET_KEY` is set. Put `SMTP_HOST`,
+   `SMTP_USER`, `SMTP_PASSWORD` and `MAIL_TO` into the Worker's secrets.
 2. Make the zone gawgroup.cz active on Cloudflare (switch the domain's nameservers). Until then the deploy of
    gawgroup on `main` fails at attaching `gawgroup.cz` and `www.gawgroup.cz`; gawdigital is deployed before it and is
    not affected. Keep the zone's mail records (MX, SPF, DKIM, DMARC) when moving it.
