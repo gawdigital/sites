@@ -177,7 +177,9 @@ pages and copy are its own.
   `PUBLIC_GAWGROUP_TURNSTILE_SITE_KEY` in `packages/gawgroup/src/env.ts` (a site key is printed in every page, so it
   is not a secret); the name differs from gawdigital's variable so one build of the workspace cannot mix them up. For
   a local build set Cloudflare's always-passing test key `1x00000000000000000000AA` in `packages/gawgroup/.env`.
-  The widget only runs on the hostnames it is configured for, so on a preview URL the form shows the widget's error.
+  The widget only runs on the hostnames it is configured for, gawgroup.cz alone, so on a preview URL the form shows
+  the widget's error. That is deliberate: a preview carries the production secrets, and no test build may send mail
+  to our mailbox.
 
 ### Owner steps (gawgroup.cz)
 
