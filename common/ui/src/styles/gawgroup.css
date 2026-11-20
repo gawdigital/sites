@@ -86,7 +86,7 @@ a.ln{color:var(--xt);text-underline-offset:4px;text-decoration-thickness:1.5px}
 .seg span{background:var(--chip);box-shadow:inset 0 0 0 1.5px var(--line);letter-spacing:var(--caps);text-indent:var(--caps);text-transform:uppercase}
 .seg input:checked + span{background:var(--xg);box-shadow:none;color:var(--on-x)}
 .seg input:focus-visible + span{box-shadow:0 0 0 3px var(--card),0 0 0 6px var(--x)}
-.fg .fbox:focus-within{--edge:var(--x)}
+.fg .fbox{--focus:var(--x)}
 .fg .cform .fbox :is(input[type=email],textarea){font-weight:400;line-height:normal}
 .ts{font-size:14px;color:var(--dim)}
 .card .pnote{font-weight:500;font-size:15px;line-height:22px;color:var(--dim)}
