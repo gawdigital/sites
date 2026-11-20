@@ -7,16 +7,16 @@ import de from './de.json';
 import en from './en.json';
 
 /**
- * One namespace per page, loaded only where that page renders. The routes match the whole pathname, locale prefix
+ * One namespace per page, loaded only where that page renders; a service's booking or order page shares its. The routes match the whole pathname, locale prefix
  * included.
  */
 const page = (path: string) => new RegExp(`^(?:/(?:de|cs))?${path}$`);
 
 export const NAMESPACES = [
   { namespace: 'home', routes: [page('/?')] },
-  { namespace: 'recording', routes: [page('/recording')] },
-  { namespace: 'mix', routes: [page('/mix')] },
-  { namespace: 'mastering', routes: [page('/mastering')] },
+  { namespace: 'recording', routes: [page('/recording(?:/book)?')] },
+  { namespace: 'mix', routes: [page('/mix(?:/order)?')] },
+  { namespace: 'mastering', routes: [page('/mastering(?:/order)?')] },
   { namespace: 'contact', routes: [page('/contact')] },
 ];
 

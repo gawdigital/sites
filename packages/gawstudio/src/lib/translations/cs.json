@@ -18,7 +18,9 @@
     "mastering": "Mastering",
     "recording_text": "Zpěv, nástroje nebo celá kapela: nahrajte u nás ve studiu v Praze se zvukařem po ruce. Rezervuje se po čtyřhodinových blocích.",
     "mix_text": "Náš mix je ideální řešení pro interprety a producenty, kteří chtějí nahrávky v profesionální kvalitě. Zkušený tým s nejmodernější technikou a postupy vyváží úrovně a ekvalizaci do vybroušeného výsledku. Díky letům praxe v oboru víme, jak vaši hudbu rozhýbat. K mixu patří několik kol úprav, aby výsledek odpovídal vaší představě, a dodáváme rychle, aby se hudba dostala k posluchačům co nejdřív. Svěřte nám své nahrávky, posuneme je o úroveň výš.",
-    "mastering_text": "Mastering je poslední doladění, které vaše hudba potřebuje, aby mohla opravdu vyniknout. Naši zkušení masteringoví inženýři dodají skladbám čistotu, ostrost a hloubku, a tím profesionální zvuk, který vynikne na každé platformě. S nejmodernějšími nástroji a postupy zajistíme, že bude vaše hudba zmasterovaná k dokonalosti a připravená na streaming, rádio i jakékoli jiné médium. Nechte mastering na nás a nechte svou nejlepší práci mluvit za sebe!"
+    "mastering_text": "Mastering je poslední doladění, které vaše hudba potřebuje, aby mohla opravdu vyniknout. Naši zkušení masteringoví inženýři dodají skladbám čistotu, ostrost a hloubku, a tím profesionální zvuk, který vynikne na každé platformě. S nejmodernějšími nástroji a postupy zajistíme, že bude vaše hudba zmasterovaná k dokonalosti a připravená na streaming, rádio i jakékoli jiné médium. Nechte mastering na nás a nechte svou nejlepší práci mluvit za sebe!",
+    "where": "Kde nás najdete",
+    "view_map": "Zobrazit mapu"
   },
   "chrome": {
     "menu": "Menu",
@@ -42,5 +44,26 @@
     "home": "Zpět domů",
     "page_title": "Stránka nenalezena · G.A.W.Studio",
     "page_title_other": "Chyba · G.A.W.Studio"
+  },
+  "form": {
+    "when": "Vyberte datum a čas",
+    "order": "Vaše objednávka",
+    "details": "Vaše údaje",
+    "date": "Datum",
+    "time": "Čas",
+    "choose_time": "Vyberte čas",
+    "morning": "9:00 – 13:00",
+    "afternoon": "14:00 – 18:00",
+    "tracks": "Počet skladeb",
+    "link": "Odkaz na WeTransfer",
+    "name": "Jméno",
+    "email": "E-mail",
+    "phone": "Telefon",
+    "note": "Poznámka",
+    "required_empty": "Povinné, zatím nevyplněno.",
+    "filled": "Vyplněno.",
+    "not_valid": "Zatím neplatné.",
+    "soon_book": "Online rezervace spustíme brzy. Do té doby <a href=\"{{contact}}\">nám napište</a> a termín najdeme spolu.",
+    "soon_order": "Online objednávky spustíme brzy. Do té doby <a href=\"{{contact}}\">nám napište</a> a objednávku vyřídíme ručně."
   }
 }

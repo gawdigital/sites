@@ -6,13 +6,11 @@
 
   import play from './art/play.svg?raw';
   import Card from './Card.svelte';
+  import HowCard from './HowCard.svelte';
   import Sale from './Sale.svelte';
   import Shell from './Shell.svelte';
+  import { PAGES, type Service } from './site.ts';
   import { get } from './translations/index.ts';
-
-  const STEPS = [1, 2, 3] as const;
-
-  type Service = 'recording' | 'mix' | 'mastering';
 
   let {
     name,
@@ -23,7 +21,9 @@
   const { t } = get();
   // Recording is booked, the online services are ordered.
   const action = $derived(t(name === 'recording' ? 'common.book_now' : 'common.order_now'));
-  const contact = $derived(pathOf('/contact', localeOf(page.url.pathname)));
+  const locale = $derived(localeOf(page.url.pathname));
+  const contact = $derived(pathOf('/contact', locale));
+  const form = $derived(pathOf(PAGES[`${name}_action`].route, locale));
 </script>
 
 {#snippet main()}
@@ -31,8 +31,7 @@
     {#if name !== 'recording'}<span class="tag">{t('common.online')}</span>{/if}
     <h2>{t(`common.${name}`)}</h2>
     <p>{t(`common.${name}_text`)}</p>
-    <!-- Booking and ordering come next (issue #29); until then the way in is the contact page. -->
-    <a class="btn" href={contact}>{action}</a>
+    <a class="btn" href={form}>{action}</a>
   </Card>
 {/snippet}
 
@@ -47,15 +46,7 @@
   </Card>
 {/snippet}
 
-{#snippet how()}
-  <Card image={images.how} order={4}>
-    <h2>{t('common.how_it_works')}</h2>
-    <ol class="steps">{#each STEPS as step (step)}<li>{t(`${name}.step_${step}`)}</li>{/each}</ol>
-    <a class="btn" href={contact}>{t('common.lets_start')}</a>
-  </Card>
-{/snippet}
-
-<Shell {name} title={t(`${name}.page_title`)} claim={t(`${name}.claim`)} {action}>
+<Shell {name} title={t(`${name}.page_title`)} claim={t(`${name}.claim`)} tabs={{ info: name, action: `${name}_action`, label: action }}>
   {#snippet left()}
     {@render main()}
     {#if studio}{@render sample()}{/if}
@@ -71,6 +62,6 @@
     {:else}
       {@render sample()}
     {/if}
-    {@render how()}
+    <HowCard {name} image={images.how} order={4} href={form} />
   {/snippet}
 </Shell>

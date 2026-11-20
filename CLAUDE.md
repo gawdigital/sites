@@ -2,7 +2,7 @@
 
 Bun workspace with the G.A.W. websites, one Cloudflare Worker each (SvelteKit 3, Svelte 5, adapter-cloudflare):
 `packages/gawdigital` is gawdigital.cz, `packages/gawgroup` is gawgroup.cz, `packages/gawstudio` is gawstudio.cz (its
-own design, pages only so far, not deployed: issue #29). `common/ui` holds the shared components,
+own design, pages and drawn forms so far, not deployed: issue #29). `common/ui` holds the shared components,
 themes and form spec, `common/i18n` the locale routing and `hreflang` helper, `common/contact` the contact endpoint,
 `common/company` the company details and brand list, `sanity/` the content studio (gawdigital's products and FAQ, read
 at build time). See `README.md` for the routes, the contact form and the owner steps.

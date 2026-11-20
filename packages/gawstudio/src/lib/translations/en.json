@@ -18,7 +18,9 @@
     "mastering": "Mastering",
     "recording_text": "Vocals, instruments or the whole band: record in our studio in Prague with a sound engineer at your side. Sessions are booked in four-hour blocks.",
     "mix_text": "Our Mix is the perfect solution for artists and producers who want to achieve professional quality recordings. Our experienced team uses state-of-the-art equipment and techniques to expertly balance levels and EQ for a polished final product. Thanks to years of experience in the industry, we know how to get your music moving. Our Mix is submitted with multiple revisions to ensure your vision is realized and we provide fast turnaround times to get your music to your audience quickly. Trust us to take your recordings to the next level.",
-    "mastering_text": "Our Mastering service is the final polishing touch that your music needs before it can truly shine. Our experienced mastering engineers enhance the clarity, crispness, and depth of your tracks, giving you a professional sound that stands out on any platform. With state-of-the-art tools and techniques, we ensure that your music is mastered to perfection and ready for streaming, radio play, or any other medium. Leave the mastering process to us and let your best work speak for itself! Try our Mastering service now and elevate your audio to the next level."
+    "mastering_text": "Our Mastering service is the final polishing touch that your music needs before it can truly shine. Our experienced mastering engineers enhance the clarity, crispness, and depth of your tracks, giving you a professional sound that stands out on any platform. With state-of-the-art tools and techniques, we ensure that your music is mastered to perfection and ready for streaming, radio play, or any other medium. Leave the mastering process to us and let your best work speak for itself! Try our Mastering service now and elevate your audio to the next level.",
+    "where": "Where to find us",
+    "view_map": "View map"
   },
   "chrome": {
     "menu": "Menu",
@@ -42,5 +44,26 @@
     "home": "Back home",
     "page_title": "Not found · G.A.W.Studio",
     "page_title_other": "Error · G.A.W.Studio"
+  },
+  "form": {
+    "when": "Select a date and time",
+    "order": "Your order",
+    "details": "Your details",
+    "date": "Date",
+    "time": "Time",
+    "choose_time": "Choose a time",
+    "morning": "9:00 – 13:00",
+    "afternoon": "14:00 – 18:00",
+    "tracks": "Number of tracks",
+    "link": "WeTransfer link",
+    "name": "Name",
+    "email": "E-mail",
+    "phone": "Phone",
+    "note": "Note",
+    "required_empty": "Required, not filled in yet.",
+    "filled": "Filled in.",
+    "not_valid": "Not valid yet.",
+    "soon_book": "Online booking opens soon. Until then, <a href=\"{{contact}}\">write to us</a> and we will find a date together.",
+    "soon_order": "Online orders open soon. Until then, <a href=\"{{contact}}\">write to us</a> and we will take your order by hand."
   }
 }

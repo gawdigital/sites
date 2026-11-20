@@ -154,18 +154,20 @@ Both need the repository secrets `CLOUDFLARE_API_TOKEN` (Workers edit rights) an
 ## gawstudio.cz
 
 The recording studio's site, planned in issue #29. So far it is the five pages of the design (home, recording, mix,
-mastering, contact) in English, German and Czech: prerendered, no client framework, and no script but the language
-ones. Booking, orders, payments and accounts come in the issue's later phases.
+mastering, contact) and each service's form page (`/recording/book`, `/mix/order`, `/mastering/order`) in English,
+German and Czech: prerendered, no client framework, and no script but the language ones, the phone's menu and the
+fields' indicator. Booking, orders, payments and accounts come in the issue's later phases.
 
 - **Design**: G.A.W.Studio's own, not the shared theme: one stylesheet (`src/lib/styles/site.css`) drawn from the
   1680 px design, every length a multiple of the design's pixel (`--px`) so the page scales with the window; one
-  column on a phone, where the menu opens from a checkbox, without JavaScript. Only the typeface, the language
-  switch and the company's details come from `common/`.
+  column on a phone, where the menu is the other sites' overlay behind three dots. The typeface, the language
+  switch, that menu, the company's details and the forms' fields (the shared form spec, in the studio's colours:
+  `src/lib/styles/form.css`) come from `common/`.
 - **Copy**: `packages/gawstudio/src/lib/translations`. The design's body copy is placeholder text, so every
   description is provisional, in all three languages, until the owner approves it.
-- **Not wired yet**: "Book now" and the offer's card lead to the contact page, whose "Write to us" card opens
-  gawgroup.cz's contact form with the studio's topic; the cart, the account and the sound sample's player are only
-  drawn.
+- **Not wired yet**: the booking and order forms are only drawn (their button is disabled and a note leads to the
+  contact page); the offer's card leads to the contact page, whose "Write to us" card opens gawgroup.cz's contact
+  form with the studio's topic; the cart, the account and the sound sample's player are only drawn.
 - **Not launched**: the Worker has no route (gawstudio.cz still serves the old site) and is not in the deploy
   workflow; every page carries `noindex` until `LAUNCHED` in `src/lib/site.ts` is turned on. CI uploads a preview
   version once the Worker `gawstudio` exists (an owner step: one `bun run deploy` in `packages/gawstudio`, which

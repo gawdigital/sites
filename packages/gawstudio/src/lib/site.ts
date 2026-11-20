@@ -1,9 +1,11 @@
 // What the site is made of: its pages, its navigation, the studio's address, and the one stylesheet every page
-// ships inline. The design is G.A.W.Studio's own (issue #29), so nothing of the other sites' theme is used here but
-// the typeface.
+// ships inline. The design is G.A.W.Studio's own (issue #29): of the other sites it uses the typeface, the phone's
+// menu and the form spec (the fields of `@gaw/ui`, in this site's colours).
 import font from '@gaw/ui/assets/kumbh.ttf?url';
+import { formFieldsCss } from '@gaw/ui/styles.ts';
 
 import grain from './art/grain.png?url';
+import form from './styles/form.css?raw';
 import css from './styles/site.css?raw';
 
 /** The canonical origin, for canonical and hreflang links once the site is launched. */
@@ -15,15 +17,23 @@ export const ORIGIN = 'https://gawstudio.cz';
  */
 export const LAUNCHED = false;
 
-export type PageName = 'home' | 'recording' | 'mix' | 'mastering' | 'contact' | 'error';
+export type Service = 'recording' | 'mix' | 'mastering';
 
-export type NavId = Exclude<PageName, 'error'>;
+/** A service's second page: recording is booked, the online services are ordered. */
+export type ActionPage = `${Service}_action`;
+
+export type PageName = 'home' | Service | ActionPage | 'contact' | 'error';
+
+export type NavId = Exclude<PageName, ActionPage | 'error'>;
 
 export const PAGES: Record<PageName, { route: string; nav?: NavId }> = {
   home: { route: '/', nav: 'home' },
   recording: { route: '/recording', nav: 'recording' },
   mix: { route: '/mix', nav: 'mix' },
   mastering: { route: '/mastering', nav: 'mastering' },
+  recording_action: { route: '/recording/book', nav: 'recording' },
+  mix_action: { route: '/mix/order', nav: 'mix' },
+  mastering_action: { route: '/mastering/order', nav: 'mastering' },
   contact: { route: '/contact', nav: 'contact' },
   error: { route: '/' },
 };
@@ -46,6 +56,12 @@ const NOSCRIPT =
 export const STYLES = `<link rel="preload" href="${font}" as="font" type="font/ttf" crossorigin><style>${css
   .replace('%FONT%', font)
   .replace('%GRAIN%', grain)}</style><noscript><style>${NOSCRIPT}</style></noscript>`;
+
+/**
+ * The form pages' rules, after the page's own: the shared field spec, then this site's colours and its form layout.
+ * The spec's tokens are the indicator's two colours.
+ */
+export const FORM_STYLES = `<style>${formFieldsCss('.fg{--fok:var(--green);--fbad:var(--pink)}')}${form}</style>`;
 
 /** A heading with its last line in the accent colour, as the design sets its claims: `Make it<br>happen...`. */
 export const accent = (html: string) => html.replace(/^(.*<br>)?(.*)$/s, '$1<em>$2</em>');

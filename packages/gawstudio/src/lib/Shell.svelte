@@ -24,7 +24,7 @@
     name,
     title,
     claim,
-    action,
+    tabs,
     left,
     right,
   }: {
@@ -32,8 +32,8 @@
     title: string;
     /** The page's claim, with its line breaks. */
     claim: string;
-    /** A service's page: the label of the way to book or order it, next to Info under the claim. */
-    action?: string;
+    /** A service's two pages under its claim: Info, and the way to book or order it. */
+    tabs?: { info: PageName; action: PageName; label: string };
     left: Snippet;
     right: Snippet;
   } = $props();
@@ -82,7 +82,7 @@
   <main class="cols wrap">
     <div class="head">
       <h1>{@html accent(claim)}</h1>
-      {#if action}<div class="tabs"><span class="tag cur" aria-current="page">{t('common.info')}</span><a class="tag" href={pathOf('/contact', locale)}>{action}</a></div>{/if}
+      {#if tabs}<div class="tabs">{#each [[tabs.info, t('common.info')], [tabs.action, tabs.label]] as const as [id, label] (id)}{#if id === name}<span class="tag cur" aria-current="page">{label}</span>{:else}<a class="tag" href={pathOf(PAGES[id].route, locale)}>{label}</a>{/if}{/each}</div>{/if}
     </div>
     <div class="col a">{@render left()}</div>
     <div class="col b">{@render right()}</div>

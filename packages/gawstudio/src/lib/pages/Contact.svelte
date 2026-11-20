@@ -2,11 +2,10 @@
   import { GROUP } from '@gaw/company/brands.ts';
   import { COMPANY } from '@gaw/company/company.ts';
 
-  import map from '#lib/art/map.webp';
   import sale from '#lib/art/sale.webp';
   import Card from '#lib/Card.svelte';
+  import MapCard from '#lib/MapCard.svelte';
   import Shell from '#lib/Shell.svelte';
-  import { STUDIO } from '#lib/site.ts';
   import { get } from '#lib/translations/index.ts';
 
   const { t } = get();
@@ -15,11 +14,7 @@
 
 <Shell name="contact" title={t('contact.page_title')} claim={t('contact.claim')}>
   {#snippet left()}
-    <Card image={map} eager order={1}>
-      <h2>{t('contact.where')}</h2>
-      <p>{STUDIO.street}<br />{STUDIO.city}<br />{t('common.country')}</p>
-      <a class="btn" href={STUDIO.map} target="_blank" rel="noopener">{t('contact.view_map')}<span class="sr"> {external}</span></a>
-    </Card>
+    <MapCard order={1} />
     <Card image={sale} square order={3}>
       <h2>{t('contact.billing')}</h2>
       <!-- The company's details are shared data (`@gaw/company`); only their labels are this page's copy. -->

@@ -18,7 +18,9 @@
     "mastering": "Mastering",
     "recording_text": "Gesang, Instrumente oder die ganze Band: Nehmen Sie in unserem Studio in Prag auf, mit einem Tontechniker an Ihrer Seite. Gebucht wird in Blöcken von vier Stunden.",
     "mix_text": "Unser Mix ist die perfekte Lösung für Künstler und Produzenten, die Aufnahmen in professioneller Qualität erreichen wollen. Unser erfahrenes Team balanciert Pegel und EQ mit modernster Technik zu einem ausgefeilten Endergebnis. Dank jahrelanger Erfahrung in der Branche wissen wir, wie Ihre Musik in Bewegung kommt. Zum Mix gehören mehrere Korrekturrunden, damit Ihre Vorstellung Wirklichkeit wird, und wir liefern schnell, damit Ihre Musik bald bei Ihrem Publikum ist. Vertrauen Sie uns Ihre Aufnahmen an, wir bringen sie auf das nächste Level.",
-    "mastering_text": "Unser Mastering ist der letzte Schliff, den Ihre Musik braucht, bevor sie wirklich strahlen kann. Unsere erfahrenen Mastering-Ingenieure geben Ihren Tracks mehr Klarheit, Präzision und Tiefe und damit einen professionellen Klang, der auf jeder Plattform heraussticht. Mit modernsten Werkzeugen und Techniken sorgen wir dafür, dass Ihre Musik perfekt gemastert ist: bereit für Streaming, Radio oder jedes andere Medium. Überlassen Sie das Mastering uns und lassen Sie Ihr bestes Werk für sich sprechen!"
+    "mastering_text": "Unser Mastering ist der letzte Schliff, den Ihre Musik braucht, bevor sie wirklich strahlen kann. Unsere erfahrenen Mastering-Ingenieure geben Ihren Tracks mehr Klarheit, Präzision und Tiefe und damit einen professionellen Klang, der auf jeder Plattform heraussticht. Mit modernsten Werkzeugen und Techniken sorgen wir dafür, dass Ihre Musik perfekt gemastert ist: bereit für Streaming, Radio oder jedes andere Medium. Überlassen Sie das Mastering uns und lassen Sie Ihr bestes Werk für sich sprechen!",
+    "where": "So finden Sie uns",
+    "view_map": "Karte ansehen"
   },
   "chrome": {
     "menu": "Menü",
@@ -42,5 +44,26 @@
     "home": "Zur Startseite",
     "page_title": "Nicht gefunden · G.A.W.Studio",
     "page_title_other": "Fehler · G.A.W.Studio"
+  },
+  "form": {
+    "when": "Datum und Uhrzeit wählen",
+    "order": "Ihre Bestellung",
+    "details": "Ihre Angaben",
+    "date": "Datum",
+    "time": "Uhrzeit",
+    "choose_time": "Uhrzeit wählen",
+    "morning": "9:00 – 13:00",
+    "afternoon": "14:00 – 18:00",
+    "tracks": "Anzahl der Tracks",
+    "link": "WeTransfer-Link",
+    "name": "Name",
+    "email": "E-Mail",
+    "phone": "Telefon",
+    "note": "Anmerkung",
+    "required_empty": "Pflichtfeld, noch nicht ausgefüllt.",
+    "filled": "Ausgefüllt.",
+    "not_valid": "Noch nicht gültig.",
+    "soon_book": "Die Online-Buchung kommt bald. Bis dahin <a href=\"{{contact}}\">schreiben Sie uns</a>, wir finden gemeinsam einen Termin.",
+    "soon_order": "Die Online-Bestellung kommt bald. Bis dahin <a href=\"{{contact}}\">schreiben Sie uns</a>, wir nehmen Ihre Bestellung persönlich auf."
   }
 }
