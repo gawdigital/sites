@@ -113,14 +113,14 @@ h1{font-weight:800;font-size:110px;line-height:0.9455;text-transform:uppercase}
 .card{position:relative;background:var(--card);border-radius:95px;overflow:hidden;padding:60px;
   display:flex;flex-direction:column;justify-content:flex-end;
   box-shadow:0 40px 80px var(--sh1),0 8px 24px var(--sh2)}
-/* The cursor tilts a card or a tile slightly (scripts/tilt.js eases the angles and moves the sheen's centre) */
-:is(.card,.tile).tilt{transform:perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));will-change:transform}
-:is(.card,.tile).tilt:after{content:'';position:absolute;inset:0;z-index:3;border-radius:inherit;pointer-events:none;opacity:0;
+/* The cursor tilts a card, a tile or a brand's card slightly (scripts/tilt.js eases the angles and moves the sheen's centre) */
+:is(.card,.tile,.bcard).tilt{transform:perspective(1000px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));will-change:transform}
+:is(.card,.tile,.bcard).tilt:after{content:'';position:absolute;inset:0;z-index:3;border-radius:inherit;pointer-events:none;opacity:0;
   /* the sheen, a dithered bitmap tilt.js draws (--shimg), 770 px across and centred on the cursor (--mx/--my, 0-1) */
   background:var(--shimg,none) no-repeat calc(var(--mx,.5)*100% + var(--mx,.5)*770px - 385px)
     calc(var(--my,.5)*100% + var(--my,.5)*770px - 385px)/770px 770px;
   transition:opacity .3s}
-:is(.card,.tile).mv:after{opacity:1}
+:is(.card,.tile,.bcard).mv:after{opacity:1}
 .scene{position:absolute;inset:0 0 auto 0;height:520px;overflow:hidden}
 .fade{position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 220px,rgba(var(--cr),.85) 420px,rgb(var(--cr)) 520px)}
@@ -227,5 +227,5 @@ a.ln:focus-visible{outline:2px solid currentColor;outline-offset:3px;border-radi
 ::view-transition-group(root){animation-duration:.2s}
 @media (prefers-reduced-motion:reduce){
   *,*:before,*:after{transition-duration:.01ms!important;scroll-behavior:auto!important}
-  :is(.card,.tile).tilt{transform:none}
+  :is(.card,.tile,.bcard).tilt{transform:none}
 }

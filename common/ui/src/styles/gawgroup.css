@@ -66,16 +66,19 @@ a.ln{color:var(--xt);text-underline-offset:4px;text-decoration-thickness:1.5px}
 .btag{height:28px;padding:0 14px;border-radius:14px;display:inline-flex;align-items:center;font-weight:700;font-size:11px;letter-spacing:var(--caps);text-transform:uppercase;white-space:nowrap}
 .brow{margin-top:30px;display:flex;justify-content:space-between;align-items:center}
 .burl{font-size:14px;letter-spacing:.04em;color:rgba(255,255,255,.6)}
-.bcard:after{content:"";position:absolute;inset:0;pointer-events:none}
+/* the fade over the picture sits in :before, above the picture and below the text: :after is the tilt's sheen, which
+   is light here in both themes, since the card is dark in both */
+.bcard:before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none}
+:root[data-theme="light"] .bcard.mv:after{filter:invert(1);opacity:.33}
 .bcard .art{position:absolute}
 .bcard.digital{background:radial-gradient(40% 35% at 60% 22%,rgba(28,165,181,.35),transparent 70%),radial-gradient(45% 40% at 80% 30%,rgba(0,255,188,.25),transparent 70%),linear-gradient(170deg,#24324a,#0d0e11 75%)}
 .bcard.digital .art{left:70px;top:150px;width:900px;border-radius:12px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.5)}
 .bcard.digital .art svg{display:block;width:100%;height:auto;filter:none}
 .bcard.digital .btag{background:rgba(0,255,188,.14);color:#00ffbc}
 .bcard.digital .btn{background:linear-gradient(135deg,#00ffbc,#1ca5b5);color:#0d0e11}
-.bcard.digital:after{background:linear-gradient(180deg,transparent 40%,rgba(13,14,17,.92) 72%)}
+.bcard.digital:before{background:linear-gradient(180deg,transparent 40%,rgba(13,14,17,.92) 72%)}
 .bcard.studio .art{inset:0;background-position:center 20%;background-size:cover}
-.bcard.studio:after{background:linear-gradient(180deg,rgba(13,14,17,.05) 30%,rgba(13,14,17,.9) 74%)}
+.bcard.studio:before{background:linear-gradient(180deg,rgba(13,14,17,.05) 30%,rgba(13,14,17,.9) 74%)}
 .bcard.studio .btag{background:rgba(201,138,90,.2);color:#f0b183}
 .bcard.studio .btn{background:#c98a5a;color:#151a20}
 /* hatched pills: thin lines in the accent, behind the cards */

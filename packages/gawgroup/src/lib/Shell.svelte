@@ -10,7 +10,7 @@
   import Footer from '@gaw/ui/Footer.svelte';
   import Header from '@gaw/ui/Header.svelte';
   import { GRADIENTS } from '@gaw/ui/icons.ts';
-  import { FIT, FIT_HEAD, MENU, SPECULATION, THEME, THEME_HEAD, TOUCH, inline } from '@gaw/ui/scripts.ts';
+  import { FIT, FIT_HEAD, MENU, SPECULATION, THEME, THEME_HEAD, TILT, TOUCH, inline } from '@gaw/ui/scripts.ts';
   import { stylesheet } from '@gaw/ui/styles.ts';
   import type { LangLink, NavItem } from '@gaw/ui/types.ts';
   import { GROUP } from '@gaw/company/brands.ts';
@@ -72,4 +72,4 @@
 
 {@html GRADIENTS}<div class={['frame', name !== 'home' && 'sub']}><Header {badge} name={GROUP.name} home={pathOf('/', locale)} {items} {langs} {labels} />
 {@render before?.()}<main>{@render children()}</main>
-<Footer {langs} themeLabel={labels.theme}><span>{t('chrome.copyright')}</span><nav class="fm">{#each FOOT as { id, route: to } (id)}<a href={pathOf(to, locale)} aria-current={to === meta.route && name !== 'error' ? 'page' : undefined}>{t(`chrome.${id}`)}</a>{/each}</nav></Footer><div class="noise"></div></div>{@html inline(FIT, THEME, MENU, TOUCH, LANG)}
+<Footer {langs} themeLabel={labels.theme}><span>{t('chrome.copyright')}</span><nav class="fm">{#each FOOT as { id, route: to } (id)}<a href={pathOf(to, locale)} aria-current={to === meta.route && name !== 'error' ? 'page' : undefined}>{t(`chrome.${id}`)}</a>{/each}</nav></Footer><div class="noise"></div></div>{@html inline(FIT, THEME, MENU, TILT, TOUCH, LANG)}

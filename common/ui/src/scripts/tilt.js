@@ -21,7 +21,7 @@ for(var j=0;j<n;j++){var dy=(j+.5-h)/h;for(var i=0;i<n;i++){var dx=(i+.5-h)/h,q=
 var r=Math.sqrt(q),k=(j*n+i)*4;p[k]=c[0];p[k+1]=c[1];p[k+2]=c[2];p[k+3]=Math.max(0,Math.floor(m*(1-r*r*(3-2*r))+Math.random()+Math.random()-.5))}}
 g.putImageData(im,0,0);cv.toBlob(function(b){if(!b)return;S[key]='url('+URL.createObjectURL(b)+')';sheen()})}
 if(window.requestIdleCallback)requestIdleCallback(sheen);else setTimeout(sheen,300);
-[].forEach.call(document.querySelectorAll('.card,.tile'),function(c){var rx=0,ry=0,tx=0,ty=0,on=false,raf=0,t0=0;
+[].forEach.call(document.querySelectorAll('.card,.tile,.bcard'),function(c){var rx=0,ry=0,tx=0,ty=0,on=false,raf=0,t0=0;
 function frame(t){var f=1-Math.pow(.8,Math.min(64,t-(t0||t))/16.7);t0=t;rx+=(tx-rx)*f;ry+=(ty-ry)*f;
 if(Math.abs(tx-rx)<.002&&Math.abs(ty-ry)<.002){rx=tx;ry=ty;raf=0;t0=0;if(!on){c.classList.remove('tilt');c.style.removeProperty('--rx');c.style.removeProperty('--ry');return}}
 else raf=requestAnimationFrame(frame);
