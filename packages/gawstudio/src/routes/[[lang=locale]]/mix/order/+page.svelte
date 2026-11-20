@@ -1,6 +1,6 @@
 <script lang="ts">
-  import how from '#lib/art/mix-how.webp';
+  import quote from '#lib/art/mix-quote.webp';
   import Action from '#lib/Action.svelte';
 </script>
 
-<Action name="mix" image={how} />
+<Action name="mix" image={quote} />

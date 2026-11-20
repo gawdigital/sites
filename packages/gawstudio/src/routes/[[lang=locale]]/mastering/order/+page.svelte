@@ -1,6 +1,6 @@
 <script lang="ts">
-  import how from '#lib/art/mastering-how.webp';
+  import quote from '#lib/art/mastering-quote.webp';
   import Action from '#lib/Action.svelte';
 </script>
 
-<Action name="mastering" image={how} />
+<Action name="mastering" image={quote} />
