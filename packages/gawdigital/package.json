@@ -14,6 +14,8 @@
     "deploy": "bun --bun wrangler deploy"
   },
   "dependencies": {
+    "@gaw/company": "workspace:*",
+    "@gaw/contact": "workspace:*",
     "@gaw/i18n": "workspace:*",
     "@gaw/ui": "workspace:*",
     "sveltekit-i18n": "3.4.1",

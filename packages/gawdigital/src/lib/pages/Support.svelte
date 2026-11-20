@@ -4,7 +4,7 @@
   import Shell from '#lib/Shell.svelte';
   import { get } from '#lib/translations/index.ts';
   import ContactForm from '#lib/ContactForm.svelte';
-  import type { FormState } from '#lib/forms.ts';
+  import type { FormState } from '@gaw/contact/states.ts';
   import { localeOf, pathOf, prefixOf } from '@gaw/i18n/locale.ts';
   import { page } from '$app/state';
   import { productFor } from '#lib/cms.ts';

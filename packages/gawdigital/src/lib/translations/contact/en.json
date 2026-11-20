@@ -7,15 +7,11 @@
   "copy_company_id": "Copy Company ID",
   "copy": "Copy",
   "vat_id_di": "VAT ID (DIČ)",
-  "cz21697248": "CZ21697248",
   "vat_id": "VAT ID",
   "copy_vat_id": "Copy VAT ID",
   "bank_account": "Bank account",
-  "sob": "ČSOB",
   "iban": "IBAN",
-  "cz67_0300_0000_0003_4238": "CZ67 0300 0000 0003 4238 4729",
   "copy_iban": "Copy IBAN",
   "bic": "BIC",
-  "cekoczpp": "CEKOCZPP",
   "contact_g_a_w_digital": "Contact · G.A.W.Digital"
 }
