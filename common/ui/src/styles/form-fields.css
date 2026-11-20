@@ -10,10 +10,12 @@
 .fg .ts{border-radius:18px}
 .fg .fbox .lb{position:absolute;z-index:1;top:15px;left:18px;right:40px;font-size:12px;line-height:1.25;letter-spacing:.12em;
   color:var(--soft);pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.fg .dot{position:absolute;z-index:1;top:19.5px;right:23px;width:6px;height:6px;border-radius:50%;background:var(--edge);
+/* the indicator of a required field: destructive until its value is valid, then affirmative; the script's verdict
+   (which also refuses a value of spaces) wins over the browser's :valid, which alone shows without JavaScript */
+.fg .dot{position:absolute;z-index:1;top:19.5px;right:23px;width:6px;height:6px;border-radius:50%;background:var(--fbad);
   pointer-events:none;transition:background-color .15s}
-.fg .fbox.is-ok .dot{background:var(--fok)}
-.fg .fbox.is-bad .dot,.fg .fbox.req:focus-within:has(:invalid) .dot{background:var(--fbad)}
+.fg .fbox.is-ok .dot,.fg .fbox.req:has(:valid) .dot{background:var(--fok)}
+.fg .fbox.req.is-bad .dot{background:var(--fbad)}
 .fg .sr{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .fg .cform .fbox input[type=email],.fg .cform .fbox select,.fg .cform .fbox textarea{height:100%;background:transparent;border:0;
   border-radius:18px;padding:34px 18px 13px;font-size:17px;line-height:1.3529;box-shadow:none}
