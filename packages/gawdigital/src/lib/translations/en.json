@@ -24,12 +24,11 @@
     "thank_you": "THANK YOU.",
     "well_reply_to_your_email": "We’ll reply to your email.",
     "company": "Company",
-    "g_a_w_group_s": "G.A.W.Group, s.r.o.",
     "address": "Address",
-    "u_smaltovny_1375_25_170": "U smaltovny 1375/25<br>170 00 Praha 7 – Holešovice<br>Czech Republic",
+    "country": "Czech Republic",
     "company_id_i_o": "Company ID (IČO)",
     "register": "Register",
-    "registered_in_the_commercial_register": "Registered in the Commercial Register kept by the Municipal Court in Prague, section C, file 405235."
+    "registered_in_the_commercial_register": "Registered in the Commercial Register kept by the Municipal Court in Prague, section C, file {{file}}."
   },
   "chrome": {
     "home": "HOME",

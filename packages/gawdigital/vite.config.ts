@@ -6,7 +6,7 @@ import { defineConfig } from 'vite';
 
 import { LOCALES, pathOf } from '@gaw/i18n/locale.ts';
 
-import { FORM_STATES } from './src/lib/forms.ts';
+import { FORM_STATES } from '@gaw/contact/states.ts';
 
 const PAGES = ['/', '/apps/midi-control', '/apps/midi-control/support', '/support', '/contact', '/privacy'];
 const FORMS = ['/support', '/contact'];

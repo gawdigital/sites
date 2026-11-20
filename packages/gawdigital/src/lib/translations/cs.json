@@ -24,12 +24,11 @@
     "thank_you": "DĚKUJEME.",
     "well_reply_to_your_email": "Odpovíme vám e-mailem.",
     "company": "Společnost",
-    "g_a_w_group_s": "G.A.W.Group, s.r.o.",
     "address": "Adresa",
-    "u_smaltovny_1375_25_170": "U smaltovny 1375/25<br>170 00 Praha 7 – Holešovice<br>Česká republika",
+    "country": "Česká republika",
     "company_id_i_o": "IČO",
     "register": "Rejstřík",
-    "registered_in_the_commercial_register": "Zapsaná v obchodním rejstříku vedeném Městským soudem v Praze, oddíl C, vložka 405235."
+    "registered_in_the_commercial_register": "Zapsaná v obchodním rejstříku vedeném Městským soudem v Praze, oddíl C, vložka {{file}}."
   },
   "chrome": {
     "home": "ÚVOD",

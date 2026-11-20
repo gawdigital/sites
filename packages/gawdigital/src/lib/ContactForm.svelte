@@ -12,7 +12,7 @@
   import { FIELDS, SUBMIT, TURNSTILE, script } from '@gaw/ui/scripts.ts';
 
   import { FORM } from './scripts.ts';
-  import type { FormState } from './forms.ts';
+  import type { FormState } from '@gaw/contact/states.ts';
   import { get } from './translations/index.ts';
 
   let {

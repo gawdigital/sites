@@ -2,7 +2,7 @@ import { defineParams } from '@sveltejs/kit/params';
 
 import { isPrefixed } from '@gaw/i18n/locale.ts';
 
-import { isFormState } from '#lib/forms.ts';
+import { isFormState } from '@gaw/contact/states.ts';
 
 export const params = defineParams({
   // Only the prefixed locales: English has no segment at all, so accepting `en` would give every page two
