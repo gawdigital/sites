@@ -42,6 +42,9 @@ a{color:inherit;text-decoration:none}
 /* the headings' line height is below the font size, so a glyph reaches into the line above; WebKit paints that line's
    selection over it and cut the tops off. Positioned, the gradient words paint after it */
 :root :is(h1,h2) .x{position:relative}
+/* only text is selected: the hatching, the pictures, the icons and the other graphics (every svg, img and canvas, and
+   whatever is hidden from assistive technology) never light up in the selection colour */
+:is(svg,img,canvas,[aria-hidden="true"]){-webkit-user-select:none;user-select:none}
 a.ln{color:var(--blue);text-decoration:underline;text-underline-offset:.25em;text-decoration-thickness:2px}
 /* a link's arrow: larger, outside the underline (an inline-block takes no text-decoration from its parent) */
 a.ln .arr{display:inline-block;margin-left:.4em;line-height:0;text-decoration:none}
