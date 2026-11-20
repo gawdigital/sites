@@ -15,7 +15,6 @@
   let {
     badge,
     name = 'G.A.W.Digital',
-    blob = BLOB_PATH,
     home,
     items,
     langs,
@@ -25,8 +24,6 @@
     badge: string;
     /** The site's name: the home link's accessible name. */
     name?: string;
-    /** The background shape behind the header, a path in the blob's 1680 × 2207 box; a theme places and sizes it. */
-    blob?: string;
     home: string;
     items: readonly NavItem[];
     langs: readonly LangLink[];
@@ -34,4 +31,4 @@
   } = $props();
 </script>
 
-<svg class="blob" viewBox="0 0 1680 2207" preserveAspectRatio="none"><path style="fill:var(--blob)" d={blob}/></svg><div class="vig"></div><a class="home" href={home} aria-label={name}>{@html badge}</a><nav class="menu">{#each items as it (it.label)}{#if it.href === undefined}<a class="off" aria-disabled="true" title={labels.soon}>{it.label}</a>{:else if it.external}<a href={it.href} target="_blank" rel="noopener">{it.label}<span class="arr ext" aria-hidden="true">{@html EXT}</span><span class="sr">{labels.external}</span></a>{:else}<a href={it.href} class={it.current ? 'on' : undefined} aria-current={it.current ? 'page' : undefined}>{it.label}</a>{/if}{/each}</nav><MobileMenu {items} {langs} {labels} />
+<svg class="blob" viewBox="0 0 1680 2207" preserveAspectRatio="none"><path style="fill:var(--blob)" d={BLOB_PATH}/></svg><div class="vig"></div><a class="home" href={home} aria-label={name}>{@html badge}</a><nav class="menu">{#each items as it (it.label)}{#if it.href === undefined}<a class="off" aria-disabled="true" title={labels.soon}>{it.label}</a>{:else if it.external}<a href={it.href} target="_blank" rel="noopener">{it.label}<span class="arr ext" aria-hidden="true">{@html EXT}</span><span class="sr">{labels.external}</span></a>{:else}<a href={it.href} class={it.current ? 'on' : undefined} aria-current={it.current ? 'page' : undefined}>{it.label}</a>{/if}{/each}</nav><MobileMenu {items} {langs} {labels} />

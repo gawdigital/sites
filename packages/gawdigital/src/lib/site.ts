@@ -1,6 +1,6 @@
 // What each page of the site is: its route, which navigation item it sits under, and the stylesheet fragments the
 // approved design composes it from (head before the shared mobile rules, tail after them).
-import { ADDITIONS_CSS, CONTACT_CSS, formCss, formFieldsCss } from '@gaw/ui/styles.ts';
+import { ADDITIONS_CSS, CONTACT_CSS, PRIVACY_CSS, formCss, formFieldsCss } from '@gaw/ui/styles.ts';
 
 import formFieldsTokens from './styles/form-fields-tokens.css?raw';
 import formTokens from './styles/form-tokens.css?raw';
@@ -11,12 +11,12 @@ import hubgrid from './styles/hubgrid.css?raw';
 import midiHeadM5 from './styles/midi-head-m5.css?raw';
 import midiHead from './styles/midi-head.css?raw';
 import midiTail from './styles/midi-tail.css?raw';
-import privacy from './styles/privacy.css?raw';
 import product from './styles/product.css?raw';
 import support from './styles/support.css?raw';
 
 // The shared form spec in this site's colours: its token rules go where the design declares them.
 const contact = CONTACT_CSS;
+const privacy = PRIVACY_CSS;
 const form = formCss(formTokens);
 const formFields = formFieldsCss(formFieldsTokens);
 
