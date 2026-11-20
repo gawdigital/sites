@@ -29,7 +29,7 @@
 .fg .fsel select:invalid{color:var(--dim)}
 .fg .fsel:after{content:"";position:absolute;right:25px;top:39px;width:8px;height:8px;margin-top:0;pointer-events:none;
   border-right:2px solid var(--soft);border-bottom:2px solid var(--soft);transform:rotate(45deg)}
-/* without an indicator the chevron is centred vertically: the rotated stroke's visible box lies 2.83 px (2.47 px on the phone) below the centre of its 10 px (9 px) box */
+/* every select without an indicator (optional, or with no empty state to choose) has its chevron centred vertically: the rotated stroke's visible box lies 2.83 px (2.47 px on the phone) below the centre of its 10 px (9 px) box */
 .fg .fsel:not(.req):after{top:calc(50% - 7.83px)}
 .fg .fbox.msg{display:flex;flex-direction:column;height:auto;min-height:180px}
 .fg .cform .fbox.msg textarea{flex:1;height:auto;min-height:0;resize:none}
