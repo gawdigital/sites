@@ -7,7 +7,6 @@
   import Field from '@gaw/ui/Field.svelte';
   import FormCard from '@gaw/ui/FormCard.svelte';
   import FormEnd from '@gaw/ui/FormEnd.svelte';
-  import { ARROW } from '@gaw/ui/icons.ts';
   import Pills from '@gaw/ui/Pills.svelte';
   import TextArea from '@gaw/ui/TextArea.svelte';
   import { FIELDS, SUBMIT, TURNSTILE, script } from '@gaw/ui/scripts.ts';
@@ -35,6 +34,6 @@
   <Field label={t('common.email')} name="email" type="email" autocomplete="email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="name@example.com" status={empty} />
   <Pills label={t('common.topic')} name="topic" options={topics} value="general" />
   <TextArea label={t('common.message')} name="message" maxlength={5000} status={empty} />
-  <FormEnd {error} verification={t('common.verification')} sitekey={PUBLIC_GAWGROUP_TURNSTILE_SITE_KEY}>{t('common.send')}<span class="arr" aria-hidden="true">{@html ARROW}</span>{#snippet note()}{@html t('common.privacy_note', { p: prefix })}{/snippet}</FormEnd>
+  <FormEnd {error} verification={t('common.verification')} sitekey={PUBLIC_GAWGROUP_TURNSTILE_SITE_KEY}>{t('common.send')}{#snippet note()}{@html t('common.privacy_note', { p: prefix })}{/snippet}</FormEnd>
 </FormCard>
   {@html script(TOPIC)}{@html script(FIELDS, { FILLED: t('form.filled'), INVALID: t('form.not_valid'), EMPTY: empty })}{@html script(TURNSTILE)}{@html script(SUBMIT, { MESSAGES: messages })}

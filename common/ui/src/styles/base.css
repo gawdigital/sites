@@ -139,8 +139,10 @@ h1{font-weight:800;font-size:110px;line-height:0.9455;text-transform:uppercase}
 .btn:active{filter:brightness(.95);box-shadow:none;transition-duration:.06s}
 .btn:focus-visible{outline:none;box-shadow:0 0 0 3px var(--page),0 0 0 6px var(--x)}
 .btn.mint{background:var(--xg);color:var(--on-x)}
-.btn .arr.ext{display:inline-block;margin-left:.5em;line-height:0}
-.btn .arr.ext svg{display:block;width:.9em;height:auto;transition:transform .25s cubic-bezier(.2,.7,.3,1)}
+/* a button's arrow after its text: the send button's on every site, a link's out of the site (.ext) */
+.btn .arr{display:inline-block;margin-left:.5em;line-height:0}
+.btn .arr svg{display:block;width:1.05em;height:auto;transition:transform .25s cubic-bezier(.2,.7,.3,1)}
+.btn .arr.ext svg{width:.9em}
 @media (hover:hover){.btn:hover .arr.ext svg{transform:translate(.14em,-.14em)}}
 .btn:active .arr.ext svg{transform:translate(.14em,-.14em)}
 .toggle{display:inline-flex;align-items:center;gap:20px;font-weight:800;font-size:18px;color:var(--xt)}
