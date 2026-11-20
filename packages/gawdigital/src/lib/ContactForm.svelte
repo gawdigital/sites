@@ -1,10 +1,14 @@
 <script lang="ts">
   // The contact form of /contact and /support: the design's form, posting to the contact endpoint. It works without
   // JavaScript (the endpoint answers with a redirect to the form's result page), except that Turnstile needs it.
+  // Its styles and scripts are the shared form spec of `@gaw/ui`. The markup is still written out here, the same as
+  // that of the `@gaw/ui` form components (FormCard, Field, Select, Pills, TextArea, FormEnd): rendering it through
+  // them would put a hydration comment after each one, and this page's HTML is kept as it was.
   import { PUBLIC_TURNSTILE_SITE_KEY } from '$app/env/public';
   import { CHECK } from '@gaw/ui/icons.ts';
+  import { FIELDS, SUBMIT, TURNSTILE, script } from '@gaw/ui/scripts.ts';
 
-  import { script } from './scripts.ts';
+  import { FORM } from './scripts.ts';
   import type { FormState } from './forms.ts';
   import { get } from './translations/index.ts';
 
@@ -44,4 +48,4 @@
       <div class="sent" role="status">{@html CHECK}<h2>{t('common.thank_you')}</h2><p>{t('common.well_reply_to_your_email')}</p></div>
     </article>
   </section>
-  {@html script('form')}{@html script('fields', { FILLED: t('form.filled'), INVALID: t('form.not_valid'), EMPTY: empty })}{@html script('turnstile')}{@html script('submit', { MESSAGES: messages })}
+  {@html script(FORM)}{@html script(FIELDS, { FILLED: t('form.filled'), INVALID: t('form.not_valid'), EMPTY: empty })}{@html script(TURNSTILE)}{@html script(SUBMIT, { MESSAGES: messages })}

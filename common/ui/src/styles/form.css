@@ -1,7 +1,5 @@
 
-/* the contact form: site colours, field borders >= 3:1 against the card and the field (both themes) */
-:root{--fb:#5f7590;--fbg:var(--chip)}
-:root[data-theme="light"]{--fb:#7d8b9d}
+%TOKENS%
 .contact{display:flex;justify-content:center}
 .formc{justify-content:flex-start;padding:60px 60px 52px;width:100%;max-width:720px}
 /* toned as the contact and privacy cards' first kind is */

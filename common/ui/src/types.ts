@@ -14,3 +14,9 @@ export interface LangLink {
   current: boolean;
 }
 
+
+/** One choice of a form's select or of its pills. */
+export interface Choice {
+  value: string;
+  label: string;
+}
