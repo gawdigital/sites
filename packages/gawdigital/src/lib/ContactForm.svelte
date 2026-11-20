@@ -1,11 +1,14 @@
 <script lang="ts">
   // The contact form of /contact and /support: the design's form, posting to the contact endpoint. It works without
   // JavaScript (the endpoint answers with a redirect to the form's result page), except that Turnstile needs it.
-  // Its styles and scripts are the shared form spec of `@gaw/ui`. The markup is still written out here, the same as
-  // that of the `@gaw/ui` form components (FormCard, Field, Select, Pills, TextArea, FormEnd): rendering it through
-  // them would put a hydration comment after each one, and this page's HTML is kept as it was.
+  // Its markup, styles and scripts are the shared form spec of `@gaw/ui`; the fields, the copy and the hint are its own.
   import { PUBLIC_TURNSTILE_SITE_KEY } from '$app/env/public';
-  import { CHECK } from '@gaw/ui/icons.ts';
+  import Field from '@gaw/ui/Field.svelte';
+  import FormCard from '@gaw/ui/FormCard.svelte';
+  import FormEnd from '@gaw/ui/FormEnd.svelte';
+  import Pills from '@gaw/ui/Pills.svelte';
+  import Select from '@gaw/ui/Select.svelte';
+  import TextArea from '@gaw/ui/TextArea.svelte';
   import { FIELDS, SUBMIT, TURNSTILE, script } from '@gaw/ui/scripts.ts';
 
   import { FORM } from './scripts.ts';
@@ -28,24 +31,24 @@
     failed: t('form.failed'),
   });
   const empty = $derived(t('common.required_not_filled_in_yet'));
+  const products = $derived([
+    { value: 'midi-control', label: t('common.midi_control_for_fireface') },
+    { value: 'other', label: t('common.other') },
+  ]);
+  const topics = $derived([
+    { value: 'problem', label: t('common.problem') },
+    { value: 'purchase', label: t('common.purchase_trial') },
+    { value: 'other', label: t('common.other') },
+  ]);
 </script>
 
-<section class="contact">
-    <article class={['card formc fg', state === 'sent' && 'is-sent']} id="contact">
-      <div class="scene"></div>
-      <form class="cform" method="post" action="/api/contact"><input type="hidden" name="locale" value={prefix.slice(1) || 'en'}><input type="hidden" name="source" value={source}>
-        <label class="fld fbox req"><span class="lb">{t('common.email')}</span><input type="email" name="email" required autocomplete="email" aria-describedby="st-email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="name@example.com"><span class="dot" aria-hidden="true"></span><span class="sr" id="st-email">{empty}</span></label>
-        <!-- the select has the indicator only where it can be empty: with a product preselected its placeholder cannot be chosen -->
-        <label class={['fld fbox fsel', product === undefined && 'req']}><span class="lb">{t('common.product')}</span><select name="product" required aria-describedby={product === undefined ? 'st-product' : undefined}><option value="" disabled selected={product === undefined}>{t('common.choose_a_product')}</option><option value="midi-control">{t('common.midi_control_for_fireface')}</option><option value="other" selected={product === 'other'}>{t('common.other')}</option></select>{#if product === undefined}<span class="dot" aria-hidden="true"></span><span class="sr" id="st-product">{empty}</span>{/if}</label>
-        <fieldset class="fld"><legend class="lb">{t('common.topic')}</legend><div class="seg"><label><input type="radio" name="topic" value="problem" checked><span>{t('common.problem')}</span></label><label><input type="radio" name="topic" value="purchase"><span>{@html t('common.purchase_trial')}</span></label><label><input type="radio" name="topic" value="other"><span>{t('common.other')}</span></label></div></fieldset>
-        <p class="fhint" id="fhint">{t('common.for_a_bug_help_report')}</p>
-        <label class="fld fbox req msg"><span class="lb">{t('common.message')}</span><textarea name="message" rows="6" required maxlength="5000" aria-describedby="st-message"></textarea><span class="dot" aria-hidden="true"></span><span class="sr" id="st-message">{empty}</span></label>
-        <p class="ferr" id="ferr" role="alert" hidden={error === undefined}>{error}</p>
-        <div class="fend"><div class="ts" role="img" aria-label={t('common.verification')} data-sitekey={PUBLIC_TURNSTILE_SITE_KEY}><i></i><span>{t('common.verification')}</span></div>
-          <button class="btn" type="submit">{t('common.send')}</button></div>
-        <p class="pnote">{@html t('common.we_use_your_email_and', { p: prefix })}</p>
-      </form>
-      <div class="sent" role="status">{@html CHECK}<h2>{t('common.thank_you')}</h2><p>{t('common.well_reply_to_your_email')}</p></div>
-    </article>
-  </section>
+<FormCard sent={state === 'sent'} thanks={t('common.thank_you')} reply={t('common.well_reply_to_your_email')}><input type="hidden" name="locale" value={prefix.slice(1) || 'en'}><input type="hidden" name="source" value={source}>
+  <Field label={t('common.email')} name="email" type="email" autocomplete="email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="name@example.com" status={empty} />
+  <!-- the select has the indicator only where it can be empty: with a product preselected its placeholder cannot be chosen -->
+  <Select label={t('common.product')} name="product" placeholder={t('common.choose_a_product')} value={product} options={products} status={empty} />
+  <Pills label={t('common.topic')} name="topic" options={topics} />
+  <p class="fhint" id="fhint">{t('common.for_a_bug_help_report')}</p>
+  <TextArea label={t('common.message')} name="message" maxlength={5000} status={empty} />
+  <FormEnd {error} verification={t('common.verification')} sitekey={PUBLIC_TURNSTILE_SITE_KEY}>{t('common.send')}{#snippet note()}{@html t('common.we_use_your_email_and', { p: prefix })}{/snippet}</FormEnd>
+</FormCard>
   {@html script(FORM)}{@html script(FIELDS, { FILLED: t('form.filled'), INVALID: t('form.not_valid'), EMPTY: empty })}{@html script(TURNSTILE)}{@html script(SUBMIT, { MESSAGES: messages })}
