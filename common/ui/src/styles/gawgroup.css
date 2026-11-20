@@ -117,8 +117,9 @@ a.ln{color:var(--xt);text-underline-offset:4px;text-decoration-thickness:1.5px}
 .theme:before{background:var(--xg)}
 @media (max-width:768px){
   html,body{overflow-x:clip}
-  /* the arc rises just below the header on every page, the home page included */
-  .blob,.frame.sub .blob{left:-280px;top:240px;width:2000px;height:calc(100% - 240px)}
+  /* the arc rises from below the hero's buttons on the home page, just below the header elsewhere */
+  .blob{left:-280px;top:480px;width:2000px;height:calc(100% - 480px)}
+  .frame.sub .blob{top:240px;height:calc(100% - 240px)}
   main{padding-top:150px}
   .kicker{font-size:15px;letter-spacing:.32em}
   h1{font-size:56px;line-height:.94}
