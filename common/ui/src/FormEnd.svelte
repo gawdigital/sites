@@ -2,6 +2,7 @@
   // The form's end: the error line, the verification box beside the send button, and the privacy note under its
   // rule. The box is a placeholder until the Turnstile script puts the live widget in it.
   import type { Snippet } from 'svelte';
+  import { ARROW } from './icons.ts';
 
   let {
     error,
@@ -16,7 +17,7 @@
     verification: string;
     /** The Turnstile site key. */
     sitekey: string;
-    /** The send button's content. */
+    /** The send button's text; the arrow follows it. */
     children: Snippet;
     /** The privacy note. */
     note?: Snippet;
@@ -25,5 +26,5 @@
 
 <p class="ferr" id="ferr" role="alert" hidden={error === undefined}>{error}</p>
 <div class="fend"><div class="ts" role="img" aria-label={verification} data-sitekey={sitekey}><i></i><span>{verification}</span></div>
-  <button class="btn" type="submit">{@render children()}</button></div>
+  <button class="btn" type="submit">{@render children()}<span class="arr" aria-hidden="true">{@html ARROW}</span></button></div>
 {#if note}<p class="pnote">{@render note()}</p>{/if}

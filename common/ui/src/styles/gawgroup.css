@@ -45,9 +45,6 @@ h1{margin-top:22px;font-weight:600;font-size:118px;line-height:.94;letter-spacin
 /* buttons: the gold gradient; a second, quieter kind is only outlined */
 .btn{margin-left:0;border:0;background:var(--xg);color:var(--on-x);letter-spacing:var(--caps);text-transform:uppercase;font-family:inherit;cursor:pointer}
 .btn.ghost{background:none;border:1.5px solid var(--line);color:var(--text)}
-.btn .arr{margin-left:.5em}
-.btn .arr svg{width:1.05em}
-.btn .arr.ext svg{width:.9em}
 .btn .arr.down svg{transform:rotate(90deg)}
 form.cform .btn{background:var(--xg);color:var(--on-x)}
 a.ln{color:var(--xt);text-underline-offset:4px;text-decoration-thickness:1.5px}
