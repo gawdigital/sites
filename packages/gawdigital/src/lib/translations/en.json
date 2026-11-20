@@ -47,6 +47,7 @@
   },
   "form": {
     "filled": "Required, filled in.",
+    "not_valid": "Required, not valid yet.",
     "copied": "Copied",
     "copied_note": "{{what}} copied.",
     "invalid": "Please check the fields: a valid email, a product and a message are needed.",
