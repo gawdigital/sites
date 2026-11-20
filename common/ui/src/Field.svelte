@@ -13,7 +13,7 @@
   }: {
     label: string;
     name: string;
-    type?: 'text' | 'email' | 'tel' | 'url';
+    type?: 'text' | 'email' | 'tel' | 'url' | 'date';
     required?: boolean;
     /** "Required, not filled in yet." in the page's language. */
     status: string;

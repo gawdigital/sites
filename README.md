@@ -1,12 +1,13 @@
 # sites
 
-The websites of the G.A.W. brands, one Bun workspace. It holds two sites, **gawdigital.cz** and **gawgroup.cz**, each
-built with SvelteKit and deployed to its own Cloudflare Worker.
+The websites of the G.A.W. brands, one Bun workspace. It holds **gawdigital.cz** and **gawgroup.cz**, each built with
+SvelteKit and deployed to its own Cloudflare Worker, and **gawstudio.cz**, which is being built (issue #29).
 
 | Path | What it is |
 |------|------------|
 | `packages/gawdigital` | The gawdigital.cz site (SvelteKit 3, Svelte 5, `@sveltejs/adapter-cloudflare`) |
 | `packages/gawgroup` | The gawgroup.cz site, the same stack and conventions |
+| `packages/gawstudio` | The gawstudio.cz site: the same stack, its own design; pages only so far, not deployed |
 | `common/company` | What every site says about the company: its registered details and the list of brands, as data |
 | `common/contact` | The contact form's server side: reading and validating a post, Turnstile, the rate limit, SMTP delivery; a site adds its own fields and message |
 | `common/ui` | Shared components (header, footer, mobile menu, language switch, hatch), the themes (the default one and the group's gold one, `styles/gawgroup.css`) and their inline scripts, and the form spec: the fields, pills, verification box and form cards with their styles and scripts, in each site's colours |
@@ -26,7 +27,8 @@ name; the one exception is `serve`, because `wrangler dev` cannot forward reques
 | `bun run dev` | Develop gawdigital.cz with Vite |
 | `bun run --filter gawdigital dev:https` | The same over HTTPS on the local network (self-signed certificate), e.g. to try it on a phone |
 | `bun run dev:gawgroup` | Develop gawgroup.cz with Vite |
-| `bun run build` | Build both sites for Cloudflare (`packages/<site>/.svelte-kit/cloudflare`) |
+| `bun run dev:gawstudio` | Develop gawstudio.cz with Vite |
+| `bun run build` | Build every site for Cloudflare (`packages/<site>/.svelte-kit/cloudflare`) |
 | `bun run check` | Type-check (svelte-check) |
 | `bun run test` | Unit tests (`bun test`: the contact form's validation, locale routing, the language redirect's scripts, the CMS reads) |
 | `bun run --filter studio dev` | Run the Sanity studio locally (`sanity/README.md`) |
@@ -122,11 +124,12 @@ Set the secrets with `bunx --bun wrangler secret put <NAME>` in `packages/gawdig
 
 ### CI and deployment
 
-Both sites are checked, tested, built and deployed by the same two workflows.
+gawdigital and gawgroup are checked, tested, built and deployed by the same two workflows; gawstudio is checked,
+tested and built, and gets a preview, but is not deployed yet.
 
 - **Pull requests** (`.github/workflows/ci.yml`): install, check, test, build, then upload a preview version of each
   site with `bun --bun wrangler versions upload --preview-alias pr-<number>`; a comment on the pull request (updated
-  on every push) and the step summary name the URLs. gawgroup's upload may fail without failing the run (its row in
+  on every push) and the step summary name the URLs. The uploads of gawgroup and gawstudio may fail without failing the run (the row in
   the comment then says so).
 - **`main`** (`.github/workflows/deploy.yml`): the same checks, then `bun run deploy` (`bun --bun wrangler deploy`)
   for gawdigital and after it for gawgroup, so a failure of the second leaves the first deployed.
@@ -147,6 +150,28 @@ Both need the repository secrets `CLOUDFLARE_API_TOKEN` (Workers edit rights) an
 5. When the app is live, replace the `#app-store` placeholder links with its Mac App Store URL.
 6. Set up the CMS: the repository variables, the seed, the studio and the publish webhook (`sanity/README.md`).
 7. Have the German and Czech texts reviewed by a native speaker (so far they have had an AI check only).
+
+## gawstudio.cz
+
+The recording studio's site, planned in issue #29. So far it is the five pages of the design (home, recording, mix,
+mastering, contact) and each service's form page (`/recording/book`, `/mix/order`, `/mastering/order`) in English,
+German and Czech: prerendered, no client framework, and no script but the language ones, the phone's menu and the
+fields' indicator. Booking, orders, payments and accounts come in the issue's later phases.
+
+- **Design**: G.A.W.Studio's own, not the shared theme: one stylesheet (`src/lib/styles/site.css`) drawn from the
+  1680 px design, every length a multiple of the design's pixel (`--px`) so the page scales with the window; one
+  column on a phone, where the menu is the other sites' overlay behind three dots. The typeface, the language
+  switch, that menu, the company's details and the forms' fields (the shared form spec, in the studio's colours:
+  `src/lib/styles/form.css`) come from `common/`.
+- **Copy**: `packages/gawstudio/src/lib/translations`. The design's body copy is placeholder text, so every
+  description is provisional, in all three languages, until the owner approves it.
+- **Not wired yet**: the booking and order forms are only drawn (their button is disabled and a note leads to the
+  contact page); the offer's card leads to the contact page, whose "Write to us" card opens gawgroup.cz's contact
+  form with the studio's topic; the cart, the account and the sound sample's player are only drawn.
+- **Not launched**: the Worker has no route (gawstudio.cz still serves the old site) and is not in the deploy
+  workflow; every page carries `noindex` until `LAUNCHED` in `src/lib/site.ts` is turned on. CI uploads a preview
+  version once the Worker `gawstudio` exists (an owner step: one `bun run deploy` in `packages/gawstudio`, which
+  publishes it on workers.dev only).
 
 ## gawgroup.cz
 

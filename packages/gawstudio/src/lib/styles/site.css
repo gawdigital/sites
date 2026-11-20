@@ -1,0 +1,119 @@
+/* G.A.W.Studio: one stylesheet for every page, drawn from the 1680 px design. Every length of the layout is a
+   multiple of --px, the design's pixel: the window's width over 1680 on desktop, so the page scales down with the
+   window and stops growing at the design's size; on a phone, the card's width over the design's 750. Text keeps a
+   readable floor (--t*), so a card grows taller than its drawn ratio rather than shrinking its text. */
+@font-face{font-family:"Kumbh Sans";src:url(%FONT%) format("truetype");font-weight:100 900;font-display:swap}
+:root{--bg:#1c2734;--ink:#0d0e11;--panel:#202932;--blue:#0097ff;--orange:#db8e5a;--pink:#d75c90;--green:#00ffbc;
+  --px:calc(min(100vw,1680px)/1680);--pad:calc(60*var(--px));
+  --t18:max(13px,calc(18*var(--px)));--t24:max(15px,calc(24*var(--px)));--t60:max(30px,calc(60*var(--px)));--t86:calc(86*var(--px));
+  color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:#fff;font:500 var(--t24)/1.25 "Kumbh Sans",sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,p,ol{margin:0;padding:0}
+a{color:inherit}
+svg{display:block;width:100%;height:auto}
+:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+/* The page: the grain over the colour, the dark shape behind the content. */
+.page{position:relative;isolation:isolate;overflow-x:clip;min-height:100vh;display:flex;flex-direction:column}
+.page::before{content:"";position:absolute;inset:0;z-index:-2;background:url(%GRAIN%) 0 0/258px;opacity:.12;mix-blend-mode:screen;pointer-events:none}
+.shape{position:absolute;z-index:-1;left:0;right:0;top:calc(148*var(--px));height:calc(2207*var(--px));color:var(--ink);opacity:.25;pointer-events:none}
+.shape svg{height:100%}
+.wrap{width:100%;max-width:1680px;margin:0 auto}
+
+/* Header: the badge hangs from the top edge, the menu sits on the first line. */
+.top{position:relative;height:calc(300*var(--px))}
+.logo{position:absolute;left:var(--pad);top:0;width:calc(132*var(--px));color:var(--orange)}
+.nav{position:absolute;right:var(--pad);top:var(--pad);height:var(--pad);display:flex;align-items:center;gap:calc(35*var(--px))}
+.nav a,.foot{font-weight:800;font-size:var(--t18);line-height:1;text-transform:uppercase;text-decoration:none}
+.nav a:hover,.foot a:hover{color:var(--orange)}
+.nav a[aria-current]{color:var(--orange)}
+.ico{position:relative;display:block;width:calc(25*var(--px));min-width:18px}
+.ico.cart{width:calc(19.36*var(--px));min-width:15px;margin-right:calc(15*var(--px))}
+.ico b{position:absolute;left:88%;bottom:60%;min-width:1.42em;height:1.42em;border-radius:1em;background:var(--blue);font:800 max(10px,calc(12*var(--px)))/1.42 "Kumbh Sans",sans-serif;text-align:center}
+.mnav,.mmenu{display:none}
+
+/* Two columns: the left one starts at once, the right one under the page's claim. */
+.cols{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto 1fr;column-gap:var(--pad);padding:0 var(--pad);isolation:isolate}
+.col{display:flex;flex-direction:column;gap:var(--pad);position:relative}
+.col.a{grid-column:1;grid-row:1/3;align-self:start}
+.head{grid-column:2;grid-row:1;min-height:calc(318*var(--px));margin-bottom:var(--pad);display:flex;flex-direction:column;justify-content:flex-end;gap:calc(30*var(--px))}
+.col.b{grid-column:2;grid-row:2}
+h1{font-weight:800;font-size:var(--t86);line-height:1;text-transform:uppercase}
+h1 em{font-style:normal;color:var(--orange)}
+h2 em{font-style:normal;color:var(--green)}
+.tabs{display:flex;gap:calc(10*var(--px))}
+.tag{display:inline-flex;align-items:center;justify-content:center;text-align:center;height:calc(40*var(--px));min-height:28px;padding:0 calc(30*var(--px));border-radius:100px;background:var(--pink);font-weight:800;font-size:var(--t18);line-height:1;text-transform:uppercase;text-decoration:none;white-space:nowrap}
+.tabs .tag{background:none}
+.tabs .tag.cur{background:rgba(255,255,255,.2);color:var(--orange)}
+.tabs a.tag:hover{color:var(--orange)}
+a.tag:hover{filter:brightness(1.12)}
+
+/* The card: a dimmed picture that fades into the dark at its foot and sides (the design's inner shadow, drawn as
+   two gradients: a blurred inset shadow this large shows seams), the content standing on that. */
+.card{position:relative;isolation:isolate;display:flex;flex-direction:column;justify-content:flex-end;aspect-ratio:750/950;overflow:hidden;border-radius:calc(95*var(--px));background:var(--ink);box-shadow:0 0 calc(50*var(--px)) calc(30*var(--px)) rgba(13,14,17,.6)}
+.card.sq{aspect-ratio:1}
+.card.plain{background:var(--panel)}
+.card>img{position:absolute;z-index:-2;inset:0;width:100%;height:100%;object-fit:cover;opacity:.6}
+.card>img+.in::before{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(to top,rgba(13,14,17,.977) 0,rgba(13,14,17,.933) calc(62.5*var(--px)),rgba(13,14,17,.841) calc(125*var(--px)),rgba(13,14,17,.691) calc(187.5*var(--px)),rgba(13,14,17,.5) calc(250*var(--px)),rgba(13,14,17,.309) calc(312.5*var(--px)),rgba(13,14,17,.159) calc(375*var(--px)),rgba(13,14,17,.067) calc(437.5*var(--px)),rgba(13,14,17,.023) calc(500*var(--px)),rgba(13,14,17,0) calc(625*var(--px))),linear-gradient(to right,rgba(13,14,17,.5) 0,rgba(13,14,17,.309) calc(62.5*var(--px)),rgba(13,14,17,.159) calc(125*var(--px)),rgba(13,14,17,.067) calc(187.5*var(--px)),rgba(13,14,17,.023) calc(250*var(--px)),rgba(13,14,17,0) calc(375*var(--px)),rgba(13,14,17,0) calc(100% - 375*var(--px)),rgba(13,14,17,.023) calc(100% - 250*var(--px)),rgba(13,14,17,.067) calc(100% - 187.5*var(--px)),rgba(13,14,17,.159) calc(100% - 125*var(--px)),rgba(13,14,17,.309) calc(100% - 62.5*var(--px)),rgba(13,14,17,.5) 100%);pointer-events:none}
+.in{display:flex;flex-direction:column;align-items:flex-start;gap:calc(30*var(--px));padding:var(--pad)}
+h2{font-weight:800;font-size:var(--t60);line-height:1.2;text-transform:uppercase;text-wrap:balance}
+.card p{max-width:100%;text-wrap:pretty}
+.btn{align-self:flex-end;display:inline-flex;align-items:center;justify-content:center;text-align:center;height:calc(70*var(--px));min-height:44px;padding:0 var(--pad);border-radius:100px;background:var(--blue);font-weight:800;font-size:var(--t18);line-height:1;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:filter .15s}
+.btn.go{background:var(--green)}
+.btn:hover{filter:brightness(1.12)}
+.steps{list-style:none;display:flex;flex-direction:column;gap:calc(30*var(--px));counter-reset:step}
+.steps li{counter-increment:step;display:grid;grid-template-columns:auto 1fr;align-items:center;gap:calc(30*var(--px))}
+.steps li::before{content:counter(step);display:grid;place-items:center;width:calc(60*var(--px));min-width:40px;aspect-ratio:1;border:max(3px,calc(4*var(--px))) solid #fff;border-radius:50%;font-weight:800;font-size:max(20px,calc(32*var(--px)));line-height:1}
+.audio{align-self:stretch;display:flex;align-items:center;justify-content:space-between;gap:calc(20*var(--px))}
+.toggle{display:flex;align-items:center;gap:calc(20*var(--px));color:var(--green);font-weight:800;font-size:var(--t18);line-height:1;text-transform:uppercase}
+.toggle i{display:block;width:calc(80*var(--px));min-width:56px;aspect-ratio:2;padding:max(3px,calc(4*var(--px)));border-radius:100px;background:var(--green)}
+.toggle i::after{content:"";display:block;height:100%;aspect-ratio:1;margin-left:auto;border-radius:50%;background:var(--panel)}
+.player{display:grid;place-items:center;width:calc(90*var(--px));min-width:60px;aspect-ratio:1;border:max(3px,calc(4*var(--px))) solid #fff;border-radius:50%}
+.player svg{width:40%;rotate:90deg}
+.hatch{position:absolute;z-index:-1;left:calc(234*var(--px));top:calc(100% - 163*var(--px));width:calc(516*var(--px));color:var(--orange);pointer-events:none}
+
+/* Footer: not in the design, which ends with the last card; it carries the language switch every site has. */
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;margin-top:auto;padding:calc(200*var(--px)) var(--pad) var(--pad)}
+.foot>span{text-transform:none}
+/* The home page's hatch reaches below its cards. */
+.page.home .foot{padding-top:calc(460*var(--px))}
+.lang{display:flex;gap:calc(35*var(--px))}
+.lang .cur{color:var(--orange)}
+
+/* A phone: one column, the claim first; the menu is an overlay behind three dots, as on the other sites. */
+@media (max-width:860px){
+  :root{--px:calc((100vw - 32px)/750);--pad:max(22px,calc(60*var(--px)));--t18:14px;--t24:16px;--t60:max(30px,calc(60*var(--px)));--t86:max(44px,13vw)}
+  .top{height:auto;min-height:150px}
+  .logo{left:16px;width:84px}
+  .nav{display:none}
+  .mnav,.mmenu .mclose{display:flex;position:absolute;right:12px;top:21px;width:48px;height:48px;align-items:center;justify-content:center;padding:0;margin:0;border:0;border-radius:24px;background:none;-webkit-appearance:none;appearance:none;color:#fff;cursor:pointer;z-index:5;-webkit-tap-highlight-color:transparent}
+  .mnav svg{display:block;width:37px;height:8px;overflow:visible}
+  .mmenu .mclose svg{display:block;width:22px;height:22px}
+  .mnav:focus-visible,.mmenu a:focus-visible,.mmenu button:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+  .mmenu{display:flex;position:fixed;inset:0;z-index:100;flex-direction:column;align-items:center;overflow-y:auto;overscroll-behavior:contain;padding:90px 16px calc(32px + env(safe-area-inset-bottom));background:var(--orange);color:var(--ink)}
+  .mmenu[hidden]{display:none}
+  .mmenu .mclose{color:var(--ink)}
+  .mmenu nav{margin:auto 0;flex:0 0 auto}
+  .mmenu ul{list-style:none;margin:0;padding:32px 0 40px;display:flex;flex-direction:column;align-items:center;gap:24px}
+  .mmenu li a{display:block;font-weight:800;font-size:34px;line-height:1.1765;text-transform:uppercase;text-decoration:none}
+  .mmenu li a[aria-current],.mmenu .lang a.cur{text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:.25em}
+  .mmenu .mfoot{display:flex;justify-content:center;flex:0 0 auto;font-weight:800;font-size:19px;line-height:1.4737;text-transform:uppercase}
+  .mmenu .lang{display:flex;gap:18px}
+  .mmenu .lang a{color:inherit}
+  .mmenu .lang a.cur{text-decoration-thickness:2px}
+  html.mm-lock,html.mm-lock body{overflow:hidden}
+  .cols{display:flex;flex-direction:column;gap:28px;padding:0 16px}
+  .col{display:contents}
+  .card{order:var(--o)}
+  .head{order:-1}
+  .head{min-height:0;margin:8px 0 4px;gap:18px}
+  .tabs{gap:8px}
+  .hatch{display:none}
+  .foot,.page.home .foot{padding:72px 16px 32px}
+  .lang{gap:22px}
+}
+@media (min-width:861px){.nav .icons{display:contents}}
+@media (prefers-reduced-motion:reduce){.btn{transition:none}}

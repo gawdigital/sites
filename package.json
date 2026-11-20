@@ -9,6 +9,8 @@
     "preview": "bun run --filter gawdigital preview",
     "dev:gawgroup": "bun run --filter gawgroup dev",
     "preview:gawgroup": "bun run --filter gawgroup preview",
+    "dev:gawstudio": "bun run --filter gawstudio dev",
+    "preview:gawstudio": "bun run --filter gawstudio preview",
     "check": "bun run --filter '*' check",
     "test": "bun test"
   }

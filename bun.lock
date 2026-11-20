@@ -83,6 +83,30 @@
         "wrangler": "4.163.0",
       },
     },
+    "packages/gawstudio": {
+      "name": "gawstudio",
+      "version": "0.0.0",
+      "dependencies": {
+        "@gaw/company": "workspace:*",
+        "@gaw/i18n": "workspace:*",
+        "@gaw/ui": "workspace:*",
+        "sveltekit-i18n": "3.4.1",
+      },
+      "devDependencies": {
+        "@cloudflare/workers-types": "5.20261117.1",
+        "@sveltejs/adapter-cloudflare": "8.0.2",
+        "@sveltejs/kit": "3.2.0",
+        "@sveltejs/vite-plugin-svelte": "7.3.1",
+        "@sveltekit-i18n/typegen": "3.1.1",
+        "@types/bun": "1.4.4",
+        "@vitejs/plugin-basic-ssl": "2.3.0",
+        "svelte": "5.57.3",
+        "svelte-check": "4.7.8",
+        "typescript": "6.0.3",
+        "vite": "8.3.8",
+        "wrangler": "4.163.0",
+      },
+    },
     "sanity": {
       "name": "studio",
       "version": "0.0.0",
@@ -1280,6 +1304,8 @@
     "gawdigital": ["gawdigital@workspace:packages/gawdigital"],
 
     "gawgroup": ["gawgroup@workspace:packages/gawgroup"],
+
+    "gawstudio": ["gawstudio@workspace:packages/gawstudio"],
 
     "gensync": ["gensync@1.0.0-beta.2", "", {}, "sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg=="],
 
