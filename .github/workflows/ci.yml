@@ -98,10 +98,15 @@ jobs:
               '',
               '| Site | | URL |',
               '| --- | --- | --- |',
-              ...uploads.flatMap(([site, upload]) => upload ? [
+              ...uploads.flatMap(([site, upload]) => !upload ? [
+                `| ${site} | No preview: the upload failed, see the workflow run. | — |`,
+              ] : !upload.preview_url && !upload.preview_alias_url ? [
+                // Preview URLs are a setting of the Worker that only a deploy applies (`preview_urls`).
+                `| ${site} | Uploaded, but the Worker's preview URLs are off until its first deploy. | — |`,
+              ] : [
                 `| ${site} | This pull request (follows every push) | ${upload.preview_alias_url ?? '—'} |`,
                 `| ${site} | This commit (${sha.slice(0, 7)}) | ${upload.preview_url ?? '—'} |`,
-              ] : [`| ${site} | No preview: the upload failed, see the workflow run. | — |`]),
+              ]),
               '',
               uploads.filter(([, upload]) => upload).map(([site, upload]) => `${site} version \`${upload.version_id}\`.`).join(' '),
             ].join('\n');
