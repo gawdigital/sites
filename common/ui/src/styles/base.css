@@ -221,8 +221,9 @@ a.ln{transition:color .2s,text-decoration-color .2s}
 @media (hover:hover){a.ln:hover{text-decoration-color:transparent}}
 a.ln:active{text-decoration-color:transparent}
 a.ln:focus-visible{outline:2px solid currentColor;outline-offset:3px;border-radius:2px}
-/* page changes: where the browser supports it, one page cross-fades into the next instead of blanking */
-@media (prefers-reduced-motion:no-preference){@view-transition{navigation:auto}}
+/* page changes: where the browser supports it, one page cross-fades into the next instead of blanking; a link to a
+   place on the same page (Our brands) scrolls there smoothly */
+@media (prefers-reduced-motion:no-preference){@view-transition{navigation:auto}html{scroll-behavior:smooth}}
 ::view-transition-group(root){animation-duration:.2s}
 @media (prefers-reduced-motion:reduce){
   *,*:before,*:after{transition-duration:.01ms!important;scroll-behavior:auto!important}
