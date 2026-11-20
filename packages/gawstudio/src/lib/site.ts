@@ -64,13 +64,13 @@ export const STYLES = `<link rel="preload" href="${font}" as="font" type="font/t
 export const FORM_STYLES = `<style>${formFieldsCss('.fg{--fok:var(--green);--fbad:var(--pink)}')}${form}</style>`;
 
 /**
- * What a mix or mastering order offers: who can do it, whether the tracks can be prepared first, and the lowest price
- * in euros. Read from the original site's shop on 2026-11-20; to be confirmed before orders open (issue #29).
+ * What a mix or mastering order offers: each engineer's price for a song in euros, and what preparing the tracks
+ * first adds to it. Read from the original site's shop on 2026-11-20; to be confirmed before orders open (issue #29).
  */
-export const OFFERS = {
-  mix: { engineers: ['Libor', 'Nèro'], preprocess: true, from: 200 },
-  mastering: { engineers: ['Libor', 'Risto'], preprocess: false, from: 100 },
-} as const;
+export const OFFERS: Record<Exclude<Service, 'recording'>, { engineers: Record<string, number>; preprocess?: number }> = {
+  mix: { engineers: { Libor: 200, Nèro: 300 }, preprocess: 200 },
+  mastering: { engineers: { Libor: 100, Risto: 180 } },
+};
 
 /** A heading with its last line in the accent colour, as the design sets its claims: `Make it<br>happen...`. */
 export const accent = (html: string) => html.replace(/^(.*<br>)?(.*)$/s, '$1<em>$2</em>');

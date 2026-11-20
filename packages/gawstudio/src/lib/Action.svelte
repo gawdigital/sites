@@ -1,8 +1,8 @@
 <script lang="ts">
   // A service's second page: the form that books a recording session or orders a mix or mastering, beside where the
   // studio is or what a listener says. The fields are the shared form spec's (`@gaw/ui`). Until bookings, orders and
-  // payments exist (issue #29) the form is only drawn: it cannot be sent, and its note leads to the contact page.
-  import { localeOf, pathOf } from '@gaw/i18n/locale.ts';
+  // payments exist (issue #29) the form is only drawn, as it will be once they do: sending it leads nowhere yet.
+  import { localeOf } from '@gaw/i18n/locale.ts';
   import Field from '@gaw/ui/Field.svelte';
   import Select from '@gaw/ui/Select.svelte';
   import TextArea from '@gaw/ui/TextArea.svelte';
@@ -25,7 +25,11 @@
   const empty = $derived(t('form.required_empty'));
   const times = $derived((['morning', 'afternoon'] as const).map((value) => ({ value, label: t(`form.${value}`) })));
   const songs = Array.from({ length: 10 }, (_, i) => ({ value: `${i + 1}`, label: `${i + 1}` }));
-  const price = $derived(offer && new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR' }).format(offer.from));
+  const from = $derived(offer && Math.min(...Object.values(offer.engineers)));
+  const price = $derived(from && new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR' }).format(from));
+  // Without a script the price stays the lowest one; with it, it follows the engineer, the switch and the songs.
+  const PRICE = `(function(c){var f=document.querySelector('.cform'),p=f.querySelector('.fprice'),n=new Intl.NumberFormat(c.locale,{style:'currency',currency:'EUR'});function u(){var e=c.engineers[f.elements.engineer.value],s=f.elements.preprocess;p.textContent=e?n.format((e+(s&&s.checked?c.preprocess:0))*f.elements.tracks.value):c.from}f.addEventListener('change',u);u()})`;
+  const config = $derived(offer && JSON.stringify({ ...offer, locale, from: t('form.from', { price }) }).replace(/</g, '\\u003c'));
 </script>
 
 <svelte:head>{@html FORM_STYLES}</svelte:head>
@@ -48,7 +52,7 @@
           {#if offer}
             <h2 class="big">{t('form.order')}</h2>
             <p>{t(`common.${name}_text`)}</p>
-            <Select label={t('form.engineer')} name="engineer" options={offer.engineers.map((e) => ({ value: e, label: e }))} placeholder={t('form.choose_option')} status={empty} />
+            <Select label={t('form.engineer')} name="engineer" options={Object.keys(offer.engineers).map((e) => ({ value: e, label: e }))} placeholder={t('form.choose_option')} status={empty} />
             {#if offer.preprocess}
               <label class="fsw"><input type="checkbox" name="preprocess" /><span class="sw" aria-hidden="true"></span><span><b>{t('form.preprocess')}</b>{t('form.preprocess_text')}</span></label>
             {/if}
@@ -70,11 +74,11 @@
             </div>
             <TextArea label={t('form.note')} name="note" rows={4} maxlength={2000} required={false} status={empty} />
           {/if}
-          <button class="btn" type="submit" disabled aria-describedby="fnote">{offer ? t('form.add_to_cart') : action}</button>
-          <p class="fnote" id="fnote">{@html t(offer ? 'form.soon_order' : 'form.soon_book', { contact: pathOf('/contact', locale) })}</p>
+          <button class="btn" type="submit">{offer ? t('form.add_to_cart') : action}</button>
         </form>
       </div>
     </Card>
   {/snippet}
 </Shell>
 {@html script(FIELDS, { FILLED: t('form.filled'), INVALID: t('form.not_valid'), EMPTY: empty })}
+{#if config}{@html `<script>${PRICE}(${config})</`+`script>`}{/if}

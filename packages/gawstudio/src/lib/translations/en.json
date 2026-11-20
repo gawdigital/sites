@@ -69,8 +69,6 @@
     "note": "Note",
     "required_empty": "Required, not filled in yet.",
     "filled": "Filled in.",
-    "not_valid": "Not valid yet.",
-    "soon_book": "Online booking opens soon. Until then, <a href=\"{{contact}}\">write to us</a> and we will find a date together.",
-    "soon_order": "Online orders open soon. Until then, <a href=\"{{contact}}\">write to us</a> and we will take your order by hand."
+    "not_valid": "Not valid yet."
   }
 }

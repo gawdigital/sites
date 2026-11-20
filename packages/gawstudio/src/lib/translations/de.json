@@ -69,8 +69,6 @@
     "note": "Anmerkung",
     "required_empty": "Pflichtfeld, noch nicht ausgefüllt.",
     "filled": "Ausgefüllt.",
-    "not_valid": "Noch nicht gültig.",
-    "soon_book": "Die Online-Buchung kommt bald. Bis dahin <a href=\"{{contact}}\">schreiben Sie uns</a>, wir finden gemeinsam einen Termin.",
-    "soon_order": "Die Online-Bestellung kommt bald. Bis dahin <a href=\"{{contact}}\">schreiben Sie uns</a>, wir nehmen Ihre Bestellung persönlich auf."
+    "not_valid": "Noch nicht gültig."
   }
 }

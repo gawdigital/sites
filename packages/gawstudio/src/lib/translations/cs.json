@@ -69,8 +69,6 @@
     "note": "Poznámka",
     "required_empty": "Povinné, zatím nevyplněno.",
     "filled": "Vyplněno.",
-    "not_valid": "Zatím neplatné.",
-    "soon_book": "Online rezervace spustíme brzy. Do té doby <a href=\"{{contact}}\">nám napište</a> a termín najdeme spolu.",
-    "soon_order": "Online objednávky spustíme brzy. Do té doby <a href=\"{{contact}}\">nám napište</a> a objednávku vyřídíme ručně."
+    "not_valid": "Zatím neplatné."
   }
 }
