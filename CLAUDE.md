@@ -19,6 +19,8 @@ so Bun, not Node, executes them; `serve` (`wrangler dev`) alone needs Node, sinc
 - **Secrets live only in Cloudflare**, on each site's Worker (`wrangler secret put`, or `wrangler versions secret put`
   while the latest version is an undeployed preview; `.dev.vars` locally, never committed): `TURNSTILE_SECRET_KEY`,
   `SMTP_HOST`, `SMTP_USER`, `SMTP_PASSWORD`, `MAIL_TO`.
+- Each site's Turnstile widget lists its production domain only, so previews cannot send mail (they carry the
+  production secrets). Do not add `workers.dev` or other test hostnames to a widget.
 - Every change goes through a pull request; CI checks, tests and builds it and uploads a preview. `main` deploys
   both sites.
 - Commit message prefix = the area: `gawdigital:`, `gawgroup:`, `common:`, `sanity:`, `ci:`, `docs:`.
