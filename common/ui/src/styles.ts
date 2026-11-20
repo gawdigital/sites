@@ -7,7 +7,9 @@ import base from './styles/base.css?raw';
 import contact from './styles/contact.css?raw';
 import formFields from './styles/form-fields.css?raw';
 import form from './styles/form.css?raw';
+import gawgroup from './styles/gawgroup.css?raw';
 import mobile from './styles/mobile.css?raw';
+import privacy from './styles/privacy.css?raw';
 
 /** The design's width: the desktop layout is drawn for a 1440 px window. */
 const DESIGN_WIDTH = 1440;
@@ -82,3 +84,13 @@ export const CONTACT_CSS = contact;
  * in the verification box, the form while it is being sent, and the error page.
  */
 export const ADDITIONS_CSS = additions;
+
+/** The privacy page: the contact page's shell, its sections in the company card's rows, two cards a row on desktop. */
+export const PRIVACY_CSS = privacy;
+
+/**
+ * The G.A.W.Group theme, beside the default one (G.A.W.Digital's, the tokens of `base.css`): the gold palette in both
+ * appearances, and the group's own type, dividers, cards and footer over the shared layout. It goes last in a
+ * page's cascade, after the shared form, contact and privacy fragments it recolours.
+ */
+export const GAWGROUP_CSS = gawgroup;
