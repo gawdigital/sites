@@ -1,0 +1,10 @@
+/* The pages under the home page: a hatch beside the heading, and more of them behind the cards further down. */
+.hx-top{right:60px;top:-70px;width:500px;height:470px;z-index:-1}
+.hx-bot{left:170px;top:100%;margin-top:-330px;width:500px;height:440px;z-index:1}
+.hp.hdc{z-index:1}
+.hp.hmc{display:none;z-index:1}
+main{position:relative;z-index:2}
+@media (max-width:768px){
+  .hx-top,.hx-bot,.hp.hdc{display:none}
+  .hp.hmc{display:block}
+}

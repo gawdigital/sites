@@ -1,0 +1,10 @@
+{
+  "extends": "$app/tsconfig",
+  "compilerOptions": {
+    "strict": true,
+    "types": ["$app/types", "@cloudflare/workers-types", "@types/bun"]
+  },
+  "include": ["src", "vite.config.ts"],
+  // Inline browser snippets, imported as text (`?raw`) and shipped verbatim: not modules, not type-checked.
+  "exclude": ["src/lib/scripts"]
+}
