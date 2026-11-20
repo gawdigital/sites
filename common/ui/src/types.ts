@@ -4,6 +4,8 @@ export interface NavItem {
   /** Omitted for an item that is shown but not available yet. */
   href?: string;
   current?: boolean;
+  /** Another site: the link opens in a new tab and carries the external arrow. */
+  external?: boolean;
 }
 
 /** One language of the CS·EN·DE switcher. */

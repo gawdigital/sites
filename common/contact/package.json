@@ -1,0 +1,16 @@
+{
+  "name": "@gaw/contact",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    "./*": {
+      "types": "./src/*",
+      "default": "./src/*"
+    }
+  },
+  "dependencies": {
+    "@gaw/i18n": "workspace:*",
+    "worker-mailer": "1.3.1"
+  }
+}
