@@ -15,7 +15,7 @@
 .fg .fbox:active{--edge:color-mix(in srgb,var(--text) 40%,var(--line))}
 .fg .fbox:focus-within{--edge:var(--blue);background:var(--card);box-shadow:inset 0 0 0 2px var(--edge),0 0 28px var(--sh1)}
 .fg .ts{border-radius:18px}
-.fg .fbox .lb{position:absolute;z-index:1;top:15px;left:18px;right:40px;font-size:12px;line-height:1.25;letter-spacing:var(--caps);
+.fg .fbox .lb{position:absolute;z-index:1;top:15px;left:18px;right:40px;font-size:12px;line-height:1.25;letter-spacing:.12em;
   color:var(--soft);pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .fg .dot{position:absolute;z-index:1;top:15px;right:15px;width:6px;height:6px;border-radius:50%;background:var(--edge);
   pointer-events:none;transition:background-color .15s}

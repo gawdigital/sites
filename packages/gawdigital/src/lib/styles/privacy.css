@@ -1,7 +1,7 @@
 
 /* privacy.html: the contact page's shell; the company card's rows carry the sections, two cards a row on desktop */
-/* every label, a field's, a group's or a detail's: one size, weight and tracking (the shared form spec) */
-.lb{display:block;padding:0;font-weight:800;font-size:12px;line-height:1.25;letter-spacing:var(--caps);text-transform:uppercase;color:var(--soft)}
+/* every label, a field's, a group's or a detail's: one size and weight (the shared form spec); the tracking is the site's own */
+.lb{display:block;padding:0;font-weight:800;font-size:12px;line-height:1.25;letter-spacing:.12em;text-transform:uppercase;color:var(--soft)}
 .shead .upd{margin-top:16px;font-weight:700;font-size:18px;line-height:1.3333;color:var(--dim)}
 .pgrid{display:grid;grid-template-columns:630px 630px;column-gap:60px;align-items:stretch;margin-top:140px}
 .shead + .pgrid{margin-top:120px}
