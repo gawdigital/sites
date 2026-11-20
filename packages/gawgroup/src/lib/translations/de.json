@@ -1,0 +1,57 @@
+{
+  "common": {
+    "email": "E-Mail",
+    "topic": "Thema",
+    "message": "Nachricht",
+    "send": "SENDEN",
+    "verification": "Sicherheitsprüfung",
+    "privacy_note": "Wir verwenden Ihre E-Mail-Adresse und Ihre Nachricht nur, um Ihnen zu antworten. Auf dieser Website wird nichts gespeichert. Mehr dazu in unserer <a class=\"ln\" href=\"{{p}}/privacy\">Datenschutzerklärung</a>.",
+    "thank_you": "DANKE.",
+    "reply": "Wir antworten Ihnen per E-Mail.",
+    "required_empty": "Pflichtfeld, noch nicht ausgefüllt.",
+    "company": "Unternehmen",
+    "contact": "Kontakt",
+    "address": "Anschrift",
+    "country": "Tschechische Republik",
+    "company_id_label": "Firmennummer (IČO)",
+    "register": "Register",
+    "registered": "Eingetragen im Handelsregister des Stadtgerichts Prag, Abteilung C, Einlage {{file}}.",
+    "group": "G.A.W.Group",
+    "digital": "Digital",
+    "studio": "Studio",
+    "general": "Anderes",
+    "opens_in_a_new_tab": "(öffnet in einem neuen Tab)"
+  },
+  "chrome": {
+    "menu": "Menü",
+    "close_menu": "Menü schließen",
+    "theme": "Zwischen Tag- und Nachtmodus wechseln",
+    "languages": "Sprache",
+    "home": "Start",
+    "digital": "Digital",
+    "studio": "Studio",
+    "contact": "Kontakt",
+    "privacy": "Datenschutz",
+    "copyright": "© 2026 G.A.W.Group, s.r.o."
+  },
+  "form": {
+    "filled": "Pflichtfeld, ausgefüllt.",
+    "not_valid": "Pflichtfeld, noch nicht gültig.",
+    "copied": "Kopiert",
+    "copied_note": "{{what}} kopiert.",
+    "verification": "Die Sicherheitsprüfung ist fehlgeschlagen. Bitte versuchen Sie es erneut.",
+    "rate": "Zu viele Nachrichten in kurzer Zeit. Bitte warten Sie eine Minute und versuchen Sie es dann erneut.",
+    "failed": "Ihre Nachricht konnte nicht gesendet werden. Bitte versuchen Sie es später erneut.",
+    "invalid": "Bitte prüfen Sie Ihre Angaben: Wir brauchen eine gültige E-Mail-Adresse und eine Nachricht."
+  },
+  "error": {
+    "kicker": "Fehler {{status}}",
+    "title_404": "NICHT GEFUNDEN.",
+    "title": "ETWAS IST SCHIEFGEGANGEN.",
+    "text_404": "Unter dieser Adresse gibt es keine Seite. Vielleicht ist sie umgezogen, oder im Link steckt ein Tippfehler.",
+    "text": "Die Seite konnte nicht angezeigt werden. Bitte versuchen Sie es in einem Moment noch einmal.",
+    "home": "ZUR STARTSEITE",
+    "page_title": "Nicht gefunden · G.A.W.Group",
+    "page_title_other": "Fehler · G.A.W.Group"
+  }
+}

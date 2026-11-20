@@ -1,0 +1,57 @@
+{
+  "common": {
+    "email": "E-mail",
+    "topic": "Téma",
+    "message": "Zpráva",
+    "send": "ODESLAT",
+    "verification": "Ověření",
+    "privacy_note": "Váš e-mail a zprávu použijeme jen k tomu, abychom vám odpověděli. Na tomto webu se nic neukládá. Podrobnosti najdete na stránce <a class=\"ln\" href=\"{{p}}/privacy\">Ochrana soukromí</a>.",
+    "thank_you": "DĚKUJEME.",
+    "reply": "Odpovíme vám e-mailem.",
+    "required_empty": "Povinné pole, zatím nevyplněné.",
+    "company": "Společnost",
+    "contact": "Kontakt",
+    "address": "Adresa",
+    "country": "Česká republika",
+    "company_id_label": "IČO",
+    "register": "Rejstřík",
+    "registered": "Zapsaná v obchodním rejstříku vedeném Městským soudem v Praze, oddíl C, vložka {{file}}.",
+    "group": "G.A.W.Group",
+    "digital": "Digital",
+    "studio": "Studio",
+    "general": "Obecné",
+    "opens_in_a_new_tab": "(otevře se v nové kartě)"
+  },
+  "chrome": {
+    "menu": "Menu",
+    "close_menu": "Zavřít menu",
+    "theme": "Přepnout mezi denním a nočním režimem",
+    "languages": "Jazyk",
+    "home": "Úvod",
+    "digital": "Digital",
+    "studio": "Studio",
+    "contact": "Kontakt",
+    "privacy": "Soukromí",
+    "copyright": "© 2026 G.A.W.Group, s.r.o."
+  },
+  "form": {
+    "filled": "Povinné pole, vyplněné.",
+    "not_valid": "Povinné pole, zatím neplatné.",
+    "copied": "Zkopírováno",
+    "copied_note": "Zkopírováno: {{what}}.",
+    "verification": "Ověření se nezdařilo. Zkuste to prosím znovu.",
+    "rate": "Příliš mnoho zpráv za krátkou dobu. Počkejte prosím minutu a zkuste to znovu.",
+    "failed": "Zprávu se nepodařilo odeslat. Zkuste to prosím později.",
+    "invalid": "Zkontrolujte prosím formulář: potřebujeme platný e-mail a zprávu."
+  },
+  "error": {
+    "kicker": "Chyba {{status}}",
+    "title_404": "STRÁNKA NENALEZENA.",
+    "title": "NĚCO SE POKAZILO.",
+    "text_404": "Na této adrese žádná stránka není. Možná se přestěhovala, nebo je v odkazu překlep.",
+    "text": "Stránku se nepodařilo zobrazit. Zkuste to prosím za chvíli znovu.",
+    "home": "NA ÚVOD",
+    "page_title": "Stránka nenalezena · G.A.W.Group",
+    "page_title_other": "Chyba · G.A.W.Group"
+  }
+}

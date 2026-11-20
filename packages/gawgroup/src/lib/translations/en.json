@@ -1,0 +1,57 @@
+{
+  "common": {
+    "email": "Email",
+    "topic": "Topic",
+    "message": "Message",
+    "send": "SEND",
+    "verification": "Verification",
+    "privacy_note": "We use your email and message only to answer you. Nothing is stored on this site. See <a class=\"ln\" href=\"{{p}}/privacy\">Privacy</a> for more.",
+    "thank_you": "THANK YOU.",
+    "reply": "We’ll reply to your email.",
+    "required_empty": "Required, not filled in yet.",
+    "company": "Company",
+    "contact": "Contact",
+    "address": "Address",
+    "country": "Czech Republic",
+    "company_id_label": "Company ID (IČO)",
+    "register": "Register",
+    "registered": "Registered in the Commercial Register kept by the Municipal Court in Prague, section C, file {{file}}.",
+    "group": "G.A.W.Group",
+    "digital": "Digital",
+    "studio": "Studio",
+    "general": "General",
+    "opens_in_a_new_tab": "(opens in a new tab)"
+  },
+  "chrome": {
+    "menu": "Menu",
+    "close_menu": "Close menu",
+    "theme": "Switch day or night mode",
+    "languages": "Language",
+    "home": "Home",
+    "digital": "Digital",
+    "studio": "Studio",
+    "contact": "Contact",
+    "privacy": "Privacy",
+    "copyright": "© 2026 G.A.W.Group, s.r.o."
+  },
+  "form": {
+    "filled": "Required, filled in.",
+    "not_valid": "Required, not valid yet.",
+    "copied": "Copied",
+    "copied_note": "{{what}} copied.",
+    "verification": "The verification did not go through. Please try again.",
+    "rate": "Too many messages in a short time. Please wait a minute and try again.",
+    "failed": "Your message could not be sent. Please try again later.",
+    "invalid": "Please check the fields: a valid email and a message are needed."
+  },
+  "error": {
+    "kicker": "Error {{status}}",
+    "title_404": "NOT FOUND.",
+    "title": "SOMETHING WENT WRONG.",
+    "text_404": "There is no page at this address. It may have moved, or the link may be mistyped.",
+    "text": "The page could not be shown. Please try again in a moment.",
+    "home": "BACK HOME",
+    "page_title": "Not found · G.A.W.Group",
+    "page_title_other": "Error · G.A.W.Group"
+  }
+}

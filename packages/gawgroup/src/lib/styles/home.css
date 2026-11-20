@@ -1,0 +1,63 @@
+/* The home page: the claim beside the tall hatch, then two columns of cards, the second set lower than the first. */
+.ghero{position:relative;z-index:1;height:730px}
+.ghero h1{max-width:780px}
+.ghero h1 .x,.big .x{background:var(--xg);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.eq{top:-110px;right:0;width:760px;height:1300px;z-index:-1}
+.cta{margin-top:40px;display:flex;gap:14px}
+.brands{position:relative;z-index:2;display:grid;grid-template-columns:630px 630px;gap:60px;padding-top:60px;scroll-margin-top:60px}
+.bcol{display:flex;flex-direction:column;gap:60px}
+.bcol.c2{padding-top:140px;position:relative}
+.divider.col-h{margin:40px 0 0}
+.big{font-weight:600;font-size:64px;line-height:1;text-transform:uppercase}
+.who{display:flex;flex-direction:column;position:relative;z-index:2;height:800px;border-radius:95px;overflow:hidden;padding:110px 70px 70px;background:var(--wbg);box-shadow:0 40px 90px -40px var(--wsh)}
+.who p{margin-top:26px;font-size:19px;line-height:1.6;color:var(--soft)}
+.who ul{list-style:none;margin-top:auto}
+.who li{display:flex;gap:16px;align-items:center;padding:14px 0;border-top:1px solid var(--line);font-weight:700;font-size:13px;letter-spacing:var(--caps);text-transform:uppercase;color:var(--xt)}
+.who li span{margin-left:auto;font-weight:500;font-size:15px;letter-spacing:.02em;text-transform:none;color:var(--dim)}
+.over{left:-120px;top:-216px;width:630px;height:416px;z-index:1}
+.under{position:relative;display:block;width:560px;height:620px;margin-top:-460px;margin-left:10px;z-index:1}
+.hm{display:none}
+/* the card that leads to the contact form: the gold itself, with the topic chosen on the way */
+.touch{position:relative;z-index:2;height:800px;border-radius:95px;overflow:hidden;padding:110px 70px 70px;background:linear-gradient(160deg,var(--g1),var(--g2));color:var(--on-x)}
+.touch .big{font-size:72px}
+.touch p{margin-top:26px;font-size:19px;line-height:1.55;opacity:.85}
+.touch .side{position:absolute;left:70px;right:70px;bottom:70px}
+.touch fieldset{border:0;padding:0;margin:0;min-width:0}
+.touch legend{padding:0;font-weight:800;font-size:14px;letter-spacing:var(--caps);text-transform:uppercase;opacity:.6}
+.topics{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.topics label{display:flex;cursor:pointer}
+.topics input{position:absolute;opacity:0;pointer-events:none}
+.topics span{display:inline-flex;align-items:center;justify-content:center;height:48px;padding:0 24px;border-radius:100px;border:1.5px solid currentColor;opacity:.8;font-weight:800;font-size:16px;letter-spacing:var(--caps);text-indent:var(--caps);text-transform:uppercase;white-space:nowrap;transition:background .2s,color .2s}
+.topics input:checked + span{background:#151a20;border-color:#151a20;color:var(--g1);opacity:1}
+.topics input:focus-visible + span{outline:3px solid currentColor;outline-offset:3px}
+:root[data-theme="light"] .topics input:checked + span{background:#fff;border-color:#fff;color:var(--g2)}
+.touch .btn{width:100%;margin-top:36px;background:#151a20;color:#fff}
+:root[data-theme="light"] .touch .btn{background:#fff;color:#151a20}
+@media (max-width:768px){
+  .ghero{height:auto;padding-bottom:140px}
+  .eq{display:none}
+  .cta{flex-wrap:wrap;gap:12px}
+  .brands{display:flex;flex-direction:column;gap:24px;padding-top:40px}
+  .bcol{display:contents}
+  .bcard.digital{order:1;z-index:1}
+  .bcard.studio{order:2}
+  .divider.col-h{margin:16px 0 -8px}
+  .l-who{order:3}
+  .who{order:4;height:auto;border-radius:56px;padding:50px 32px}
+  .who ul{margin-top:34px}
+  .l-touch{order:5}
+  .touch{order:6;height:auto;border-radius:56px;padding:50px 32px 44px}
+  .touch .side{position:relative;left:0;right:0;bottom:0;margin-top:40px}
+  .big{font-size:42px}
+  .touch .big{font-size:46px}
+  .touch legend{font-size:12px}
+  .topics{flex-wrap:nowrap;gap:6px}
+  .topics label{flex:1 1 0;min-width:0}
+  .topics span{width:100%;height:40px;padding:0 4px;font-size:13px}
+  .over,.under{display:none}
+  /* the phone's hatches, at its own scale: one beside each card's edge, the last down to the footer */
+  .hm{display:block;position:relative;flex:none;align-self:flex-start;width:218px;z-index:0}
+  .over-m{order:1;height:220px;margin:-156px 0 -88px 180px}
+  .under-m{order:4;height:455px;margin:-673px 0 194px 195px}
+  .last-m{order:7;height:265px;margin:-211px 0 -78px -36px}
+}
