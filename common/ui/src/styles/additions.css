@@ -10,6 +10,9 @@
 .cform.is-busy .btn{opacity:.6;pointer-events:none}
 .epage .row{margin-top:56px}
 @media (max-width:768px){
+  /* on the phone the box sits above the button: while it shows nothing, it leaves no gap either, so the button keeps
+     the form's own spacing to the message field, the same as to the note's rule below it */
+  .fend:has(> .ts.ts-on:not(.ts-ask)){gap:0}
   .ferr{padding-left:12px;font-size:14px;line-height:1.5}
   .epage .row{margin-top:36px}
 }
