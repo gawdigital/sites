@@ -32,7 +32,8 @@ jobs:
       - run: bun run test
       - run: bun run build
         env:
-          # A public build-time value (a repository variable, not a secret); unset, the Turnstile test key is used.
+          # gawdigital's public build-time value (a repository variable, not a secret); unset, the Turnstile test key
+          # is used. gawgroup's site key is in its `src/env.ts`.
           PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.PUBLIC_TURNSTILE_SITE_KEY }}
           # The CMS project the pages read at build time (repository variables); unset, the translation files' copy.
           SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
@@ -40,7 +41,7 @@ jobs:
       - name: Build the Sanity studio
         # Catches a schema the studio cannot load; the studio itself is deployed by the owner (`sanity/README.md`).
         run: bun run --filter studio build
-      - name: Upload a preview version
+      - name: Upload a preview version of gawdigital
         # Secrets are not available to pull requests from forks.
         if: github.event.pull_request.head.repo.full_name == github.repository
         id: preview
@@ -49,8 +50,23 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           # Wrangler appends one JSON line per command here; the upload's line names the preview URLs.
-          WRANGLER_OUTPUT_FILE_PATH: ${{ runner.temp }}/wrangler-output.ndjson
+          WRANGLER_OUTPUT_FILE_PATH: ${{ runner.temp }}/wrangler-gawdigital.ndjson
         # Wrangler runs on Bun (`--bun`), not on the runner's Node.
+        run: >-
+          bun --bun wrangler versions upload
+          --preview-alias pr-${{ github.event.pull_request.number }}
+          --message "PR #${{ github.event.pull_request.number }}"
+      - name: Upload a preview version of gawgroup
+        # An upload only adds a version to the Worker: it needs the Worker `gawgroup` to exist, not its domain. A
+        # failure here is shown on the step but does not fail gawdigital's checks.
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        id: preview-gawgroup
+        continue-on-error: true
+        working-directory: packages/gawgroup
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          WRANGLER_OUTPUT_FILE_PATH: ${{ runner.temp }}/wrangler-gawgroup.ndjson
         run: >-
           bun --bun wrangler versions upload
           --preview-alias pr-${{ github.event.pull_request.number }}
@@ -59,14 +75,20 @@ jobs:
         if: steps.preview.outcome == 'success'
         uses: actions/github-script@v8
         env:
-          OUTPUT_FILE: ${{ runner.temp }}/wrangler-output.ndjson
+          OUTPUT_DIR: ${{ runner.temp }}
         with:
           script: |
             const fs = require('node:fs');
-            const upload = fs.readFileSync(process.env.OUTPUT_FILE, 'utf8')
-              .split('\n').filter(Boolean).map((line) => JSON.parse(line))
-              .findLast((entry) => entry.type === 'version-upload');
-            if (!upload) throw new Error('Wrangler reported no version upload.');
+            // One row pair per site whose upload wrote its line; gawgroup's may be missing (its step may fail).
+            const uploadOf = (site) => {
+              const file = `${process.env.OUTPUT_DIR}/wrangler-${site}.ndjson`;
+              if (!fs.existsSync(file)) return undefined;
+              return fs.readFileSync(file, 'utf8')
+                .split('\n').filter(Boolean).map((line) => JSON.parse(line))
+                .findLast((entry) => entry.type === 'version-upload');
+            };
+            const uploads = ['gawdigital', 'gawgroup'].map((site) => [site, uploadOf(site)]);
+            if (!uploads[0][1]) throw new Error('Wrangler reported no version upload.');
 
             const sha = context.payload.pull_request.head.sha;
             const marker = '<!-- preview-links -->';
@@ -74,12 +96,14 @@ jobs:
               marker,
               '### Preview',
               '',
-              '| | URL |',
-              '| --- | --- |',
-              `| This pull request (follows every push) | ${upload.preview_alias_url ?? '—'} |`,
-              `| This commit (${sha.slice(0, 7)}) | ${upload.preview_url ?? '—'} |`,
+              '| Site | | URL |',
+              '| --- | --- | --- |',
+              ...uploads.flatMap(([site, upload]) => upload ? [
+                `| ${site} | This pull request (follows every push) | ${upload.preview_alias_url ?? '—'} |`,
+                `| ${site} | This commit (${sha.slice(0, 7)}) | ${upload.preview_url ?? '—'} |`,
+              ] : [`| ${site} | No preview: the upload failed, see the workflow run. | — |`]),
               '',
-              `Version \`${upload.version_id}\`.`,
+              uploads.filter(([, upload]) => upload).map(([site, upload]) => `${site} version \`${upload.version_id}\`.`).join(' '),
             ].join('\n');
             await core.summary.addRaw(body.replace(marker, '')).write();
 
