@@ -21,6 +21,7 @@
   },
   "chrome": {
     "menu": "Menu",
+    "close_menu": "Close menu",
     "home": "Home",
     "recording": "Recording",
     "mix": "Mix",

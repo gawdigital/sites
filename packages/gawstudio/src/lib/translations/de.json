@@ -21,6 +21,7 @@
   },
   "chrome": {
     "menu": "Menü",
+    "close_menu": "Menü schließen",
     "home": "Start",
     "recording": "Aufnahme",
     "mix": "Mix",

@@ -33,7 +33,7 @@ svg{display:block;width:100%;height:auto}
 .ico{position:relative;display:block;width:calc(25*var(--px));min-width:18px}
 .ico.cart{width:calc(19.36*var(--px));min-width:15px;margin-right:calc(15*var(--px))}
 .ico b{position:absolute;left:88%;bottom:60%;min-width:1.42em;height:1.42em;border-radius:1em;background:var(--blue);font:800 max(10px,calc(12*var(--px)))/1.42 "Kumbh Sans",sans-serif;text-align:center}
-.burger,#menu{display:none}
+.mnav,.mmenu{display:none}
 
 /* Two columns: the left one starts at once, the right one under the page's claim. */
 .cols{display:grid;grid-template-columns:1fr 1fr;column-gap:var(--pad);padding:0 var(--pad);isolation:isolate}
@@ -78,22 +78,28 @@ h2{font-weight:800;font-size:var(--t60);line-height:1.2;text-transform:uppercase
 .lang{display:flex;gap:calc(35*var(--px))}
 .lang .cur{color:var(--orange)}
 
-/* A phone: one column, the claim first; the menu folds under a button that works without JavaScript. */
+/* A phone: one column, the claim first; the menu is an overlay behind three dots, as on the other sites. */
 @media (max-width:860px){
   :root{--px:calc((100vw - 32px)/750);--pad:max(22px,calc(60*var(--px)));--t18:14px;--t24:16px;--t60:max(30px,calc(60*var(--px)));--t86:max(44px,13vw)}
   .top{height:auto;min-height:150px}
   .logo{left:16px;width:84px}
-  .burger{display:grid;place-items:center;position:absolute;right:16px;top:28px;width:48px;height:48px;border-radius:50%;background:var(--ink);cursor:pointer}
-  .burger i,.burger i::before,.burger i::after{display:block;width:20px;height:3px;border-radius:3px;background:#fff}
-  .burger i{position:relative}
-  .burger i::before,.burger i::after{content:"";position:absolute;left:0;top:-7px}
-  .burger i::after{top:7px}
-  #menu{display:block;position:absolute;right:16px;top:28px;width:48px;height:48px;margin:0;opacity:0}
-  #menu:focus-visible+.burger{outline:3px solid #fff;outline-offset:3px}
-  .nav{display:none;position:absolute;z-index:5;left:16px;right:16px;top:92px;height:auto;flex-direction:column;align-items:flex-start;gap:22px;padding:28px;border-radius:32px;background:var(--ink);box-shadow:0 0 30px 10px rgba(13,14,17,.6)}
-  #menu:checked~.nav{display:flex}
-  .nav a{font-size:18px}
-  .nav .icons{display:flex;gap:28px}
+  .nav{display:none}
+  .mnav,.mmenu .mclose{display:flex;position:absolute;right:12px;top:21px;width:48px;height:48px;align-items:center;justify-content:center;padding:0;margin:0;border:0;border-radius:24px;background:none;-webkit-appearance:none;appearance:none;color:#fff;cursor:pointer;z-index:5;-webkit-tap-highlight-color:transparent}
+  .mnav svg{display:block;width:37px;height:8px;overflow:visible}
+  .mmenu .mclose svg{display:block;width:22px;height:22px}
+  .mnav:focus-visible,.mmenu a:focus-visible,.mmenu button:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+  .mmenu{display:flex;position:fixed;inset:0;z-index:100;flex-direction:column;align-items:center;overflow-y:auto;overscroll-behavior:contain;padding:90px 16px calc(32px + env(safe-area-inset-bottom));background:var(--orange);color:var(--ink)}
+  .mmenu[hidden]{display:none}
+  .mmenu .mclose{color:var(--ink)}
+  .mmenu nav{margin:auto 0;flex:0 0 auto}
+  .mmenu ul{list-style:none;margin:0;padding:32px 0 40px;display:flex;flex-direction:column;align-items:center;gap:24px}
+  .mmenu li a{display:block;font-weight:800;font-size:34px;line-height:1.1765;text-transform:uppercase;text-decoration:none}
+  .mmenu li a[aria-current],.mmenu .lang a.cur{text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:.25em}
+  .mmenu .mfoot{display:flex;justify-content:center;flex:0 0 auto;font-weight:800;font-size:19px;line-height:1.4737;text-transform:uppercase}
+  .mmenu .lang{display:flex;gap:18px}
+  .mmenu .lang a{color:inherit}
+  .mmenu .lang a.cur{text-decoration-thickness:2px}
+  html.mm-lock,html.mm-lock body{overflow:hidden}
   .cols{display:flex;flex-direction:column;gap:28px;padding:0 16px}
   .col{display:contents}
   .card{order:var(--o)}

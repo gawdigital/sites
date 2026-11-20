@@ -8,7 +8,8 @@
   import { DEFAULT_LOCALE, localeOf, pathOf, routeOf } from '@gaw/i18n/locale.ts';
   import { LANG, LANG_HEAD } from '@gaw/i18n/scripts.ts';
   import LangSwitch from '@gaw/ui/LangSwitch.svelte';
-  import { SPECULATION, inline } from '@gaw/ui/scripts.ts';
+  import { CROSS, DOTS } from '@gaw/ui/icons.ts';
+  import { MENU, SPECULATION, inline } from '@gaw/ui/scripts.ts';
   import type { LangLink } from '@gaw/ui/types.ts';
   import { page } from '$app/state';
 
@@ -64,13 +65,19 @@
   <div class="shape" aria-hidden="true">{@html shape.replace('<svg ', '<svg preserveAspectRatio="none" ')}</div>
   <header class="top wrap">
     <a class="logo" href={pathOf('/', locale)} aria-label="G.A.W.Studio">{@html logo}</a>
-    <!-- The phone's menu: a checkbox and its label, so it opens without JavaScript. -->
-    <input id="menu" type="checkbox" aria-label={t('chrome.menu')} /><label class="burger" for="menu" aria-hidden="true"><i></i></label>
     <nav class="nav">
       {#each NAV as id (id)}<a href={pathOf(PAGES[id].route, locale)} aria-current={id === meta.nav ? 'page' : undefined}>{t(`chrome.${id}`)}</a>{/each}
       <!-- The cart and the account come with the orders (issue #29); until then they are only drawn. -->
       <span class="icons" aria-hidden="true"><span class="ico cart">{@html cart}<b>0</b></span><span class="ico">{@html user}</span></span>
     </nav>
+    <!-- The phone's menu, as on the other sites: three dots open an overlay (`@gaw/ui/scripts/menu.js`). Without
+         JavaScript the links above stay on the page instead (the `noscript` rule in `site.ts`). -->
+    <button class="mnav" type="button" aria-label={t('chrome.menu')} aria-expanded="false" aria-controls="mmenu">{@html DOTS}</button>
+    <div class="mmenu" id="mmenu" role="dialog" aria-modal="true" aria-label={t('chrome.menu')} hidden>
+      <button class="mclose" type="button" aria-label={t('chrome.close_menu')}>{@html CROSS}</button>
+      <nav><ul>{#each NAV as id (id)}<li><a href={pathOf(PAGES[id].route, locale)} aria-current={id === meta.nav ? 'page' : undefined}>{t(`chrome.${id}`)}</a></li>{/each}</ul></nav>
+      <div class="mfoot"><LangSwitch {langs} /></div>
+    </div>
   </header>
   <main class="cols wrap">
     <div class="head">
@@ -82,4 +89,4 @@
   </main>
   <footer class="foot wrap"><span>{t('chrome.copyright')}</span><nav aria-label={t('chrome.languages')}><LangSwitch {langs} /></nav></footer>
 </div>
-{@html inline(LANG)}
+{@html inline(LANG, MENU)}

@@ -38,7 +38,11 @@ export const STUDIO = {
   map: 'https://www.google.com/maps/search/?api=1&query=%C5%A0im%C3%A1%C4%8Dkova+906%2F21%2C+170+00+Praha+7',
 } as const;
 
+/** Without JavaScript the overlay cannot open, so a phone keeps the menu's links on the page, under the badge. */
+const NOSCRIPT =
+  '@media (max-width:860px){.mnav{display:none}.top{padding-top:150px}.nav{display:flex;position:static;height:auto;flex-wrap:wrap;gap:14px 22px;padding:0 16px 28px}.nav .icons{display:none}}';
+
 /** The font is asked for before the stylesheet is parsed, as on the other sites (`@gaw/ui/styles.ts`). */
 export const STYLES = `<link rel="preload" href="${font}" as="font" type="font/ttf" crossorigin><style>${css
   .replace('%FONT%', font)
-  .replace('%GRAIN%', grain)}</style>`;
+  .replace('%GRAIN%', grain)}</style><noscript><style>${NOSCRIPT}</style></noscript>`;
