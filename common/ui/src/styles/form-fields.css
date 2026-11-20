@@ -20,12 +20,13 @@
 .fg .cform .fbox input[type=email],.fg .cform .fbox select,.fg .cform .fbox textarea{height:100%;background:transparent;border:0;
   border-radius:18px;padding:34px 18px 13px;font-size:17px;line-height:1.3529;box-shadow:none}
 .fg .cform .fbox input:focus-visible,.fg .cform .fbox select:focus-visible,.fg .cform .fbox textarea:focus-visible{border:0;box-shadow:none}
-/* an autofilled field: the browser paints it in a colour of its own (a pale yellow in Safari), over the box's fill and
-   edge, where the light label cannot be read; an inset shadow in the box's own fill and edge covers that paint, and
-   the text keeps the page's colour */
+/* an autofilled field: the browser's own paint (a pale yellow in Safari) is held off by a background transition it
+   never finishes; the field shows a little brighter instead, a light veil of the text colour over the box's fill and
+   an edge toward the accent, and the text keeps the page's colour; focus looks as on any field */
 .fg .cform .fbox input:-webkit-autofill{-webkit-text-fill-color:var(--text);caret-color:var(--text);
-  box-shadow:inset 0 0 0 2px var(--edge),inset 0 0 0 200px var(--chip);transition:box-shadow .15s,background-color 0s 99999s}
-.fg .cform .fbox:focus-within input:-webkit-autofill{box-shadow:inset 0 0 0 2px var(--edge),inset 0 0 0 200px var(--card)}
+  box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--x) 30%,var(--line)),inset 0 0 0 200px color-mix(in srgb,var(--text) 6%,transparent);
+  transition:box-shadow .15s,background-color 0s 99999s}
+.fg .cform .fbox:focus-within input:-webkit-autofill{box-shadow:inset 0 0 0 2px var(--edge)}
 .fg .fsel select{padding-right:52px;cursor:pointer}
 .fg .fsel select:invalid{color:var(--dim)}
 .fg .fsel:after{content:"";position:absolute;right:25px;top:39px;width:8px;height:8px;margin-top:0;pointer-events:none;
