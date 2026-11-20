@@ -29,6 +29,8 @@
 .fg .fsel select:invalid{color:var(--dim)}
 .fg .fsel:after{content:"";position:absolute;right:25px;top:39px;width:8px;height:8px;margin-top:0;pointer-events:none;
   border-right:2px solid var(--soft);border-bottom:2px solid var(--soft);transform:rotate(45deg)}
+/* without an indicator the chevron is centred vertically: the rotated stroke's visible box lies 2.83 px (2.47 px on the phone) below the centre of its 10 px (9 px) box */
+.fg .fsel:not(.req):after{top:calc(50% - 7.83px)}
 .fg .fbox.msg{display:flex;flex-direction:column;height:auto;min-height:180px}
 .fg .cform .fbox.msg textarea{flex:1;height:auto;min-height:0;resize:none}
 @media (max-width:768px){
@@ -38,5 +40,6 @@
   .fg .cform .fbox input[type=email],.fg .cform .fbox select,.fg .cform .fbox textarea{padding:30px 15px 10px;font-size:16px;line-height:1.375;border-radius:18px}
   .fg .fsel select{padding-right:44px}
   .fg .fsel:after{right:19px;top:35px;width:7px;height:7px;margin-top:0}
+  .fg .fsel:not(.req):after{top:calc(50% - 6.97px)}
   .fg .fbox.msg{min-height:150px}
 }
