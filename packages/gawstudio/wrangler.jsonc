@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "gawstudio",
+  "main": ".svelte-kit/cloudflare/_worker.js",
+  "compatibility_date": "2026-11-01",
+  // nodejs_als for SvelteKit's request context.
+  "compatibility_flags": ["nodejs_als"],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": ".svelte-kit/cloudflare"
+  },
+  "observability": { "enabled": true },
+  // No routes yet: gawstudio.cz still serves the old site, and this Worker takes the domain over at launch (issue
+  // #29). Until then it is reachable on workers.dev only, and every page asks not to be indexed.
+  "workers_dev": true,
+  "preview_urls": true,
+  // Public build-time configuration only; secrets are set with `wrangler secret put`.
+  "vars": {}
+}

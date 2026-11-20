@@ -1,0 +1,44 @@
+{
+  "common": {
+    "online": "Online",
+    "info": "Info",
+    "book_now": "Jetzt buchen",
+    "show_more": "Mehr erfahren",
+    "lets_start": "Los geht’s",
+    "how_it_works": "So läuft’s",
+    "processed": "Bearbeitet",
+    "sample": "Hörprobe: kommt bald",
+    "sale_title": "Jetzt Rabatt sichern!",
+    "sale_action": "Ja, bitte!",
+    "country": "Tschechische Republik",
+    "opens_in_a_new_tab": "(öffnet in einem neuen Tab)",
+    "recording": "Aufnahme",
+    "mix": "Mix",
+    "mastering": "Mastering",
+    "recording_text": "Gesang, Instrumente oder die ganze Band: Nehmen Sie in unserem Studio in Prag auf, mit einem Tontechniker an Ihrer Seite. Gebucht wird in Blöcken von vier Stunden.",
+    "mix_text": "Schicken Sie uns Ihre Spuren von überall und erhalten Sie einen Mix, der zusammenhält. Online bestellt, Preis pro Track.",
+    "mastering_text": "Der letzte Schliff vor der Veröffentlichung: Lautheit, Balance und ein einheitlicher Klang auf jeder Plattform. Online bestellt, Preis pro Track."
+  },
+  "chrome": {
+    "menu": "Menü",
+    "home": "Start",
+    "recording": "Aufnahme",
+    "mix": "Mix",
+    "mastering": "Mastering",
+    "contact": "Kontakt",
+    "cart": "Warenkorb",
+    "account": "Konto",
+    "languages": "Sprache",
+    "copyright": "© 2026 G.A.W.Group, s.r.o."
+  },
+  "error": {
+    "kicker": "Fehler {{status}}",
+    "title_404": "Nicht gefunden...",
+    "title": "Etwas ist schiefgelaufen...",
+    "text_404": "Unter dieser Adresse gibt es keine Seite. Sie wurde vielleicht verschoben, oder der Link enthält einen Tippfehler.",
+    "text": "Die Seite konnte nicht angezeigt werden. Bitte versuchen Sie es gleich noch einmal.",
+    "home": "Zur Startseite",
+    "page_title": "Nicht gefunden · G.A.W.Studio",
+    "page_title_other": "Fehler · G.A.W.Studio"
+  }
+}

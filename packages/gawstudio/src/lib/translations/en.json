@@ -1,0 +1,44 @@
+{
+  "common": {
+    "online": "Online",
+    "info": "Info",
+    "book_now": "Book now",
+    "show_more": "Show more",
+    "lets_start": "Let’s start",
+    "how_it_works": "How it works",
+    "processed": "Processed",
+    "sample": "Sound sample: coming soon",
+    "sale_title": "Get your sale now!",
+    "sale_action": "Yes, please!",
+    "country": "Czech Republic",
+    "opens_in_a_new_tab": "(opens in a new tab)",
+    "recording": "Recording",
+    "mix": "Mix",
+    "mastering": "Mastering",
+    "recording_text": "Vocals, instruments or the whole band: record in our studio in Prague with a sound engineer at your side. Sessions are booked in four-hour blocks.",
+    "mix_text": "Send us your tracks from anywhere and get back a mix that holds together. Ordered online, priced per track.",
+    "mastering_text": "The final polish before release: loudness, balance and a consistent sound on every platform. Ordered online, priced per track."
+  },
+  "chrome": {
+    "menu": "Menu",
+    "home": "Home",
+    "recording": "Recording",
+    "mix": "Mix",
+    "mastering": "Mastering",
+    "contact": "Contact",
+    "cart": "Cart",
+    "account": "Account",
+    "languages": "Language",
+    "copyright": "© 2026 G.A.W.Group, s.r.o."
+  },
+  "error": {
+    "kicker": "Error {{status}}",
+    "title_404": "Not found...",
+    "title": "Something went wrong...",
+    "text_404": "There is no page at this address. It may have moved, or the link may be mistyped.",
+    "text": "The page could not be shown. Please try again in a moment.",
+    "home": "Back home",
+    "page_title": "Not found · G.A.W.Studio",
+    "page_title_other": "Error · G.A.W.Studio"
+  }
+}

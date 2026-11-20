@@ -1,7 +1,8 @@
 # sites
 
 Bun workspace with the G.A.W. websites, one Cloudflare Worker each (SvelteKit 3, Svelte 5, adapter-cloudflare):
-`packages/gawdigital` is gawdigital.cz, `packages/gawgroup` is gawgroup.cz. `common/ui` holds the shared components,
+`packages/gawdigital` is gawdigital.cz, `packages/gawgroup` is gawgroup.cz, `packages/gawstudio` is gawstudio.cz (its
+own design, pages only so far, not deployed: issue #29). `common/ui` holds the shared components,
 themes and form spec, `common/i18n` the locale routing and `hreflang` helper, `common/contact` the contact endpoint,
 `common/company` the company details and brand list, `sanity/` the content studio (gawdigital's products and FAQ, read
 at build time). See `README.md` for the routes, the contact form and the owner steps.
@@ -23,7 +24,7 @@ so Bun, not Node, executes them; `serve` (`wrangler dev`) alone needs Node, sinc
   production secrets). Do not add `workers.dev` or other test hostnames to a widget.
 - Every change goes through a pull request; CI checks, tests and builds it and uploads a preview. `main` deploys
   both sites.
-- Commit message prefix = the area: `gawdigital:`, `gawgroup:`, `common:`, `sanity:`, `ci:`, `docs:`.
+- Commit message prefix = the area: `gawdigital:`, `gawgroup:`, `gawstudio:`, `common:`, `sanity:`, `ci:`, `docs:`.
 - English for every committed artifact. All page copy lives in the translation files (`en` is the approved
   design copy; `de` and `cs` are AI-checked, awaiting a native speaker's review), except gawdigital's products and FAQ, which come from Sanity
   and fall back to those files.

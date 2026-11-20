@@ -1,0 +1,44 @@
+{
+  "common": {
+    "online": "Online",
+    "info": "Info",
+    "book_now": "Rezervovat",
+    "show_more": "Zjistit víc",
+    "lets_start": "Jdeme na to",
+    "how_it_works": "Jak to funguje",
+    "processed": "Po úpravě",
+    "sample": "Zvuková ukázka: připravujeme",
+    "sale_title": "Vezměte si slevu!",
+    "sale_action": "Ano, prosím!",
+    "country": "Česká republika",
+    "opens_in_a_new_tab": "(otevře se v nové záložce)",
+    "recording": "Nahrávání",
+    "mix": "Mix",
+    "mastering": "Mastering",
+    "recording_text": "Zpěv, nástroje nebo celá kapela: nahrajte u nás ve studiu v Praze se zvukařem po ruce. Rezervuje se po čtyřhodinových blocích.",
+    "mix_text": "Pošlete nám stopy odkudkoli a dostanete mix, který drží pohromadě. Objednáte online, cena je za skladbu.",
+    "mastering_text": "Poslední úprava před vydáním: hlasitost, vyvážení a jednotný zvuk na všech platformách. Objednáte online, cena je za skladbu."
+  },
+  "chrome": {
+    "menu": "Menu",
+    "home": "Domů",
+    "recording": "Nahrávání",
+    "mix": "Mix",
+    "mastering": "Mastering",
+    "contact": "Kontakt",
+    "cart": "Košík",
+    "account": "Účet",
+    "languages": "Jazyk",
+    "copyright": "© 2026 G.A.W.Group, s.r.o."
+  },
+  "error": {
+    "kicker": "Chyba {{status}}",
+    "title_404": "Stránka nenalezena...",
+    "title": "Něco se pokazilo...",
+    "text_404": "Na této adrese žádná stránka není. Možná se přesunula, nebo je v odkazu překlep.",
+    "text": "Stránku se nepodařilo zobrazit. Zkuste to prosím za chvíli znovu.",
+    "home": "Zpět domů",
+    "page_title": "Stránka nenalezena · G.A.W.Studio",
+    "page_title_other": "Chyba · G.A.W.Studio"
+  }
+}
