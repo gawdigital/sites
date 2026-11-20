@@ -13,5 +13,6 @@
   "iban": "IBAN",
   "copy_iban": "Kopírovat IBAN",
   "bic": "BIC",
+  "copy_bic": "Kopírovat BIC",
   "contact_g_a_w_digital": "Kontakt · G.A.W.Digital"
 }
