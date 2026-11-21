@@ -16,7 +16,7 @@
 .appcard .row{justify-content:flex-start}
 .appcard .btn{margin-left:0}
 .appcard .shot{position:relative;z-index:2}
-.duo{display:grid;grid-template-columns:760px 500px;column-gap:60px;align-items:stretch;margin-top:60px}
+.duo{display:grid;grid-template-columns:1fr 1fr;column-gap:60px;align-items:stretch;margin-top:60px}
 .duo .card{padding:52px 60px}
 /* GAMES has no section yet: the same dimmed card on Home and Support */
 .games .scene{filter:saturate(.35);opacity:.6}
@@ -28,14 +28,10 @@
 .duo .games .scene{height:400px}
 .duo .games .pixwrap{top:24px}
 .duo .games .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 200px,rgba(var(--cr),.85) 330px,rgb(var(--cr)) 400px)}
-.duo .support{height:620px}
-.duo .support .scene{height:400px}
-.duo .support .vis{left:110px;right:110px;top:56px}
 .tag.hl{background:var(--xg);color:var(--on-x)}
 /* on the light theme the app's tag takes the dark theme's mint (its gradient's midpoint) with white text, which the pink highlight beside it would otherwise echo */
 :root[data-theme="light"] .tag.mac{background:#0ed2b8;color:#fff}
-.support .links{display:flex;gap:28px;font-weight:800;font-size:20px}
-.duo .support .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 200px,rgba(var(--cr),.85) 330px,rgb(var(--cr)) 400px)}
+.help .links{display:flex;gap:28px;font-weight:800;font-size:20px}
 .duo .row{min-height:40px;margin-top:28px}
 .app{display:flex;align-items:center;gap:18px;margin-top:28px;padding:18px 28px 18px 18px;border-radius:calc(52px * .225 + 18px);background:var(--chip);
   box-shadow:inset 0 0 0 2px var(--line)}
