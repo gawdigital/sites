@@ -5,6 +5,8 @@
   import Divider from '@gaw/ui/Divider.svelte';
   import { EXT } from '@gaw/ui/icons.ts';
 
+  import cestaLogo from '#lib/art/cesta-logo.svg?raw';
+  import cestaMark from '#lib/art/cesta-mark.svg?raw';
   import Shell from '#lib/Shell.svelte';
   import { get } from '#lib/translations/index.ts';
 
@@ -81,8 +83,8 @@
       {@render visit('https://cesta.cz', 'cesta.cz', 'Cesta.cz')}
     </div>
     <div class="feed" aria-hidden="true">
-      <div class="fbar"><i class="logo"></i><span class="word">cesta<small>.cz</small></span><i class="pillx"></i></div>
-      <div class="fcats"><i class="on"></i><i></i><i></i></div>
+      <div class="fbar">{@html cestaLogo}<i class="pillx"></i></div>
+      <div class="fcats"><i class="on">{@html cestaMark}</i><i></i><i></i></div>
       {#each [0, 1, 2] as n (n)}<div class="post"><div class="who"><i class="av"></i><i class="ln1"></i></div><div class="body"><div class="lines"><i></i><i></i><i class="short"></i></div>{#if n !== 1}<i class="img"></i>{/if}</div><div class="acts"><i></i><i></i><i></i></div></div>{/each}
     </div>
   </article>
