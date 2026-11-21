@@ -27,6 +27,8 @@
   .peek-hero .txt{display:block}
   .peek-hero h1{margin-top:16px;font-size:56px;line-height:0.9643}
   .peek-hero .lead{margin-top:20px}
+  /* four jump links: the last wraps to a second row rather than running off a narrow phone */
+  .peek-hero .jump{flex-wrap:wrap;row-gap:12px}
   .peek-hero + .divider{display:none}
   .peek-hero ~ .appcard{margin-top:28px}
   .fpanel{order:-1;grid-template-columns:1fr;row-gap:24px;padding:28px}
