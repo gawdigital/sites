@@ -8,7 +8,7 @@ import { LOCALES, pathOf } from '@gaw/i18n/locale.ts';
 
 import { FORM_STATES } from '@gaw/contact/states.ts';
 
-const PAGES = ['/', '/apps/midi-control', '/apps/midi-control/support', '/support', '/contact', '/privacy'];
+const PAGES = ['/', '/apps/midi-control', '/apps/midi-control/support', '/support', '/contact', '/privacy', '/web'];
 const FORMS = ['/support', '/contact'];
 
 // Explicit entries rather than crawling: a prefixed locale and a form's result page are reachable only through the
