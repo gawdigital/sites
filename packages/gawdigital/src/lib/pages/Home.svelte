@@ -54,7 +54,7 @@
     </article>
     <article class="card web">
       <div class="scene sd" aria-hidden="true">
-        <div class="code"><div class="bar"><i></i><i></i><i></i><span>en.json</span></div><pre><span class="p">"inbox"</span>: <span class="s">"You have <b>{'{{'}count:number;{'}}'}</b> <b>{'{{'}count:plural; one:message; other:messages;{'}}'}</b>."</span></pre></div>
+        <div class="browser"><div class="bar"><i></i><i></i><i></i><span class="url"></span></div><div class="page"><i class="h"></i><i></i><i class="short"></i><div class="tiles"><i></i><i></i><i></i></div></div></div>
       </div><div class="fade"></div>
       <div class="content">
         <span class="tag">{t('home.web_tag')}</span>
