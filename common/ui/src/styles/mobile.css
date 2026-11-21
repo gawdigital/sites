@@ -96,15 +96,11 @@
   .appwin{filter:drop-shadow(0 12px 20px rgba(0,0,0,.5))}
   .duo{grid-template-columns:1fr;row-gap:16px;margin-top:16px}
   .duo .card{padding:24px}
-  .duo .games,.duo .support{height:auto;margin-top:0}
+  .duo .games{height:auto;margin-top:0}
   .duo .games{padding-top:150px}
   .duo .games .scene{height:210px} .duo .games .pixwrap{top:30px}
   .duo .games .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 100px,rgba(var(--cr),.85) 170px,rgb(var(--cr)) 210px)}
-  .duo .support{padding-top:200px}
-  .duo .support .scene{height:250px}
-  .duo .support .vis{left:44px;right:44px;top:24px}
-  .support .links{gap:20px;font-size:16px}
-  .duo .support .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 120px,rgba(var(--cr),.85) 200px,rgb(var(--cr)) 250px)}
+  .help .links{gap:20px;font-size:16px}
   .duo .row{margin-top:20px}
   .app{margin-top:20px;padding:12px 18px 12px 12px;gap:12px;border-radius:calc(40px * .225 + 12px)}
   .app .ic{width:40px;height:40px}
