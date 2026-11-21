@@ -26,7 +26,7 @@
       <div class="kicker">{t('common.g_a_w_digital')}</div>
       <h1>{@html t('home.apps_games_web')}</h1>
       <p class="lead">{t('home.g_a_w_digital_is')}</p>
-      <div class="jump"><a href={href('/apps/midi-control')}>{@html t('home.01_apps')}</a><!-- svelte-ignore a11y_missing_attribute (GAMES has no page yet) --><a>{@html t('home.02_games')}</a><a href={href('/web')}>{@html t('home.03_web')}</a><a href={href('/support')}>{@html t('home.04_support')}</a></div>
+      <div class="jump"><a href={href('/apps/midi-control')}>{@html t('home.01_apps')}</a><!-- svelte-ignore a11y_missing_attribute (GAMES has no page yet) --><a>{@html t('home.02_games')}</a><a href={href('/web')}>{@html t('home.03_web')}</a></div>
     </div>
     <div class="peek" aria-hidden="true"><div class="tilt">{@html art['home-appwin-aw-d']}{@html art['home-appwin-aw-l']}</div></div>
   </section>
