@@ -37,8 +37,8 @@
 .code .out{padding:14px 24px;border-top:1.5px solid var(--line);background:var(--chip);font-weight:700}
 .code .c{font-weight:500;color:var(--dim);margin-right:8px}
 /* the partner's card: its text beside a picture of its feed, in the site's yellow */
-.cesta{--cy:#fdc800;display:grid;grid-template-columns:1fr 520px;column-gap:80px;align-items:center;padding:80px 80px 80px 88px}
-.cesta .scene{height:100%;background:radial-gradient(40% 70% at 82% 30%,rgba(253,200,0,.16),transparent 70%),var(--sx)}
+.cesta{--cy:#ffb700;display:grid;grid-template-columns:1fr 520px;column-gap:80px;align-items:center;padding:80px 80px 80px 88px}
+.cesta .scene{height:100%;background:radial-gradient(40% 70% at 82% 30%,rgba(255,183,0,.16),transparent 70%),var(--sx)}
 .cesta .fade{background:linear-gradient(90deg,rgba(var(--cr),.9) 0,rgba(var(--cr),.55) 35%,rgba(var(--cr),0) 55%)}
 .cesta .tag{background:var(--cy);color:#0d0e11}
 .cesta .facts li:before{background:var(--cy)}
@@ -46,13 +46,15 @@
   box-shadow:0 34px 56px var(--sh1),inset 0 0 0 1.5px var(--line)}
 .feed i{display:block;border-radius:6px;background:var(--line)}
 .fbar{display:flex;align-items:center;gap:10px;padding-bottom:18px;border-bottom:1.5px solid var(--line)}
-.fbar .logo{width:30px;height:30px;border-radius:50%;background:var(--cy);box-shadow:inset 0 0 0 7px var(--cy),inset 0 0 0 30px var(--panel)}
-.fbar .word{font-weight:800;font-size:24px;letter-spacing:-.01em}
-.fbar .word small{font-weight:500;font-size:20px;color:var(--dim)}
+.clogo{display:block;height:28px;width:auto}
+.clogo .m{fill:var(--cy)}
+.clogo .w{fill:var(--text)}
 .fbar .pillx{margin-left:auto;width:96px;height:30px;border-radius:15px;background:var(--text);opacity:.9}
 .fcats{display:flex;gap:16px;padding:20px 0 8px}
 .fcats i{width:52px;height:52px;border-radius:50%;background:var(--t1)}
-.fcats i.on{background:var(--cy);box-shadow:0 0 0 3px var(--panel),0 0 0 6px var(--cy)}
+.fcats i.on{display:flex;align-items:center;justify-content:center;background:var(--cy);box-shadow:0 0 0 3px var(--panel),0 0 0 6px var(--cy)}
+/* the selected round tab carries the logo's mark, dark on the yellow, as on Cesta.cz */
+.cmark{display:block;width:28px;height:auto;fill:#1d2126}
 .post{padding:18px 0;border-bottom:1.5px solid var(--line)}
 .post:last-child{border-bottom:0}
 .post .who{display:flex;align-items:center;gap:10px}
@@ -93,8 +95,8 @@
   .cesta .content{padding:0 8px}
   .cesta .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 160px,rgba(var(--cr),.85) 280px,rgb(var(--cr)) 340px)}
   .fbar{padding-bottom:12px}
-  .fbar .logo{width:22px;height:22px;box-shadow:inset 0 0 0 5px var(--cy),inset 0 0 0 22px var(--panel)}
-  .fbar .word{font-size:18px} .fbar .word small{font-size:15px}
+  .clogo{height:20px}
+  .cmark{width:20px}
   .fbar .pillx{width:64px;height:22px}
   .fcats{gap:10px;padding:12px 0 4px}
   .fcats i{width:36px;height:36px}
