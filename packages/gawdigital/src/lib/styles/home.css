@@ -31,7 +31,6 @@
 .tag.hl{background:var(--xg);color:var(--on-x)}
 /* on the light theme the app's tag takes the dark theme's mint (its gradient's midpoint) with white text, which the pink highlight beside it would otherwise echo */
 :root[data-theme="light"] .tag.mac{background:#0ed2b8;color:#fff}
-.help .links{display:flex;gap:28px;font-weight:800;font-size:20px}
 .duo .row{min-height:40px;margin-top:28px}
 .app{display:flex;align-items:center;gap:18px;margin-top:28px;padding:18px 28px 18px 18px;border-radius:calc(52px * .225 + 18px);background:var(--chip);
   box-shadow:inset 0 0 0 2px var(--line)}

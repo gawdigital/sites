@@ -66,8 +66,8 @@
   </section>
 
   <section class="help">
-    <div><h2>{t('common.support')}</h2><p>{t('home.faq_and_report_a_problem')}</p></div>
-    <div class="row"><span class="links"><a class="ln" href={href('/apps/midi-control/support')}>{t('common.faq')}</a></span><a class="btn" href={href('/support')}>{t('home.get_help')}</a></div>
+    <div><h2>{t('common.support')}</h2><p>{t('home.help_text')}</p></div>
+    <div class="row"><a class="btn" href={href('/support')}>{t('home.get_help')}</a></div>
   </section>
 
 </Shell>
