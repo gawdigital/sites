@@ -54,7 +54,7 @@
     </article>
     <article class="card web">
       <div class="scene sd" aria-hidden="true">
-        <div class="code"><div class="bar"><i></i><i></i><i></i><span>en.json</span></div><pre><span class="p">"inbox"</span>: <span class="s">"You have <b>{'{{'}count:number;{'}}'}</b> <b>{'{{'}count:plural; one:message; other:messages;{'}}'}</b>."</span></pre><div class="out"><span class="c">{'{'} count: 1234 {'}'} →</span> You have 1,234 messages.</div></div>
+        <div class="code"><div class="bar"><i></i><i></i><i></i><span>en.json</span></div><pre><span class="p">"inbox"</span>: <span class="s">"You have <b>{'{{'}count:number;{'}}'}</b> <b>{'{{'}count:plural; one:message; other:messages;{'}}'}</b>."</span></pre></div>
       </div><div class="fade"></div>
       <div class="content">
         <span class="tag">{t('home.web_tag')}</span>
