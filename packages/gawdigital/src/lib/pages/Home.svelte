@@ -9,7 +9,6 @@
   import { localeOf, pathOf } from '@gaw/i18n/locale.ts';
   import { page } from '$app/state';
   import { productFor } from '#lib/cms.ts';
-  import cestaLogo from '#lib/art/cesta-logo.svg?raw';
 
   const i18n = get();
   const t = i18n.t;
@@ -55,8 +54,7 @@
     </article>
     <article class="card web">
       <div class="scene sd" aria-hidden="true">
-        <div class="code"><div class="bar"><i></i><i></i><i></i><span>en.json</span></div><pre><span class="p">"inbox"</span>: <span class="s">"You have <b>{'{{'}count:number;{'}}'}</b> <b>{'{{'}count:plural; one:message; other:messages;{'}}'}</b>."</span></pre></div>
-        <div class="feed"><div class="fbar">{@html cestaLogo}<i class="pillx"></i></div><div class="fcats"><i class="on"></i><i></i><i></i></div></div>
+        <div class="code"><div class="bar"><i></i><i></i><i></i><span>en.json</span></div><pre><span class="p">"inbox"</span>: <span class="s">"You have <b>{'{{'}count:number;{'}}'}</b> <b>{'{{'}count:plural; one:message; other:messages;{'}}'}</b>."</span></pre><div class="out"><span class="c">{'{'} count: 1234 {'}'} →</span> You have 1,234 messages.</div></div>
       </div><div class="fade"></div>
       <div class="content">
         <span class="tag">{t('home.web_tag')}</span>
