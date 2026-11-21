@@ -19,6 +19,7 @@ export const NAMESPACES = [
   { namespace: 'support', routes: [page('/support(?:/[a-z]+)?')] },
   { namespace: 'contact', routes: [page('/contact(?:/[a-z]+)?')] },
   { namespace: 'privacy', routes: [page('/privacy')] },
+  { namespace: 'web', routes: [page('/web')] },
 ];
 
 /** The shared strings (`common`, `chrome`, `form`, `error`) are base translations: every page has them. */
