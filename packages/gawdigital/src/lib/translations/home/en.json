@@ -10,7 +10,10 @@
   "midi_control_for_fireface_a": "MIDI Control for Fireface — a Mac control surface for the Fireface 800’s stand-alone mixer, over MIDI. No FireWire needed.",
   "fireface_800_macos_13": "Fireface 800 · macOS 13+",
   "view_app": "VIEW APP",
-  "help": "HELP",
+  "web_tag": "OPEN SOURCE & PARTNERS",
+  "web": "WEB",
+  "web_text": "Open-source tools for multilingual websites, and the sites we build with partners.",
+  "view_projects": "VIEW PROJECTS",
   "faq_and_report_a_problem": "FAQ and Report a Problem right from the app’s Help menu.",
   "get_help": "GET HELP"
 }

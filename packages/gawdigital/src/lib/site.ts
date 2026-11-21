@@ -14,6 +14,7 @@ import midiTail from './styles/midi-tail.css?raw';
 import product from './styles/product.css?raw';
 import support from './styles/support.css?raw';
 import web from './styles/web.css?raw';
+import homeWeb from './styles/home-web.css?raw';
 
 // The shared form spec in this site's colours: its token rules go where the design declares them.
 const contact = CONTACT_CSS;
@@ -39,7 +40,7 @@ export interface PageMeta {
 }
 
 export const PAGES: Record<PageName, PageMeta> = {
-  home: { route: '/', nav: 'home', head: [home], tail: [homeTail] },
+  home: { route: '/', nav: 'home', head: [home], tail: [homeTail, web, homeWeb] },
   'midi-control': { route: '/apps/midi-control', nav: 'apps', head: [product], tail: [midiTail, midiHead, midiHeadM5] },
   support: { route: '/support', nav: 'support', head: [home, product], tail: [support, hub, form, hubgrid, formFields] },
   'midi-support': { route: '/apps/midi-control/support', nav: 'apps', head: [product], tail: [midiTail, support] },
