@@ -13,6 +13,7 @@ import midiHead from './styles/midi-head.css?raw';
 import midiTail from './styles/midi-tail.css?raw';
 import product from './styles/product.css?raw';
 import support from './styles/support.css?raw';
+import web from './styles/web.css?raw';
 
 // The shared form spec in this site's colours: its token rules go where the design declares them.
 const contact = CONTACT_CSS;
@@ -26,9 +27,9 @@ export const SITE_CSS = ADDITIONS_CSS;
 /** The canonical origin, for canonical and hreflang links. */
 export const ORIGIN = 'https://gawdigital.cz';
 
-export type PageName = 'home' | 'midi-control' | 'support' | 'midi-support' | 'contact' | 'privacy' | 'error';
+export type PageName = 'home' | 'midi-control' | 'support' | 'midi-support' | 'contact' | 'privacy' | 'web' | 'error';
 
-export type NavId = 'home' | 'apps' | 'games' | 'support' | 'contact';
+export type NavId = 'home' | 'apps' | 'games' | 'web' | 'support' | 'contact';
 
 export interface PageMeta {
   route: string;
@@ -43,6 +44,7 @@ export const PAGES: Record<PageName, PageMeta> = {
   support: { route: '/support', nav: 'support', head: [home, product], tail: [support, hub, form, hubgrid, formFields] },
   'midi-support': { route: '/apps/midi-control/support', nav: 'apps', head: [product], tail: [midiTail, support] },
   contact: { route: '/contact', nav: 'contact', head: [home, product], tail: [support, form, formFields, contact] },
+  web: { route: '/web', nav: 'web', head: [home, product], tail: [support, web] },
   privacy: { route: '/privacy', head: [home, product], tail: [support, contact, privacy] },
   error: { route: '/', head: [home, product], tail: [support] },
 };
@@ -52,6 +54,7 @@ export const NAV: readonly { id: NavId; route?: string }[] = [
   { id: 'home', route: '/' },
   { id: 'apps', route: '/apps/midi-control' },
   { id: 'games' },
+  { id: 'web', route: '/web' },
   { id: 'support', route: '/support' },
   { id: 'contact', route: '/contact' },
 ];

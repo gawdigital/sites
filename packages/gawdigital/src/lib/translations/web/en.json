@@ -1,0 +1,21 @@
+{
+  "page_title": "Web · G.A.W.Digital",
+  "web": "WEB",
+  "lead": "Open-source tools for multilingual websites, and the sites we design and build with our partners.",
+  "open_source": "Open source",
+  "open_source_tag": "OPEN SOURCE",
+  "specification": "SPECIFICATION",
+  "i18n_text": "Internationalization for SvelteKit. One install brings the core and the Curly parser, wired into hooks, layouts and components: one instance per request on the server, one per tab in the browser.",
+  "i18n_runes": "Svelte 5 runes",
+  "i18n_typed": "Typed keys and payloads",
+  "i18n_loaders": "Route-level loaders",
+  "curly_text": "A small message syntax for software translations. Values go into double-curly placeholders that may carry a modifier, options and a fallback. A message always resolves; what went wrong is reported on a channel of its own.",
+  "parsers": "Parsers",
+  "partner_projects": "Partner projects",
+  "partner_tag": "PARTNER PROJECT",
+  "cesta_text": "Your way to the news: articles from Czech publishers in one feed, with likes, comments and the authors you follow. We take part in its design and development.",
+  "cesta_design": "Design",
+  "cesta_development": "Development",
+  "visit": "VISIT",
+  "visit_name": "Visit {{name}} (opens in a new tab)"
+}

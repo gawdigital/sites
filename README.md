@@ -49,6 +49,7 @@ at 9 px or more while the layout around it goes on shrinking.
 | `/` | Home |
 | `/apps/midi-control` | MIDI Control for Fireface |
 | `/apps/midi-control/support` | Its support page and FAQ |
+| `/web` | Web: the open-source projects (sveltekit-i18n, the Curly Message Format) and the partner projects (Cesta.cz) |
 | `/support` | Support (`/support?product=midi-control#contact` preselects the product) |
 | `/contact` | Contact and company details |
 | `/privacy` | Privacy policy |
