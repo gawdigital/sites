@@ -4,7 +4,7 @@
   "lead": "Open-Source-Werkzeuge und Partner-Websites.",
   "open_source": "Open Source",
   "open_source_tag": "OPEN SOURCE",
-  "specification": "SPEZIFIKATION",
+  "parsers_tag": "5 PARSER",
   "i18n_text": "Internationalisierung für SvelteKit. Eine Installation bringt den Kern und den Curly-Parser, eingebunden in Hooks, Layouts und Komponenten: eine Instanz pro Anfrage auf dem Server, eine pro Tab im Browser.",
   "i18n_runes": "Svelte-5-Runes",
   "i18n_typed": "Typisierte Schlüssel und Werte",
