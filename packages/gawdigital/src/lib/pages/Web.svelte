@@ -35,6 +35,21 @@
 
   <Divider title={t('web.open_source')} index="01" />
   <section class="wgrid">
+    <article class="card proj curly">
+      <div class="scene"><div class="code" aria-hidden="true">
+        <div class="bar"><i></i><i></i><i></i><span>en.json</span></div>
+        <pre><span class="p">"inbox"</span>: <span class="s">"You have <b>{'{{'}count:number;{'}}'}</b> <b>{'{{'}count:plural; one:message; other:messages;{'}}'}</b>."</span></pre>
+        <div class="out"><span class="c">{'{'} count: 1234 {'}'} →</span> You have 1,234 messages.</div>
+      </div></div><div class="fade"></div>
+      <div class="content">
+        <div class="tags"><span class="tag hl">{t('web.open_source_tag')}</span><span class="tag soft">{t('web.parsers_tag')}</span></div>
+        <h2>Curly Message Format</h2>
+        <p>{t('web.curly_text')}</p>
+        <h3 class="lb">{t('web.parsers')}</h3>
+        <ul class="parsers">{#each PARSERS as [language, registry] (language)}<li><b>{language}</b><small>{registry}</small></li>{/each}</ul>
+        {@render visit('https://curlymessage.dev', 'curlymessage.dev', 'Curly Message Format')}
+      </div>
+    </article>
     <article class="card proj i18n">
       <div class="scene"><div class="code" aria-hidden="true">
         <div class="bar"><i></i><i></i><i></i><span>+page.svelte</span></div>
@@ -52,21 +67,6 @@
         <p>{t('web.i18n_text')}</p>
         <ul class="facts"><li>{t('web.i18n_runes')}</li><li>{t('web.i18n_typed')}</li><li>{t('web.i18n_loaders')}</li></ul>
         {@render visit('https://sveltekit-i18n.github.io', 'sveltekit-i18n.github.io', 'sveltekit-i18n')}
-      </div>
-    </article>
-    <article class="card proj curly">
-      <div class="scene"><div class="code" aria-hidden="true">
-        <div class="bar"><i></i><i></i><i></i><span>en.json</span></div>
-        <pre><span class="p">"inbox"</span>: <span class="s">"You have <b>{'{{'}count:number;{'}}'}</b> <b>{'{{'}count:plural; one:message; other:messages;{'}}'}</b>."</span></pre>
-        <div class="out"><span class="c">{'{'} count: 1234 {'}'} →</span> You have 1,234 messages.</div>
-      </div></div><div class="fade"></div>
-      <div class="content">
-        <div class="tags"><span class="tag hl">{t('web.open_source_tag')}</span><span class="tag soft">{t('web.parsers_tag')}</span></div>
-        <h2>Curly Message Format</h2>
-        <p>{t('web.curly_text')}</p>
-        <h3 class="lb">{t('web.parsers')}</h3>
-        <ul class="parsers">{#each PARSERS as [language, registry] (language)}<li><b>{language}</b><small>{registry}</small></li>{/each}</ul>
-        {@render visit('https://curlymessage.dev', 'curlymessage.dev', 'Curly Message Format')}
       </div>
     </article>
   </section>

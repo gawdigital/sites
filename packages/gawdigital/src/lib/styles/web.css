@@ -4,8 +4,8 @@
 .proj{padding:420px 60px 56px;justify-content:flex-start}
 .proj .scene{height:400px}
 .proj .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 260px,rgba(var(--cr),.85) 360px,rgb(var(--cr)) 400px)}
-.proj.i18n .scene{background:radial-gradient(45% 60% at 30% 10%,rgba(var(--xr2),.22),transparent 70%),radial-gradient(40% 55% at 85% 30%,rgba(var(--xr),.16),transparent 70%),var(--sd)}
-.proj.curly .scene{background:radial-gradient(45% 60% at 70% 10%,rgba(var(--xr),.20),transparent 70%),radial-gradient(40% 55% at 15% 35%,rgba(var(--xr2),.18),transparent 70%),var(--sc)}
+.proj.i18n .scene{background:radial-gradient(45% 60% at 70% 10%,rgba(var(--xr2),.22),transparent 70%),radial-gradient(40% 55% at 15% 30%,rgba(var(--xr),.16),transparent 70%),var(--sd)}
+.proj.curly .scene{background:radial-gradient(45% 60% at 30% 10%,rgba(var(--xr),.20),transparent 70%),radial-gradient(40% 55% at 85% 35%,rgba(var(--xr2),.18),transparent 70%),var(--sc)}
 .proj .content{display:flex;flex-direction:column;align-items:flex-start;flex:1}
 .proj .row{align-self:stretch}
 .proj h2{font-size:52px;line-height:1.0769;margin-bottom:18px;text-transform:none}
