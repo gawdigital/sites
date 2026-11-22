@@ -4,7 +4,7 @@
   "lead": "Open-source nástroje a partnerské weby.",
   "open_source": "Open source",
   "open_source_tag": "OPEN SOURCE",
-  "specification": "SPECIFIKACE",
+  "parsers_tag": "5 PARSERŮ",
   "i18n_text": "Internacionalizace pro SvelteKit. Jedna instalace přinese jádro i parser Curly, zapojené do hooků, layoutů a komponent: na serveru jedna instance na požadavek, v prohlížeči jedna na kartu.",
   "i18n_runes": "Runy Svelte 5",
   "i18n_typed": "Typované klíče a hodnoty",

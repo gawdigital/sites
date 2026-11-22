@@ -61,7 +61,7 @@
         <div class="out"><span class="c">{'{'} count: 1234 {'}'} →</span> You have 1,234 messages.</div>
       </div></div><div class="fade"></div>
       <div class="content">
-        <div class="tags"><span class="tag hl">{t('web.open_source_tag')}</span><span class="tag soft">{t('web.specification')}</span></div>
+        <div class="tags"><span class="tag hl">{t('web.open_source_tag')}</span><span class="tag soft">{t('web.parsers_tag')}</span></div>
         <h2>Curly Message Format</h2>
         <p>{t('web.curly_text')}</p>
         <h3 class="lb">{t('web.parsers')}</h3>
