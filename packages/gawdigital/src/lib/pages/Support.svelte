@@ -7,7 +7,6 @@
   import type { FormState } from '@gaw/contact/states.ts';
   import { localeOf, pathOf, prefixOf } from '@gaw/i18n/locale.ts';
   import { page } from '$app/state';
-  import { productFor } from '#lib/cms.ts';
 
   let { state }: { state?: FormState } = $props();
 
@@ -16,8 +15,6 @@
   const locale = $derived(localeOf(page.url.pathname));
   const prefix = $derived(prefixOf(locale));
   const href = (route: string) => pathOf(route, locale);
-  const games = $derived(productFor(page.data.cms, 'games', locale, t as unknown as (key: string) => string));
-  const midi = $derived(productFor(page.data.cms, 'midi-control', locale, t as unknown as (key: string) => string));
   const art: Record<string, string> = { 'support-pix': art_support_pix };
 </script>
 
@@ -36,8 +33,8 @@
     <article class="card prodc">
       <div class="scene"><span class="pic"><svg viewBox="0 0 1254 1254" role="img" aria-label="MIDI Control for Fireface"><use href="#appicon"/></svg></span></div><div class="fade"></div>
       <div class="content">
-        <h2>{midi.name}</h2>
-        <p>{midi.summary}</p>
+        <h2>{t('common.midi_control_for_fireface')}</h2>
+        <p>{t('support.a_mac_control_surface_for')}</p>
         <p class="go"><a class="ln" href={href('/apps/midi-control/support')}>{@html t('support.support_faq', { arrow: ARROW })}</a></p>
       </div>
     </article>
@@ -45,8 +42,8 @@
       <div class="scene sb"><div class="pixwrap">{@html art['support-pix']}</div></div><div class="fade"></div>
       <div class="content">
         <span class="tag">{t('common.coming_soon')}</span>
-        <h2>{games.name}</h2>
-        <p>{games.summary}</p>
+        <h2>{t('common.games')}</h2>
+        <p>{t('common.something_fun_is_in_the')}</p>
       </div>
     </article>
   </section>
