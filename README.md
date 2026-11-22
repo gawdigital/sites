@@ -11,7 +11,6 @@ built with SvelteKit and deployed to its own Cloudflare Worker.
 | `common/contact` | The contact form's server side: reading and validating a post, Turnstile, the rate limit, SMTP delivery; a site adds its own fields and message |
 | `common/ui` | Shared components (header, footer, mobile menu, language switch, hatch), the themes (the default one and the group's gold one, `styles/gawgroup.css`) and their inline scripts, and the form spec: the fields, pills, verification box and form cards with their styles and scripts, in each site's colours |
 | `common/i18n` | Locale routing (English unprefixed, `/de` and `/cs` prefixed), `hreflang` alternates, the language redirect's inline scripts |
-| `sanity/` | The Sanity content studio: the products and the FAQ (see its README) |
 
 ## Commands
 
@@ -28,8 +27,7 @@ name; the one exception is `serve`, because `wrangler dev` cannot forward reques
 | `bun run dev:gawgroup` | Develop gawgroup.cz with Vite |
 | `bun run build` | Build both sites for Cloudflare (`packages/<site>/.svelte-kit/cloudflare`) |
 | `bun run check` | Type-check (svelte-check) |
-| `bun run test` | Unit tests (`bun test`: the contact form's validation, locale routing, the language redirect's scripts, the CMS reads) |
-| `bun run --filter studio dev` | Run the Sanity studio locally (`sanity/README.md`) |
+| `bun run test` | Unit tests (`bun test`: the contact form's validation, locale routing, the language redirect's scripts) |
 | `bun run --filter gawdigital serve` | Serve the build locally with `wrangler dev` (bindings included; needs Node) |
 | `bunx --bun wrangler …` | Any other Wrangler command, from the site's package |
 
@@ -78,23 +76,8 @@ Permanent (301) redirects from the old paths, also under `/de` and `/cs`:
 ### Translations
 
 All copy lives in `packages/gawdigital/src/lib/translations`: the shared strings in `{en,de,cs}.json`, each page's in
-its folder, except what the CMS holds (below). English is the approved design copy. The German and Czech texts have been checked by AI; **a native speaker's review is
+its folder. English is the approved design copy. The German and Czech texts have been checked by AI; **a native speaker's review is
 still pending**, the privacy policy most of all. Company data is not translated.
-
-### CMS
-
-The products (name and summary) and the MIDI Control FAQ come from Sanity, read **once per build** with a GROQ query
-against the public dataset (`src/lib/cms.ts`, loaded for every page by `src/routes/[[lang=locale]]/+layout.server.ts`).
-A field the CMS leaves empty falls back to English, and content it does not hold at all to the translation files
-(`src/lib/content.ts` names the keys), so a build without `SANITY_PROJECT_ID` renders the same pages as before. A
-failed read fails the build rather than deploying the fallback over published content. The pages are prerendered,
-so a publish reaches the site by redeploying it: the studio's webhook starts `deploy.yml` (`repository_dispatch`,
-type `sanity-publish`).
-
-| Name | Kind | Purpose |
-|------|------|---------|
-| `SANITY_PROJECT_ID` | build variable | The Sanity project (a GitHub repository variable); unset, the CMS is not read |
-| `SANITY_DATASET` | build variable | Its dataset, `production` by default |
 
 ### Contact form
 
@@ -131,8 +114,6 @@ Both sites are checked, tested, built and deployed by the same two workflows.
   the comment then says so).
 - **`main`** (`.github/workflows/deploy.yml`): the same checks, then `bun run deploy` (`bun --bun wrangler deploy`)
   for gawdigital and after it for gawgroup, so a failure of the second leaves the first deployed.
-  A publish in the Sanity studio runs it too (`repository_dispatch`), so the site is rebuilt with the new content.
-- Pull requests also build the Sanity studio, which catches a schema it cannot load.
 
 In both, `node` on the runner's PATH is a link to Bun, so install scripts run on Bun too.
 Both need the repository secrets `CLOUDFLARE_API_TOKEN` (Workers edit rights) and `CLOUDFLARE_ACCOUNT_ID`.
@@ -146,8 +127,7 @@ Both need the repository secrets `CLOUDFLARE_API_TOKEN` (Workers edit rights) an
 4. For the `send_email` fallback: enable Email Routing on the sender's domain and verify the `MAIL_TO` address as a
    destination.
 5. When the app is live, replace the `#app-store` placeholder links with its Mac App Store URL.
-6. Set up the CMS: the repository variables, the seed, the studio and the publish webhook (`sanity/README.md`).
-7. Have the German and Czech texts reviewed by a native speaker (so far they have had an AI check only).
+6. Have the German and Czech texts reviewed by a native speaker (so far they have had an AI check only).
 
 ## gawgroup.cz
 
@@ -167,7 +147,7 @@ pages and copy are its own.
 - **Shared with gawdigital.cz**: the company's details and the brand list (`common/company`), the contact endpoint
   (`common/contact`), the header, footer, menus, form spec, company rows, copy buttons, dividers, brand cards and
   hatched pills (`common/ui`). The gold theme is `common/ui/src/styles/gawgroup.css`, applied over the shared base.
-- **Copy**: `packages/gawgroup/src/lib/translations`, as on gawdigital.cz; nothing comes from the CMS. English is the
+- **Copy**: `packages/gawgroup/src/lib/translations`, as on gawdigital.cz. English is the
   approved design copy. German and Czech have been checked by AI and await a native speaker's review. The Czech
   home page claim ("HRAJ A BUDE TI HRÁNO.") is **provisional**: it is still open in issue #22.
 - **Contact form**: the form asks for an address, a topic (Digital, Studio or General) and a message; the topic
