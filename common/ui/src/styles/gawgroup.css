@@ -24,7 +24,7 @@
 .noise{background-size:129px;opacity:.1;filter:none}
 :root[data-theme="light"] .noise{opacity:.07;filter:invert(1)}
 /* the header: a quieter menu, on the container's right edge (the last letter's tracking hangs outside it) */
-.menu{top:31px;margin-right:calc(-1 * var(--caps));font-weight:700;font-size:18px;letter-spacing:var(--caps);text-transform:uppercase}
+.menu{margin-right:calc(-1 * var(--caps));font-weight:700;font-size:18px;letter-spacing:var(--caps);text-transform:uppercase}
 .arr{display:inline-block;line-height:0}
 .arr svg{display:block;height:auto}
 .menu .arr{margin-left:.4em}
