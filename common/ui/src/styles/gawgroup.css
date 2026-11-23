@@ -15,7 +15,6 @@
 /* the background: one arc rising behind the page instead of the blob, at least 280 px wider than the window on each
    side so its feet never show, a finer grain (the shared tile at half its size:
    a tile drawn by an SVG filter split into visible squares in Safari while the frame was scaled), no vignette */
-.frame{padding-bottom:0}
 .vig,.bgh{display:none}
 .blob{left:min(-280px,calc(50% - 1000px));top:700px;width:max(2000px,calc(100% + 560px));height:calc(100% - 700px);border-radius:50% 50% 0 0/750px 750px 0 0;background:#000;opacity:.15}
 .blob path{display:none}
@@ -112,7 +111,7 @@ a.ln{color:var(--xt);text-underline-offset:4px;text-decoration-thickness:1.5px}
 .pgrid:last-child{padding-bottom:40px}
 .epage .row{justify-content:flex-start}
 /* the footer: one quiet line of small capitals, at gawdigital's sizes (18 px, 14 px on the phone) */
-.footer{gap:0;margin-top:110px;padding:30px 0 40px;font-weight:700;font-size:18px;line-height:normal;letter-spacing:.12em}
+.footer{gap:0;font-weight:700;font-size:18px;line-height:normal;letter-spacing:.12em}
 .footer .fl{display:contents}
 .footer .fl > span{letter-spacing:.02em}
 .footer .fm{display:flex;gap:28px;letter-spacing:var(--caps);text-transform:uppercase}
@@ -151,6 +150,6 @@ a.ln{color:var(--xt);text-underline-offset:4px;text-decoration-thickness:1.5px}
   .cgrid{margin-top:56px}
   .shead + .pgrid{margin-top:56px}
   .pend p{font-size:16px}
-  .footer{flex-direction:column;align-items:center;gap:18px;margin-top:60px;font-size:14px;line-height:normal}
+  .footer{flex-direction:column;align-items:center;gap:20px;font-size:14px;line-height:normal}
   .footer .fr{justify-content:center;gap:32px;font-size:14px}
 }
