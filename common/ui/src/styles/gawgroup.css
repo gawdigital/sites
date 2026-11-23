@@ -12,11 +12,12 @@
   --text:#151a20;--dim:rgba(21,26,32,.5);--soft:rgba(21,26,32,.76);--chip:rgba(21,26,32,.05);--sh1:rgba(30,45,70,.12);
   --wbg:radial-gradient(45% 35% at 85% 8%,rgba(181,162,126,.18),transparent 70%),#fff;--wsh:rgba(30,45,70,.18);
   --fok:#1f9d6a;--fbad:#d64545}
-/* the background: one arc rising behind the page instead of the blob, a finer grain (the shared tile at half its size:
+/* the background: one arc rising behind the page instead of the blob, at least 280 px wider than the window on each
+   side so its feet never show, a finer grain (the shared tile at half its size:
    a tile drawn by an SVG filter split into visible squares in Safari while the frame was scaled), no vignette */
 .frame{padding-bottom:0}
 .vig,.bgh{display:none}
-.blob{left:calc(50% - 1000px);top:700px;width:2000px;height:calc(100% - 700px);border-radius:1000px 1000px 0 0/750px 750px 0 0;background:#000;opacity:.15}
+.blob{left:min(-280px,calc(50% - 1000px));right:min(-280px,calc(50% - 1000px));top:700px;width:auto;height:calc(100% - 700px);border-radius:50% 50% 0 0/750px 750px 0 0;background:#000;opacity:.15}
 .blob path{display:none}
 :root[data-theme="light"] .blob{background:var(--blob);opacity:.55}
 .frame.sub .blob{top:570px;height:calc(100% - 570px)}
