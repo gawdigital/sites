@@ -31,6 +31,9 @@
   .mm-a .mclose{color:var(--on-x)}
   .mm-a li > a[aria-current]{text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:.25em;text-decoration-color:currentColor}
   .mm-a .lang a{color:var(--on-x)}
+  /* hovered or pressed, an item turns dark, not to the accent: the accent is the menu's own background */
+  @media (hover:hover){.mm-a li > a:hover,.mm-a .lang a[href]:hover{color:#151a20}}
+  .mm-a li > a:active,.mm-a .lang a[href]:active{color:#151a20}
   .mm-a .lang a.cur{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:.3em}
   .mm-a .theme{background:transparent;box-shadow:inset 0 0 0 2px var(--on-x);color:var(--on-x)}
   .mm-a .theme:before{background:var(--on-x)}
