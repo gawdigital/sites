@@ -1,6 +1,7 @@
 
 /* contact.html: the hub's two columns, MESSAGE (the canonical form) and COMPANY (the registered details) */
-.cgrid{display:grid;grid-template-columns:630px 630px;column-gap:60px;align-items:start;margin-top:120px}
+/* two equal columns that share the content column (1200 px), whatever its width */
+.cgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:60px;align-items:start;margin-top:120px}
 .cgrid .divider{margin:0 0 60px}
 .cgrid .hcol{display:flex;flex-direction:column;min-width:0}
 .cgrid .formc{max-width:none}
@@ -13,7 +14,8 @@
 .coc h2,.coc dl{position:relative;z-index:2}
 .coc h2{font-size:40px;line-height:1.1;margin-bottom:28px;text-transform:none}
 .coc dl{display:flex;flex-direction:column;gap:28px}
-.crow{display:grid;grid-template-columns:180px minmax(0,1fr) auto;column-gap:20px;align-items:baseline}
+/* the labels' column is the design's 180 px scaled to the 1200 px column (×1200/1320), leaving the values their room */
+.crow{display:grid;grid-template-columns:164px minmax(0,1fr) auto;column-gap:20px;align-items:baseline}
 .coc .sr{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 /* the IBAN breaks only between its groups of four */
 .crow dd.nw{overflow-wrap:normal}

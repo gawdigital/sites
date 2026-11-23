@@ -57,10 +57,11 @@ a.ln{color:var(--xt);text-underline-offset:4px;text-decoration-thickness:1.5px}
 .card .scene{display:none}
 .card h2{font-weight:600}
 /* a brand's card: its picture under a fade, the badge hanging from the top edge, the text at the foot; the colours
-   are the brand's own, the same day and night */
+   are the brand's own, the same day and night. The insets are the design's 70 px scaled to the 1200 px column
+   (×1200/1320), as the home page's other cards' are */
 .bcard{position:relative;z-index:2;height:800px;border-radius:95px;overflow:hidden;background:var(--card);box-shadow:0 40px 90px -40px rgba(0,0,0,.6)}
-.bcard .badge{position:absolute;left:70px;top:0;width:88px;height:auto;z-index:3;display:block}
-.bcard .bbody{position:absolute;left:70px;right:70px;bottom:70px;z-index:3}
+.bcard .badge{position:absolute;left:64px;top:0;width:88px;height:auto;z-index:3;display:block}
+.bcard .bbody{position:absolute;left:64px;right:64px;bottom:64px;z-index:3}
 .bcard h3{font-weight:700;font-size:56px;line-height:1;letter-spacing:-.01em;text-transform:uppercase;color:#fff}
 .bcard p{margin-top:18px;font-size:17px;line-height:1.55;color:rgba(255,255,255,.82)}
 .btags{display:flex;gap:8px;margin-bottom:22px}
@@ -73,7 +74,7 @@ a.ln{color:var(--xt);text-underline-offset:4px;text-decoration-thickness:1.5px}
 :root[data-theme="light"] .bcard.mv:after{filter:invert(1);opacity:.33}
 .bcard .art{position:absolute}
 .bcard.digital{background:radial-gradient(40% 35% at 60% 22%,rgba(28,165,181,.35),transparent 70%),radial-gradient(45% 40% at 80% 30%,rgba(0,255,188,.25),transparent 70%),linear-gradient(170deg,#24324a,#0d0e11 75%)}
-.bcard.digital .art{left:70px;top:150px;width:900px;border-radius:12px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.5)}
+.bcard.digital .art{left:64px;top:150px;width:900px;border-radius:12px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.5)}
 .bcard.digital .art svg{display:block;width:100%;height:auto;filter:none}
 .bcard.digital .btag{background:rgba(0,255,188,.14);color:#00ffbc}
 .bcard.digital .btn{background:linear-gradient(135deg,#00ffbc,#1ca5b5);color:#0d0e11}
@@ -87,6 +88,9 @@ a.ln{color:var(--xt);text-underline-offset:4px;text-decoration-thickness:1.5px}
 /* forms and the company card: the shared spec, in the group's colours */
 .lb,.fg .fbox .lb,.ts span{letter-spacing:var(--caps)}
 .crow dt,.gl .lb{color:var(--xt)}
+/* the labels' column keeps the design's 180 px here (the shared one is scaled to 164): the group's tracked capitals
+   need it to keep each label on one line */
+@media (min-width:769px){.crow{grid-template-columns:180px minmax(0,1fr) auto}.pc .crow{grid-template-columns:180px minmax(0,1fr)}}
 .seg span{background:var(--chip);box-shadow:inset 0 0 0 1.5px var(--line);letter-spacing:var(--caps);text-indent:var(--caps);text-transform:uppercase}
 .seg input:checked + span{background:var(--xg);box-shadow:none;color:var(--on-x)}
 .seg input:focus-visible + span{box-shadow:0 0 0 3px var(--card),0 0 0 6px var(--x)}

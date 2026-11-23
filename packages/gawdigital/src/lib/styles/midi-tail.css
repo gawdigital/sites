@@ -31,12 +31,14 @@
 .prod .pic{flex:none;width:88px;height:88px;filter:drop-shadow(0 12px 22px rgba(0,0,0,.35))}
 .prod .pic svg{display:block;width:100%;height:100%}
 .prod .tag{margin-bottom:0}
-.inapp{display:grid;grid-template-columns:630px 630px;column-gap:60px;align-items:stretch}
+/* two equal columns that share the content column (1200 px), whatever its width */
+.inapp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:60px;align-items:stretch}
 .wincard{padding:44px 44px 56px;justify-content:flex-start}
-/* the scene fades into the card below the window, so its end and the window's shadow leave no edge */
-.wincard .scene{height:520px;background:radial-gradient(60% 60% at 50% 20%,rgba(var(--xr),.14),transparent 70%),var(--sd);
+/* the scene fades into the card below the window, so its end and the window's shadow leave no edge. The window's
+   box and the scene are the design's 452 and 520 px scaled to the 1200 px column (×1200/1320), as the window is */
+.wincard .scene{height:473px;background:radial-gradient(60% 60% at 50% 20%,rgba(var(--xr),.14),transparent 70%),var(--sd);
   -webkit-mask-image:linear-gradient(#000 55%,transparent);mask-image:linear-gradient(#000 55%,transparent)}
-.wincard .win{position:relative;z-index:2;height:452px;display:flex;align-items:flex-start;margin-bottom:44px}
+.wincard .win{position:relative;z-index:2;height:411px;display:flex;align-items:flex-start;margin-bottom:44px}
 .wincard .content{padding:0 16px}
 /* the window's shadow stays inside the card: a shorter blur than the 44 px between the window and the card's edge, which clips it */
 .wincard .appwin{filter:drop-shadow(0 18px 26px rgba(0,0,0,.45))}
