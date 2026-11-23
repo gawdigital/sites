@@ -96,7 +96,6 @@ a.ln{color:var(--xt);text-underline-offset:4px;text-decoration-thickness:1.5px}
 .fg .fbox{--focus:var(--x)}
 .fg .cform .fbox :is(input[type=email],textarea){font-weight:400;line-height:normal}
 .ts{font-size:14px;color:var(--dim)}
-.card .pnote{font-weight:500;font-size:15px;line-height:22px;color:var(--dim)}
 .coc h2{margin-top:20px}
 .cp{border:0}
 .crow dd.br{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
@@ -145,7 +144,6 @@ a.ln{color:var(--xt);text-underline-offset:4px;text-decoration-thickness:1.5px}
   .seg{flex-wrap:nowrap}
   .seg label{flex:1 1 0;min-width:0}
   .seg span{display:flex;justify-content:center;padding:0 4px}
-  .card .pnote{font-size:13px;line-height:19px}
   .cp{border:0}
   .cgrid{margin-top:56px}
   .shead + .pgrid{margin-top:56px}
