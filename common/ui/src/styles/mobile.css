@@ -24,7 +24,6 @@
   .mmenu li > span.off small{position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:-2px;white-space:nowrap;
     font-size:13px;line-height:1.2308;font-weight:700;letter-spacing:.06em;text-transform:none;opacity:.8}
   .mmenu .mfoot{display:flex;align-items:center;justify-content:center;gap:28px;font-weight:800;font-size:19px;line-height:1.4737;flex:0 0 auto}
-  .mmenu .mfoot .lang{gap:18px}
   html.mm-lock,html.mm-lock body{overflow:hidden}
   /* A: the brand gradient, everything in --on-x; the page's item underlined, not recoloured */
   .mmenu.mm-a{background:var(--xg);color:var(--on-x)}

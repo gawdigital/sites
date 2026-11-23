@@ -86,7 +86,7 @@ a.ln:active .arr.ext svg{transform:translate(.16em,-.01em)}
 .menu a:not(.on):not(.off):active{color:var(--xt)}
 .menu a:focus-visible{outline:2px solid currentColor;outline-offset:6px;border-radius:4px}
 .menu a.off{opacity:.35;cursor:default;pointer-events:none}
-.lang{display:flex;gap:16px} .lang a{color:var(--dim);transition:color .2s}
+.lang{display:flex;gap:28px} .lang a{color:var(--dim);transition:color .2s}
 @media (hover:hover){.lang a[href]:hover{color:var(--xt)}}
 .lang a[href]:active{color:var(--xt)} .lang a.cur{color:var(--text)}
 .acct{width:25px;height:25px;display:block}
