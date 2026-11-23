@@ -18,6 +18,7 @@
 
   import appicon from './art/appicon.svg?raw';
   import badge from './art/badge.svg?raw';
+  import { HATCH_PINS } from './hatch.ts';
   import { NAV, ORIGIN, PAGES, SITE_CSS, type PageName } from './site.ts';
   import { get } from './translations/index.ts';
 
@@ -71,6 +72,6 @@
   {#if noindex}<meta name="robots" content="noindex" />{:else}<Alternates origin={ORIGIN} route={meta.route} {locale} />{/if}
 </svelte:head>
 
-{@html defs}<div class="frame"><Hatch page={name} /><Header {badge} home={pathOf('/', locale)} {items} {langs} {labels} />
+{@html defs}<div class="frame"><Hatch page={name} pins={HATCH_PINS[name]} /><Header {badge} home={pathOf('/', locale)} {items} {langs} {labels} />
 {@render before?.()}<main>{@render children()}</main>
 <Footer {langs} themeLabel={labels.theme}><span>{@html t('chrome.copyright')}</span><span>{t('chrome.trademark')}</span></Footer><div class="noise"></div></div>{@html inline(FIT, THEME, MENU, HATCH, TILT, DITHER, TOUCH, LANG)}
