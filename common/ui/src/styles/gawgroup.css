@@ -17,7 +17,7 @@
    a tile drawn by an SVG filter split into visible squares in Safari while the frame was scaled), no vignette */
 .frame{padding-bottom:0}
 .vig,.bgh{display:none}
-.blob{left:min(-280px,calc(50% - 1000px));right:min(-280px,calc(50% - 1000px));top:700px;width:auto;height:calc(100% - 700px);border-radius:50% 50% 0 0/750px 750px 0 0;background:#000;opacity:.15}
+.blob{left:min(-280px,calc(50% - 1000px));top:700px;width:max(2000px,calc(100% + 560px));height:calc(100% - 700px);border-radius:50% 50% 0 0/750px 750px 0 0;background:#000;opacity:.15}
 .blob path{display:none}
 :root[data-theme="light"] .blob{background:var(--blob);opacity:.55}
 .frame.sub .blob{top:570px;height:calc(100% - 570px)}
