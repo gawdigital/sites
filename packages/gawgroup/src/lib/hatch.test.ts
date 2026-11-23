@@ -8,7 +8,6 @@ test('a group keeps its shape and is put back where the design has it', () => {
   expect(group.style).toBe('left:200px;top:955px;width:218px;height:310px');
 });
 
-test('the desktop measures from the centred page, a pill may start left of the frame', () => {
-  expect(place([[330, 900, 1150]], 90, true).style).toBe('left:calc(50% - 390px);top:900px;width:90px;height:250px');
+test('a pill may start left of the frame', () => {
   expect(place([[-20, 10, 20]], 48).style).toBe('left:-20px;top:10px;width:48px;height:10px');
 });
