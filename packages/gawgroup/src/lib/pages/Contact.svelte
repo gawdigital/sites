@@ -54,6 +54,7 @@
   <div class="hcol">
   <Divider title={t('common.message')} index="01" />
   <ContactForm {prefix} {state} />
+  <HatchPills id="hb" box={[500, 440]} pills={[[0, 40, 330], [160, 0, 440], [320, 70, 400]]} class="hx-bot" />
   </div>
   <div class="hcol">
   <Divider title={t('common.company')} index="02" />
@@ -66,7 +67,6 @@
   </section>
   {@html script(COPY, { COPIED: t('form.copied'), NOTE: t('form.copied_note', { what: '%s' }), COPY: t('contact.copy') })}
   </div>
-  <HatchPills id="hb" box={[500, 440]} pills={[[0, 40, 330], [160, 0, 440], [320, 70, 400]]} class="hx-bot" />
   </div>
 
 </Shell>
