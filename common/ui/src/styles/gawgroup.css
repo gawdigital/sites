@@ -106,8 +106,8 @@ a.ln{color:var(--xt);text-underline-offset:4px;text-decoration-thickness:1.5px}
 .pend p{font-weight:500;font-size:20px;line-height:1.5;color:var(--soft)}
 .pgrid:last-child{padding-bottom:40px}
 .epage .row{justify-content:flex-start}
-/* the footer: one quiet line of small capitals */
-.footer{gap:0;margin-top:110px;padding:30px 0 40px;font-weight:700;font-size:12px;line-height:normal;letter-spacing:.12em}
+/* the footer: one quiet line of small capitals, at gawdigital's sizes (18 px, 14 px on the phone) */
+.footer{gap:0;margin-top:110px;padding:30px 0 40px;font-weight:700;font-size:18px;line-height:normal;letter-spacing:.12em}
 .footer .fl{display:contents}
 .footer .fl > span{letter-spacing:.02em}
 .footer .fm{display:flex;gap:28px;letter-spacing:var(--caps);text-transform:uppercase}
@@ -146,6 +146,6 @@ a.ln{color:var(--xt);text-underline-offset:4px;text-decoration-thickness:1.5px}
   .cgrid{margin-top:56px}
   .shead + .pgrid{margin-top:56px}
   .pend p{font-size:16px}
-  .footer{flex-direction:column;align-items:center;gap:18px;margin-top:60px;font-size:12px;line-height:normal}
-  .footer .fr{justify-content:center;gap:32px;font-size:12px}
+  .footer{flex-direction:column;align-items:center;gap:18px;margin-top:60px;font-size:14px;line-height:normal}
+  .footer .fr{justify-content:center;gap:32px;font-size:14px}
 }
