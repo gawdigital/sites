@@ -8,7 +8,8 @@
 .hero .jump b{color:var(--xt);font-size:16px}
 .hero{position:relative}
 .hero .hatch{position:absolute;left:930px;bottom:-10px;transform:scale(.55);transform-origin:left bottom}
-.appcard{display:grid;grid-template-columns:520px 1fr;column-gap:72px;align-items:center;padding:80px 80px 80px 88px}
+/* the text and the picture share the card in the design's proportion (520 : 560 px of the 1320 px column) */
+.appcard{display:grid;grid-template-columns:minmax(0,520fr) minmax(0,560fr);column-gap:72px;align-items:center;padding:80px 80px 80px 88px}
 .appcard .scene{height:100%;background:radial-gradient(45% 70% at 72% 30%,rgba(var(--xr),.22),transparent 70%),var(--sx)}
 .appcard .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 45%,rgba(var(--cr),.8) 85%,rgb(var(--cr)) 100%),
   linear-gradient(90deg,rgba(var(--cr),.9) 0,rgba(var(--cr),.55) 32%,rgba(var(--cr),0) 50%)}

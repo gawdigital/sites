@@ -1,6 +1,7 @@
 
 /* Web: two open-source projects side by side, a picture of each drawn in HTML above its text, then the partner projects */
-.wgrid{display:grid;grid-template-columns:630px 630px;column-gap:60px;align-items:stretch}
+/* two equal columns that share the content column (1200 px), whatever its width */
+.wgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:60px;align-items:stretch}
 .proj{padding:420px 60px 56px;justify-content:flex-start}
 .proj .scene{height:400px}
 .proj .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 260px,rgba(var(--cr),.85) 360px,rgb(var(--cr)) 400px)}
@@ -17,8 +18,10 @@
 .facts li{display:flex;align-items:center;gap:10px}
 .facts li:before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--xg)}
 .proj .lb{margin-top:28px;font-weight:800;font-size:15px;line-height:1.3333;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
-.parsers{list-style:none;display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
-.parsers li{display:flex;flex-direction:column;gap:2px;padding:12px 14px;border-radius:18px;background:var(--chip);box-shadow:inset 0 0 0 2px var(--line);min-width:0}
+/* the five parsers fit one line of the 1200 px column's card: the chips are a little tighter than the design's (gap 10,
+   padding 14) */
+.parsers{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.parsers li{display:flex;flex-direction:column;gap:2px;padding:12px 10px;border-radius:18px;background:var(--chip);box-shadow:inset 0 0 0 2px var(--line);min-width:0}
 .parsers b{font-weight:800;font-size:16px;line-height:1.375}
 .parsers small{font-weight:500;font-size:13px;line-height:1.3846;color:var(--dim);white-space:nowrap}
 /* the pictures: a code window */
@@ -36,8 +39,9 @@
 .code pre b{font-weight:700;color:var(--text)}
 .code .out{padding:14px 24px;border-top:1.5px solid var(--line);background:var(--chip);font-weight:700}
 .code .c{font-weight:500;color:var(--dim);margin-right:8px}
-/* the partner's card: its text beside a picture of its feed, in the site's yellow */
-.cesta{--cy:#ffb700;display:grid;grid-template-columns:1fr 520px;column-gap:80px;align-items:center;padding:80px 80px 80px 88px}
+/* the partner's card: its text beside a picture of its feed, in the site's yellow. The feed is the design's 520 px
+   scaled to the 1200 px column (×1200/1320) */
+.cesta{--cy:#ffb700;display:grid;grid-template-columns:1fr 472px;column-gap:80px;align-items:center;padding:80px 80px 80px 88px}
 .cesta .scene{height:100%;background:radial-gradient(40% 70% at 82% 30%,rgba(255,183,0,.16),transparent 70%),var(--sx)}
 .cesta .fade{background:linear-gradient(90deg,rgba(var(--cr),.9) 0,rgba(var(--cr),.55) 35%,rgba(var(--cr),0) 55%)}
 .cesta .tag{background:var(--cy);color:#0d0e11}

@@ -2,9 +2,15 @@
 /* privacy.html: the contact page's shell; the company card's rows carry the sections, two cards a row on desktop */
 .lb{display:block;padding:0;font-weight:800;font-size:14px;line-height:1.2857;letter-spacing:.12em;text-transform:uppercase;color:var(--soft)}
 .shead .upd{margin-top:16px;font-weight:700;font-size:18px;line-height:1.3333;color:var(--dim)}
-.pgrid{display:grid;grid-template-columns:630px 630px;column-gap:60px;align-items:stretch;margin-top:140px}
+/* two equal columns that share the content column (1200 px), whatever its width */
+.pgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:60px;align-items:stretch;margin-top:140px}
 .shead + .pgrid{margin-top:120px}
 .pgrid .divider{margin:0 0 60px}
+/* a column's heading is the design's 40 px scaled to the 1200 px column (×1200/1320), so PURPOSE & LEGAL BASIS keeps
+   one line beside its number; a longer one (German) breaks onto a second line instead of running into the next column */
+.pgrid .hcol:not(.full) .divider{--dh:36px}
+.pgrid .divider h2{white-space:normal;min-width:0}
+.pgrid .divider .ticks{min-width:24px}
 .pgrid .hcol{display:flex;flex-direction:column;min-width:0}
 .pgrid .hcol.full{grid-column:1/-1}
 .pcol{display:flex;flex-direction:column;gap:28px}
@@ -12,7 +18,7 @@
 .pbody{position:relative;z-index:2;display:flex;flex-direction:column;gap:28px;max-width:70ch}
 .pc p,.pc .crow dd{font-weight:500;font-size:20px;line-height:1.5;color:var(--soft)}
 .pc p strong,.pc dd strong{color:var(--text);font-weight:700}
-.pc .crow{grid-template-columns:180px minmax(0,1fr)}
+.pc .crow{grid-template-columns:164px minmax(0,1fr)} /* the contact card's label column */
 .pc .crow dt{padding-top:4px}
 .pc .art{color:var(--dim);white-space:nowrap}
 .pdl{display:flex;flex-direction:column;gap:28px}
