@@ -249,7 +249,8 @@ export class ComgateProvider implements PaymentProvider {
     const notified = toEvent(fields);
     // The notification says which payment changed; what it changed to is Comgate's to say, when asked directly.
     const event = this.#config.confirmNotifications === false ? notified : await this.getPayment(notified.paymentId);
-    if (event.test !== this.#config.test) throw new PaymentError('unauthenticated', 'a test payment and a real one are not interchangeable');
+    // Ours, and about a payment of the other mode: acknowledged and ignored, since an error makes Comgate send it again.
+    if (event.test !== this.#config.test) throw new PaymentError('wrong_mode', `payment ${event.paymentId} is ${event.test ? 'a test payment' : 'a real payment'}, and the gateway is configured for ${this.#config.test ? 'test' : 'real'} payments`);
     return event;
   }
 

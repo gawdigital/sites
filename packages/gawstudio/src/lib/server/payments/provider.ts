@@ -28,9 +28,11 @@ export const isFinal = (status: PaymentStatus): boolean => status === 'paid' || 
  *   but a create or refund may have gone through, so ask for the status first;
  * - `unauthenticated`: a notification that does not carry our credentials;
  * - `malformed`: a notification we cannot read;
+ * - `wrong_mode`: a notification that is the provider's own, about a test payment where real ones are taken or a
+ *   real one where the gateway is in test mode: never to be acted on, and never to be sent again either;
  * - `unsupported`: the provider has no such operation.
  */
-export type PaymentErrorKind = 'invalid_request' | 'rejected' | 'transport' | 'unauthenticated' | 'malformed' | 'unsupported';
+export type PaymentErrorKind = 'invalid_request' | 'rejected' | 'transport' | 'unauthenticated' | 'malformed' | 'wrong_mode' | 'unsupported';
 
 export class PaymentError extends Error {
   override readonly name = 'PaymentError';
@@ -141,7 +143,9 @@ export interface PaymentProvider {
 
   /**
    * Reads a server-to-server notification and proves it is the provider's.
-   * Throws `unauthenticated` or `malformed`; the caller answers those with an error status, not the ack.
+   * Throws `unauthenticated` or `malformed`; the caller answers those with an error status, not the ack. Throws
+   * `wrong_mode` for an authentic notification about a payment of the other mode (test or real), where the
+   * provider checks that: the caller acknowledges it and does nothing with it.
    */
   parseNotification(input: NotificationInput): Promise<PaymentEvent>;
 

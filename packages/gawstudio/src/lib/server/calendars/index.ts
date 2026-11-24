@@ -36,6 +36,7 @@ export {
   calendarQueryBody,
   calendarsFrom,
   ICLOUD_CALDAV,
+  ICLOUD_TRUSTED_DOMAINS,
   propfindBody,
   type PutCondition,
   type PutResult,

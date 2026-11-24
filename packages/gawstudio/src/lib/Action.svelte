@@ -1,7 +1,9 @@
 <script lang="ts">
   // A service's second page: the form that books a recording session or orders a mix or mastering, beside where the
   // studio is or what a listener says. The fields are the shared form spec's (`@gaw/ui`). Until bookings, orders and
-  // payments exist (issue #29) the form is only drawn, as it will be once they do: sending it leads nowhere yet.
+  // payments exist (issue #29) the form is only drawn, as it will be once they do. Its button is disabled meanwhile,
+  // with the form given no method or action: sent, it would put the name, e-mail and note in the page's URL and
+  // look as if something had gone out. Wiring the form means dropping `disabled` and giving it its endpoint.
   import { localeOf } from '@gaw/i18n/locale.ts';
   import Field from '@gaw/ui/Field.svelte';
   import Select from '@gaw/ui/Select.svelte';
@@ -74,7 +76,8 @@
             </div>
             <TextArea label={t('form.note')} name="note" rows={4} maxlength={2000} required={false} status={empty} />
           {/if}
-          <button class="btn" type="submit">{offer ? t('form.add_to_cart') : action}</button>
+          <!-- Disabled until the form is wired (issue #29): nothing can be sent, by the button or by Enter. -->
+          <button class="btn" type="submit" disabled>{offer ? t('form.add_to_cart') : action}</button>
         </form>
       </div>
     </Card>

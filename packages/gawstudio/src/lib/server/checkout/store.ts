@@ -12,8 +12,12 @@ export interface CheckoutStore {
   /**
    * Applies a pure change to the booking state and stores the result, atomically: no other change may run
    * between the read and the write. This is the serialised point that makes one slot impossible to pay twice.
+   *
+   * `ids` names the holds and sessions the change looks up by id (`hold`, `confirm`, `confirmLate`). A store
+   * that leaves sessions which are over out of the state it reads must still read the sessions with these ids,
+   * whenever they ended: an id is unique for good, and confirming again returns the session it gave.
    */
-  updateBooking<T>(change: (state: BookingState) => { state: BookingState; result: T }): Promise<T>;
+  updateBooking<T>(change: (state: BookingState) => { state: BookingState; result: T }, options?: { ids?: readonly string[] }): Promise<T>;
 
   get(orderId: string): Promise<Checkout | undefined>;
 
@@ -47,8 +51,8 @@ export class MemoryCheckoutStore implements CheckoutStore {
     return this.state;
   }
 
-  async updateBooking<T>(change: (state: BookingState) => { state: BookingState; result: T }) {
-    // Read, changed and written without an `await` between: one tick, as a Durable Object's single thread.
+  async updateBooking<T>(change: (state: BookingState) => { state: BookingState; result: T }, _options?: { ids?: readonly string[] }) {
+    // Keeps every session, so `ids` needs no extra reading. Read, changed and written without an `await` between: one tick, as a Durable Object's single thread.
     const { state, result } = change(this.state);
     this.state = state;
     return result;

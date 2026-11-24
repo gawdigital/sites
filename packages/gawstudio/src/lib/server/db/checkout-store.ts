@@ -12,7 +12,7 @@
 // - the booking state: `BookingRepository`, whose revision makes `updateBooking` the serialised point. The
 //   change is run again on the fresh state when another request got in between, so it must be pure, as the
 //   interface asks;
-// - everything else (slot, session, payment record, settlement, refund, alerts): JSON in `checkouts.data`.
+// - everything else (slot, session, payment record and claim, settlement, refund, alerts): JSON in `checkouts.data`.
 //
 // Not used from here: the `payments` and `invoices` tables. The checkout keeps its payment's record and its
 // invoice's id inside the checkout, under the order's version; `PaymentRepository` and `InvoiceRepository` stay
@@ -38,11 +38,11 @@ interface CheckoutRow {
 }
 
 /** The part of a checkout kept as JSON. */
-type Data = Pick<Checkout, 'slot' | 'session' | 'payment' | 'redirectUrl' | 'settlement' | 'refund' | 'alerts'>;
+type Data = Pick<Checkout, 'slot' | 'session' | 'payment' | 'paymentClaim' | 'redirectUrl' | 'settlement' | 'refund' | 'alerts'>;
 
-const dataOf = ({ slot, session, payment, redirectUrl, settlement, refund, alerts }: Checkout): string =>
+const dataOf = ({ slot, session, payment, paymentClaim, redirectUrl, settlement, refund, alerts }: Checkout): string =>
   // `undefined` members are left out by JSON, so an absent part comes back absent.
-  JSON.stringify({ slot, session, payment, redirectUrl, settlement, refund, alerts } satisfies Data);
+  JSON.stringify({ slot, session, payment, paymentClaim, redirectUrl, settlement, refund, alerts } satisfies Data);
 
 function checkoutOf(stored: StoredOrder, row: CheckoutRow): Checkout {
   const data = JSON.parse(row.data) as Data;
@@ -69,7 +69,9 @@ export class D1CheckoutStore implements CheckoutStore {
 
   /**
    * `sessionsEndingAfter` spares reading the sessions that are over: give it the clock (less a margin), since no
-   * transition looks at a finished session. Left out, the whole booking state is read every time.
+   * transition looks at a finished session for the slots. The sessions under the ids `updateBooking` is given
+   * are read all the same, which keeps those ids unique and confirming idempotent. Left out, the whole booking
+   * state is read every time.
    */
   constructor(db: D1Like, { sessionsEndingAfter }: { sessionsEndingAfter?: () => number } = {}) {
     this.#db = db;
@@ -78,17 +80,18 @@ export class D1CheckoutStore implements CheckoutStore {
     this.#sessionsEndingAfter = sessionsEndingAfter;
   }
 
-  #load() {
-    return this.#bookings.load(this.#sessionsEndingAfter?.());
+  #load(ids: readonly string[] = []) {
+    return this.#bookings.load(this.#sessionsEndingAfter?.(), ids);
   }
 
   async booking(): Promise<BookingState> {
     return (await this.#load()).state;
   }
 
-  async updateBooking<T>(change: (state: BookingState) => { state: BookingState; result: T }): Promise<T> {
+  async updateBooking<T>(change: (state: BookingState) => { state: BookingState; result: T }, { ids = [] }: { ids?: readonly string[] } = {}): Promise<T> {
     for (let attempt = 0; attempt < BOOKING_ATTEMPTS; attempt++) {
-      const loaded = await this.#load();
+      // The sessions under `ids` are read even when they are over: the change checks those ids against them.
+      const loaded = await this.#load(ids);
       const { state, result } = change(loaded.state);
       if (await this.#bookings.save(loaded, state)) return result;
     }

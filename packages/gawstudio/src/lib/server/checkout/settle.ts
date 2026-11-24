@@ -111,7 +111,7 @@ export async function progress(run: Run, checkout: Checkout): Promise<Checkout> 
 /** The payment failed or was given up: the slot is free again and the order is cancelled. */
 export async function releaseOrder(run: Run, checkout: Checkout): Promise<Checkout> {
   const { slot, order } = checkout;
-  if (slot) await run.deps.store.updateBooking((state) => ({ state: release(state, order.id), result: undefined }));
+  if (slot) await run.deps.store.updateBooking((state) => ({ state: release(state, order.id), result: undefined }), { ids: [order.id] });
   const saved = await commit(run, { ...checkout, order: advance(order, 'cancelled', run.now) });
   // Without a payment the customer never reached the provider and was told so on the spot: nothing to write.
   if (checkout.payment) {
@@ -255,10 +255,13 @@ async function settlePaid(run: Run, checkout: Checkout): Promise<Checkout> {
     // lead time is not asked again. When it cannot be had, the answer is the refusal, and the money goes back.
     const context = await deps.booking();
     const request = { id: orderId, start: slot.start, end: slot.end, technicianId: slot.technicianId };
-    const secured = await deps.store.updateBooking((state) => {
-      const outcome = confirmLate(state, request, context, now);
-      return { state: outcome.state, result: outcome };
-    });
+    const secured = await deps.store.updateBooking(
+      (state) => {
+        const outcome = confirmLate(state, request, context, now);
+        return { state: outcome.state, result: outcome };
+      },
+      { ids: [orderId] },
+    );
     if (!secured.ok) {
       // The slot went to someone else, or the calendar took it: no invoice is issued. The order was never
       // `paid` in the lifecycle's sense (nothing was sold): it waits where it is until the refund is through,

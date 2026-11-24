@@ -110,6 +110,12 @@ export interface Checkout {
   /** The confirmed session of a recording order. */
   session?: Session;
   payment?: PaymentRecord;
+  /**
+   * A request is opening the order's payment at the provider, since `at`: stored before the provider is called,
+   * so that a second request for the same order answers `busy` instead of opening a second payment. Cleared when
+   * the payment is recorded or could not be opened; one older than `PAYMENT_CLAIM_MS` is taken over.
+   */
+  paymentClaim?: { at: number };
   /** Where the customer pays: returned again when the form is sent again. */
   redirectUrl?: string;
   settlement?: Settlement;
@@ -129,6 +135,8 @@ export type AlertProblem =
   | 'payment-mismatch'
   /** A notification for a reference no order has. */
   | 'unknown-order'
+  /** An authentic notification about a test payment where real ones are taken, or the reverse: ignored. */
+  | 'payment-mode-mismatch'
   /** The invoice's total is not what was paid. */
   | 'invoice-total-mismatch';
 
@@ -256,7 +264,8 @@ export type NotificationResult =
       /** Answer the provider with this: the event is stored, and what is left is ours to retry. */
       acknowledge: NotificationAck;
       orderId?: string;
-      outcome: PaymentOutcome | 'unknown-order';
+      /** `wrong-mode`: the provider's notification about a payment of the other mode (test or real), ignored. */
+      outcome: PaymentOutcome | 'unknown-order' | 'wrong-mode';
       state?: OrderState;
       /** Work is left for the next notification or sweep (an invoice that failed, a refund to retry). */
       unfinished: boolean;

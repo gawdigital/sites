@@ -6,7 +6,9 @@ import { defineConfig } from 'vite';
 
 import { LOCALES, pathOf } from '@gaw/i18n/locale.ts';
 
-const PAGES = ['/', '/recording', '/mix', '/mastering', '/contact'];
+// Every route of `PAGES` in `src/lib/site.ts`, which cannot be imported here: it pulls in the stylesheets and
+// the font. A page added there is added here.
+const PAGES = ['/', '/recording', '/recording/book', '/mix', '/mix/order', '/mastering', '/mastering/order', '/contact'];
 
 // Explicit entries rather than crawling: a prefixed locale is reachable only through the language switch, and a
 // crawler that misses one link silently drops it from the build.

@@ -7,7 +7,7 @@ import { startCheckout } from './start.ts';
 import { sweep } from './sweep.ts';
 import { CUSTOMER, HOUR, MINUTE, MORNING, names, NOW, recordingCart, slot, STORES, studio, tracksCart } from './testing.ts';
 import type { Studio } from './testing.ts';
-import type { Effect, Email, NotificationResult, StartResult } from './types.ts';
+import type { CheckoutRequest, Effect, Email, NotificationResult, StartResult } from './types.ts';
 
 const CONFIRMED = ['order-confirmed', 'studio-new-order', 'order-paid'];
 
@@ -119,6 +119,86 @@ for (const kind of STORES) {
 
         expect((await s.count())).toBe(0);
         expect(s.payments.payments.size).toBe(0);
+      });
+
+      test('a body of the wrong shape is refused as invalid, never thrown on', async () => {
+        const s = studio({}, kind);
+        const malformed = (request: unknown) => startCheckout(s.deps, request as CheckoutRequest);
+        expect(await malformed({ ...tracksCart('order-bad-1'), tracks: [null] })).toEqual({ ok: false, error: 'invalid', problems: [{ code: 'invalid-line', path: 'tracks[0]' }] });
+        expect(await malformed({ ...tracksCart('order-bad-2'), tracks: [{ service: 'mix', technician: 'libor', tracks: 1, addOns: 5 }] })).toEqual({
+          ok: false,
+          error: 'invalid',
+          problems: [{ code: 'invalid-addons', path: 'tracks[0].addOns' }],
+        });
+        expect(await malformed({ ...tracksCart('order-bad-3'), tracks: [{ service: 'mix', technician: 'libor', tracks: 1, addOns: [null] }] })).toEqual({
+          ok: false,
+          error: 'invalid',
+          problems: [{ code: 'invalid-addon', path: 'tracks[0].addOns[0]' }],
+        });
+        expect(await malformed({ ...tracksCart('order-bad-4'), company: { name: 42 } })).toEqual({ ok: false, error: 'invalid', problems: [{ code: 'invalid-company', path: 'company.name' }] });
+        expect(await malformed({ ...tracksCart('order-bad-5'), company: { name: 'Example Ltd', vatId: 7 } })).toEqual({ ok: false, error: 'invalid', problems: [{ code: 'invalid-company', path: 'company.vatId' }] });
+        expect(await malformed({ ...tracksCart('order-bad-6'), company: 'Example Ltd' })).toEqual({ ok: false, error: 'invalid', problems: [{ code: 'invalid-company', path: 'company' }] });
+        expect(await s.count()).toBe(0);
+        expect(s.payments.payments.size).toBe(0);
+      });
+
+      test('the same form sent twice at once opens one payment: the second answers busy while the first opens it', async () => {
+        const s = studio({}, kind);
+        const open = s.payments.createPayment.bind(s.payments);
+        let release!: () => void;
+        const gate = new Promise<void>((resolve) => (release = resolve));
+        s.payments.createPayment = async (request) => {
+          await gate;
+          return open(request);
+        };
+        const first = startCheckout(s.deps, recordingCart('order-rec-1'));
+        // The first request has stored its order and waits on the provider.
+        while ((await s.count()) === 0) await Bun.sleep(0);
+
+        expect(await startCheckout(s.deps, recordingCart('order-rec-1'))).toEqual({ ok: false, error: 'busy' });
+        release();
+        const result = started(await first);
+        expect(result.redirectUrl).toBe('https://pay.example/fake-1');
+        expect(s.payments.payments.size).toBe(1);
+        const checkout = await checkoutOf(s, 'order-rec-1');
+        expect(checkout.payment?.paymentId).toBe('fake-1');
+        expect('paymentClaim' in checkout).toBe(false);
+        // Sent again now, it is the same payment page.
+        expect(started(await startCheckout(s.deps, recordingCart('order-rec-1')))).toMatchObject({ redirectUrl: result.redirectUrl, resumed: true });
+      });
+
+      test('a payment opened by a request that lost the order to another is cancelled, not left open', async () => {
+        const s = studio({}, kind);
+        const open = s.payments.createPayment.bind(s.payments);
+        let release!: () => void;
+        const gate = new Promise<void>((resolve) => (release = resolve));
+        let calls = 0;
+        s.payments.createPayment = async (request) => {
+          if (++calls === 1) await gate;
+          return open(request);
+        };
+        const first = startCheckout(s.deps, tracksCart('order-mix-1'));
+        while ((await s.count()) === 0) await Bun.sleep(0);
+
+        // The first request hangs past its claim; the form sent again takes the order over and opens a payment.
+        s.clock.now += 3 * MINUTE;
+        const second = started(await startCheckout(s.deps, tracksCart('order-mix-1')));
+        release();
+        expect(await first).toEqual({ ok: false, error: 'busy' });
+
+        const recorded = (await checkoutOf(s, 'order-mix-1')).payment?.paymentId;
+        expect(second.redirectUrl).toBe(`https://pay.example/${recorded}`);
+        expect(s.payments.payments.size).toBe(2);
+        // Every payment opened is either the order's, or cancelled.
+        for (const payment of s.payments.payments.values()) expect(payment.paymentId === recorded || payment.status === 'cancelled').toBe(true);
+      });
+
+      test('a payment the provider would not open lets go of its claim, so the form can be sent again at once', async () => {
+        const s = studio({}, kind);
+        s.payments.failNext();
+        expect(await startCheckout(s.deps, tracksCart('order-mix-1'))).toEqual({ ok: false, error: 'payment-unavailable', retryable: true });
+        expect('paymentClaim' in (await checkoutOf(s, 'order-mix-1'))).toBe(false);
+        expect(started(await startCheckout(s.deps, tracksCart('order-mix-1')))).toMatchObject({ resumed: false });
       });
 
       test('a slot that is held, or is no slot at all, cannot be checked out', async () => {
@@ -307,6 +387,26 @@ for (const kind of STORES) {
         expect(await handlePaymentNotification(s.deps, s.payments.notification('fake-1', { secret: 'guessed' }))).toEqual({ ok: false, error: 'unauthenticated', status: 401, effects: [] });
         expect(await handlePaymentNotification(s.deps, { contentType: 'text/plain', body: 'paid!' })).toEqual({ ok: false, error: 'malformed', status: 400, effects: [] });
         expect((await checkoutOf(s, 'order-rec-1')).order.state).toBe('awaiting-payment');
+      });
+
+      test('an authentic one about a payment of the other mode is acknowledged, ignored and reported', async () => {
+        const s = studio({}, kind);
+        started(await startCheckout(s.deps, recordingCart('order-rec-1')));
+        s.payments.settle('fake-1', 'paid');
+        // What a gateway that checks the mode itself (Comgate) says of a test payment while real ones are taken.
+        const parse = s.payments.parseNotification.bind(s.payments);
+        s.payments.parseNotification = async (input) => {
+          await parse(input);
+          throw new PaymentError('wrong_mode', 'payment fake-1 is a test payment, and the gateway is configured for real payments');
+        };
+
+        const result = handled(await handlePaymentNotification(s.deps, s.payments.notification('fake-1')));
+        expect(result).toMatchObject({ acknowledge: s.payments.notificationAck, outcome: 'wrong-mode', unfinished: false });
+        expect(names(result.effects)).toEqual(['studio-alert:payment-mode-mismatch']);
+        const checkout = await checkoutOf(s, 'order-rec-1');
+        expect(checkout.order.state).toBe('awaiting-payment');
+        expect(checkout.payment?.status).toBe('pending');
+        expect(s.invoicing.calls).toEqual([]);
       });
 
       test('a payment for a reference no order has is acknowledged and reported', async () => {

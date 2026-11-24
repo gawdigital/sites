@@ -1,11 +1,12 @@
 import { describe, expect, test } from 'bun:test';
 
-import { basicAuth, bookingOfResource, CalDavClient, CalDavProvider, calendarQueryBody, calendarsFrom, propfindBody, resourceUrl } from './caldav.ts';
+import { basicAuth, bookingOfResource, CalDavClient, CalDavProvider, calendarQueryBody, calendarsFrom, ICLOUD_CALDAV, propfindBody, resourceUrl } from './caldav.ts';
 import { scripted } from './testing.ts';
 import { CalendarError, type CalendarRef, type StudioEvent } from './types.ts';
 import { descendants, parseMultistatus, parseXml } from './xml.ts';
 
-const account = { serverUrl: 'https://caldav.example.com/', username: 'name@example.com', password: 'abcd-efgh-ijkl-mnop' };
+// The fixtures' partition hosts sit under `example.com`, as iCloud's sit under `icloud.com`: trusted by name.
+const account = { serverUrl: 'https://caldav.example.com/', username: 'name@example.com', password: 'abcd-efgh-ijkl-mnop', trustedDomains: ['example.com'] };
 const AUTH = `Basic ${btoa('name@example.com:abcd-efgh-ijkl-mnop')}`;
 const utc = (y: number, mo: number, d: number, h = 0): number => Date.UTC(y, mo - 1, d, h);
 const multistatus = (body: string) => ({ status: 207, headers: { 'Content-Type': 'text/xml; charset=utf-8' }, body });
@@ -239,6 +240,29 @@ describe('discovery', () => {
     expect(client.trusts('https://example.com.evil.test/')).toBe(false);
     expect(client.trusts('https://notexample.com/')).toBe(false);
     expect((await errorOf(client.query('https://calendar.evil.test/c/', 0, 1)))?.kind).toBe('protocol');
+  });
+
+  test('no domain is guessed from the server’s name: under a public suffix, the credentials stay on its host', async () => {
+    const { trustedDomains: _, ...plain } = account;
+    const uk = { ...plain, serverUrl: 'https://dav.example.co.uk/' };
+    const redirected = scripted([{ status: 302, headers: { Location: 'https://attacker.co.uk/' } }]);
+    expect((await errorOf(new CalDavClient({ fetch: redirected.fetch, account: uk }).discover()))?.kind).toBe('protocol');
+    expect(redirected.requests.map((r) => r.url)).toEqual(['https://dav.example.co.uk/']);
+
+    const client = new CalDavClient({ fetch: scripted([]).fetch, account: uk });
+    expect(client.trusts('https://dav.example.co.uk/x')).toBe(true);
+    expect(client.trusts('https://attacker.co.uk/')).toBe(false);
+    expect(client.trusts('https://p1.example.co.uk/')).toBe(false);
+    // Named, a parent domain is trusted; a bare label never is.
+    expect(new CalDavClient({ fetch: scripted([]).fetch, account: { ...uk, trustedDomains: ['Example.co.uk'] } }).trusts('https://p1.example.co.uk/')).toBe(true);
+    expect(() => new CalDavClient({ fetch: scripted([]).fetch, account: { ...uk, trustedDomains: ['uk'] } })).toThrow(RangeError);
+  });
+
+  test('the iCloud preset trusts iCloud’s partition hosts, and nothing else', () => {
+    const client = new CalDavClient({ fetch: scripted([]).fetch, account: { serverUrl: ICLOUD_CALDAV, username: 'name@example.com', password: 'abcd-efgh-ijkl-mnop' } });
+    expect(client.trusts('https://p67-caldav.icloud.com/1234567/calendars/')).toBe(true);
+    expect(client.trusts('https://caldav.icloud.com.evil.test/')).toBe(false);
+    expect(client.trusts('https://evilicloud.com/')).toBe(false);
   });
 
   test('a redirect loop ends', async () => {

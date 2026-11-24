@@ -340,10 +340,14 @@ describe('a notification', () => {
   });
 
   test('about a test payment does not count in production, nor a real one in test mode', async () => {
+    // Authentic all the same: `wrong_mode`, which is acknowledged and ignored, not `unauthenticated`, which Comgate
+    // would answer by sending the notification again for ever.
     const a = fakeFetch(json(status({ test: 'true' })));
-    expect((await failure(provider(a.fetch).parseNotification(asJson({ test: 'true' })))).kind).toBe('unauthenticated');
+    expect((await failure(provider(a.fetch).parseNotification(asJson({ test: 'true' })))).kind).toBe('wrong_mode');
     const b = fakeFetch(json(status()));
-    expect((await failure(provider(b.fetch, { test: true }).parseNotification(asJson()))).kind).toBe('unauthenticated');
+    expect((await failure(provider(b.fetch, { test: true }).parseNotification(asJson()))).kind).toBe('wrong_mode');
+    const unconfirmed = fakeFetch();
+    expect((await failure(provider(unconfirmed.fetch, { confirmNotifications: false }).parseNotification(asJson({ test: 'true' })))).kind).toBe('wrong_mode');
     const c = fakeFetch(json(status({ test: 'true' })));
     expect((await provider(c.fetch, { test: true }).parseNotification(asJson({ test: 'true' }))).test).toBe(true);
   });

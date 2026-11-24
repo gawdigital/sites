@@ -4,7 +4,8 @@
 // then fails (an invoice the provider's API refuses today, a refund that does not go through) does not withhold
 // it: it stays noted on the order (`unfinished`) and is taken up by the next delivery of the notification or by
 // the sweep. Only a notification that cannot be trusted or read, or an order another request is busy with, is
-// answered with an error, which makes the provider send it again.
+// answered with an error, which makes the provider send it again. An authentic one about a payment of the other
+// mode (a test payment in production, or the reverse) is acknowledged and ignored, with a studio alert.
 import { isPaymentError } from '../payments/index.ts';
 import type { NotificationInput, PaymentEvent } from '../payments/index.ts';
 import { alert, applyEvent, Busy } from './settle.ts';
@@ -32,6 +33,11 @@ export async function handlePaymentNotification(deps: CheckoutDeps, input: Notif
   } catch (error) {
     if (isPaymentError(error, 'unauthenticated')) return { ok: false, error: 'unauthenticated', status: 401, effects: [] };
     if (isPaymentError(error, 'malformed')) return { ok: false, error: 'malformed', status: 400, effects: [] };
+    // The provider's own word about a payment of the other mode (test or real): nothing to act on, and nothing
+    // that sending it again would change. Acknowledged, and a person is told: the gateway's mode may be wrong.
+    if (isPaymentError(error, 'wrong_mode')) {
+      return { ok: true, acknowledge, outcome: 'wrong-mode', unfinished: false, effects: [alert('payment-mode-mismatch', `A notification was ignored: ${error.message}.`)] };
+    }
     // A provider that is asked for the payment's status while parsing may be unreachable: it will send again.
     if (isPaymentError(error)) return { ok: false, error: 'provider-unavailable', status: 503, effects: [] };
     throw error;

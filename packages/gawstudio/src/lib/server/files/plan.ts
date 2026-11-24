@@ -61,7 +61,11 @@ function typeAllowed(type: string, allowed: readonly string[]): boolean {
   const t = (type.split(';')[0] ?? '').trim().toLowerCase();
   // No type reported, or no list configured: the extension has already decided.
   if (!t || allowed.length === 0) return true;
-  return allowed.some((a) => (a.endsWith('/*') ? t.startsWith(a.slice(0, -1)) : t === a.toLowerCase()));
+  return allowed.some((entry) => {
+    // Written as the owner likes (`Audio/*`), compared in lower case like the type.
+    const a = entry.trim().toLowerCase();
+    return a.endsWith('/*') ? t.startsWith(a.slice(0, -1)) : t === a;
+  });
 }
 
 /**

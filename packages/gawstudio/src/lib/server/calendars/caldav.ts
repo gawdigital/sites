@@ -16,7 +16,8 @@
 //  - UNVERIFIED: whether the partition host is reached through an HTTP redirect or only through absolute hrefs in
 //    the answers. Both are handled: redirects are followed by hand (so that the method, the body and the
 //    credentials survive), and hrefs are resolved against the URL that answered. Either way the credentials only
-//    go to https hosts under the configured server's domain.
+//    go over https to the configured host or to a host under a domain trusted by name (`icloud.com` for iCloud,
+//    `CalDavAccount.trustedDomains` otherwise), never to a domain guessed from the host's name.
 //  - UNVERIFIED: whether iCloud honours `<C:expand>` in a calendar-query. It is asked for; if the server refuses
 //    the report, it is repeated without; if the server ignores it and returns the series with its RRULE, the
 //    iCalendar reader expands it (see `ical.ts` for the supported forms).
@@ -33,6 +34,9 @@ import { child, type DavResponse, descendants, escapeXml, parseMultistatus } fro
 
 export const ICLOUD_CALDAV = 'https://caldav.icloud.com/';
 
+/** The parent domain iCloud's partition hosts (`p67-caldav.icloud.com`) sit under: trusted with `ICLOUD_CALDAV`. */
+export const ICLOUD_TRUSTED_DOMAINS: readonly string[] = ['icloud.com'];
+
 const DAV = 'xmlns:d="DAV:"';
 const CALDAV = 'xmlns:c="urn:ietf:params:xml:ns:caldav"';
 const CALENDARSERVER = 'xmlns:cs="http://calendarserver.org/ns/"';
@@ -45,6 +49,13 @@ export interface CalDavAccount {
   serverUrl: string;
   username: string;
   password: string;
+  /**
+   * Parent domains whose hosts the credentials may also go to (a server that redirects to, or names, partition
+   * hosts), each written out in full: nothing is guessed from the server's own name, since its last labels may
+   * be a public suffix (`co.uk`). Left out: `ICLOUD_TRUSTED_DOMAINS` when `serverUrl` is iCloud's, none otherwise,
+   * so the credentials go to the configured host alone.
+   */
+  trustedDomains?: readonly string[];
 }
 
 export interface CalDavCalendar {
@@ -132,17 +143,22 @@ export class CalDavClient {
   readonly #fetch: typeof fetch;
   readonly #account: CalDavAccount;
   readonly #origin: URL;
-  readonly #domain: string;
+  readonly #domains: readonly string[];
 
   constructor(options: { fetch: typeof fetch; account: CalDavAccount }) {
     this.#fetch = options.fetch;
     this.#account = options.account;
     this.#origin = new URL(options.account.serverUrl);
-    // `caldav.icloud.com` trusts `p67-caldav.icloud.com`: the same domain, read as the host's last two labels.
-    this.#domain = this.#origin.hostname.split('.').slice(-2).join('.');
+    const domains = options.account.trustedDomains ?? (this.#origin.hostname === new URL(ICLOUD_CALDAV).hostname ? ICLOUD_TRUSTED_DOMAINS : []);
+    this.#domains = domains.map((domain) => {
+      const name = domain.trim().toLowerCase().replace(/\.$/, '');
+      // A bare label (`com`) would trust a whole top-level domain: at least two labels, written out.
+      if (!/^[a-z0-9-]+(\.[a-z0-9-]+)+$/.test(name)) throw new RangeError(`caldav: "${domain}" is not a domain to trust`);
+      return name;
+    });
   }
 
-  /** Whether the credentials may be sent there: https, and the configured server or a host under its domain. */
+  /** Whether the credentials may be sent there: https, and the configured host or one under a trusted domain. */
   trusts(url: string): boolean {
     let target: URL;
     try {
@@ -151,7 +167,8 @@ export class CalDavClient {
       return false;
     }
     if (target.protocol !== 'https:') return false;
-    return target.hostname === this.#origin.hostname || target.hostname.endsWith(`.${this.#domain}`);
+    const host = target.hostname;
+    return host === this.#origin.hostname || this.#domains.some((domain) => host === domain || host.endsWith(`.${domain}`));
   }
 
   /** One authenticated request, following redirects by hand; resolves to the answer and the URL that gave it. */

@@ -2,7 +2,7 @@
 // behaviour as a `CheckoutStore` is tested by the checkout's own tests, which run on it (`../checkout`).
 import { describe, expect, test } from 'bun:test';
 
-import { hold } from '../booking/index.ts';
+import { confirm, confirmLate, hold } from '../booking/index.ts';
 import { handlePaymentNotification, isUnfinished, startCheckout } from '../checkout/index.ts';
 import type { Checkout } from '../checkout/index.ts';
 import { MINUTE, MORNING, NOW, recordingCart, studio, tracksCart } from '../checkout/testing.ts';
@@ -11,6 +11,8 @@ import { D1CheckoutStore } from './checkout-store.ts';
 import { OrderRepository } from './orders.ts';
 import { memoryD1 } from './testing.ts';
 import type { MemoryD1 } from './testing.ts';
+
+const DAY_MS = 24 * 60 * MINUTE;
 
 /** A studio on a database the test can look into. */
 async function onD1(): Promise<{ db: MemoryD1; store: D1CheckoutStore; s: ReturnType<typeof studio> }> {
@@ -126,6 +128,43 @@ describe('a checkout on D1', () => {
     expect(runs).toBe(2);
     expect(second).toBe(false);
     expect((await store.booking()).holds.map((held) => held.id).sort()).toEqual(['order-rec-2', 'order-rec-3']);
+  });
+
+  test('a session left out of the load because it is over still holds its id', async () => {
+    const db = memoryD1();
+    const clock = { now: NOW };
+    const store = new D1CheckoutStore(db, { sessionsEndingAfter: () => clock.now });
+    const s = studio();
+    const context = await s.deps.booking();
+    const request = { id: 'order-rec-1', ...MORNING };
+    const confirmed = await store.updateBooking(
+      (state) => {
+        const held = hold(state, request, context, NOW);
+        const outcome = confirm(held.state, request.id, context, NOW);
+        return { state: outcome.state, result: outcome };
+      },
+      { ids: [request.id] },
+    );
+    expect(confirmed.ok).toBe(true);
+
+    // The session is over and no longer part of a load; a week later its id is asked for again.
+    clock.now = MORNING.end + 7 * DAY_MS;
+    expect((await store.booking()).sessions).toEqual([]);
+    const later = { id: request.id, start: MORNING.start + 14 * DAY_MS, end: MORNING.end + 14 * DAY_MS, technicianId: null };
+    const again = await store.updateBooking((state) => {
+      const outcome = hold(state, later, context, clock.now);
+      return { state: outcome.state, result: outcome };
+    }, { ids: [request.id] });
+    expect(again).toMatchObject({ ok: false, reason: 'duplicate-id' });
+
+    // Confirming it again (a notification delivered once more) is the same session, not a refusal.
+    const reconfirmed = await store.updateBooking((state) => {
+      const outcome = confirmLate(state, request, context, clock.now);
+      return { state: outcome.state, result: outcome };
+    }, { ids: [request.id] });
+    expect(reconfirmed).toMatchObject({ ok: true, late: false, session: { id: request.id, start: MORNING.start } });
+    expect(db.sqlite.query('SELECT COUNT(*) AS n FROM booking_holds').get()).toEqual({ n: 0 });
+    expect(db.sqlite.query('SELECT COUNT(*) AS n FROM booking_sessions').get()).toEqual({ n: 1 });
   });
 
   test('anonymising removes what names the customer from both rows; the order and its amounts stay', async () => {

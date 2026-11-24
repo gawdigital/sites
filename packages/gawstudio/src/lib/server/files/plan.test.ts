@@ -136,6 +136,14 @@ describe('validation', () => {
     expect(validateUpload({ ...file, size: MAX_OBJECT_BYTES + 1 }, open)).toEqual({ ok: false, reason: 'file-too-large' });
   });
 
+  test('a type list written with capitals matches all the same, wildcards included', () => {
+    const capitals = { ...settings, allowedMimeTypes: ['Audio/*', 'Application/ZIP'] };
+    expect(validateUpload({ ...file, type: 'audio/wav' }, capitals)).toEqual({ ok: true });
+    expect(validateUpload({ ...file, type: 'AUDIO/x-wav' }, capitals)).toEqual({ ok: true });
+    expect(validateUpload({ ...file, type: 'application/zip' }, capitals)).toEqual({ ok: true });
+    expect(validateUpload({ ...file, type: 'text/html' }, capitals)).toEqual({ ok: false, reason: 'type' });
+  });
+
   test('an empty type list leaves the decision to the extension', () => {
     expect(validateUpload({ ...file, type: 'text/html' }, { ...settings, allowedMimeTypes: [] })).toEqual({ ok: true });
   });

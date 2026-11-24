@@ -82,13 +82,16 @@ export class BookingRepository {
   /**
    * The state and its revision, read in one batch. `sessionsEndingAfter` leaves out the sessions that ended at
    * or before that time: pass the current time (or a little earlier), since no transition looks at a finished
-   * session; leave it out to read everything.
+   * session for the slots; leave it out to read everything. `ids` are the hold and session ids the transition
+   * looks up: their sessions are read however long ago they ended, so that an id stays unique (`duplicate-id`)
+   * and confirming twice still finds the session it gave.
    */
-  async load(sessionsEndingAfter = Number.MIN_SAFE_INTEGER): Promise<LoadedBooking> {
+  async load(sessionsEndingAfter = Number.MIN_SAFE_INTEGER, ids: readonly string[] = []): Promise<LoadedBooking> {
+    const named = ids.length ? ` OR id IN (${ids.map((_, i) => `?${i + 2}`).join(', ')})` : '';
     const [revision, holds, sessions] = await this.#db.batch([
       this.#db.prepare('SELECT revision FROM booking_revision WHERE id = 1'),
       this.#db.prepare('SELECT * FROM booking_holds ORDER BY created_at, id'),
-      this.#db.prepare('SELECT * FROM booking_sessions WHERE end_at > ? ORDER BY confirmed_at, id').bind(sessionsEndingAfter),
+      this.#db.prepare(`SELECT * FROM booking_sessions WHERE end_at > ?1${named} ORDER BY confirmed_at, id`).bind(sessionsEndingAfter, ...ids),
     ]);
     const [counter] = rowsOf<{ revision: number }>(revision);
     if (!counter) throw new Error('db: booking_revision has no row; the migrations have not been applied');
