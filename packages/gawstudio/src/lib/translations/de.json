@@ -33,7 +33,8 @@
     "cart": "Warenkorb",
     "account": "Konto",
     "languages": "Sprache",
-    "copyright": "© 2026 G.A.W.Group, s.r.o."
+    "copyright": "© 2026 G.A.W.Group, s.r.o.",
+    "theme": "Zwischen Tag- und Nachtmodus wechseln"
   },
   "error": {
     "kicker": "Fehler {{status}}",

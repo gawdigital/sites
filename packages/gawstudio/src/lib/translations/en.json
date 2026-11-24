@@ -33,7 +33,8 @@
     "cart": "Cart",
     "account": "Account",
     "languages": "Language",
-    "copyright": "© 2026 G.A.W.Group, s.r.o."
+    "copyright": "© 2026 G.A.W.Group, s.r.o.",
+    "theme": "Switch day or night mode"
   },
   "error": {
     "kicker": "Error {{status}}",

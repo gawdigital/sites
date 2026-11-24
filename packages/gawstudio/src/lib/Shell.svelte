@@ -8,8 +8,9 @@
   import { DEFAULT_LOCALE, localeOf, pathOf, routeOf } from '@gaw/i18n/locale.ts';
   import { LANG, LANG_HEAD } from '@gaw/i18n/scripts.ts';
   import LangSwitch from '@gaw/ui/LangSwitch.svelte';
+  import ThemeButton from '@gaw/ui/ThemeButton.svelte';
   import { CROSS, DOTS } from '@gaw/ui/icons.ts';
-  import { MENU, SPECULATION, inline } from '@gaw/ui/scripts.ts';
+  import { MENU, SPECULATION, THEME, inline } from '@gaw/ui/scripts.ts';
   import type { LangLink } from '@gaw/ui/types.ts';
   import { page } from '$app/state';
 
@@ -38,6 +39,8 @@
     right: Snippet;
   } = $props();
 
+  const THEME_HEAD = `(function(){try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t)}catch(e){}})()`;
+
   const { t } = get();
   const meta = $derived(PAGES[name]);
   const locale = $derived(localeOf(page.url.pathname));
@@ -55,6 +58,8 @@
 <svelte:head>
   <!-- Before anything renders: an English page sends a visitor who prefers German or Czech to that locale. -->
   {#if locale === DEFAULT_LOCALE}{@html inline(LANG_HEAD)}{/if}
+  <!-- Before the first paint: the day or night the visitor chose (localStorage `theme`, as on the other sites). -->
+  {@html inline(THEME_HEAD)}
   <title>{title}</title>
   {@html STYLES}
   {@html SPECULATION}
@@ -76,7 +81,7 @@
     <div class="mmenu" id="mmenu" role="dialog" aria-modal="true" aria-label={t('chrome.menu')} hidden>
       <button class="mclose" type="button" aria-label={t('chrome.close_menu')}>{@html CROSS}</button>
       <nav><ul>{#each NAV as id (id)}<li><a href={pathOf(PAGES[id].route, locale)} aria-current={id === meta.nav ? 'page' : undefined}>{t(`chrome.${id}`)}</a></li>{/each}</ul></nav>
-      <div class="mfoot"><LangSwitch {langs} /></div>
+      <div class="mfoot"><LangSwitch {langs} /><ThemeButton label={t('chrome.theme')} /></div>
     </div>
   </header>
   <main class="cols wrap">
@@ -101,9 +106,10 @@
       <nav aria-label={t('chrome.languages')}>
         <h3>{t('chrome.languages')}</h3>
         <LangSwitch {langs} />
+        <ThemeButton label={t('chrome.theme')} />
       </nav>
       <p class="copy">{t('chrome.copyright')}</p>
     </div>
   </footer>
 </div>
-{@html inline(LANG, MENU)}
+{@html inline(LANG, MENU, THEME)}

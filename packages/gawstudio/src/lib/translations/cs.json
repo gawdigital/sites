@@ -33,7 +33,8 @@
     "cart": "Košík",
     "account": "Účet",
     "languages": "Jazyk",
-    "copyright": "© 2026 G.A.W.Group, s.r.o."
+    "copyright": "© 2026 G.A.W.Group, s.r.o.",
+    "theme": "Přepnout mezi denním a nočním režimem"
   },
   "error": {
     "kicker": "Chyba {{status}}",

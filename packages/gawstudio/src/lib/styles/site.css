@@ -7,14 +7,21 @@
 :root{--bg:#1c2734;--ink:#0d0e11;--panel:#202932;--blue:#0097ff;--orange:#db8e5a;--pink:#d75c90;--green:#00ffbc;
   --px:calc(min(100vw,1292px)/1680);--pad:calc(60*var(--px));
   --t18:max(14px,calc(18*var(--px)));--t24:max(16px,calc(24*var(--px)));--t60:max(30px,calc(60*var(--px)));--t86:calc(86*var(--px));
+  --fg:#fff;--shade:rgba(13,14,17,.6);--chipbg:rgba(255,255,255,.2);--rule:rgba(255,255,255,.12);--faint:rgba(255,255,255,.55);
   color-scheme:dark}
+/* Day: a light page and light panels; the cards with pictures stay as dark as they are drawn. */
+:root[data-theme="light"]{--bg:#eef1f5;--panel:#fff;--orange:#c8703a;--fg:#0d0e11;--shade:rgba(40,55,75,.22);--chipbg:rgba(13,14,17,.1);--rule:rgba(13,14,17,.12);--faint:rgba(13,14,17,.6);color-scheme:light}
+:root[data-theme="light"] .page::before{mix-blend-mode:multiply;filter:invert(1);opacity:.1}
+:root[data-theme="light"] .shape{color:#b9c6d6;opacity:.45}
+:root[data-theme="light"] .logo,:root[data-theme="light"] .card:not(.plain),:root[data-theme="light"] .hatch,:root[data-theme="light"] .mmenu{--orange:#db8e5a}
+:root[data-theme="light"] .card.plain,:root[data-theme="light"] .fpanel{--green:#00a67a}
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:#fff;font:500 var(--t24)/1.25 "Kumbh Sans",sans-serif;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--fg);font:500 var(--t24)/1.25 "Kumbh Sans",sans-serif;-webkit-font-smoothing:antialiased}
 h1,h2,p,ol{margin:0;padding:0}
 a{color:inherit}
 svg{display:block;width:100%;height:auto}
-:focus-visible{outline:3px solid #fff;outline-offset:3px}
+:focus-visible{outline:3px solid currentColor;outline-offset:3px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 
 /* The page: the grain over the colour, the dark shape behind the content. */
@@ -46,47 +53,54 @@ h1{font-weight:800;font-size:var(--t86);line-height:1;text-transform:uppercase}
 h1 em{font-style:normal;color:var(--orange)}
 h2 em{font-style:normal;color:var(--green)}
 .tabs{display:flex;gap:calc(10*var(--px))}
-.tag{display:inline-flex;align-items:center;justify-content:center;text-align:center;height:calc(40*var(--px));min-height:28px;padding:0 calc(30*var(--px));border-radius:100px;background:var(--pink);font-weight:800;font-size:var(--t18);line-height:1;text-transform:uppercase;text-decoration:none;white-space:nowrap}
-.tabs .tag{background:none}
-.tabs .tag.cur{background:rgba(255,255,255,.2);color:var(--orange)}
+.tag{color:#fff;display:inline-flex;align-items:center;justify-content:center;text-align:center;height:calc(40*var(--px));min-height:28px;padding:0 calc(30*var(--px));border-radius:100px;background:var(--pink);font-weight:800;font-size:var(--t18);line-height:1;text-transform:uppercase;text-decoration:none;white-space:nowrap}
+.tabs .tag{background:none;color:inherit}
+.tabs .tag.cur{background:var(--chipbg);color:var(--orange)}
 .tabs a.tag:hover{color:var(--orange)}
 a.tag:hover{filter:brightness(1.12)}
 
 /* The card: a dimmed picture that fades into the dark at its foot and sides (the design's inner shadow, drawn as
    two gradients: a blurred inset shadow this large shows seams), the content standing on that. */
-.card{position:relative;isolation:isolate;display:flex;flex-direction:column;justify-content:flex-end;aspect-ratio:750/950;overflow:hidden;border-radius:calc(95*var(--px));background:var(--ink);box-shadow:0 0 calc(50*var(--px)) calc(30*var(--px)) rgba(13,14,17,.6)}
+.card{position:relative;isolation:isolate;display:flex;flex-direction:column;justify-content:flex-end;aspect-ratio:750/950;overflow:hidden;border-radius:calc(95*var(--px));background:var(--ink);color:#fff;box-shadow:0 0 calc(50*var(--px)) calc(30*var(--px)) var(--shade)}
 .card.sq{aspect-ratio:1}
-.card.plain{background:var(--panel)}
+.card.plain{background:var(--panel);color:var(--fg)}
 .card>img{position:absolute;z-index:-2;inset:0;width:100%;height:100%;object-fit:cover;opacity:.6}
 .card>img+.in::before{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(to top,rgba(13,14,17,.977) 0,rgba(13,14,17,.933) calc(62.5*var(--px)),rgba(13,14,17,.841) calc(125*var(--px)),rgba(13,14,17,.691) calc(187.5*var(--px)),rgba(13,14,17,.5) calc(250*var(--px)),rgba(13,14,17,.309) calc(312.5*var(--px)),rgba(13,14,17,.159) calc(375*var(--px)),rgba(13,14,17,.067) calc(437.5*var(--px)),rgba(13,14,17,.023) calc(500*var(--px)),rgba(13,14,17,0) calc(625*var(--px))),linear-gradient(to right,rgba(13,14,17,.5) 0,rgba(13,14,17,.309) calc(62.5*var(--px)),rgba(13,14,17,.159) calc(125*var(--px)),rgba(13,14,17,.067) calc(187.5*var(--px)),rgba(13,14,17,.023) calc(250*var(--px)),rgba(13,14,17,0) calc(375*var(--px)),rgba(13,14,17,0) calc(100% - 375*var(--px)),rgba(13,14,17,.023) calc(100% - 250*var(--px)),rgba(13,14,17,.067) calc(100% - 187.5*var(--px)),rgba(13,14,17,.159) calc(100% - 125*var(--px)),rgba(13,14,17,.309) calc(100% - 62.5*var(--px)),rgba(13,14,17,.5) 100%);pointer-events:none}
 .in{display:flex;flex-direction:column;align-items:flex-start;gap:calc(30*var(--px));padding:var(--pad)}
 h2{font-weight:800;font-size:var(--t60);line-height:1.2;text-transform:uppercase;text-wrap:balance}
 .card p{max-width:100%;text-wrap:pretty}
-.btn{align-self:flex-end;display:inline-flex;align-items:center;justify-content:center;text-align:center;height:calc(70*var(--px));min-height:44px;padding:0 var(--pad);border-radius:100px;background:var(--blue);font-weight:800;font-size:var(--t18);line-height:1;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:filter .15s}
+.btn{color:#fff;align-self:flex-end;display:inline-flex;align-items:center;justify-content:center;text-align:center;height:calc(70*var(--px));min-height:44px;padding:0 var(--pad);border-radius:100px;background:var(--blue);font-weight:800;font-size:var(--t18);line-height:1;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:filter .15s}
 .btn.go{background:var(--green);color:var(--ink)}
 .btn:hover{filter:brightness(1.12)}
 .steps{list-style:none;display:flex;flex-direction:column;gap:calc(30*var(--px));counter-reset:step}
 .steps li{counter-increment:step;display:grid;grid-template-columns:auto 1fr;align-items:center;gap:calc(30*var(--px))}
-.steps li::before{content:counter(step);display:grid;place-items:center;width:calc(60*var(--px));min-width:40px;aspect-ratio:1;border:max(3px,calc(4*var(--px))) solid #fff;border-radius:50%;font-weight:800;font-size:max(20px,calc(32*var(--px)));line-height:1}
+.steps li::before{content:counter(step);display:grid;place-items:center;width:calc(60*var(--px));min-width:40px;aspect-ratio:1;border:max(3px,calc(4*var(--px))) solid currentColor;border-radius:50%;font-weight:800;font-size:max(20px,calc(32*var(--px)));line-height:1}
 .audio{align-self:stretch;display:flex;align-items:center;justify-content:space-between;gap:calc(20*var(--px))}
 .toggle{display:flex;align-items:center;gap:calc(20*var(--px));color:var(--green);font-weight:800;font-size:var(--t18);line-height:1;text-transform:uppercase}
 .toggle i{display:block;width:calc(80*var(--px));min-width:56px;aspect-ratio:2;padding:max(3px,calc(4*var(--px)));border-radius:100px;background:var(--green)}
 .toggle i::after{content:"";display:block;height:100%;aspect-ratio:1;margin-left:auto;border-radius:50%;background:var(--panel)}
-.player{display:grid;place-items:center;width:calc(90*var(--px));min-width:60px;aspect-ratio:1;border:max(3px,calc(4*var(--px))) solid #fff;border-radius:50%}
+.player{display:grid;place-items:center;width:calc(90*var(--px));min-width:60px;aspect-ratio:1;border:max(3px,calc(4*var(--px))) solid currentColor;border-radius:50%}
 .player svg{width:40%;rotate:90deg}
 .hatch{position:absolute;z-index:-1;left:calc(234*var(--px));top:calc(100% - 163*var(--px));width:calc(516*var(--px));color:var(--orange);pointer-events:none}
 
 /* Footer: not in the design, which ends with the last card. A panel that closes the page: where the studio is,
    the menu again and the language switch every site has. */
 .foot{position:relative;z-index:1;margin-top:auto;padding:calc(140*var(--px)) var(--pad) var(--pad)}
-.fpanel{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:var(--pad);padding:var(--pad) calc(80*var(--px));border-radius:calc(95*var(--px));background:var(--ink);box-shadow:0 0 calc(50*var(--px)) calc(30*var(--px)) rgba(13,14,17,.6)}
+.fpanel{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:var(--pad);padding:var(--pad) calc(80*var(--px));border-radius:calc(95*var(--px));background:var(--panel);box-shadow:0 0 calc(50*var(--px)) calc(30*var(--px)) var(--shade)}
 .foot h3{margin:0 0 calc(30*var(--px));color:var(--orange)}
 .foot ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:calc(22*var(--px))}
 .foot p{margin-bottom:calc(30*var(--px))}
 .foot a[aria-current]{color:var(--orange)}
 .foot .lang{display:flex;gap:calc(35*var(--px))}
 .lang .cur{color:var(--orange)}
-.foot .copy{grid-column:1/-1;margin:0;padding-top:calc(40*var(--px));border-top:1px solid rgba(255,255,255,.12);font-size:var(--t18);color:rgba(255,255,255,.55)}
+.foot .copy{grid-column:1/-1;margin:0;padding-top:calc(40*var(--px));border-top:1px solid var(--rule);font-size:var(--t18);color:var(--faint)}
+/* The day and night switch, as on the other sites: a track with the sun and the moon, a knob under the current one. */
+.theme{position:relative;display:block;width:84px;height:42px;margin-top:calc(30*var(--px));padding:0;border:0;border-radius:21px;background:var(--chipbg);color:var(--faint);cursor:pointer;-webkit-appearance:none;appearance:none}
+.theme::before{content:"";position:absolute;top:5px;left:5px;width:32px;height:32px;border-radius:50%;background:var(--orange);transform:translateX(42px);transition:transform .2s}
+:root[data-theme="light"] .theme::before{transform:none}
+.theme svg{position:absolute;top:12px;width:18px;height:18px;overflow:visible;pointer-events:none}
+.theme .sun{left:12px} .theme .moon{left:54px;color:var(--ink)}
+:root[data-theme="light"] .theme .sun{color:#fff} :root[data-theme="light"] .theme .moon{color:var(--faint)}
 /* The home page's hatch reaches below its cards and slips behind the panel. */
 .page.home .foot{padding-top:calc(230*var(--px))}
 
@@ -96,7 +110,7 @@ h2{font-weight:800;font-size:var(--t60);line-height:1.2;text-transform:uppercase
   .top{height:auto;min-height:150px}
   .logo{left:16px;width:84px}
   .nav{display:none}
-  .mnav,.mmenu .mclose{display:flex;position:absolute;right:12px;top:21px;width:48px;height:48px;align-items:center;justify-content:center;padding:0;margin:0;border:0;border-radius:24px;background:none;-webkit-appearance:none;appearance:none;color:#fff;cursor:pointer;z-index:5;-webkit-tap-highlight-color:transparent}
+  .mnav,.mmenu .mclose{display:flex;position:absolute;right:12px;top:21px;width:48px;height:48px;align-items:center;justify-content:center;padding:0;margin:0;border:0;border-radius:24px;background:none;-webkit-appearance:none;appearance:none;color:var(--fg);cursor:pointer;z-index:5;-webkit-tap-highlight-color:transparent}
   .mnav svg{display:block;width:37px;height:8px;overflow:visible}
   .mmenu .mclose svg{display:block;width:22px;height:22px}
   .mnav:focus-visible,.mmenu a:focus-visible,.mmenu button:focus-visible{outline:2px solid currentColor;outline-offset:3px}
@@ -107,10 +121,14 @@ h2{font-weight:800;font-size:var(--t60);line-height:1.2;text-transform:uppercase
   .mmenu ul{list-style:none;margin:0;padding:32px 0 40px;display:flex;flex-direction:column;align-items:center;gap:24px}
   .mmenu li a{display:block;font-weight:800;font-size:34px;line-height:1.1765;text-transform:uppercase;text-decoration:none}
   .mmenu li a[aria-current],.mmenu .lang a.cur{text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:.25em}
-  .mmenu .mfoot{display:flex;justify-content:center;flex:0 0 auto;font-weight:800;font-size:19px;line-height:1.4737;text-transform:uppercase}
+  .mmenu .mfoot{display:flex;flex-direction:column;align-items:center;gap:22px;flex:0 0 auto;font-weight:800;font-size:19px;line-height:1.4737;text-transform:uppercase}
   .mmenu .lang{display:flex;gap:18px}
   .mmenu .lang a{color:inherit}
   .mmenu .lang a.cur{text-decoration-thickness:2px}
+  .mmenu .theme{margin:0;background:rgba(13,14,17,.15);color:var(--ink)}
+  .mmenu .theme::before{background:var(--ink)}
+  .mmenu .theme .moon,:root[data-theme="light"] .mmenu .theme .sun{color:var(--orange)}
+  :root[data-theme="light"] .mmenu .theme .moon{color:var(--ink)}
   html.mm-lock,html.mm-lock body{overflow:hidden}
   .cols{display:flex;flex-direction:column;gap:28px;padding:0 16px}
   .col{display:contents}
@@ -128,4 +146,4 @@ h2{font-weight:800;font-size:var(--t60);line-height:1.2;text-transform:uppercase
   .foot .lang{gap:22px}
 }
 @media (min-width:861px){.nav .icons{display:contents}}
-@media (prefers-reduced-motion:reduce){.btn{transition:none}}
+@media (prefers-reduced-motion:reduce){.btn,.theme::before{transition:none}}
