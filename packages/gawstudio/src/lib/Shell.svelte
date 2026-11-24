@@ -17,7 +17,7 @@
   import logo from './art/logo.svg?raw';
   import shape from './art/shape.svg?raw';
   import user from './art/user.svg?raw';
-  import { LAUNCHED, NAV, ORIGIN, PAGES, STYLES, accent, type PageName } from './site.ts';
+  import { LAUNCHED, NAV, ORIGIN, PAGES, STUDIO, STYLES, accent, type PageName } from './site.ts';
   import { get } from './translations/index.ts';
 
   let {
@@ -87,6 +87,23 @@
     <div class="col a">{@render left()}</div>
     <div class="col b">{@render right()}</div>
   </main>
-  <footer class="foot wrap"><span>{t('chrome.copyright')}</span><nav aria-label={t('chrome.languages')}><LangSwitch {langs} /></nav></footer>
+  <footer class="foot wrap">
+    <div class="fpanel">
+      <div>
+        <h3>{t('common.where')}</h3>
+        <p>{STUDIO.street}<br />{STUDIO.city}<br />{t('common.country')}</p>
+        <a href={STUDIO.map} target="_blank" rel="noopener">{t('common.view_map')}<span class="sr"> {t('common.opens_in_a_new_tab')}</span></a>
+      </div>
+      <nav aria-label={t('chrome.menu')}>
+        <h3>{t('chrome.menu')}</h3>
+        <ul>{#each NAV as id (id)}<li><a href={pathOf(PAGES[id].route, locale)} aria-current={id === meta.nav ? 'page' : undefined}>{t(`chrome.${id}`)}</a></li>{/each}</ul>
+      </nav>
+      <nav aria-label={t('chrome.languages')}>
+        <h3>{t('chrome.languages')}</h3>
+        <LangSwitch {langs} />
+      </nav>
+      <p class="copy">{t('chrome.copyright')}</p>
+    </div>
+  </footer>
 </div>
 {@html inline(LANG, MENU)}
