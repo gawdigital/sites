@@ -65,6 +65,20 @@ jobs:
           bun --bun wrangler versions upload
           --preview-alias pr-${{ github.event.pull_request.number }}
           --message "PR #${{ github.event.pull_request.number }}"
+      - name: Upload a preview version of gawstudio
+        # As for gawgroup: it needs the Worker `gawstudio` to exist, and a failure does not fail the checks.
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        id: preview-gawstudio
+        continue-on-error: true
+        working-directory: packages/gawstudio
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          WRANGLER_OUTPUT_FILE_PATH: ${{ runner.temp }}/wrangler-gawstudio.ndjson
+        run: >-
+          bun --bun wrangler versions upload
+          --preview-alias pr-${{ github.event.pull_request.number }}
+          --message "PR #${{ github.event.pull_request.number }}"
       - name: Comment the preview links on the pull request
         if: steps.preview.outcome == 'success'
         uses: actions/github-script@v8
@@ -73,7 +87,7 @@ jobs:
         with:
           script: |
             const fs = require('node:fs');
-            // One row pair per site whose upload wrote its line; gawgroup's may be missing (its step may fail).
+            // One row pair per site whose upload wrote its line; all but gawdigital's may be missing (their steps may fail).
             const uploadOf = (site) => {
               const file = `${process.env.OUTPUT_DIR}/wrangler-${site}.ndjson`;
               if (!fs.existsSync(file)) return undefined;
@@ -81,7 +95,7 @@ jobs:
                 .split('\n').filter(Boolean).map((line) => JSON.parse(line))
                 .findLast((entry) => entry.type === 'version-upload');
             };
-            const uploads = ['gawdigital', 'gawgroup'].map((site) => [site, uploadOf(site)]);
+            const uploads = ['gawdigital', 'gawgroup', 'gawstudio'].map((site) => [site, uploadOf(site)]);
             if (!uploads[0][1]) throw new Error('Wrangler reported no version upload.');
 
             const sha = context.payload.pull_request.head.sha;
