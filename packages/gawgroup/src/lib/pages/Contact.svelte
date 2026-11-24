@@ -11,7 +11,7 @@
   import { page } from '$app/state';
 
   import ContactForm from '#lib/ContactForm.svelte';
-  import { place } from '#lib/hatch.ts';
+  import { hang } from '#lib/hatch.ts';
   import Shell from '#lib/Shell.svelte';
   import { get } from '#lib/translations/index.ts';
 
@@ -32,17 +32,20 @@
     bic: { label: t('contact.bic'), what: t('contact.bic'), copy: t('contact.copy_bic') },
     copy: t('contact.copy'),
   });
-  // The phone's hatches, in the frame's coordinates.
+  // The phone's hatches, as the design draws them on the 390 px frame, each hung from the column it belongs to (whose
+  // foot is its card's): over the message's heading and under the form, at the right; under the company card, at
+  // the left.
   const phone = [
-    place([[175, 350, 480], [260, 340, 560], [345, 360, 520]], 48),
-    place([[200, 985, 1215], [285, 955, 1265], [370, 1005, 1195]], 48),
-    place([[-20, 1848, 2058], [65, 1808, 2078], [150, 1878, 2063]], 48),
+    hang([[175, 350, 480], [260, 340, 560], [345, 360, 520]], 48, ['top', 386], ['right', 374]),
+    hang([[200, 985, 1215], [285, 955, 1265], [370, 1005, 1195]], 48, ['bottom', 985], ['right', 374]),
+    hang([[-20, 1848, 2058], [65, 1808, 2078], [150, 1878, 2063]], 48, ['bottom', 1953], ['left', 16]),
   ];
 </script>
 
-<Shell name="contact" noindex={state !== undefined} title={t('contact.page_title')}>
-  {#snippet before()}{#each phone as group, i (i)}<HatchPills id="hc{i}" width={48} pills={group.pills} class="hmc" style={group.style} />{/each}{/snippet}
+<!-- One of the phone's hatches, placed in the box it hangs from. -->
+{#snippet ph(i: number)}<HatchPills id="hc{i}" width={48} pills={phone[i].pills} class="hmc" style={phone[i].style} />{/snippet}
 
+<Shell name="contact" noindex={state !== undefined} title={t('contact.page_title')}>
   <section class="shead">
     <HatchPills id="ht" box={[500, 470]} pills={[[0, 60, 340], [160, 0, 470], [320, 180, 360]]} class="hx-top" />
     <div class="kicker">{t('common.group')}</div>
@@ -54,6 +57,8 @@
   <div class="hcol">
   <Divider title={t('common.message')} index="01" />
   <ContactForm {prefix} {state} />
+  <HatchPills id="hb" box={[500, 440]} pills={[[0, 40, 330], [160, 0, 440], [320, 70, 400]]} class="hx-bot" />
+  {@render ph(0)}{@render ph(1)}
   </div>
   <div class="hcol">
   <Divider title={t('common.company')} index="02" />
@@ -65,8 +70,8 @@
     </article>
   </section>
   {@html script(COPY, { COPIED: t('form.copied'), NOTE: t('form.copied_note', { what: '%s' }), COPY: t('contact.copy') })}
+  {@render ph(2)}
   </div>
-  <HatchPills id="hb" box={[500, 440]} pills={[[0, 40, 330], [160, 0, 440], [320, 70, 400]]} class="hx-bot" />
   </div>
 
 </Shell>

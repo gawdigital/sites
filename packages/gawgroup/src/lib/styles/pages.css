@@ -1,8 +1,30 @@
-/* The pages under the home page: a hatch beside the heading, and more of them behind the cards further down. */
+/* The pages under the home page: a hatch beside the heading, and more of them behind the cards further down. The
+   phone's (`.hmc`) hang from the heading and the cards' columns in the same way, behind their content. */
 .hx-top{right:60px;top:-70px;width:500px;height:470px;z-index:-1}
-.hx-bot{left:170px;top:100%;margin-top:-330px;width:500px;height:440px;z-index:1}
-.hp.hdc{z-index:1}
-.hp.hmc{display:none;z-index:1}
+/* The hatches further down hang from a card: each keeps the design's offsets from the card's bottom edge and from the
+   nearer of its left and right edges, so it stays where the design has it however the text wraps. It sits in the
+   card's column (whose foot is the card's), behind the card and under the rows that follow. The form's: at its right. */
+.pgrid .hcol{position:relative}
+.hx-bot{left:calc(100% - 460px);top:100%;margin-top:-143px;width:500px;height:440px;z-index:-1}
+.hp.hdc{top:100%;width:410px;z-index:-1}
+/* privacy: under the first card, across the gap between the next two; under WHAT WE COLLECT, over its right edge;
+   under PURPOSE & LEGAL BASIS, at its left; under YOUR RIGHTS, at its right */
+.hdc.d0{left:calc(50% - 390px);margin-top:-118px;height:390px}
+.hdc.d1{right:-40px;margin-top:-124px;height:370px}
+.hdc.d2{left:110px;margin-top:-110px;height:370px}
+.hdc.d3{right:70px;margin-top:-110px;height:440px}
+/* Each language keeps its own design: the Czech and German cards are taller and their groups stayed where they were,
+   so they hang higher from the cards' bottom edges, the form's too. */
+:lang(cs) .hx-bot{margin-top:-193px}
+:lang(de) .hx-bot{margin-top:-186px}
+:lang(cs) .hdc.d0,:lang(de) .hdc.d0{margin-top:-178px}
+:lang(cs) .hdc.d1{margin-top:-244px}
+:lang(cs) .hdc.d2{margin-top:-320px}
+:lang(cs) .hdc.d3{margin-top:-410px}
+:lang(de) .hdc.d1{margin-top:-304px}
+:lang(de) .hdc.d2{margin-top:-440px}
+:lang(de) .hdc.d3{margin-top:-650px}
+.hp.hmc{display:none;z-index:-1}
 main{position:relative;z-index:2}
 @media (max-width:768px){
   .hx-top,.hx-bot,.hp.hdc{display:none}

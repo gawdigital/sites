@@ -3,20 +3,17 @@
   import art_home_appwin_aw_d_2 from '#lib/art/home-appwin-aw-d-2.svg?raw';
   import art_home_appwin_aw_l from '#lib/art/home-appwin-aw-l.svg?raw';
   import art_home_appwin_aw_l_2 from '#lib/art/home-appwin-aw-l-2.svg?raw';
-  import art_home_art from '#lib/art/home-art.svg?raw';
   import art_home_pix from '#lib/art/home-pix.svg?raw';
   import Shell from '#lib/Shell.svelte';
   import { get } from '#lib/translations/index.ts';
   import { localeOf, pathOf } from '@gaw/i18n/locale.ts';
   import { page } from '$app/state';
-  import { productFor } from '#lib/cms.ts';
 
   const i18n = get();
   const t = i18n.t;
   const locale = $derived(localeOf(page.url.pathname));
   const href = (route: string) => pathOf(route, locale);
-  const games = $derived(productFor(page.data.cms, 'games', locale, t as unknown as (key: string) => string));
-  const art: Record<string, string> = { 'home-appwin-aw-d': art_home_appwin_aw_d, 'home-appwin-aw-d-2': art_home_appwin_aw_d_2, 'home-appwin-aw-l': art_home_appwin_aw_l, 'home-appwin-aw-l-2': art_home_appwin_aw_l_2, 'home-art': art_home_art, 'home-pix': art_home_pix };
+  const art: Record<string, string> = { 'home-appwin-aw-d': art_home_appwin_aw_d, 'home-appwin-aw-d-2': art_home_appwin_aw_d_2, 'home-appwin-aw-l': art_home_appwin_aw_l, 'home-appwin-aw-l-2': art_home_appwin_aw_l_2, 'home-pix': art_home_pix };
 </script>
 
 <Shell name="home" title={t('common.g_a_w_digital')}>
@@ -24,9 +21,9 @@
   <section class="hero peek-hero">
     <div class="txt">
       <div class="kicker">{t('common.g_a_w_digital')}</div>
-      <h1>{@html t('home.apps_games')}</h1>
+      <h1>{@html t('home.apps_games_web')}</h1>
       <p class="lead">{t('home.g_a_w_digital_is')}</p>
-      <div class="jump"><a href={href('/apps/midi-control')}>{@html t('home.01_apps')}</a><!-- svelte-ignore a11y_missing_attribute (GAMES has no page yet) --><a>{@html t('home.02_games')}</a><a href={href('/support')}>{@html t('home.03_support')}</a></div>
+      <div class="jump"><a href={href('/apps/midi-control')}>{@html t('home.01_apps')}</a><!-- svelte-ignore a11y_missing_attribute (GAMES has no page yet) --><a>{@html t('home.02_games')}</a><a href={href('/web')}>{@html t('home.03_web')}</a></div>
     </div>
     <div class="peek" aria-hidden="true"><div class="tilt">{@html art['home-appwin-aw-d']}{@html art['home-appwin-aw-l']}</div></div>
   </section>
@@ -49,20 +46,26 @@
       <div class="scene sb"><div class="pixwrap">{@html art['home-pix']}</div></div><div class="fade"></div>
       <div class="content">
         <span class="tag">{t('common.coming_soon')}</span>
-        <h2>{games.name}</h2>
-        <p>{games.summary}</p>
+        <h2>{t('common.games')}</h2>
+        <p>{t('common.something_fun_is_in_the')}</p>
       </div>
     </article>
-    <article class="card support">
-      <div class="scene sc"><div class="vis">{@html art['home-art']}</div></div><div class="fade"></div>
+    <article class="card web">
+      <div class="scene sd" aria-hidden="true">
+        <div class="browser"><div class="bar"><i></i><i></i><i></i><span class="url"></span></div><div class="page"><i class="h"></i><i></i><i class="short"></i><div class="tiles"><i></i><i></i><i></i></div></div></div>
+      </div><div class="fade"></div>
       <div class="content">
-        <span class="tag hl">{t('home.help')}</span>
-        <h2>{t('common.support')}</h2>
-        <p>{t('home.faq_and_report_a_problem')}</p>
-        <div class="row"><span class="links"><a class="ln" href={href('/apps/midi-control/support')}>{t('common.faq')}</a></span><a class="btn" href={href('/support')}>{t('home.get_help')}</a></div>
+        <span class="tag">{t('home.web_tag')}</span>
+        <h2>{t('home.web')}</h2>
+        <p>{t('home.web_text')}</p>
+        <div class="row"><a class="btn" href={href('/web')}>{t('home.view_projects')}</a></div>
       </div>
     </article>
   </section>
 
+  <section class="help">
+    <div><h2>{t('common.support')}</h2><p>{t('home.help_text')}</p></div>
+    <div class="row"><a class="btn" href={href('/support')}>{t('home.get_help')}</a></div>
+  </section>
 
 </Shell>

@@ -4,14 +4,15 @@
   import { get } from '#lib/translations/index.ts';
   import { localeOf, pathOf, prefixOf } from '@gaw/i18n/locale.ts';
   import { page } from '$app/state';
-  import { faqFor } from '#lib/cms.ts';
+  import { MIDI_FAQ } from '#lib/content.ts';
 
   const i18n = get();
   const t = i18n.t;
   const locale = $derived(localeOf(page.url.pathname));
   const prefix = $derived(prefixOf(locale));
   const href = (route: string) => pathOf(route, locale);
-  const faq = $derived(faqFor(page.data.cms, 'midi-control', locale, t as unknown as (key: string) => string));
+  // The FAQ's keys come from a list in `content.ts`, which `t`'s typed keys cannot follow.
+  const tk = t as unknown as (key: string) => string;
 </script>
 
 <Shell name="midi-support" title={t('midisupport.support_midi_control_for_fireface')}>
@@ -44,7 +45,7 @@
 
   <div class="divider"><h2>{t('common.faq')}</h2><i class="ticks"></i><span class="idx">02</span></div>
   <article class="card qa">
-    {#each faq as group, g}<div class="qg"><h3>{group.title}</h3><div class="ql">{#each group.items as item, i}<details open={g === 0 && i === 0}><summary><span>{item.question}</span></summary><p>{item.answer}</p></details>{/each}</div></div>{/each}
+    {#each MIDI_FAQ as group, g}<div class="qg"><h3>{@html tk(group.title)}</h3><div class="ql">{#each group.items as [question, answer], i}<details open={g === 0 && i === 0}><summary><span>{@html tk(question)}</span></summary><p>{@html tk(answer)}</p></details>{/each}</div></div>{/each}
   </article>
 
   <div class="divider"><h2>{t('midisupport.still_stuck')}</h2><i class="ticks"></i><span class="idx">03</span></div>

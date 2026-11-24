@@ -42,7 +42,7 @@ legend.lb{margin-bottom:10px}
 form.cform .btn{background:var(--blue);color:var(--on-blue)}
 .cform .btn:focus-visible{outline:none;box-shadow:0 0 0 3px var(--card),0 0 0 6px var(--x)}
 /* a rule between the form and the privacy note, the form's gap on both sides */
-.pnote{padding-top:28px;border-top:1px solid var(--line);font-weight:500;font-size:15px;line-height:1.4667;color:var(--dim)}
+.card .pnote{padding-top:28px;border-top:1px solid var(--line);font-weight:500;font-size:15px;line-height:1.4667;color:var(--dim)}
 .sent{display:none;position:relative;z-index:2;flex-direction:column;align-items:flex-start;padding:24px 0 12px}
 .sent svg{width:72px;height:72px;margin-bottom:28px}
 .formc .sent h2{font-size:48px;line-height:1.0833;margin-bottom:12px}
@@ -66,7 +66,7 @@ form.cform .btn{background:var(--blue);color:var(--on-blue)}
   .ts{width:100%;max-width:none}
   .ts span{font-size:11px;line-height:1.2727}
   .cform .btn{width:100%;min-width:0}
-  .pnote{padding-top:22px;font-size:13px;line-height:1.4615}
+  .card .pnote{padding-top:22px;font-size:13px;line-height:1.4615}
   .sent{padding:12px 0 8px}
   .sent svg{width:56px;height:56px;margin-bottom:20px}
   .formc .sent h2{font-size:32px;line-height:1.125}

@@ -1,0 +1,117 @@
+
+/* Web: two open-source projects side by side, a picture of each drawn in HTML above its text, then the partner projects */
+/* two equal columns that share the content column (1200 px), whatever its width */
+.wgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:60px;align-items:stretch}
+.proj{padding:420px 60px 56px;justify-content:flex-start}
+.proj .scene{height:400px}
+.proj .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 260px,rgba(var(--cr),.85) 360px,rgb(var(--cr)) 400px)}
+.proj.i18n .scene{background:radial-gradient(45% 60% at 70% 10%,rgba(var(--xr2),.22),transparent 70%),radial-gradient(40% 55% at 15% 30%,rgba(var(--xr),.16),transparent 70%),var(--sd)}
+.proj.curly .scene{background:radial-gradient(45% 60% at 30% 10%,rgba(var(--xr),.20),transparent 70%),radial-gradient(40% 55% at 85% 35%,rgba(var(--xr2),.18),transparent 70%),var(--sc)}
+.proj .content{display:flex;flex-direction:column;align-items:flex-start;flex:1}
+.proj .row{align-self:stretch}
+.proj h2{font-size:52px;line-height:1.0769;margin-bottom:18px;text-transform:none}
+.proj .tags{margin-bottom:4px}
+.tag.soft{background:color-mix(in srgb,var(--text) 10%,var(--card));color:var(--text)}
+.proj .row{margin-top:auto;padding-top:36px}
+.burl{font-weight:500;font-size:18px;color:var(--dim);overflow-wrap:anywhere}
+.facts{list-style:none;display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:24px;font-weight:800;font-size:18px;line-height:1.3333}
+.facts li{display:flex;align-items:center;gap:10px}
+.facts li:before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--xg)}
+.proj .lb{margin-top:28px;font-weight:800;font-size:15px;line-height:1.3333;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+/* the five parsers fit one line of the 1200 px column's card: the chips are a little tighter than the design's (gap 10,
+   padding 14) */
+.parsers{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.parsers li{display:flex;flex-direction:column;gap:2px;padding:12px 10px;border-radius:18px;background:var(--chip);box-shadow:inset 0 0 0 2px var(--line);min-width:0}
+.parsers b{font-weight:800;font-size:16px;line-height:1.375}
+.parsers small{font-weight:500;font-size:13px;line-height:1.3846;color:var(--dim);white-space:nowrap}
+/* the pictures: a code window */
+.code{position:absolute;left:56px;right:56px;top:60px;border-radius:24px;background:var(--panel);overflow:hidden;
+  box-shadow:0 30px 60px var(--sh1),inset 0 0 0 1.5px var(--line);
+  font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:16px;line-height:1.625;color:var(--text)}
+.code .bar{display:flex;align-items:center;gap:8px;height:44px;padding:0 20px;border-bottom:1.5px solid var(--line)}
+.code .bar i{width:12px;height:12px;border-radius:50%;background:var(--t1)}
+.code .bar span{margin-left:12px;font-size:14px;color:var(--dim)}
+.code pre{padding:22px 24px 18px;font:inherit;white-space:pre-wrap;overflow-wrap:anywhere}
+.code .k{color:var(--pink)}
+.code .s{color:var(--xt)}
+.code .p{color:var(--blue)}
+.code .f{color:var(--blue)}
+.code pre b{font-weight:700;color:var(--text)}
+.code .out{padding:14px 24px;border-top:1.5px solid var(--line);background:var(--chip);font-weight:700}
+.code .c{font-weight:500;color:var(--dim);margin-right:8px}
+/* the partner's card: its text beside a picture of its feed, in the site's yellow. The feed is the design's 520 px
+   scaled to the 1200 px column (×1200/1320) */
+.cesta{--cy:#ffb700;display:grid;grid-template-columns:1fr 472px;column-gap:80px;align-items:center;padding:80px 80px 80px 88px}
+.cesta .scene{height:100%;background:radial-gradient(40% 70% at 82% 30%,rgba(255,183,0,.16),transparent 70%),var(--sx)}
+.cesta .fade{background:linear-gradient(90deg,rgba(var(--cr),.9) 0,rgba(var(--cr),.55) 35%,rgba(var(--cr),0) 55%)}
+.cesta .tag{background:var(--cy);color:#0d0e11}
+.cesta .facts li:before{background:var(--cy)}
+.feed{position:relative;z-index:2;padding:22px 26px 6px;border-radius:40px;background:var(--panel);
+  box-shadow:0 34px 56px var(--sh1),inset 0 0 0 1.5px var(--line)}
+.feed i{display:block;border-radius:6px;background:var(--line)}
+.fbar{display:flex;align-items:center;gap:10px;padding-bottom:18px;border-bottom:1.5px solid var(--line)}
+.clogo{display:block;height:28px;width:auto}
+.clogo .m{fill:var(--cy)}
+.clogo .w{fill:var(--text)}
+.fbar .pillx{margin-left:auto;width:96px;height:30px;border-radius:15px;background:var(--text);opacity:.9}
+.fcats{display:flex;gap:16px;padding:20px 0 8px}
+.fcats i{width:52px;height:52px;border-radius:50%;background:var(--t1)}
+.fcats i.on{background:var(--cy);box-shadow:0 0 0 3px var(--panel),0 0 0 6px var(--cy)}
+.post{padding:18px 0;border-bottom:1.5px solid var(--line)}
+.post:last-child{border-bottom:0}
+.post .who{display:flex;align-items:center;gap:10px}
+.post .av{width:28px;height:28px;border-radius:50%;background:var(--t2)}
+.post .ln1{width:140px;height:10px}
+.post .body{display:flex;gap:18px;margin-top:14px}
+.post .lines{flex:1;display:flex;flex-direction:column;gap:10px}
+.post .lines i{height:13px;background:var(--t1)}
+.post .lines i:first-child{background:var(--text);opacity:.85}
+.post .lines .short{width:62%}
+.post .img{flex:none;width:128px;height:78px;border-radius:14px;background:linear-gradient(135deg,var(--t2),var(--t1))}
+.post .acts{display:flex;gap:18px;margin-top:14px}
+.post .acts i{width:30px;height:8px}
+@media (max-width:768px){
+  .wgrid{grid-template-columns:1fr;row-gap:16px}
+  .proj{padding:276px 24px 28px}
+  .proj .scene{height:270px}
+  .proj .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 170px,rgba(var(--cr),.85) 240px,rgb(var(--cr)) 270px)}
+  .proj h2{font-size:34px;line-height:1.1176;margin-bottom:12px}
+  .proj .row{padding-top:22px}
+  .burl{font-size:14px}
+  .facts{gap:8px 18px;margin-top:16px;font-size:14px}
+  .facts li{gap:8px}
+  .facts li:before{width:6px;height:6px}
+  .proj .lb{margin-top:20px;font-size:11px;letter-spacing:.12em}
+  .parsers{gap:8px;margin-top:10px}
+  .parsers li{padding:9px 12px;border-radius:14px}
+  .parsers b{font-size:14px}
+  .parsers small{font-size:11px}
+  .code{left:20px;right:20px;top:28px;border-radius:18px;font-size:11.5px;line-height:1.6}
+  .code .bar{height:32px;padding:0 14px;gap:6px}
+  .code .bar i{width:9px;height:9px}
+  .code .bar span{font-size:11px;margin-left:6px}
+  .code pre{padding:14px 16px 12px}
+  .code .out{padding:10px 16px}
+  .cesta{grid-template-columns:1fr;row-gap:24px;padding:20px 16px 24px}
+  .cesta .feed{order:-1;padding:14px 16px 2px;border-radius:30px}
+  .cesta .content{padding:0 8px}
+  .cesta .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 160px,rgba(var(--cr),.85) 280px,rgb(var(--cr)) 340px)}
+  .fbar{padding-bottom:12px}
+  .clogo{height:20px}
+  .fbar .pillx{width:64px;height:22px}
+  .fcats{gap:10px;padding:12px 0 4px}
+  .fcats i{width:36px;height:36px}
+  .post{padding:12px 0}
+  .post:nth-child(n+5){display:none}
+  .post .av{width:20px;height:20px}
+  .post .ln1{width:90px;height:8px}
+  .post .body{gap:12px;margin-top:10px}
+  .post .lines{gap:7px}
+  .post .lines i{height:9px}
+  .post .img{width:84px;height:52px;border-radius:10px}
+  .post .acts{margin-top:10px}
+}
+/* A wide phone layout keeps the two open-source cards side by side */
+@media (min-width:640px) and (max-width:768px){
+  .wgrid{grid-template-columns:1fr 1fr;column-gap:16px}
+}

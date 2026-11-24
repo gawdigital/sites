@@ -1,6 +1,6 @@
 
 @media (max-width:768px){
-  .frame{width:100%;min-width:0;padding:0 16px 32px}
+  .frame{width:100%;min-width:0;padding:0 16px 30px}
   .blob{width:220%;left:-60%;height:2400px;top:60px}
   .blob.b2{display:none}
   .home{left:16px;width:88px;height:120px;border-radius:0 0 44px 44px}
@@ -24,13 +24,18 @@
   .mmenu li > span.off small{position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:-2px;white-space:nowrap;
     font-size:13px;line-height:1.2308;font-weight:700;letter-spacing:.06em;text-transform:none;opacity:.8}
   .mmenu .mfoot{display:flex;align-items:center;justify-content:center;gap:28px;font-weight:800;font-size:19px;line-height:1.4737;flex:0 0 auto}
-  .mmenu .mfoot .lang{gap:18px}
   html.mm-lock,html.mm-lock body{overflow:hidden}
   /* A: the brand gradient, everything in --on-x; the page's item underlined, not recoloured */
   .mmenu.mm-a{background:var(--xg);color:var(--on-x)}
   .mm-a .mclose{color:var(--on-x)}
   .mm-a li > a[aria-current]{text-decoration:underline;text-decoration-thickness:3px;text-underline-offset:.25em;text-decoration-color:currentColor}
   .mm-a .lang a{color:var(--on-x)}
+  /* hovered or pressed, an item turns light in the dark theme and dark in the light one, not to the accent: the
+     accent is the menu's own background */
+  .mm-a{--mm-hi:#fff}
+  :root[data-theme="light"] .mm-a{--mm-hi:#151a20}
+  @media (hover:hover){.mm-a li > a:hover,.mm-a .lang a[href]:hover{color:var(--mm-hi)}}
+  .mm-a li > a:active,.mm-a .lang a[href]:active{color:var(--mm-hi)}
   .mm-a .lang a.cur{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:.3em}
   .mm-a .theme{background:transparent;box-shadow:inset 0 0 0 2px var(--on-x);color:var(--on-x)}
   .mm-a .theme:before{background:var(--on-x)}
@@ -75,7 +80,7 @@
   .days{left:24px;right:24px;top:20px}
   .days .big{font-size:120px;line-height:0.9167;-webkit-text-stroke:2px var(--ghost)}
   .dots{gap:5px;margin-top:8px} .dots i{box-shadow:inset 0 0 0 2px var(--ring)}
-  .footer{flex-direction:column;align-items:stretch;gap:20px;margin-top:64px;font-size:14px;line-height:1.5}
+  .footer{flex-direction:column;align-items:stretch;gap:20px;margin-top:60px;font-size:14px;line-height:1.5}
   .footer .fl{align-items:center;text-align:center}
   .footer .fr{justify-content:space-between;gap:24px;font-size:14px;flex-wrap:nowrap}
   /* home */
@@ -96,15 +101,10 @@
   .appwin{filter:drop-shadow(0 12px 20px rgba(0,0,0,.5))}
   .duo{grid-template-columns:1fr;row-gap:16px;margin-top:16px}
   .duo .card{padding:24px}
-  .duo .games,.duo .support{height:auto;margin-top:0}
+  .duo .games{height:auto;margin-top:0}
   .duo .games{padding-top:150px}
   .duo .games .scene{height:210px} .duo .games .pixwrap{top:30px}
   .duo .games .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 100px,rgba(var(--cr),.85) 170px,rgb(var(--cr)) 210px)}
-  .duo .support{padding-top:200px}
-  .duo .support .scene{height:250px}
-  .duo .support .vis{left:44px;right:44px;top:24px}
-  .support .links{gap:20px;font-size:16px}
-  .duo .support .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 120px,rgba(var(--cr),.85) 200px,rgb(var(--cr)) 250px)}
   .duo .row{margin-top:20px}
   .app{margin-top:20px;padding:12px 18px 12px 12px;gap:12px;border-radius:calc(40px * .225 + 12px)}
   .app .ic{width:40px;height:40px}

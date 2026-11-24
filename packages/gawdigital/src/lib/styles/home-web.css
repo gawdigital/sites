@@ -1,0 +1,41 @@
+/* the home page's Web card, as tall as Games beside it: a browser window drawn in HTML above its text, naming no site */
+.duo .web{height:620px}
+.duo .web .scene{height:400px;background:radial-gradient(45% 60% at 30% 10%,rgba(var(--xr2),.22),transparent 70%),radial-gradient(40% 55% at 85% 30%,rgba(var(--xr),.16),transparent 70%),var(--sd)}
+.duo .web .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 200px,rgba(var(--cr),.85) 330px,rgb(var(--cr)) 400px)}
+.duo .web .browser{position:absolute;left:60px;right:60px;top:44px;border-radius:24px;background:var(--panel);overflow:hidden;box-shadow:0 30px 60px var(--sh1),inset 0 0 0 1.5px var(--line)}
+.browser i{display:block;border-radius:6px;background:var(--t1)}
+.browser .bar{display:flex;align-items:center;gap:8px;height:44px;padding:0 20px;border-bottom:1.5px solid var(--line)}
+.browser .bar i{width:12px;height:12px;border-radius:50%}
+.browser .url{flex:1;max-width:260px;height:20px;margin-left:16px;border-radius:10px;background:var(--chip);box-shadow:inset 0 0 0 1.5px var(--line)}
+.browser .page{display:flex;flex-direction:column;gap:12px;padding:24px 28px 24px}
+.browser .page>i{height:12px}
+.browser .page .h{width:46%;height:22px;margin-bottom:6px;background:var(--text);opacity:.85}
+.browser .page .short{width:64%}
+.browser .tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:12px}
+.browser .tiles i{height:50px;border-radius:14px;background:linear-gradient(135deg,rgba(var(--xr2),.35),rgba(var(--xr),.25))}
+.duo .web .row{justify-content:flex-start}
+.duo .web .btn{margin-left:0}
+/* Support closes the page without a card: its heading and links on one line above the footer */
+.help{display:flex;align-items:center;justify-content:space-between;gap:40px;margin-top:100px;padding:48px 8px 0;border-top:1.5px solid var(--line)}
+.help h2{font-size:40px;line-height:1.1;text-transform:uppercase}
+.help p{margin-top:10px;font-size:20px;color:var(--dim)}
+.help .row{display:flex;align-items:center;gap:28px;flex:none;margin-top:0;min-height:0}
+.help .btn{margin-left:0}
+@media (max-width:768px){
+  .duo .web{height:auto;padding-top:230px}
+  .duo .web .scene{height:250px}
+  .duo .web .fade{background:linear-gradient(180deg,rgba(var(--cr),0) 0,rgba(var(--cr),0) 120px,rgba(var(--cr),.85) 200px,rgb(var(--cr)) 250px)}
+  .duo .web .browser{left:20px;right:20px;top:28px;border-radius:18px}
+  .browser .bar{height:32px;padding:0 14px;gap:6px}
+  .browser .bar i{width:9px;height:9px}
+  .browser .url{height:14px;margin-left:8px}
+  .browser .page{gap:9px;padding:16px 18px 20px}
+  .browser .page>i{height:9px}
+  .browser .page .h{height:16px;margin-bottom:4px}
+  .browser .tiles{gap:10px;margin-top:8px}
+  .browser .tiles i{height:52px;border-radius:10px}
+  .help{flex-direction:column;align-items:flex-start;gap:20px;margin-top:48px;padding:32px 8px 0}
+  .help h2{font-size:28px}
+  .help p{font-size:16px}
+  .help .row{gap:20px}
+}

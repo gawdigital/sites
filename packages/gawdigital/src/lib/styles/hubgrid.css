@@ -1,5 +1,6 @@
 
-.hubgrid{display:grid;grid-template-columns:630px 630px;column-gap:60px;align-items:stretch;margin-top:120px}
+/* two equal columns that share the content column (1200 px), whatever its width */
+.hubgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:60px;align-items:stretch;margin-top:120px}
 .hubgrid .divider{margin:0 0 60px}
 .hcol{display:flex;flex-direction:column;min-width:0}
 .hcol .hub{grid-template-columns:1fr;row-gap:40px}

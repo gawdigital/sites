@@ -1,0 +1,21 @@
+{
+  "page_title": "Web · G.A.W.Digital",
+  "web": "WEB",
+  "lead": "Open-source tools and partner websites.",
+  "open_source": "Open source",
+  "open_source_tag": "OPEN SOURCE",
+  "parsers_tag": "5 PARSERS",
+  "i18n_text": "Internationalization for SvelteKit. One install, and translations work across the whole app, on the server and in the browser.",
+  "i18n_runes": "Svelte 5 runes",
+  "i18n_typed": "Typed keys and payloads",
+  "i18n_loaders": "Route-level loaders",
+  "curly_text": "A simple syntax for translation messages. Plurals, numbers and dates are written right in the text, the same way in every language.",
+  "parsers": "Parsers",
+  "partner_projects": "Partner projects",
+  "partner_tag": "PARTNER PROJECT",
+  "cesta_text": "Your way to the news: articles from Czech publishers in one feed, with likes, comments and the authors you follow. We take part in its design and development.",
+  "cesta_design": "Design",
+  "cesta_development": "Development",
+  "visit": "VISIT",
+  "visit_name": "Visit {{name}} (opens in a new tab)"
+}

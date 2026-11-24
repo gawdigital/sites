@@ -12,17 +12,18 @@
   --text:#151a20;--dim:rgba(21,26,32,.5);--soft:rgba(21,26,32,.76);--chip:rgba(21,26,32,.05);--sh1:rgba(30,45,70,.12);
   --wbg:radial-gradient(45% 35% at 85% 8%,rgba(181,162,126,.18),transparent 70%),#fff;--wsh:rgba(30,45,70,.18);
   --fok:#1f9d6a;--fbad:#d64545}
-/* the background: one arc rising behind the page instead of the blob, a finer grain, no vignette */
-.frame{padding-bottom:0}
+/* the background: one arc rising behind the page instead of the blob, at least 280 px wider than the window on each
+   side so its feet never show, a finer grain (the shared tile at half its size:
+   a tile drawn by an SVG filter split into visible squares in Safari while the frame was scaled), no vignette */
 .vig,.bgh{display:none}
-.blob{left:calc(50% - 1000px);top:700px;width:2000px;height:calc(100% - 700px);border-radius:1000px 1000px 0 0/750px 750px 0 0;background:#000;opacity:.15}
+.blob{left:min(-280px,calc(50% - 1000px));top:700px;width:max(2000px,calc(100% + 560px));height:calc(100% - 700px);border-radius:50% 50% 0 0/750px 750px 0 0;background:#000;opacity:.15}
 .blob path{display:none}
 :root[data-theme="light"] .blob{background:var(--blob);opacity:.55}
 .frame.sub .blob{top:570px;height:calc(100% - 570px)}
-.noise{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.1;filter:none}
+.noise{background-size:129px;opacity:.1;filter:none}
 :root[data-theme="light"] .noise{opacity:.07;filter:invert(1)}
-/* the header: a quieter menu, set in from the edge */
-.menu{right:calc(var(--gut) + 48px);top:31px;font-weight:700;font-size:14px;letter-spacing:var(--caps);text-transform:uppercase}
+/* the header: a quieter menu, on the container's right edge (the last letter's tracking hangs outside it) */
+.menu{margin-right:calc(-1 * var(--caps));font-weight:700;font-size:18px;letter-spacing:var(--caps);text-transform:uppercase}
 .arr{display:inline-block;line-height:0}
 .arr svg{display:block;height:auto}
 .menu .arr{margin-left:.4em}
@@ -45,6 +46,8 @@ h1{margin-top:22px;font-weight:600;font-size:118px;line-height:.94;letter-spacin
 /* buttons: the gold gradient; a second, quieter kind is only outlined */
 .btn{margin-left:0;border:0;background:var(--xg);color:var(--on-x);letter-spacing:var(--caps);text-transform:uppercase;font-family:inherit;cursor:pointer}
 .btn.ghost{background:none;border:1.5px solid var(--line);color:var(--text)}
+/* hover: the fields' focus shadow, not a glow of the button's colour */
+@media (hover:hover){.btn:hover,.btn.mint:hover{box-shadow:0 0 28px var(--sh1)}}
 .btn .arr.down svg{transform:rotate(90deg)}
 form.cform .btn{background:var(--xg);color:var(--on-x)}
 a.ln{color:var(--xt);text-underline-offset:4px;text-decoration-thickness:1.5px}
@@ -53,10 +56,11 @@ a.ln{color:var(--xt);text-underline-offset:4px;text-decoration-thickness:1.5px}
 .card .scene{display:none}
 .card h2{font-weight:600}
 /* a brand's card: its picture under a fade, the badge hanging from the top edge, the text at the foot; the colours
-   are the brand's own, the same day and night */
+   are the brand's own, the same day and night. The insets are the design's 70 px scaled to the 1200 px column
+   (×1200/1320), as the home page's other cards' are */
 .bcard{position:relative;z-index:2;height:800px;border-radius:95px;overflow:hidden;background:var(--card);box-shadow:0 40px 90px -40px rgba(0,0,0,.6)}
-.bcard .badge{position:absolute;left:70px;top:0;width:88px;height:auto;z-index:3;display:block}
-.bcard .bbody{position:absolute;left:70px;right:70px;bottom:70px;z-index:3}
+.bcard .badge{position:absolute;left:64px;top:0;width:88px;height:auto;z-index:3;display:block}
+.bcard .bbody{position:absolute;left:64px;right:64px;bottom:64px;z-index:3}
 .bcard h3{font-weight:700;font-size:56px;line-height:1;letter-spacing:-.01em;text-transform:uppercase;color:#fff}
 .bcard p{margin-top:18px;font-size:17px;line-height:1.55;color:rgba(255,255,255,.82)}
 .btags{display:flex;gap:8px;margin-bottom:22px}
@@ -69,7 +73,7 @@ a.ln{color:var(--xt);text-underline-offset:4px;text-decoration-thickness:1.5px}
 :root[data-theme="light"] .bcard.mv:after{filter:invert(1);opacity:.33}
 .bcard .art{position:absolute}
 .bcard.digital{background:radial-gradient(40% 35% at 60% 22%,rgba(28,165,181,.35),transparent 70%),radial-gradient(45% 40% at 80% 30%,rgba(0,255,188,.25),transparent 70%),linear-gradient(170deg,#24324a,#0d0e11 75%)}
-.bcard.digital .art{left:70px;top:150px;width:900px;border-radius:12px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.5)}
+.bcard.digital .art{left:64px;top:150px;width:900px;border-radius:12px;overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.5)}
 .bcard.digital .art svg{display:block;width:100%;height:auto;filter:none}
 .bcard.digital .btag{background:rgba(0,255,188,.14);color:#00ffbc}
 .bcard.digital .btn{background:linear-gradient(135deg,#00ffbc,#1ca5b5);color:#0d0e11}
@@ -83,13 +87,15 @@ a.ln{color:var(--xt);text-underline-offset:4px;text-decoration-thickness:1.5px}
 /* forms and the company card: the shared spec, in the group's colours */
 .lb,.fg .fbox .lb,.ts span{letter-spacing:var(--caps)}
 .crow dt,.gl .lb{color:var(--xt)}
+/* the labels' column keeps the design's 180 px here (the shared one is scaled to 164): the group's tracked capitals
+   need it to keep each label on one line */
+@media (min-width:769px){.crow{grid-template-columns:180px minmax(0,1fr) auto}.pc .crow{grid-template-columns:180px minmax(0,1fr)}}
 .seg span{background:var(--chip);box-shadow:inset 0 0 0 1.5px var(--line);letter-spacing:var(--caps);text-indent:var(--caps);text-transform:uppercase}
 .seg input:checked + span{background:var(--xg);box-shadow:none;color:var(--on-x)}
 .seg input:focus-visible + span{box-shadow:0 0 0 3px var(--card),0 0 0 6px var(--x)}
 .fg .fbox{--focus:var(--x)}
 .fg .cform .fbox :is(input[type=email],textarea){font-weight:400;line-height:normal}
 .ts{font-size:14px;color:var(--dim)}
-.card .pnote{font-weight:500;font-size:15px;line-height:22px;color:var(--dim)}
 .coc h2{margin-top:20px}
 .cp{border:0}
 .crow dd.br{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
@@ -103,8 +109,8 @@ a.ln{color:var(--xt);text-underline-offset:4px;text-decoration-thickness:1.5px}
 .pend p{font-weight:500;font-size:20px;line-height:1.5;color:var(--soft)}
 .pgrid:last-child{padding-bottom:40px}
 .epage .row{justify-content:flex-start}
-/* the footer: one quiet line of small capitals */
-.footer{gap:0;margin-top:110px;padding:30px 0 40px;font-weight:700;font-size:12px;line-height:normal;letter-spacing:.12em}
+/* the footer: one quiet line of small capitals, at gawdigital's sizes (18 px, 14 px on the phone) */
+.footer{gap:0;font-weight:700;font-size:18px;line-height:normal;letter-spacing:.12em}
 .footer .fl{display:contents}
 .footer .fl > span{letter-spacing:.02em}
 .footer .fm{display:flex;gap:28px;letter-spacing:var(--caps);text-transform:uppercase}
@@ -112,12 +118,13 @@ a.ln{color:var(--xt);text-underline-offset:4px;text-decoration-thickness:1.5px}
 @media (hover:hover){.footer .fm a:hover{color:var(--xt)}}
 .footer .fm a:active{color:var(--xt)}
 .footer .fr{gap:32px;font-weight:700}
-.footer .lang{gap:28px;letter-spacing:var(--caps)}
+.footer .lang{letter-spacing:var(--caps)}
 .footer .lang a.cur{color:var(--xt)}
 .theme:before{background:var(--xg)}
 @media (max-width:768px){
   html,body{overflow-x:clip}
-  .blob{left:-280px;top:900px;width:2000px;height:calc(100% - 900px)}
+  /* the arc rises from below the hero's buttons on the home page, just below the header elsewhere */
+  .blob{left:-280px;top:480px;width:2000px;height:calc(100% - 480px)}
   .frame.sub .blob{top:240px;height:calc(100% - 240px)}
   main{padding-top:150px}
   .kicker{font-size:15px;letter-spacing:.32em}
@@ -137,11 +144,10 @@ a.ln{color:var(--xt);text-underline-offset:4px;text-decoration-thickness:1.5px}
   .seg{flex-wrap:nowrap}
   .seg label{flex:1 1 0;min-width:0}
   .seg span{display:flex;justify-content:center;padding:0 4px}
-  .card .pnote{font-size:13px;line-height:19px}
   .cp{border:0}
   .cgrid{margin-top:56px}
   .shead + .pgrid{margin-top:56px}
   .pend p{font-size:16px}
-  .footer{flex-direction:column;align-items:center;gap:18px;margin-top:60px;font-size:12px;line-height:normal}
-  .footer .fr{justify-content:center;gap:32px;font-size:12px}
+  .footer{flex-direction:column;align-items:center;gap:20px;font-size:14px;line-height:normal}
+  .footer .fr{justify-content:center;gap:32px;font-size:14px}
 }

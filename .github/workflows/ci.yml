@@ -35,12 +35,6 @@ jobs:
           # gawdigital's public build-time value (a repository variable, not a secret); unset, the Turnstile test key
           # is used. gawgroup's site key is in its `src/env.ts`.
           PUBLIC_TURNSTILE_SITE_KEY: ${{ vars.PUBLIC_TURNSTILE_SITE_KEY }}
-          # The CMS project the pages read at build time (repository variables); unset, the translation files' copy.
-          SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
-          SANITY_DATASET: ${{ vars.SANITY_DATASET }}
-      - name: Build the Sanity studio
-        # Catches a schema the studio cannot load; the studio itself is deployed by the owner (`sanity/README.md`).
-        run: bun run --filter studio build
       - name: Upload a preview version of gawdigital
         # Secrets are not available to pull requests from forks.
         if: github.event.pull_request.head.repo.full_name == github.repository

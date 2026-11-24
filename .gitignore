@@ -13,5 +13,3 @@ dist
 # Written by @sveltekit-i18n/typegen
 **/src/i18n-schema.d.ts
 
-# Sanity studio cache
-.sanity
