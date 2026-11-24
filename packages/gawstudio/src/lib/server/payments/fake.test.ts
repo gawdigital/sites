@@ -76,6 +76,7 @@ describe('the fake provider', () => {
       status: 'pending',
       amount: { amount: 150000, currency: 'CZK' },
       test: false,
+      refunded: 0,
     });
     expect(await kind(fake.createPayment({ ...request, amount: { amount: 0.5, currency: 'CZK' } }))).toBe('invalid_request');
   });
@@ -145,5 +146,27 @@ describe('the fake provider', () => {
     }
     expect(effects).toEqual(['confirm', 'none', 'none']);
     expect(record).toMatchObject({ status: 'paid', updatedAt: 2 });
+  });
+
+  test('says how a payment was made and how much of it went back', async () => {
+    const fake = new FakeProvider();
+    const { paymentId } = await fake.createPayment(request);
+    expect((await fake.getPayment(paymentId)).method).toBeUndefined();
+    fake.settle(paymentId, 'paid', 'BANK_CZ_RB');
+    expect(await fake.getPayment(paymentId)).toMatchObject({ status: 'paid', method: 'BANK_CZ_RB', refunded: 0 });
+    await fake.refund({ paymentId, amount: request.amount, reference: 'r-1' });
+    expect((await fake.parseNotification(fake.notification(paymentId))).refunded).toBe(request.amount.amount);
+  });
+
+  test('keeps to a gateway’s bounds on the expiry when it is given them', async () => {
+    expect(new FakeProvider().expiryMinutes).toBeUndefined();
+    expect((await new FakeProvider().createPayment({ ...request, expiresInMinutes: 10 })).paymentId).toBe('fake-1');
+
+    const bounded = new FakeProvider({ expiryMinutes: { min: 30, max: 10_080 } });
+    expect(bounded.expiryMinutes).toEqual({ min: 30, max: 10_080 });
+    expect(await kind(bounded.createPayment({ ...request, expiresInMinutes: 10 }))).toBe('invalid_request');
+    expect(await kind(bounded.createPayment({ ...request, expiresInMinutes: 10_081 }))).toBe('invalid_request');
+    expect((await bounded.createPayment({ ...request, expiresInMinutes: 30 })).paymentId).toBe('fake-1');
+    expect((await bounded.createPayment(request)).paymentId).toBe('fake-2');
   });
 });

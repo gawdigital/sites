@@ -1,7 +1,7 @@
 // What the admin sets about booking recording sessions. Nothing below is logic: the availability and hold code
 // reads every time, length and switch from a `BookingSettings` object, and `DEFAULT_SETTINGS` is only what the
 // studio starts with.
-import { isLocalDate, isWallTime, minutesOf, weekdayOf } from './time.ts';
+import { addDays, isLocalDate, isWallTime, minutesOf, weekdayOf } from './time.ts';
 import type { LocalDate, WallTime, Weekday } from './time.ts';
 
 /**
@@ -151,4 +151,57 @@ export function settingsProblems(settings: BookingSettings): string[] {
     versions.add(version);
   }
   return problems;
+}
+
+/**
+ * The hours the price list sells recording by. The catalogue's `recording` entry (`../orders/catalogue.ts`) has
+ * this shape; it is repeated here so that the booking does not depend on the orders.
+ */
+export interface RecordingHours {
+  /** A fixed block is sold as this many hours. */
+  block: { hours: number };
+  /** The whole day is sold as this many hours. */
+  day: { hours: number };
+  /** A free window is priced as a multiple of this many minutes. */
+  windowStepMinutes: number;
+}
+
+const WEEKDAY_NAMES = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
+/**
+ * What is wrong between the hours the catalogue sells and the slots the booking offers, in plain sentences for
+ * the admin; empty when they agree. The checkout prices a slot by its kind (a block at the block's price, the
+ * whole day at the day's, a window by the hour), so a block of another length than the one sold would be charged
+ * as if it were that length. Checked for every version of the blocks, on every day of the week:
+ * - every online block lasts exactly the block's hours;
+ * - where the whole day can be booked, the day's hours are those of its online blocks together (the breaks
+ *   between them are not sold);
+ * - a free window, which is always the minimum length, is a whole number of the catalogue's window steps.
+ *
+ * Assumes settings that pass `settingsProblems`.
+ */
+export function recordingProblems(settings: BookingSettings, sold: RecordingHours): string[] {
+  const problems = new Set<string>();
+  if (!wholeNumber(sold.windowStepMinutes, 1) || settings.minimumMinutes % sold.windowStepMinutes !== 0) {
+    problems.add(`A free window lasts ${settings.minimumMinutes} minutes, which is not a multiple of the ${sold.windowStepMinutes} minutes the catalogue prices windows by.`);
+  }
+  // Each version takes over on its own date; a week from each of those dates sees every weekday of every version.
+  const starts = new Set<LocalDate>(['2000-01-03']);
+  for (const block of settings.blocks) if (block.validFrom !== undefined && isLocalDate(block.validFrom)) starts.add(block.validFrom);
+  for (const start of starts) {
+    for (let offset = 0; offset < 7; offset++) {
+      const date = addDays(start, offset);
+      const since = start === '2000-01-03' ? '' : ` from ${start}`;
+      const online = blocksOn(date, settings).filter((block) => block.online);
+      for (const block of online) {
+        const minutes = block.endMinutes - block.startMinutes;
+        if (minutes !== sold.block.hours * 60) problems.add(`Block "${block.id}"${since} lasts ${minutes / 60} h; the catalogue sells a block as ${sold.block.hours} h.`);
+      }
+      const together = online.reduce((sum, block) => sum + block.endMinutes - block.startMinutes, 0);
+      if (settings.wholeDay && online.length > 1 && together !== sold.day.hours * 60) {
+        problems.add(`The whole day on a ${WEEKDAY_NAMES[weekdayOf(date) - 1]}${since} is ${together / 60} h of blocks; the catalogue sells a day as ${sold.day.hours} h.`);
+      }
+    }
+  }
+  return [...problems];
 }

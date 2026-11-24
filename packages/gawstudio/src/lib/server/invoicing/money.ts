@@ -1,6 +1,7 @@
 // The one place where our integer minor units meet a provider's decimal strings. Done on digits, not with
 // floating-point division, so 1 haléř never becomes 0.009999.
-import type { Currency } from './types.ts';
+import { documentTotals } from '../shared/money.ts';
+import type { Currency, DocumentDraft } from './types.ts';
 
 /** Decimal places of each currency we sell in. */
 const EXPONENT: Record<Currency, number> = { CZK: 2, EUR: 2 };
@@ -32,4 +33,15 @@ export function fromDecimal(decimal: string | number, currency: Currency): numbe
   const minor = Number(whole + kept) + roundUp;
   if (!Number.isSafeInteger(minor)) return undefined;
   return sign && minor !== 0 ? -minor : minor;
+}
+
+/**
+ * What a document made from a draft must total, with VAT, in minor units: `documentTotals` of `../shared/money.ts`,
+ * the rule the orders' quote is priced by. A draft built from a quote's lines (same quantities, unit prices, rate
+ * and price mode) therefore totals exactly what the quote did. A provider that computes its own total is held to
+ * this figure by whoever issues the invoice.
+ */
+export function expectedTotal(draft: Pick<DocumentDraft, 'lines' | 'priceMode'>): number {
+  const lines = draft.lines.map((line) => ({ quantity: line.quantity, unitPrice: line.unitPrice, vatRateBp: Math.round(line.vatRate * 100) }));
+  return documentTotals(lines, draft.priceMode === 'gross').total;
 }

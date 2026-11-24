@@ -21,6 +21,7 @@
 //   default). Sessions need no technician bookkeeping here: with one room, two sessions never overlap.
 // - Slots the studio is free for are listed even when no technician is: `technicians` is then empty and `anyone`
 //   false, so a page can tell "taken" from "no technician". `isOffered` is the test for a customer's choice.
+import type { TechnicianId, TechnicianRef } from '../shared/technician.ts';
 import { blocksOn } from './settings.ts';
 import type { BookingSettings } from './settings.ts';
 import { addDays, datesBetween, instantOf, localDateOf, minutesOf, MINUTE } from './time.ts';
@@ -48,8 +49,11 @@ export interface Busy extends Interval {
   kind: BusyKind;
 }
 
-export interface Technician {
-  id: string;
+/**
+ * A technician as the booking sees one: the shared id (the same id the catalogue's technician has, see
+ * `../shared/technician.ts`) and the times taken.
+ */
+export interface Technician extends TechnicianRef {
   /** When the technician cannot work, whatever the reason. */
   busy: readonly Interval[];
 }
@@ -62,7 +66,7 @@ export interface Slot extends Interval {
   /** The fixed blocks the slot is made of: one for a block, all of them for the whole day, none for a window. */
   blockIds: string[];
   /** The technicians free for the whole slot, in the order they were given. */
-  technicians: string[];
+  technicians: TechnicianId[];
   /** Whether the slot can be booked with "anyone": at least one technician is free. */
   anyone: boolean;
 }
@@ -94,14 +98,14 @@ export function isStudioFree(interval: Interval, studioBusy: readonly Busy[], se
 }
 
 /** The ids of the technicians free for the whole of `interval`, in the order given. */
-export function freeTechnicians(interval: Interval, technicians: readonly Technician[], settings: BookingSettings): string[] {
+export function freeTechnicians(interval: Interval, technicians: readonly Technician[], settings: BookingSettings): TechnicianId[] {
   return technicians
     .filter((technician) => !technician.busy.some((busy) => collides(interval, busy, settings.technicianBufferMinutes)))
     .map((technician) => technician.id);
 }
 
 /** Whether a slot can be booked with the customer's choice: a technician's id, or `null` for "anyone". */
-export function isOffered(slot: Slot, technicianId: string | null): boolean {
+export function isOffered(slot: Slot, technicianId: TechnicianId | null): boolean {
   return technicianId === null ? slot.anyone : slot.technicians.includes(technicianId);
 }
 

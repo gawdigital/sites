@@ -16,3 +16,4 @@ export { InvoiceRepository } from './invoices.ts';
 export { BookingRepository } from './booking.ts';
 export type { LoadedBooking } from './booking.ts';
 export { UploadRepository } from './uploads.ts';
+export { D1CheckoutStore } from './checkout-store.ts';

@@ -3,8 +3,10 @@
 // whoever builds them), the payment is recorded on it, the provider e-mails it, and a refund is a corrective
 // document. The Fakturoid adapter (`fakturoid.ts`) and the in-memory fake (`fake.ts`) both implement it.
 
-/** The currencies the studio sells in. Both have two decimal places (see `money.ts`). */
-export type Currency = 'CZK' | 'EUR';
+import type { Currency } from '../shared/money.ts';
+
+/** The currencies the studio sells in, shared with the orders. Both have two decimal places (see `money.ts`). */
+export type { Currency };
 
 /** An amount in minor units (haléře, cents): always an integer, never a float of crowns. */
 export interface Money {

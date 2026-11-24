@@ -68,7 +68,8 @@ export async function sweep(deps: CheckoutDeps): Promise<SweepResult> {
     let checkout = stored;
     try {
       const waiting = checkout.order.state === 'awaiting-payment';
-      if (waiting && checkout.slot && now >= checkout.slot.holdExpiresAt && checkout.payment?.status !== 'cancelled') checkout = await closeUnpaid(run, checkout);
+      // An order with a settlement was paid: what it waits for is its refund, which `progress` takes up.
+      if (waiting && !checkout.settlement && checkout.slot && now >= checkout.slot.holdExpiresAt && checkout.payment?.status !== 'cancelled') checkout = await closeUnpaid(run, checkout);
       else checkout = await progress(run, checkout);
       if (waiting && checkout.order.state === 'cancelled') result.cancelled.push(checkout.order.id);
     } catch (error) {

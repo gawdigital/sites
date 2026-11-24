@@ -130,6 +130,8 @@ export async function startCheckout(deps: CheckoutDeps, request: CheckoutRequest
     if (checkout) {
       if (checkout.fingerprint !== fingerprint) return { ok: false, error: 'order-exists' };
       if (checkout.order.state !== 'awaiting-payment') return { ok: false, error: 'not-awaiting-payment', state: checkout.order.state };
+      // Paid, with the slot lost: the order waits for its refund, not for a payment (see `settlePaid`).
+      if (checkout.settlement || checkout.refund) return { ok: false, error: 'not-awaiting-payment', state: checkout.order.state };
       if (checkout.payment && checkout.redirectUrl) return { ok: true, orderId, redirectUrl: checkout.redirectUrl, resumed: true, effects: [] };
       // The order is there and its payment is not: the provider failed last time. The hold may have run out since.
       if (checkout.slot) {

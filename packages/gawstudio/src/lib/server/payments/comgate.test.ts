@@ -223,6 +223,19 @@ describe('credentials', () => {
 });
 
 describe('the status of a payment', () => {
+  test('carries the method that was used, and never a refund state', async () => {
+    const used = await provider(fakeFetch(json(status({ method: 'CARD_CZ_CSOB_2' }))).fetch).getPayment('AB12-CD34-EF56');
+    expect(used.method).toBe('CARD_CZ_CSOB_2');
+    expect('refunded' in used).toBe(false);
+    // `ALL` is what a create sends for "the payer chooses": not a method anybody paid with.
+    const any = await provider(fakeFetch(json(status({ method: 'ALL', status: 'PENDING' }))).fetch).getPayment('AB12-CD34-EF56');
+    expect('method' in any).toBe(false);
+  });
+
+  test('has the documented bounds on a payment’s expiry', () => {
+    expect(provider(fakeFetch().fetch).expiryMinutes).toEqual({ min: 30, max: 7 * 24 * 60 });
+  });
+
   test('is asked with a GET on the transaction', async () => {
     const { fetch, calls } = fakeFetch(json(status()));
     const event = await provider(fetch).getPayment('AB12-CD34-EF56');

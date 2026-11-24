@@ -1,17 +1,20 @@
 // What the checkout's tests share: a studio in memory, with the fake providers, a clock a test can move, and
 // the customer's side of a payment played in one line.
 import { DEFAULT_AUTH_SETTINGS, MemoryAuthStore } from '../auth/index.ts';
-import { DEFAULT_SETTINGS, instantOf, minutesOf } from '../booking/index.ts';
-import type { BookingContext, Busy } from '../booking/index.ts';
+import { DEFAULT_SETTINGS } from '../booking/index.ts';
+import type { BookingContext, BookingState, Busy } from '../booking/index.ts';
+import { between } from '../booking/testing.ts';
+import { D1CheckoutStore } from '../db/checkout-store.ts';
+import { memoryD1 } from '../db/testing.ts';
 import { FakeInvoicing } from '../invoicing/index.ts';
 import { EXAMPLE_CATALOGUE, EXAMPLE_SETTINGS } from '../orders/index.ts';
-import type { Catalogue } from '../orders/index.ts';
 import { FakeProvider } from '../payments/index.ts';
 import type { PaymentStatus } from '../payments/index.ts';
 import { handlePaymentNotification } from './notify.ts';
 import { MemoryCheckoutStore } from './store.ts';
+import type { CheckoutStore } from './store.ts';
 import { DEFAULT_CHECKOUT_SETTINGS } from './types.ts';
-import type { CheckoutDeps, CheckoutRequest, CheckoutSettings, Effect, NotificationResult, SlotChoice } from './types.ts';
+import type { Checkout, CheckoutDeps, CheckoutRequest, CheckoutSettings, Effect, NotificationResult, SlotChoice } from './types.ts';
 
 export const MINUTE = 60_000;
 export const HOUR = 60 * MINUTE;
@@ -19,19 +22,10 @@ export const NOW = Date.parse('2026-05-20T08:00:00Z');
 export const DAY = '2026-06-01';
 
 /** A slot of the studio's day, by its wall-clock times in Prague. */
-export const slot = (start: string, end: string, technicianId: string | null = null, date = DAY): SlotChoice => ({
-  start: instantOf(date, minutesOf(start), DEFAULT_SETTINGS.timeZone),
-  end: instantOf(date, minutesOf(end), DEFAULT_SETTINGS.timeZone),
-  technicianId,
-});
+export const slot = (start: string, end: string, technicianId: string | null = null, date = DAY): SlotChoice => ({ ...between(date, start, end), technicianId });
 
 export const MORNING = slot('09:00', '13:00');
 
-/** The example catalogue with one AI-assisted service, which the example does not price yet. */
-export const CATALOGUE: Catalogue = {
-  ...EXAMPLE_CATALOGUE,
-  services: [...EXAMPLE_CATALOGUE.services, { id: 'ai-mix', name: 'AI Mix', kind: 'ai-mix', load: 300, prices: { libor: { EUR: 5_000 } } }],
-};
 
 export const CUSTOMER = { email: 'name@example.com', name: 'Jane Doe', language: 'en' } as const;
 
@@ -44,9 +38,19 @@ export const tracksCart = (orderId: string, service = 'mix', tracks = 2): Checko
   tracks: [{ service, technician: 'libor', tracks }],
 });
 
+/** The stores the checkout's behaviour is tested on: the one in memory, and D1 (SQLite with the real migrations). */
+export const STORES = ['memory', 'd1'] as const;
+export type StoreKind = (typeof STORES)[number];
+
 export interface Studio {
   deps: CheckoutDeps;
-  store: MemoryCheckoutStore;
+  store: CheckoutStore;
+  /** The booking state as stored. */
+  booking(): Promise<BookingState>;
+  /** A stored checkout; throws when there is none. */
+  checkout(orderId: string): Promise<Checkout>;
+  /** How many checkouts are stored. */
+  count(): Promise<number>;
   payments: FakeProvider;
   invoicing: FakeInvoicing;
   auth: MemoryAuthStore;
@@ -60,9 +64,15 @@ export interface Studio {
   notify(orderId: string): Promise<NotificationResult>;
 }
 
-export function studio(settings: Partial<CheckoutSettings> = {}): Studio {
-  const store = new MemoryCheckoutStore();
-  const payments = new FakeProvider();
+export function studio(settings: Partial<CheckoutSettings> = {}, kind: StoreKind = 'memory', payments = new FakeProvider()): Studio {
+  const memory = new MemoryCheckoutStore();
+  const d1 = kind === 'd1' ? new D1CheckoutStore(memoryD1()) : undefined;
+  const store: CheckoutStore = d1 ?? memory;
+  const checkout = async (orderId: string): Promise<Checkout> => {
+    const found = await store.get(orderId);
+    if (!found) throw new Error(`no order ${orderId}`);
+    return found;
+  };
   const invoicing = new FakeInvoicing();
   const auth = new MemoryAuthStore();
   const clock = { now: NOW };
@@ -80,7 +90,7 @@ export function studio(settings: Partial<CheckoutSettings> = {}): Studio {
     payments,
     invoicing,
     auth,
-    catalogue: CATALOGUE,
+    catalogue: EXAMPLE_CATALOGUE,
     settings: { ...DEFAULT_CHECKOUT_SETTINGS, orders: EXAMPLE_SETTINGS, auth: DEFAULT_AUTH_SETTINGS, ...settings },
     now: () => clock.now,
     booking: async () => context(),
@@ -91,23 +101,26 @@ export function studio(settings: Partial<CheckoutSettings> = {}): Studio {
     }),
     exchangeRate: async (currency) => (currency === 'EUR' ? '25.215' : undefined),
   };
-  const paymentOf = (orderId: string): string => {
-    const paymentId = store.checkouts.get(orderId)?.payment?.paymentId;
+  const paymentOf = async (orderId: string): Promise<string> => {
+    const paymentId = (await checkout(orderId)).payment?.paymentId;
     if (!paymentId) throw new Error(`order ${orderId} has no payment`);
     return paymentId;
   };
-  const notify = (orderId: string) => handlePaymentNotification(deps, payments.notification(paymentOf(orderId)));
+  const notify = async (orderId: string) => handlePaymentNotification(deps, payments.notification(await paymentOf(orderId)));
   return {
     deps,
     store,
+    booking: () => store.booking(),
+    checkout,
+    count: async () => (d1 ? d1.count() : memory.checkouts.size),
     payments,
     invoicing,
     auth,
     clock,
     calendar,
     notify,
-    settle(orderId, status) {
-      payments.settle(paymentOf(orderId), status);
+    async settle(orderId, status) {
+      payments.settle(await paymentOf(orderId), status);
       return notify(orderId);
     },
   };

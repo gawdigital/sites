@@ -13,7 +13,7 @@ import { QUEUE_KINDS } from '../orders/catalogue.ts';
 import { CURRENCIES } from '../orders/money.ts';
 import type { CompanyDetails, Quote, QuoteLine, WorkItem } from '../orders/quote.ts';
 import { changesOf, isoOf, MAX_BOUND_PARAMETERS, msOf, oneOf, rowsOf } from './d1.ts';
-import type { D1Like, D1StatementLike, D1Value } from './d1.ts';
+import type { D1Like, D1ResultLike, D1StatementLike, D1Value } from './d1.ts';
 
 /** An order as it is kept. */
 export interface StoredOrder {
@@ -212,14 +212,22 @@ export class OrderRepository {
    * is already taken is a programming error and throws; nothing is stored then.
    */
   async insert(order: StoredOrder): Promise<void> {
+    await this.#db.batch(this.insertStatements(order));
+  }
+
+  /**
+   * The statements of `insert`, for a caller that stores something else in the same batch (the checkout's store
+   * puts its own row after them, so an order and its checkout exist together or not at all).
+   */
+  insertStatements(order: StoredOrder): D1StatementLike[] {
     const fresh = { ...order, revision: 0 };
     const columns = ['id', 'revision', 'created_at', ...FIELDS];
-    await this.#db.batch([
+    return [
       this.#db
         .prepare(`INSERT INTO orders (${columns.join(', ')}) VALUES (${columns.map(() => '?').join(', ')})`)
         .bind(fresh.order.id, 0, fresh.createdAt, ...fields(fresh)),
       ...this.#children(fresh),
-    ]);
+    ];
   }
 
   /**
@@ -228,16 +236,29 @@ export class OrderRepository {
    * already stored are left as they are. The lines and the work are replaced, so a requote is an update too.
    */
   async update(order: StoredOrder): Promise<boolean> {
+    const results = await this.#db.batch(this.updateStatements(order));
+    return changesOf(results.at(-1)) === 1;
+  }
+
+  /**
+   * The statements of `update`: the last one moves the revision on, and changed one row exactly when the update
+   * took. A caller's own statements go before it, each conditional on the revision in the same way
+   * (`EXISTS (SELECT 1 FROM orders WHERE id = ? AND revision = ?)`). With `keepOwner` the account and the
+   * address are left as they are stored: for a caller that does not own them (the checkout, which must not undo
+   * a `claim` or an `anonymise` it has not seen; both move the revision, so it would be refused anyway).
+   */
+  updateStatements(order: StoredOrder, { keepOwner = false }: { keepOwner?: boolean } = {}): D1StatementLike[] {
     const { id } = order.order;
-    const results = await this.#db.batch([
+    const values = fields(order);
+    const sets = FIELDS.map((field, i) => ({ field, value: values[i]! })).filter(({ field }) => !(keepOwner && (field === 'account_id' || field === 'email')));
+    return [
       this.#db.prepare(`DELETE FROM order_lines WHERE order_id = ?1 AND ${UNCHANGED}`).bind(id, order.revision),
       this.#db.prepare(`DELETE FROM order_work WHERE order_id = ?1 AND ${UNCHANGED}`).bind(id, order.revision),
       ...this.#children(order),
       this.#db
-        .prepare(`UPDATE orders SET revision = revision + 1, ${FIELDS.map((f, i) => `${f} = ?${i + 3}`).join(', ')} WHERE id = ?1 AND revision = ?2`)
-        .bind(id, order.revision, ...fields(order)),
-    ]);
-    return changesOf(results.at(-1)) === 1;
+        .prepare(`UPDATE orders SET revision = revision + 1, ${sets.map(({ field }, i) => `${field} = ?${i + 3}`).join(', ')} WHERE id = ?1 AND revision = ?2`)
+        .bind(id, order.revision, ...sets.map(({ value }) => value)),
+    ];
   }
 
   /** The history, lines and work of an order, each applying only while the order is at its `revision`. */
@@ -285,13 +306,26 @@ export class OrderRepository {
 
   /** Whole orders in one batch of four queries, however many match. */
   async #select(where: string, params: D1Value[]): Promise<StoredOrder[]> {
+    return this.assemble(await this.#db.batch(this.selectStatements(where, params)));
+  }
+
+  /**
+   * The four queries that read whole orders, for a caller that reads something else in the same batch; `where`
+   * is a condition on `orders` written by that caller, never text from outside. `assemble` takes their results.
+   */
+  selectStatements(where: string, params: D1Value[] = []): D1StatementLike[] {
     const matching = `SELECT id FROM orders WHERE ${where}`;
-    const [orders, history, lines, workRows] = await this.#db.batch([
+    return [
       this.#db.prepare(`SELECT * FROM orders WHERE ${where} ORDER BY created_at, id`).bind(...params),
       this.#db.prepare(`SELECT * FROM order_history WHERE order_id IN (${matching}) ORDER BY order_id, seq`).bind(...params),
       this.#db.prepare(`SELECT * FROM order_lines WHERE order_id IN (${matching}) ORDER BY order_id, position`).bind(...params),
       this.#db.prepare(`SELECT * FROM order_work WHERE order_id IN (${matching}) ORDER BY order_id, position`).bind(...params),
-    ]);
+    ];
+  }
+
+  /** The orders in the results of `selectStatements`, oldest first. */
+  assemble(results: readonly D1ResultLike[]): StoredOrder[] {
+    const [orders, history, lines, workRows] = results;
     const historyOf = groupByOrder(rowsOf<HistoryRow>(history));
     const linesOf = groupByOrder(rowsOf<LineRow>(lines));
     const workOf = groupByOrder(rowsOf<WorkRow>(workRows));

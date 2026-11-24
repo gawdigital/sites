@@ -10,19 +10,22 @@
 // - Confirming checks the slot again against the calendar and the technicians as they are then, by the rules
 //   alone: the lead time and the horizon are not asked twice, since a hold may outlive them by a few minutes.
 // - A confirmation that fails for any reason frees the hold. Confirming after the time-out fails with `expired`,
-//   even when the slot is still free: the caller refunds the payment, or holds the slot again and confirms that.
+//   even when the slot is still free: `confirm` is strict. A caller whose customer has paid all the same uses
+//   `confirmLate` instead, the late acceptance: the slot is given when it is still free by the rules, the lead
+//   time and the horizon not being asked again (the customer met them when the slot was chosen and held).
 // - Confirming twice (a payment notification that is delivered again) returns the same session, changing nothing.
 // - "Anyone" is settled on confirmation: of the technicians free for the slot, the one with the least confirmed
 //   session time still ahead (sessions in the state that end after `now`), and among equals the one listed first.
 import { daySlots, isOffered, availability } from './availability.ts';
 import type { Busy, Interval, Slot, Technician } from './availability.ts';
+import type { TechnicianId } from '../shared/technician.ts';
 import type { BookingSettings } from './settings.ts';
 import { localDateOf, MINUTE } from './time.ts';
 
 /** A slot held for a customer who is paying. `technicianId` is `null` for "anyone". */
 export interface Hold extends Interval {
   id: string;
-  technicianId: string | null;
+  technicianId: TechnicianId | null;
   createdAt: number;
   /** The first instant at which the hold no longer counts. */
   expiresAt: number;
@@ -31,7 +34,7 @@ export interface Hold extends Interval {
 /** A confirmed recording session. It keeps the id of the hold it came from. */
 export interface Session extends Interval {
   id: string;
-  technicianId: string;
+  technicianId: TechnicianId;
   confirmedAt: number;
 }
 
@@ -57,7 +60,7 @@ export interface BookingContext {
 export interface HoldRequest extends Interval {
   id: string;
   /** The technician picked, or `null` for "anyone". */
-  technicianId: string | null;
+  technicianId: TechnicianId | null;
 }
 
 export type Refusal =
@@ -111,7 +114,7 @@ export function busyOf(state: BookingState, context: BookingContext, now: number
 }
 
 /** Why a slot cannot go to the technician asked for, if it cannot. */
-function technicianRefusal(slot: Slot, technicianId: string | null, context: BookingContext): Refusal | undefined {
+function technicianRefusal(slot: Slot, technicianId: TechnicianId | null, context: BookingContext): Refusal | undefined {
   if (technicianId !== null && !context.technicians.some((technician) => technician.id === technicianId)) return 'unknown-technician';
   return isOffered(slot, technicianId) ? undefined : 'technician-unavailable';
 }
@@ -154,7 +157,7 @@ export function hold(state: BookingState, request: HoldRequest, context: Booking
 }
 
 /** The technician "anyone" becomes: the least booked ahead of those free, then the first listed. */
-export function assignTechnician(slot: Slot, state: BookingState, context: BookingContext, now: number): string | undefined {
+export function assignTechnician(slot: Slot, state: BookingState, context: BookingContext, now: number): TechnicianId | undefined {
   const ahead = (id: string): number =>
     state.sessions
       .filter((session) => session.technicianId === id && session.end > now)
@@ -171,6 +174,23 @@ export function assignTechnician(slot: Slot, state: BookingState, context: Booki
 }
 
 /**
+ * The session a slot becomes, if the slot still stands by the rules alone (`daySlots`: no lead time, no horizon)
+ * against everything in `state` and the context as they are now. `state` must not hold the slot's own hold.
+ */
+function settle(state: BookingState, wanted: HoldRequest, context: BookingContext, now: number): Outcome<{ session: Session }> {
+  const { settings } = context;
+  const date = localDateOf(wanted.start, settings.timeZone);
+  const slot = daySlots(date, settings, busyOf(state, context, now), context.technicians).slots.find((candidate) => sameSlot(candidate, wanted));
+  if (!slot) return { ok: false, state, reason: 'unavailable' };
+  const refusal = technicianRefusal(slot, wanted.technicianId, context);
+  const technicianId = wanted.technicianId ?? assignTechnician(slot, state, context, now);
+  if (refusal || technicianId === undefined) return { ok: false, state, reason: refusal ?? 'technician-unavailable' };
+
+  const session: Session = { id: wanted.id, start: wanted.start, end: wanted.end, technicianId, confirmedAt: now };
+  return { ok: true, state: { ...state, sessions: [...state.sessions, session] }, session };
+}
+
+/**
  * Turn a paid hold into a session.
  *
  * The slot is checked once more against the context as it is now (a rehearsal may have appeared in the calendar,
@@ -178,22 +198,39 @@ export function assignTechnician(slot: Slot, state: BookingState, context: Booki
  */
 export function confirm(state: BookingState, holdId: string, context: BookingContext, now: number): Outcome<{ session: Session }> {
   const current = expire(state, now);
-  const refuse = (reason: Refusal, next: BookingState = current): Outcome<{ session: Session }> => ({ ok: false, state: next, reason });
 
   const confirmed = current.sessions.find((session) => session.id === holdId);
   if (confirmed) return { ok: true, state: current, session: confirmed };
   const held = current.holds.find((candidate) => candidate.id === holdId);
-  if (!held) return refuse(state.holds.some((candidate) => candidate.id === holdId) ? 'expired' : 'not-found');
+  if (!held) return { ok: false, state: current, reason: state.holds.some((candidate) => candidate.id === holdId) ? 'expired' : 'not-found' };
+  return settle(release(current, holdId), held, context, now);
+}
 
-  const freed = release(current, holdId);
-  const { settings } = context;
-  const date = localDateOf(held.start, settings.timeZone);
-  const slot = daySlots(date, settings, busyOf(freed, context, now), context.technicians).slots.find((candidate) => sameSlot(candidate, held));
-  if (!slot) return refuse('unavailable', freed);
-  const refusal = technicianRefusal(slot, held.technicianId, context);
-  const technicianId = held.technicianId ?? assignTechnician(slot, freed, context, now);
-  if (refusal || technicianId === undefined) return refuse(refusal ?? 'technician-unavailable', freed);
+/**
+ * Late acceptance: turn a paid slot into a session whether or not its hold still runs.
+ *
+ * For the payment that arrives after the hold ran out (a provider may keep a payment open longer than the hold
+ * lasts). While the hold runs, or once the session exists, this is `confirm` and `late` is false. Otherwise the
+ * slot named by `request` is given if it is still free by the rules alone: another hold or session, the calendar
+ * and the technician are all checked as they are now, and a slot that has begun is not given; the lead time and
+ * the horizon are not applied again, since the customer met them when the slot was held. `late` is then true.
+ *
+ * The hold may be gone from the state altogether, so the caller vouches for `request`: it must be the slot it
+ * held under this id, as it stored it. A refusal means the slot cannot be had and the caller refunds.
+ */
+export function confirmLate(state: BookingState, request: HoldRequest, context: BookingContext, now: number): Outcome<{ session: Session; late: boolean }> {
+  const current = expire(state, now);
+  const refuse = (reason: Refusal): Outcome<{ session: Session; late: boolean }> => ({ ok: false, state: current, reason });
 
-  const session: Session = { id: held.id, start: held.start, end: held.end, technicianId, confirmedAt: now };
-  return { ok: true, state: { ...freed, sessions: [...freed.sessions, session] }, session };
+  const confirmed = current.sessions.find((session) => session.id === request.id);
+  const running = current.holds.find((held) => held.id === request.id);
+  if (confirmed || running) {
+    const same = sameSlot(confirmed ?? running!, request) && (confirmed !== undefined || running!.technicianId === request.technicianId);
+    if (!same) return refuse('duplicate-id');
+    const outcome = confirm(current, request.id, context, now);
+    return outcome.ok ? { ...outcome, late: false } : outcome;
+  }
+  if (!Number.isFinite(request.start) || !Number.isFinite(request.end) || request.start < now) return refuse('unavailable');
+  const outcome = settle(current, request, context, now);
+  return outcome.ok ? { ...outcome, late: true } : outcome;
 }

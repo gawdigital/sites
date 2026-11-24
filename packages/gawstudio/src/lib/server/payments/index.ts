@@ -22,7 +22,9 @@ export {
 } from './provider.ts';
 export {
   applyPaymentEvent,
+  isRefunded,
   newPaymentRecord,
+  noteRefund,
   type PaymentEffect,
   type PaymentOutcome,
   type PaymentRecord,

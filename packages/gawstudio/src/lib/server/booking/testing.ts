@@ -1,4 +1,5 @@
-// What the tests share: instants written as the studio's wall clock, and slots read back the same way.
+// The booking's testing entry: what its own tests and the other modules' tests share. Instants written as the
+// studio's wall clock, and slots read back the same way. Not for the site's code.
 import type { Busy, BusyKind, Interval, Slot } from './availability.ts';
 import { DEFAULT_SETTINGS } from './settings.ts';
 import { instantOf, minutesOf, wallMinutesOf } from './time.ts';

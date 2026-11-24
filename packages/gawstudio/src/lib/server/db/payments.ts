@@ -23,6 +23,8 @@ interface PaymentRow {
   updated_at: number;
   effect: string;
   effect_done_at: number | null;
+  method: string | null;
+  refunded: number | null;
 }
 
 const EFFECTS: readonly PaymentEffect[] = ['confirm', 'release', 'none'];
@@ -34,6 +36,8 @@ const record = (row: PaymentRow): PaymentRecord => ({
   amount: { amount: row.amount, currency: row.currency },
   status: oneOf(PAYMENT_STATUSES, row.status, 'payments.status'),
   updatedAt: row.updated_at,
+  ...(row.method === null ? {} : { method: row.method }),
+  ...(row.refunded === null ? {} : { refunded: row.refunded }),
 });
 
 /** A payment whose effect on the booking has not been marked done. */
@@ -53,10 +57,21 @@ export class PaymentRepository {
   async insert(payment: PaymentRecord): Promise<boolean> {
     const result = await this.#db
       .prepare(
-        `INSERT INTO payments (provider, payment_id, reference, amount, currency, status, created_at, updated_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT DO NOTHING`,
+        `INSERT INTO payments (provider, payment_id, reference, amount, currency, status, created_at, updated_at, method, refunded)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT DO NOTHING`,
       )
-      .bind(payment.provider, payment.paymentId, payment.reference, payment.amount.amount, payment.amount.currency, payment.status, payment.updatedAt, payment.updatedAt)
+      .bind(
+        payment.provider,
+        payment.paymentId,
+        payment.reference,
+        payment.amount.amount,
+        payment.amount.currency,
+        payment.status,
+        payment.updatedAt,
+        payment.updatedAt,
+        payment.method ?? null,
+        payment.refunded ?? null,
+      )
       .run();
     return changesOf(result) === 1;
   }
@@ -86,10 +101,23 @@ export class PaymentRepository {
     const { record: next, effect } = transition;
     const result = await this.#db
       .prepare(
-        `UPDATE payments SET status = ?1, updated_at = ?2, effect = ?3, effect_done_at = NULL
+        `UPDATE payments SET status = ?1, updated_at = ?2, effect = ?3, effect_done_at = NULL, method = ?7, refunded = ?8
          WHERE provider = ?4 AND payment_id = ?5 AND status = ?6`,
       )
-      .bind(next.status, next.updatedAt, effect, previous.provider, previous.paymentId, previous.status)
+      .bind(next.status, next.updatedAt, effect, previous.provider, previous.paymentId, previous.status, next.method ?? null, next.refunded ?? null)
+      .run();
+    return changesOf(result) === 1;
+  }
+
+  /**
+   * Stores what a record has learnt without its status moving: the method and the amount returned, from an
+   * event `applyPaymentEvent` answered with `noted`, or from `noteRefund` after a refund of ours. The status,
+   * the effect owed and `updated_at` are left alone. `false` when there is no such payment.
+   */
+  async note(payment: PaymentRecord): Promise<boolean> {
+    const result = await this.#db
+      .prepare('UPDATE payments SET method = ?1, refunded = ?2 WHERE provider = ?3 AND payment_id = ?4')
+      .bind(payment.method ?? null, payment.refunded ?? null, payment.provider, payment.paymentId)
       .run();
     return changesOf(result) === 1;
   }

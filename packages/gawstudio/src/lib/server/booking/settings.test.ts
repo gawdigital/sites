@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'bun:test';
 
-import { blocksOn, DEFAULT_SETTINGS, settingsProblems } from './settings.ts';
+import { EXAMPLE_CATALOGUE } from '../orders/index.ts';
+import { blocksOn, DEFAULT_SETTINGS, recordingProblems, settingsProblems } from './settings.ts';
 import type { BookingSettings } from './settings.ts';
 
 const ids = (date: string, settings: BookingSettings): string[] => blocksOn(date, settings).map((block) => `${block.id}${block.online ? '' : ' (off)'}`);
@@ -73,6 +74,46 @@ describe('checking settings', () => {
       'Block "c": the days must be 1 (Monday) to 7 (Sunday).',
       'Block "c": "valid from" must be a date written YYYY-MM-DD.',
       'Block "d" has two versions valid from the same day.',
+    ]);
+  });
+});
+
+describe('the hours the catalogue sells and the blocks the booking offers', () => {
+  const SOLD = EXAMPLE_CATALOGUE.recording!;
+
+  test('agree as the studio starts', () => {
+    expect(recordingProblems(DEFAULT_SETTINGS, SOLD)).toEqual([]);
+  });
+
+  test('a block of another length, in any version, is reported', () => {
+    const longer: BookingSettings = {
+      ...DEFAULT_SETTINGS,
+      blocks: [...DEFAULT_SETTINGS.blocks, { id: 'afternoon', start: '14:00', end: '19:00', weekdays: [6], online: true, validFrom: '2026-09-01' }],
+    };
+    expect(recordingProblems(longer, SOLD)).toEqual([
+      'Block "afternoon" from 2026-09-01 lasts 5 h; the catalogue sells a block as 4 h.',
+      'The whole day on a Saturday from 2026-09-01 is 9 h of blocks; the catalogue sells a day as 8 h.',
+    ]);
+  });
+
+  test('a block that is switched off is not sold, so its length does not matter', () => {
+    const evening = DEFAULT_SETTINGS.blocks.map((block) => (block.id === 'evening' ? { ...block, end: '22:00' } : block));
+    expect(recordingProblems({ ...DEFAULT_SETTINGS, blocks: evening }, SOLD)).toEqual([]);
+  });
+
+  test('the day is the blocks together, and a window is a whole number of the priced steps', () => {
+    expect(recordingProblems(DEFAULT_SETTINGS, { ...SOLD, day: { hours: 9 } })).toEqual([
+      'The whole day on a Monday is 8 h of blocks; the catalogue sells a day as 9 h.',
+      'The whole day on a Tuesday is 8 h of blocks; the catalogue sells a day as 9 h.',
+      'The whole day on a Wednesday is 8 h of blocks; the catalogue sells a day as 9 h.',
+      'The whole day on a Thursday is 8 h of blocks; the catalogue sells a day as 9 h.',
+      'The whole day on a Friday is 8 h of blocks; the catalogue sells a day as 9 h.',
+      'The whole day on a Saturday is 8 h of blocks; the catalogue sells a day as 9 h.',
+      'The whole day on a Sunday is 8 h of blocks; the catalogue sells a day as 9 h.',
+    ]);
+    expect(recordingProblems({ ...DEFAULT_SETTINGS, wholeDay: false }, { ...SOLD, day: { hours: 9 } })).toEqual([]);
+    expect(recordingProblems({ ...DEFAULT_SETTINGS, minimumMinutes: 270 }, { ...SOLD, block: { hours: 4 } })).toEqual([
+      'A free window lasts 270 minutes, which is not a multiple of the 60 minutes the catalogue prices windows by.',
     ]);
   });
 });

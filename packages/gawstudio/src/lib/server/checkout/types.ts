@@ -178,7 +178,11 @@ export interface CheckoutSettings {
   acceptTestPayments: boolean;
   /** What the customer sees on the provider's page; Comgate takes 16 characters at most. */
   paymentLabel: string;
-  /** After how many minutes the provider gives up on an unpaid payment; the provider's default when left out. */
+  /**
+   * After how many minutes the provider gives up on an unpaid payment; the provider's default when left out. A
+   * provider has bounds (`PaymentProvider.expiryMinutes`; Comgate: 30 minutes at least), and the booking holds a
+   * slot for `holdMinutes` (10 by default): `checkoutReport` says what the two values mean together.
+   */
   paymentExpiryMinutes?: number;
   /** The tag that marks the studio's documents in the shared invoicing account. */
   invoiceTag: string;
@@ -236,7 +240,10 @@ export type StartResult =
   | { ok: false; error: 'unavailable'; reason: Refusal }
   /** The id belongs to another cart. */
   | { ok: false; error: 'order-exists' }
-  /** The order is past paying (paid, cancelled …): send the customer to the order instead. */
+  /**
+   * The order is past paying (paid, cancelled …): send the customer to the order instead. `state` is still
+   * `awaiting-payment` for the one order that was paid and lost its slot, while its refund is not through.
+   */
   | { ok: false; error: 'not-awaiting-payment'; state: OrderState }
   /** The provider did not open a payment. The order stays, so sending the form again tries again. */
   | { ok: false; error: 'payment-unavailable'; retryable: boolean }

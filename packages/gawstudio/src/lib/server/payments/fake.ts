@@ -23,6 +23,8 @@ export interface FakePayment {
   status: PaymentStatus;
   /** What has been returned so far, in minor units. */
   refunded: number;
+  /** How it was paid, once it was: reported in the payment's events. */
+  method?: string;
 }
 
 const TRANSITIONS: Record<PaymentStatus, readonly PaymentStatus[]> = {
@@ -41,14 +43,20 @@ export class FakeProvider implements PaymentProvider {
   /** Every refund asked for and granted, in order. */
   readonly refunds: RefundRequest[] = [];
 
+  readonly expiryMinutes?: { min: number; max: number };
+
   readonly #secret: string;
   readonly #test: boolean;
   #failures: PaymentError[] = [];
 
-  /** `test` marks every payment as a test one, as a gateway in test mode does. */
-  constructor({ secret = FAKE_SECRET, test = false }: { secret?: string; test?: boolean } = {}) {
+  /**
+   * `test` marks every payment as a test one, as a gateway in test mode does. `expiryMinutes` gives the fake a
+   * real gateway's bounds on a payment's expiry (Comgate: 30 minutes to 7 days), which it then enforces.
+   */
+  constructor({ secret = FAKE_SECRET, test = false, expiryMinutes }: { secret?: string; test?: boolean; expiryMinutes?: { min: number; max: number } } = {}) {
     this.#secret = secret;
     this.#test = test;
+    if (expiryMinutes) this.expiryMinutes = expiryMinutes;
   }
 
   /** Makes the next call to the provider (create, query, refund, cancel) fail with this error, once. */
@@ -56,12 +64,16 @@ export class FakeProvider implements PaymentProvider {
     this.#failures.push(error);
   }
 
-  /** Plays the gateway: moves a payment on, as the customer paying or giving up would. */
-  settle(paymentId: string, status: PaymentStatus): void {
+  /**
+   * Plays the gateway: moves a payment on, as the customer paying or giving up would. A payment that is paid or
+   * authorised has a method from then on: `method`, or `CARD` when the test does not care.
+   */
+  settle(paymentId: string, status: PaymentStatus, method = 'CARD'): void {
     const payment = this.#get(paymentId);
     if (payment.status === status) return;
     if (!TRANSITIONS[payment.status].includes(status)) throw new Error(`a ${payment.status} payment cannot become ${status}`);
     payment.status = status;
+    if (status !== 'cancelled') payment.method ??= method;
   }
 
   /** The notification the gateway would send for a payment now; `secret` forges one that must be refused. */
@@ -72,6 +84,11 @@ export class FakeProvider implements PaymentProvider {
   async createPayment(request: CreatePaymentRequest): Promise<CreatedPayment> {
     this.#fail();
     if (!isMoney(request.amount)) throw new PaymentError('invalid_request', 'the amount must be a positive whole number of minor units');
+    const expiry = request.expiresInMinutes;
+    const bounds = this.expiryMinutes;
+    if (expiry !== undefined && bounds && !(Number.isInteger(expiry) && expiry >= bounds.min && expiry <= bounds.max)) {
+      throw new PaymentError('invalid_request', `a payment expires after ${bounds.min} to ${bounds.max} whole minutes`);
+    }
     const paymentId = `fake-${this.payments.size + 1}`;
     this.payments.set(paymentId, { paymentId, request, status: 'pending', refunded: 0 });
     return { paymentId, redirectUrl: `https://pay.example/${paymentId}` };
@@ -143,6 +160,9 @@ export class FakeProvider implements PaymentProvider {
       status: payment.status,
       amount: { ...payment.request.amount },
       test: this.#test,
+      ...(payment.method === undefined ? {} : { method: payment.method }),
+      // Unlike Comgate, the fake says how much it has returned, so both kinds of provider are exercised.
+      refunded: payment.refunded,
     };
   }
 }

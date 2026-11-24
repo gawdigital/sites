@@ -1,6 +1,7 @@
 // An invoicing provider that lives in memory, for the tests of whatever calls one (orders, payments, the account
 // page). It keeps the interface's promises (one invoice per order reference, one correction per refund reference,
 // a paid invoice stays paid) and lets a test look at what was issued and make the next call fail.
+import { expectedTotal } from './money.ts';
 import {
   fail,
   ok,
@@ -30,12 +31,12 @@ export interface FakeDocument {
   emails: number;
 }
 
-/** The total with VAT of a draft's lines, in minor units: each VAT rate's net sum is taxed and rounded on its own. */
+/**
+ * The total with VAT of a draft's lines, in minor units, by the server's one rounding rule (`documentTotals`):
+ * the same function the orders' quote is made with, so a draft built from a quote's lines totals what was quoted.
+ */
 export function totalOf(draft: DocumentDraft): number {
-  if (draft.priceMode === 'gross') return draft.lines.reduce((sum, line) => sum + Math.round(line.quantity * line.unitPrice), 0);
-  const netByRate = new Map<number, number>();
-  for (const line of draft.lines) netByRate.set(line.vatRate, (netByRate.get(line.vatRate) ?? 0) + Math.round(line.quantity * line.unitPrice));
-  return [...netByRate].reduce((sum, [rate, net]) => sum + net + Math.round((net * rate) / 100), 0);
+  return expectedTotal(draft);
 }
 
 export class FakeInvoicing implements InvoicingProvider {

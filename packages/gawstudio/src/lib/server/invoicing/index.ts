@@ -25,7 +25,7 @@ export type {
   Result,
 } from './types.ts';
 export { fail, ok } from './types.ts';
-export { fromDecimal, isCurrency, toDecimal } from './money.ts';
+export { expectedTotal, fromDecimal, isCurrency, toDecimal } from './money.ts';
 export { createTokenSource, MemoryTokenCache, type TokenCache, type TokenConfig, type TokenSource } from './token.ts';
 export { createFakturoid, type FakturoidConfig } from './fakturoid.ts';
 export { FakeInvoicing, totalOf, type FakeDocument, type InvoicingCall } from './fake.ts';

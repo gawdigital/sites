@@ -21,7 +21,11 @@
 //            the background kind, and the payer is sent to `redirect`, which must be used unmodified.
 //            Required: price (minor units), curr, label (1–16 characters), refId, method, email or phone, fullName.
 // - status:  GET    /v2.0/payment/transId/{transId}.json → `{code, message, status, price, curr, refId, test, …}`,
-//            with `price` and `test` as strings.
+//            with `price` and `test` as strings. Among the optional fields is `method`, "payment method used"; the
+//            notification lists `method` too. Neither the status answer, nor the notification, nor the page of
+//            payment states has a refund field or a refunded state: PAID is final and stays PAID after a refund,
+//            and the REST API has no call that lists a payment's refunds (refunds appear in the client portal's
+//            statements only). So `PaymentEvent.refunded` is never set by this adapter.
 // - cancel:  DELETE /v2.0/payment/transId/{transId}.json, for a PENDING payment only (1400 otherwise).
 // - refund:  POST   /v2.0/refund.json `{transId, amount, test?, refId?}`, for a PAID payment, in full or in part
 //            (1401: the payment is CANCELLED; 1402: more than may be returned). A test payment takes a test refund.
@@ -39,7 +43,12 @@
 // - the body Comgate expects in the notification answer (the 2xx status is documented; the body is our choice);
 // - whether several partial refunds may follow each other on one payment (1402 suggests a running limit);
 // - whether Comgate ever notifies in an order other than the one things happened in;
-// - whether a Worker's outgoing addresses can be put on the allowed-IP list at all (they are not fixed).
+// - whether a Worker's outgoing addresses can be put on the allowed-IP list at all (they are not fixed);
+// - what `method` holds: the documentation's sample of a status answer shows `"ALL"` (the value sent on create),
+//   so whether it becomes the method the payer chose once the payment is made is not confirmed. `ALL` is
+//   therefore not reported as a method;
+// - which expiry Comgate applies when `expirationTime` is left out (the bounds, 30 minutes to 7 days, are
+//   documented; the default is not).
 import {
   isMoney,
   PaymentError,
@@ -62,6 +71,9 @@ export const COMGATE_MAX_LABEL = 16;
 /** The bounds of `expirationTime`, in minutes: 30 minutes to 7 days. */
 export const COMGATE_MIN_EXPIRY = 30;
 export const COMGATE_MAX_EXPIRY = 7 * 24 * 60;
+
+/** Comgate's `method` for "let the payer choose": what a create sends, and not a method anybody paid with. */
+const COMGATE_ANY_METHOD = 'ALL';
 
 /** The currencies Comgate lists for `curr`. */
 export const COMGATE_CURRENCIES = ['CZK', 'EUR', 'PLN', 'HUF', 'USD', 'GBP', 'RON', 'HRK', 'NOK', 'SEK'] as const;
@@ -189,7 +201,10 @@ export function toEvent(fields: Record<string, unknown>): PaymentEvent {
   if (!status) throw new PaymentError('malformed', `unknown Comgate status "${str(fields.status)}"`);
   if (!/^\d{1,15}$/.test(price) || !/^[A-Z]{3}$/.test(currency)) throw new PaymentError('malformed', 'the amount will not read');
   if (!paymentId) throw new PaymentError('malformed', 'the transaction id is missing');
+  // UNVERIFIED: that `method` names the method chosen once the payment is made (see the top of the file).
+  const method = str(fields.method);
   // Anything but a clear "false" is a test: a payment is never taken for money by default.
+  // No `refunded`: Comgate reports no refund state (see the top of the file).
   return {
     provider: 'comgate',
     paymentId,
@@ -197,6 +212,7 @@ export function toEvent(fields: Record<string, unknown>): PaymentEvent {
     status,
     amount: { amount: Number(price), currency },
     test: test !== 'false',
+    ...(method && method !== COMGATE_ANY_METHOD ? { method } : {}),
   };
 }
 
@@ -206,6 +222,8 @@ export class ComgateProvider implements PaymentProvider {
   // Comgate documents the status (any of 200, 201, 202, 204, 205) and a `code` parameter in the answer.
   // UNVERIFIED: the exact body it wants; its own samples answer "OK" or nothing, so the body is likely ignored.
   readonly notificationAck: NotificationAck = { status: 200, contentType: 'application/json', body: '{"code":0,"message":"OK"}' };
+
+  readonly expiryMinutes = { min: COMGATE_MIN_EXPIRY, max: COMGATE_MAX_EXPIRY };
 
   readonly #config: ComgateConfig;
   readonly #base: string;
@@ -237,6 +255,8 @@ export class ComgateProvider implements PaymentProvider {
 
   async getPayment(paymentId: string): Promise<PaymentEvent> {
     const data = this.#accepted(await this.#call('GET', this.#payment(paymentId)));
+    // The status answer is the source of truth for the status, the amount and the method; a notification's own
+    // fields are used only to learn which payment to ask about.
     const event = toEvent(data);
     if (event.paymentId !== paymentId) throw new PaymentError('transport', 'Comgate answered about another payment');
     return event;

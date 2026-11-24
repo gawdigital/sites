@@ -9,7 +9,9 @@
 //              delivered) or convert the order to the classic service (→ in-queue, the flow becoming `classic`)
 // - `recording` draft → awaiting-payment → paid → closed: a session is booked, nothing queues
 // An unpaid order can be cancelled; a paid, undelivered or delivered one can be refunded; `closed`, `cancelled`
-// and `refunded` are final.
+// and `refunded` are final. An order still awaiting its payment can also go straight to `refunded`: the payment
+// arrived and could not be honoured (a recording slot lost while the customer paid), so the order is cancelled
+// with its money returned and never counts as `paid`.
 import { addDays, pragueDate, startOfPragueDay } from './dates.ts';
 import type { CalendarDate } from './dates.ts';
 
@@ -33,7 +35,7 @@ export type OrderState = (typeof ORDER_STATES)[number];
 export const FLOWS = ['classic', 'ai', 'recording'] as const;
 export type Flow = (typeof FLOWS)[number];
 
-const UNPAID = { draft: ['awaiting-payment', 'cancelled'], 'awaiting-payment': ['paid', 'draft', 'cancelled'] } as const;
+const UNPAID = { draft: ['awaiting-payment', 'cancelled'], 'awaiting-payment': ['paid', 'draft', 'cancelled', 'refunded'] } as const;
 
 /** The states that may follow each state, per flow. A state not listed is final in that flow, or not part of it. */
 export const TRANSITIONS: Record<Flow, Partial<Record<OrderState, readonly OrderState[]>>> = {

@@ -11,6 +11,13 @@ export interface PaymentRecord {
   status: PaymentStatus;
   /** When the status last changed, in epoch milliseconds. */
   updatedAt: number;
+  /** How it was paid, in the provider's code, once the provider has said (`PaymentEvent.method`). */
+  method?: string;
+  /**
+   * How much has been returned, in minor units: what the provider last reported (`PaymentEvent.refunded`), or
+   * what our own successful refunds add up to (`noteRefund`) where it reports nothing. Left out: nothing known.
+   */
+  refunded?: number;
 }
 
 /** What the booking must do, once: `confirm` the held slot, `release` it, or nothing. */
@@ -19,6 +26,8 @@ export type PaymentEffect = 'confirm' | 'release' | 'none';
 /**
  * Why the effect is what it is:
  * - `applied`: the status moved;
+ * - `noted`: the status did not move, and the event told something new about the payment (how it was paid, how
+ *   much has been returned): the record is to be stored, and nothing else follows;
  * - `duplicate`: the event repeats what is stored;
  * - `stale`: the event is older than what is stored (a `pending` after a `paid`);
  * - `conflict`: the event contradicts a final status (`paid` after `cancelled` or the reverse). The record stays;
@@ -27,6 +36,7 @@ export type PaymentEffect = 'confirm' | 'release' | 'none';
  */
 export type PaymentOutcome =
   | 'applied'
+  | 'noted'
   | 'duplicate'
   | 'stale'
   | 'conflict'
@@ -74,12 +84,40 @@ export function applyPaymentEvent(
 
   const wrong = mismatch(record, event, acceptTest);
   if (wrong) return keep(wrong);
-  if (event.status === record.status) return keep('duplicate');
+  if (event.status === record.status) {
+    const noted = withDetails(record, event);
+    return noted === record ? keep('duplicate') : { record: noted, effect: 'none', outcome: 'noted' };
+  }
   if (RANK[event.status] < RANK[record.status]) return keep('stale');
   // Both final and different: the provider promises this never happens, so nothing is undone on its word alone.
   if (RANK[event.status] === RANK[record.status]) return keep('conflict');
 
-  return { record: { ...record, status: event.status, updatedAt: now }, effect: EFFECT[event.status], outcome: 'applied' };
+  return { record: { ...withDetails(record, event), status: event.status, updatedAt: now }, effect: EFFECT[event.status], outcome: 'applied' };
+}
+
+/**
+ * The record with what the event says beyond the status: the method, and the amount returned. The provider's
+ * word replaces ours; an event that says nothing leaves what is stored. The same object when nothing is new.
+ */
+function withDetails(record: PaymentRecord, event: PaymentEvent): PaymentRecord {
+  const method = event.method !== undefined && event.method !== record.method ? { method: event.method } : undefined;
+  // A provider that says "nothing returned" tells nothing new about a record that knows of no refund.
+  const refunded = event.refunded !== undefined && event.refunded !== (record.refunded ?? 0) ? { refunded: event.refunded } : undefined;
+  return method || refunded ? { ...record, ...method, ...refunded } : record;
+}
+
+/**
+ * The record after a refund of ours went through: the amount is added to what was returned before. For providers
+ * that report no refund state (Comgate) this is the only trace of the refund; for those that do, the next event
+ * confirms the figure.
+ */
+export function noteRefund(record: PaymentRecord, amount: number): PaymentRecord {
+  return { ...record, refunded: (record.refunded ?? 0) + amount };
+}
+
+/** Whether the whole payment is known to have been returned. */
+export function isRefunded(record: PaymentRecord): boolean {
+  return record.refunded !== undefined && record.refunded >= record.amount.amount;
 }
 
 /** The record to store when a payment is created, before any event. */

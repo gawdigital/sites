@@ -10,9 +10,12 @@
 // - VAT is computed once per quote on the sum of the lines, not per line, so the totals never drift by rounding.
 //   Net prices: `vat = round(subtotal × rate)`, `total = subtotal + vat`. Gross prices: `total` is the sum,
 //   `subtotal = round(total / (1 + rate))`, `vat = total − subtotal`. Both round half away from zero.
+// - Every line's amount is `lineAmount(quantity, unitPrice)` and the totals are `totals` of their sum, both from
+//   `../shared/money.ts`. The invoicing computes a document's total with the same two functions from the same
+//   quantities and unit prices, so an invoice made from a quote's lines has the quote's total by construction.
 import { ANYONE } from './catalogue.ts';
 import type { AddOn, Catalogue, DiscountRule, QueueKind, TrackService } from './catalogue.ts';
-import { formatRate, netOfGross, percentOf, roundDiv } from './money.ts';
+import { formatRate, lineAmount, percentOf, totals } from './money.ts';
 import type { Currency, Prices } from './money.ts';
 
 /** A recording session: a fixed block, a whole day, or a free window paid by the hour. */
@@ -161,7 +164,7 @@ function priceSession(catalogue: Catalogue, session: SessionRequest, path: strin
     if (hour === undefined) return void draft.errors.push({ code: 'no-price', path });
     const hours = session.minutes / 60;
     // A window that is not whole hours is rounded to the minor unit, half away from zero.
-    const amount = roundDiv(hour * session.minutes, 60);
+    const amount = lineAmount(hours, hour);
     draft.lines.push({ ...base, code: 'hour', description: `Recording, ${hours} h${on}`, quantity: hours, unit: 'hour', unitPrice: hour, amount });
     return;
   }
@@ -171,7 +174,7 @@ function priceSession(catalogue: Catalogue, session: SessionRequest, path: strin
   const price = priceIn(item.prices, draft.currency);
   if (price === undefined) return void draft.errors.push({ code: 'no-price', path });
   const what = session.type === 'block' ? `${item.hours} h block` : `whole day (${item.hours} h)`;
-  draft.lines.push({ ...base, code: session.type, description: `Recording, ${what}${on}`, quantity: 1, unit: 'session', unitPrice: price, amount: price });
+  draft.lines.push({ ...base, code: session.type, description: `Recording, ${what}${on}`, quantity: 1, unit: 'session', unitPrice: price, amount: lineAmount(1, price) });
 }
 
 /** The add-ons of one track line, validated: their lines and load, or `undefined` once an error was noted. */
@@ -210,7 +213,7 @@ function priceAddOns(
       quantity: tracks,
       unit: 'track',
       unitPrice: price,
-      amount: price * tracks,
+      amount: lineAmount(tracks, price),
       vatRateBp: draft.vatRateBp,
     });
   });
@@ -242,7 +245,7 @@ function priceTracks(catalogue: Catalogue, request: TrackRequest, path: string, 
     quantity: request.tracks,
     unit: 'track',
     unitPrice: price,
-    amount: price * request.tracks,
+    amount: lineAmount(request.tracks, price),
     vatRateBp: draft.vatRateBp,
   };
   draft.lines.push(line, ...addOns.lines);
@@ -275,15 +278,7 @@ function priceTracks(catalogue: Catalogue, request: TrackRequest, path: string, 
   });
 }
 
-/** Net, VAT and gross of a sum of lines, by the catalogue's basis; see the rounding rule at the top. */
-export function totals(sum: number, vatRateBp: number, pricesIncludeVat: boolean): Pick<Quote, 'subtotal' | 'vat' | 'total'> {
-  if (pricesIncludeVat) {
-    const subtotal = netOfGross(sum, vatRateBp);
-    return { subtotal, vat: sum - subtotal, total: sum };
-  }
-  const vat = percentOf(sum, vatRateBp);
-  return { subtotal: sum, vat, total: sum + vat };
-}
+export { totals };
 
 /** Prices an order in the requested currency: every problem in the request is reported, not only the first. */
 export function quote(catalogue: Catalogue, request: QuoteRequest): QuoteResult {

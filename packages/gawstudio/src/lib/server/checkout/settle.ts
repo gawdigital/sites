@@ -4,21 +4,20 @@
 //
 // Why a step is safe to repeat:
 // - the payment's effect comes from `applyPaymentEvent`, which gives `confirm` or `release` once in its life;
-// - the session is confirmed under the order's id, and `confirm` returns the same session when asked twice;
+// - the session is confirmed under the order's id, and `confirmLate` returns the same session when asked twice;
 // - the invoice is found or created by the order's reference, and a paid invoice takes no second payment;
 // - every other step writes its marker in the save that follows it, and that save is refused when another
 //   request got there first (`Busy`): the loser stops, and effects are handed out only after their save.
 // What this cannot give: an e-mail effect is returned by the one call that completed its step. A caller that
 // loses that result has lost the e-mail, so it should queue the effects before it answers the provider.
 import { accountForOrder, issueMagicLink } from '../auth/index.ts';
-import { confirm, hold, release } from '../booking/index.ts';
-import type { BookingContext, BookingState, Refusal, Session } from '../booking/index.ts';
+import { confirmLate, release } from '../booking/index.ts';
 import type { InvoiceLine, InvoicingError, Result } from '../invoicing/index.ts';
 import { pragueDate, transition } from '../orders/index.ts';
 import type { Order, OrderState, QuoteLine } from '../orders/index.ts';
-import { applyPaymentEvent, isPaymentError } from '../payments/index.ts';
+import { applyPaymentEvent, isPaymentError, noteRefund } from '../payments/index.ts';
 import type { PaymentEvent, PaymentOutcome } from '../payments/index.ts';
-import type { AlertProblem, Amount, Checkout, CheckoutDeps, Effect, HeldSlot, InvoiceStep, Recipient, Settlement } from './types.ts';
+import type { AlertProblem, Amount, Checkout, CheckoutDeps, Effect, InvoiceStep, Recipient, Settlement } from './types.ts';
 
 /** One call of a use case: its dependencies, its one reading of the clock, and the effects gathered so far. */
 export interface Run {
@@ -82,6 +81,10 @@ export async function applyEvent(run: Run, checkout: Checkout, event: PaymentEve
       checkout = await commit(run, { ...checkout, payment: applied.record, ...(applied.effect === 'confirm' ? { settlement } : {}) });
       break;
     }
+    case 'noted':
+      // The status stands; the payment's method or its refunded amount is news, and is kept.
+      checkout = await commit(run, { ...checkout, payment: applied.record });
+      break;
     case 'duplicate':
     case 'stale':
       break;
@@ -122,31 +125,6 @@ export async function releaseOrder(run: Run, checkout: Checkout): Promise<Checko
     });
   }
   return saved;
-}
-
-type Secured = { ok: true; session: Session; late: boolean } | { ok: false; reason: Refusal };
-
-/**
- * Turns the paid hold into a session, in one change of the booking state.
- *
- * Payment after the hold ran out: `confirm` then answers `expired` (or `not-found`, once the hold was cleared).
- * The slot is taken again if it is still free, and confirmed: the customer paid for it and nobody else has it.
- * The lead time is not asked again (the customer met it when they chose the slot); everything else is: another
- * hold or session, the calendar, the technician, and a slot that has begun is not given. When the slot cannot
- * be had, the answer is the refusal and the caller refunds.
- */
-function secure(state: BookingState, id: string, slot: HeldSlot, context: BookingContext, now: number): { state: BookingState; result: Secured } {
-  const first = confirm(state, id, context, now);
-  if (first.ok) return { state: first.state, result: { ok: true, session: first.session, late: false } };
-  if (first.reason !== 'expired' && first.reason !== 'not-found') return { state: first.state, result: { ok: false, reason: first.reason } };
-
-  const lenient: BookingContext = { ...context, settings: { ...context.settings, leadTimeMinutes: 0 } };
-  const again = hold(first.state, { id, start: slot.start, end: slot.end, technicianId: slot.technicianId }, lenient, now);
-  if (!again.ok) return { state: again.state, result: { ok: false, reason: again.reason } };
-  const second = confirm(again.state, id, context, now);
-  return second.ok
-    ? { state: second.state, result: { ok: true, session: second.session, late: true } }
-    : { state: second.state, result: { ok: false, reason: second.reason } };
 }
 
 const UNITS: Record<QuoteLine['unit'], string | undefined> = { session: undefined, hour: 'h', track: 'track', discount: undefined };
@@ -272,13 +250,21 @@ async function settlePaid(run: Run, checkout: Checkout): Promise<Checkout> {
   const { slot } = checkout;
 
   if (slot && checkout.settlement!.booking === 'pending') {
+    // The paid hold becomes a session in one change of the booking state. A payment that comes after the hold
+    // ran out is the booking's late acceptance (`confirmLate`): the slot is given if it is still free, and the
+    // lead time is not asked again. When it cannot be had, the answer is the refusal, and the money goes back.
     const context = await deps.booking();
-    const secured = await deps.store.updateBooking((state) => secure(state, orderId, slot, context, now));
+    const request = { id: orderId, start: slot.start, end: slot.end, technicianId: slot.technicianId };
+    const secured = await deps.store.updateBooking((state) => {
+      const outcome = confirmLate(state, request, context, now);
+      return { state: outcome.state, result: outcome };
+    });
     if (!secured.ok) {
-      // The slot went to someone else, or the calendar took it: the money goes back and no invoice is issued.
+      // The slot went to someone else, or the calendar took it: no invoice is issued. The order was never
+      // `paid` in the lifecycle's sense (nothing was sold): it waits where it is until the refund is through,
+      // and then goes straight to `refunded`.
       const saved = await commit(run, {
         ...checkout,
-        order: advance(checkout.order, 'paid', now),
         settlement: { ...checkout.settlement!, booking: 'lost', done: true },
         refund: { reason: 'slot-lost', detail: secured.reason, amount: totalOf(checkout), state: 'pending', attempts: 0 },
       });
@@ -342,7 +328,8 @@ async function settlePaid(run: Run, checkout: Checkout): Promise<Checkout> {
 }
 
 /**
- * Returns the payment of a lost slot. A provider that cannot be reached is asked again by the next call, up to
+ * Returns the payment of a lost slot. The order goes from `awaiting-payment` straight to `refunded` once the
+ * money is back, and the payment's record notes the amount (Comgate never reports a refund itself). A provider that cannot be reached is asked again by the next call, up to
  * `refundAttempts` times; a refusal, or the last failed attempt, leaves the refund to a person (`manual`) and
  * says so to the studio. A refund is always the whole amount under one reference, so a provider that did carry
  * out an attempt we never heard back from refuses the next one as more than was paid, and that ends as `manual`
@@ -363,5 +350,10 @@ async function refund(run: Run, checkout: Checkout): Promise<Checkout> {
     return saved;
   }
   const { lastError: _, ...rest } = owed;
-  return commit(run, { ...checkout, order: advance(checkout.order, 'refunded', now), refund: { ...rest, attempts, state: 'done' } });
+  return commit(run, {
+    ...checkout,
+    order: advance(checkout.order, 'refunded', now),
+    payment: noteRefund(checkout.payment!, owed.amount.amount),
+    refund: { ...rest, attempts, state: 'done' },
+  });
 }

@@ -16,6 +16,7 @@ const TABLES = [
   'booking_orders',
   'booking_revision',
   'booking_sessions',
+  'checkouts',
   'identities',
   'invoices',
   'magic_links',

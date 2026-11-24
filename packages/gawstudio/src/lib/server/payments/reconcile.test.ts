@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'bun:test';
 
 import { PAYMENT_STATUSES, type PaymentEvent, type PaymentStatus } from './provider.ts';
-import { applyPaymentEvent, newPaymentRecord, type PaymentEffect, type PaymentRecord } from './reconcile.ts';
+import { applyPaymentEvent, isRefunded, newPaymentRecord, noteRefund, type PaymentEffect, type PaymentRecord } from './reconcile.ts';
 
 const CREATED = 1_000;
 const NOW = 2_000;
@@ -129,5 +129,38 @@ describe('whatever arrives, in whatever order', () => {
       expect(effects).toEqual(firstFinal === 'paid' ? ['confirm'] : firstFinal === 'cancelled' ? ['release'] : []);
       if (firstFinal) expect(r.status).toBe(firstFinal);
     }
+  });
+});
+
+describe('what an event says beyond the status', () => {
+  test('the method comes with the status that brings it', () => {
+    const paid = applyPaymentEvent(record(), event('paid', { method: 'CARD_CZ_CSOB_2' }), NOW);
+    expect(paid).toMatchObject({ record: { status: 'paid', method: 'CARD_CZ_CSOB_2', updatedAt: NOW }, effect: 'confirm', outcome: 'applied' });
+    expect(applyPaymentEvent(paid.record, event('paid', { method: 'CARD_CZ_CSOB_2' }), NOW + 1).outcome).toBe('duplicate');
+  });
+
+  test('news without a change of status is noted: stored, with no effect and the status time left alone', () => {
+    const paid = record('paid');
+    const noted = applyPaymentEvent(paid, event('paid', { method: 'BANK_CZ_RB', refunded: 150000 }), NOW);
+    expect(noted).toEqual({ record: { ...paid, method: 'BANK_CZ_RB', refunded: 150000 }, effect: 'none', outcome: 'noted' });
+    expect(isRefunded(noted.record)).toBe(true);
+    expect(applyPaymentEvent(noted.record, event('paid', { method: 'BANK_CZ_RB', refunded: 150000 }), NOW).outcome).toBe('duplicate');
+  });
+
+  test('an event that says nothing leaves what is known, and "nothing returned" is no news', () => {
+    const known = { ...record('paid'), method: 'CARD', refunded: 500 };
+    expect(applyPaymentEvent(known, event('paid'), NOW)).toEqual({ record: known, effect: 'none', outcome: 'duplicate' });
+    expect(applyPaymentEvent(record('paid'), event('paid', { refunded: 0 }), NOW).outcome).toBe('duplicate');
+    expect(applyPaymentEvent(record('cancelled'), event('paid', { method: 'CARD' }), NOW)).toMatchObject({ record: { status: 'cancelled' }, outcome: 'conflict' });
+  });
+
+  test('a refund of ours is added up where the provider reports none', () => {
+    const paid = record('paid');
+    const part = noteRefund(paid, 50000);
+    expect(part.refunded).toBe(50000);
+    expect(isRefunded(paid)).toBe(false);
+    expect(isRefunded(part)).toBe(false);
+    expect(isRefunded(noteRefund(part, 100000))).toBe(true);
+    expect(paid.refunded).toBeUndefined();
   });
 });

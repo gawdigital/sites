@@ -27,6 +27,7 @@ const ALLOWED: Record<Flow, string[]> = {
     'awaiting-payment > paid',
     'awaiting-payment > draft',
     'awaiting-payment > cancelled',
+    'awaiting-payment > refunded',
     'paid > awaiting-files',
     'paid > in-queue',
     'paid > refunded',
@@ -47,6 +48,7 @@ const ALLOWED: Record<Flow, string[]> = {
     'awaiting-payment > paid',
     'awaiting-payment > draft',
     'awaiting-payment > cancelled',
+    'awaiting-payment > refunded',
     'paid > ai-draft',
     'paid > refunded',
     'ai-draft > review',
@@ -67,6 +69,7 @@ const ALLOWED: Record<Flow, string[]> = {
     'awaiting-payment > paid',
     'awaiting-payment > draft',
     'awaiting-payment > cancelled',
+    'awaiting-payment > refunded',
     'paid > closed',
     'paid > refunded',
   ],
@@ -229,5 +232,19 @@ describe('file retention', () => {
     expect(retentionEnds(order('classic', 'in-progress'), EXAMPLE_SETTINGS)).toBeUndefined();
     const done = walk(order('classic', 'in-progress'), 'delivered', 'closed');
     expect(retentionEnds(done, EXAMPLE_SETTINGS)!.toISOString()).toBe('2026-12-24T23:00:00.000Z');
+  });
+});
+
+describe('a payment that cannot be honoured', () => {
+  test('an order awaiting its payment is refunded without ever being paid', () => {
+    for (const flow of FLOWS) {
+      const refunded = walk(order(flow, 'awaiting-payment'), 'refunded');
+      expect(refunded.history.map((entry) => entry.state)).toEqual(['awaiting-payment', 'refunded']);
+      expect(isFinal(refunded)).toBe(true);
+    }
+  });
+
+  test('a draft cannot be refunded: nothing was paid', () => {
+    expect(canTransition({ flow: 'recording', state: 'draft' }, 'refunded')).toBe(false);
   });
 });

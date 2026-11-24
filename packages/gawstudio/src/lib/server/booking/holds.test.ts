@@ -2,7 +2,7 @@ import { describe, expect, test } from 'bun:test';
 
 import { availability } from './availability.ts';
 import type { Technician } from './availability.ts';
-import { assignTechnician, busyOf, confirm, EMPTY_STATE, expire, hold, nextExpiry, release } from './holds.ts';
+import { assignTechnician, busyOf, confirm, confirmLate, EMPTY_STATE, expire, hold, nextExpiry, release } from './holds.ts';
 import type { BookingContext, BookingState, HoldRequest } from './holds.ts';
 import { DEFAULT_SETTINGS } from './settings.ts';
 import { at, between, busy, spans } from './testing.ts';
@@ -307,5 +307,63 @@ describe('what takes the studio', () => {
   test('the state is plain data', () => {
     const state = held([request('b', AFTERNOON)], CONTEXT, booked([request('a')]));
     expect(JSON.parse(JSON.stringify(state))).toEqual(state);
+  });
+});
+
+describe('late acceptance', () => {
+  const LATE = NOW + HELD_FOR + MINUTE;
+
+  test('while the hold runs it is a confirmation like any other, and repeats safely', () => {
+    const state = held([request('a')]);
+    const first = confirmLate(state, request('a'), CONTEXT, NOW + MINUTE);
+    expect(first).toMatchObject({ ok: true, late: false, session: { id: 'a', technicianId: 'anna', confirmedAt: NOW + MINUTE } });
+    expect(first.state.holds).toEqual([]);
+    const again = confirmLate(first.state, request('a'), CONTEXT, LATE);
+    expect(again).toMatchObject({ ok: true, late: false, session: { confirmedAt: NOW + MINUTE } });
+    expect(again.state).toBe(first.state);
+  });
+
+  test('an expired hold is confirmed when the slot is still free, whether or not the hold was cleared', () => {
+    const state = held([request('a', MORNING, 'ben')]);
+    expect(confirm(state, 'a', CONTEXT, LATE)).toMatchObject({ ok: false, reason: 'expired' });
+    for (const from of [state, expire(state, LATE), EMPTY_STATE]) {
+      const late = confirmLate(from, request('a', MORNING, 'ben'), CONTEXT, LATE);
+      expect(late).toMatchObject({ ok: true, late: true, session: { id: 'a', ...MORNING, technicianId: 'ben', confirmedAt: LATE } });
+      expect(late.state).toEqual({ holds: [], sessions: [{ id: 'a', ...MORNING, technicianId: 'ben', confirmedAt: LATE }] });
+    }
+  });
+
+  test('the lead time and the horizon are not applied again; a slot that has begun is not given', () => {
+    const inside = at(DAY, '09:00') - 60 * MINUTE;
+    expect(hold(EMPTY_STATE, request('b'), CONTEXT, inside)).toMatchObject({ ok: false, reason: 'unavailable' });
+    expect(confirmLate(EMPTY_STATE, request('a'), CONTEXT, inside)).toMatchObject({ ok: true, late: true });
+    const far = between('2026-09-01', '09:00', '13:00');
+    expect(confirmLate(EMPTY_STATE, request('a', far), CONTEXT, NOW)).toMatchObject({ ok: true, late: true });
+    expect(confirmLate(EMPTY_STATE, request('a'), CONTEXT, at(DAY, '09:00') + 1)).toMatchObject({ ok: false, reason: 'unavailable' });
+  });
+
+  test('everything else is checked as it is now: holds, sessions, the calendar, the technician', () => {
+    const taken = held([request('b')], CONTEXT, EMPTY_STATE);
+    expect(confirmLate(taken, request('a'), CONTEXT, NOW + 5000)).toMatchObject({ ok: false, reason: 'unavailable' });
+    expect(confirmLate(taken, request('a'), CONTEXT, NOW + 5000).state.holds.map((h) => h.id)).toEqual(['b']);
+    expect(confirmLate(booked([request('b', WHOLE_DAY)]), request('a'), CONTEXT, LATE)).toMatchObject({ ok: false, reason: 'unavailable' });
+
+    const rehearsal: BookingContext = { ...CONTEXT, calendar: [busy('calendar', DAY, '10:00', '11:00')] };
+    expect(confirmLate(EMPTY_STATE, request('a'), rehearsal, LATE)).toMatchObject({ ok: false, reason: 'unavailable' });
+
+    const away: BookingContext = { ...CONTEXT, technicians: [{ ...ANNA, busy: [MORNING] }, BEN] };
+    expect(confirmLate(EMPTY_STATE, request('a', MORNING, 'anna'), away, LATE)).toMatchObject({ ok: false, reason: 'technician-unavailable' });
+    expect(confirmLate(EMPTY_STATE, request('a', MORNING, 'carl'), away, LATE)).toMatchObject({ ok: false, reason: 'unknown-technician' });
+    expect(confirmLate(EMPTY_STATE, request('a'), away, LATE)).toMatchObject({ ok: true, session: { technicianId: 'ben' } });
+    expect(confirmLate(EMPTY_STATE, request('a', between(DAY, '10:00', '12:00')), CONTEXT, LATE)).toMatchObject({ ok: false, reason: 'unavailable' });
+  });
+
+  test('an id that stands for another slot is refused, and that slot is left alone', () => {
+    const state = held([request('a')]);
+    const other = confirmLate(state, request('a', AFTERNOON), CONTEXT, NOW + MINUTE);
+    expect(other).toMatchObject({ ok: false, reason: 'duplicate-id' });
+    expect(other.state.holds).toHaveLength(1);
+    const session = booked([request('a')]);
+    expect(confirmLate(session, request('a', AFTERNOON), CONTEXT, LATE)).toMatchObject({ ok: false, reason: 'duplicate-id' });
   });
 });

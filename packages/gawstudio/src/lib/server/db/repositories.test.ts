@@ -8,7 +8,7 @@ import type { FileRef, UploadRecord } from '../files/index.ts';
 import type { InvoiceDocument } from '../invoicing/index.ts';
 import { createOrder, EXAMPLE_CATALOGUE, quote, transition } from '../orders/index.ts';
 import type { Flow, Order, OrderState, Quote } from '../orders/index.ts';
-import { applyPaymentEvent, newPaymentRecord } from '../payments/index.ts';
+import { applyPaymentEvent, newPaymentRecord, noteRefund } from '../payments/index.ts';
 import type { PaymentEvent, PaymentRecord, PaymentStatus } from '../payments/index.ts';
 import { BookingRepository } from './booking.ts';
 import { InvoiceRepository } from './invoices.ts';
@@ -220,6 +220,23 @@ describe('payments', () => {
     expect(await payments.insert(record)).toBe(true);
     return { payments, record, db };
   }
+
+  test('the method and the refunded amount are kept, with the status and without it moving', async () => {
+    const { payments, record, db } = await created();
+    const paid = applyPaymentEvent(record, event('paid', { method: 'CARD_CZ_CSOB_2' }), T0 + 1000);
+    expect(await payments.apply(record, paid)).toBe(true);
+    expect(await payments.get('comgate', 'pay-1')).toEqual({ ...record, status: 'paid', updatedAt: T0 + 1000, method: 'CARD_CZ_CSOB_2' });
+
+    const refunded = noteRefund(paid.record, amount.amount);
+    expect(await payments.note(refunded)).toBe(true);
+    expect(await payments.get('comgate', 'pay-1')).toEqual(refunded);
+    expect(db.sqlite.query('SELECT status, updated_at, effect, refunded FROM payments').get()).toEqual({ status: 'paid', updated_at: T0 + 1000, effect: 'confirm', refunded: amount.amount });
+    expect(await payments.note({ ...refunded, paymentId: 'pay-9' })).toBe(false);
+
+    const noted = applyPaymentEvent(record, event('pending', { method: 'BANK_CZ_RB' }), T0 + 5);
+    expect(noted.outcome).toBe('noted');
+    expect(await payments.apply(record, noted)).toBe(false);
+  });
 
   test('a payment comes back as it was created, and is created once', async () => {
     const { payments, record } = await created();

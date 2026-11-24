@@ -89,6 +89,18 @@ export interface PaymentEvent {
   amount: Money;
   /** Whether this is a test payment: never to be mistaken for money. */
   test: boolean;
+  /**
+   * How the customer paid, in the provider's own code (Comgate: `CARD_CZ_CSOB_2`, `BANK_CZ_RB` …), where the
+   * provider says. Left out while nothing was chosen or the provider does not tell.
+   */
+  method?: string;
+  /**
+   * How much of the payment has been returned so far, in minor units of its currency (0: nothing), where the
+   * provider reports it. Left out when the provider does not say: Comgate's status answer and notification carry
+   * no refund state at all, so with Comgate the only record of a refund is the one kept when `refund` succeeds
+   * (`noteRefund`).
+   */
+  refunded?: number;
 }
 
 /** A server-to-server notification as received: the body unparsed, since the provider decides its encoding. */
@@ -117,6 +129,12 @@ export interface PaymentProvider {
   readonly name: string;
   /** The answer that tells the provider a notification arrived. */
   readonly notificationAck: NotificationAck;
+  /**
+   * The bounds of `CreatePaymentRequest.expiresInMinutes`, where the provider has any. The lower bound matters to
+   * whoever holds something while the customer pays: a payment cannot be made to run out sooner than this, so a
+   * shorter hold can be outlived by its payment (see the checkout's `checkoutReport`).
+   */
+  readonly expiryMinutes?: { min: number; max: number };
 
   /** Opens a payment and says where to send the customer. */
   createPayment(request: CreatePaymentRequest): Promise<CreatedPayment>;

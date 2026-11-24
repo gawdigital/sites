@@ -1,6 +1,7 @@
 // The studio's catalogue: everything the specification calls an admin item (services, technicians, prices, add-ons,
 // discounts, the VAT rate, the queue weights) is data of this shape, passed into `quote` and the queue. Nothing
 // here is logic; `EXAMPLE_CATALOGUE` holds the starting prices of issue #29 and is an example, not the price list.
+import type { TechnicianId, TechnicianRef } from '../shared/technician.ts';
 import type { Currency, Prices } from './money.ts';
 
 /** The four kinds of work the technicians' queue holds. AI-assisted work is curated, so it queues too. */
@@ -17,8 +18,11 @@ export const LOAD_UNIT = 1000;
 /** The customer's choice when they name no technician. */
 export const ANYONE = 'anyone';
 
-export interface Technician {
-  id: string;
+/**
+ * A technician as the catalogue lists one. The id is the shared one (`../shared/technician.ts`): the booking's
+ * technician with the same id is the same person, and `technicianProblems` checks that the two lists agree.
+ */
+export interface Technician extends TechnicianRef {
   name: string;
   /** What the technician gets through in a week, in load units. */
   weeklyCapacity: number;
@@ -32,7 +36,7 @@ export interface TrackService {
   /** The weight of one track in the queue, in load units. */
   load: number;
   /** Price per track by technician id; the price may differ per technician. */
-  prices: Record<string, Prices>;
+  prices: Record<TechnicianId, Prices>;
   /** Price per track when the customer chooses "anyone"; without it, the lowest technician price applies. */
   anyonePrices?: Prices;
 }
@@ -60,7 +64,11 @@ export interface DiscountRule {
   includesAddOns: boolean;
 }
 
-/** Recording in the studio: sold as a fixed block, a whole day, or by the hour for a free window. */
+/**
+ * Recording in the studio: sold as a fixed block, a whole day, or by the hour for a free window. The hours here
+ * are what is sold; when the blocks are is the booking's (`BookingSettings`), and the booking's
+ * `recordingProblems` checks that the two agree.
+ */
 export interface RecordingPrices {
   block: { hours: number; prices: Prices };
   day: { hours: number; prices: Prices };
@@ -90,7 +98,8 @@ export interface Catalogue {
  * list. Recording is 800 Kč an hour net (a 4 h block 3,200 Kč, a day 6,400 Kč); mix and mastering are the old
  * store's EUR prices, taken as net until the owner says otherwise. No add-on has a price yet, so none is listed.
  * The capacities and weights are the specification's "6 mixes or 15 masters" for every technician; the weights of
- * mix with preprocess and of the AI kinds are guesses.
+ * mix with preprocess and of the AI kinds are guesses. The two AI-assisted services are placeholders: their
+ * prices, their weights and who curates them are the owner's to decide.
  */
 export const EXAMPLE_CATALOGUE: Catalogue = {
   vatRateBp: 2100,
@@ -122,6 +131,9 @@ export const EXAMPLE_CATALOGUE: Catalogue = {
       load: 400,
       prices: { libor: { EUR: 10_000 }, risto: { EUR: 18_000 } },
     },
+    // AI-assisted work is curated by a technician, so it is priced per technician like the rest and queues too.
+    { id: 'ai-mix', name: 'AI Mix', kind: 'ai-mix', load: 300, prices: { libor: { EUR: 5_000 } } },
+    { id: 'ai-mastering', name: 'AI Mastering', kind: 'ai-mastering', load: 100, prices: { libor: { EUR: 2_500 } } },
   ],
   addOns: [],
   discounts: [
