@@ -44,7 +44,7 @@
     <HatchPills id="hm1" width={48} box={[218, 220]} pills={[[0, 32, 143], [85, 0, 220], [170, 21, 220]]} class="hm over-m" />
     <BrandCard brand={digital} badge={badgeDigital} tags={crafts.digital} text={t('home.digital_text')} visit={t('home.visit')} {external}><div class="art">{@html appwin}</div></BrandCard>
     <Divider title={t('home.who_we_are')} index="02" class="col-h l-who" />
-    <article class="who">
+    <article class="who tl">
       <h3 class="big">{@html t('home.one_group_many_crafts')}</h3>
       <p>{t('home.who_text')}</p>
       <ul><li>{t('chrome.digital')}<span>{t('home.digital_crafts')}</span></li><li>{t('chrome.studio')}<span>{t('home.studio_crafts')}</span></li><li>{t('home.group')}<span>{t('home.group_crafts')}</span></li></ul>
@@ -57,7 +57,7 @@
     <HatchPills id="hm2" width={48} box={[218, 455]} pills={[[0, 15, 405], [85, 0, 455], [170, 25, 425]]} class="hm under-m" />
     <Divider title={t('home.get_in_touch')} index="03" class="col-h l-touch" />
     <!-- A plain GET form: the chosen topic travels in the address, and the contact form's script selects it. -->
-    <form class="touch" method="get" action={contact}>
+    <form class="touch tl" method="get" action={contact}>
       <h3 class="big">{@html t('home.lets_make_something')}</h3>
       <p>{t('home.touch_text')}</p>
       <div class="side"><fieldset><legend>{t('common.topic')}</legend><div class="topics">{#each topics as topic, i (topic)}<label><input type="radio" name="topic" value={topic} checked={i === 0}><span>{t(`common.${topic}`)}</span></label>{/each}</div></fieldset>
