@@ -18,7 +18,7 @@
   import logo from './art/logo.svg?raw';
   import shape from './art/shape.svg?raw';
   import user from './art/user.svg?raw';
-  import { LAUNCHED, NAV, ORIGIN, PAGES, STUDIO, STYLES, accent, type PageName } from './site.ts';
+  import { LAUNCHED, NAV, ORIGIN, PAGES, STYLES, accent, type PageName } from './site.ts';
   import { get } from './translations/index.ts';
 
   let {
@@ -73,7 +73,7 @@
     <nav class="nav">
       {#each NAV as id (id)}<a href={pathOf(PAGES[id].route, locale)} aria-current={id === meta.nav ? 'page' : undefined}>{t(`chrome.${id}`)}</a>{/each}
       <!-- The cart and the account come with the orders (issue #29); until then they are only drawn. -->
-      <span class="icons" aria-hidden="true"><span class="ico">{@html user}</span><span class="ico cart">{@html cart}<b>0</b></span></span>
+      <span class="icons" aria-hidden="true"><span class="ico">{@html user}</span><span class="ico cart">{@html cart}<b>2</b></span></span>
     </nav>
     <!-- The phone's menu, as on the other sites: three dots open an overlay (`@gaw/ui/scripts/menu.js`). Without
          JavaScript the links above stay on the page instead (the `noscript` rule in `site.ts`). -->
@@ -93,23 +93,8 @@
     <div class="col b">{@render right()}</div>
   </main>
   <footer class="foot wrap">
-    <div class="fpanel">
-      <div>
-        <h3>{t('common.where')}</h3>
-        <p>{STUDIO.street}<br />{STUDIO.city}<br />{t('common.country')}</p>
-        <a href={STUDIO.map} target="_blank" rel="noopener">{t('common.view_map')}<span class="sr"> {t('common.opens_in_a_new_tab')}</span></a>
-      </div>
-      <nav aria-label={t('chrome.menu')}>
-        <h3>{t('chrome.menu')}</h3>
-        <ul>{#each NAV as id (id)}<li><a href={pathOf(PAGES[id].route, locale)} aria-current={id === meta.nav ? 'page' : undefined}>{t(`chrome.${id}`)}</a></li>{/each}</ul>
-      </nav>
-      <nav aria-label={t('chrome.languages')}>
-        <h3>{t('chrome.languages')}</h3>
-        <LangSwitch {langs} />
-        <ThemeButton label={t('chrome.theme')} />
-      </nav>
-      <p class="copy">{t('chrome.copyright')}</p>
-    </div>
+    <span>{t('chrome.copyright')}</span>
+    <div><nav aria-label={t('chrome.languages')}><LangSwitch {langs} /></nav><ThemeButton label={t('chrome.theme')} /></div>
   </footer>
 </div>
 {@html inline(LANG, MENU, THEME)}

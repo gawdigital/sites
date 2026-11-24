@@ -14,7 +14,7 @@
 :root[data-theme="light"] .page::before{mix-blend-mode:multiply;filter:invert(1);opacity:.1}
 :root[data-theme="light"] .shape{color:#b9c6d6;opacity:.45}
 :root[data-theme="light"] .logo,:root[data-theme="light"] .card:not(.plain),:root[data-theme="light"] .hatch,:root[data-theme="light"] .mmenu{--orange:#db8e5a}
-:root[data-theme="light"] .card.plain,:root[data-theme="light"] .fpanel{--green:#00a67a}
+:root[data-theme="light"] .card.plain{--green:#00a67a}
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--fg);font:500 var(--t24)/1.25 "Kumbh Sans",sans-serif;-webkit-font-smoothing:antialiased}
@@ -35,12 +35,12 @@ svg{display:block;width:100%;height:auto}
 .top{position:relative;height:calc(300*var(--px))}
 .logo{position:absolute;left:var(--pad);top:0;width:calc(132*var(--px));color:var(--orange)}
 .nav{position:absolute;right:var(--pad);top:var(--pad);height:var(--pad);display:flex;align-items:center;gap:calc(35*var(--px))}
-.nav a,.foot a,.foot h3{font-weight:800;font-size:var(--t18);line-height:1;text-transform:uppercase;text-decoration:none}
+.nav a{font-weight:800;font-size:var(--t18);line-height:1;text-transform:uppercase;text-decoration:none}
 .nav a:hover,.foot a:hover{color:var(--orange)}
 .nav a[aria-current]{color:var(--orange)}
 .ico{position:relative;display:block;width:calc(34*var(--px));min-width:24px}
 .ico.cart{margin-right:calc(12*var(--px))}
-.ico b{position:absolute;left:62%;bottom:56%;box-shadow:0 0 0 2px var(--bg);min-width:1.42em;height:1.42em;border-radius:1em;background:var(--blue);font:800 max(10px,calc(12*var(--px)))/1.42 "Kumbh Sans",sans-serif;text-align:center}
+.ico b{position:absolute;left:58%;bottom:52%;box-shadow:0 0 0 2px var(--bg);min-width:1.5em;height:1.5em;padding:0 .3em;border-radius:1em;background:var(--pink);color:#fff;font:800 max(12px,calc(15*var(--px)))/1.5 "Kumbh Sans",sans-serif;font-variant-numeric:tabular-nums;text-align:center}
 .mnav,.mmenu{display:none}
 
 /* Two columns: the left one starts at once, the right one under the page's claim. */
@@ -83,26 +83,23 @@ h2{font-weight:800;font-size:var(--t60);line-height:1.2;text-transform:uppercase
 .player svg{width:40%;rotate:90deg}
 .hatch{position:absolute;z-index:-1;left:calc(234*var(--px));top:calc(100% - 163*var(--px));width:calc(516*var(--px));color:var(--orange);pointer-events:none}
 
-/* Footer: not in the design, which ends with the last card. A panel that closes the page: where the studio is,
-   the menu again and the language switch every site has. */
-.foot{position:relative;z-index:1;margin-top:auto;padding:calc(140*var(--px)) var(--pad) var(--pad)}
-.fpanel{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:var(--pad);padding:var(--pad) calc(80*var(--px));border-radius:calc(95*var(--px));background:var(--panel);box-shadow:0 0 calc(50*var(--px)) calc(30*var(--px)) var(--shade)}
-.foot h3{margin:0 0 calc(30*var(--px));color:var(--orange)}
-.foot ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:calc(22*var(--px))}
-.foot p{margin-bottom:calc(30*var(--px))}
-.foot a[aria-current]{color:var(--orange)}
-.foot .lang{display:flex;gap:calc(35*var(--px))}
+/* Footer: not in the design, which ends with the last card; it carries the language switch every site has and
+   the day and night switch. */
+.foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;margin-top:auto;padding:calc(120*var(--px)) var(--pad) var(--pad);font-weight:800;font-size:var(--t18);line-height:1;text-transform:uppercase}
+.foot a{text-decoration:none}
+.foot>span{text-transform:none}
+.foot>div{display:flex;align-items:center;gap:calc(50*var(--px))}
+.lang{display:flex;gap:calc(35*var(--px))}
 .lang .cur{color:var(--orange)}
-.foot .copy{grid-column:1/-1;margin:0;padding-top:calc(40*var(--px));border-top:1px solid var(--rule);font-size:var(--t18);color:var(--faint)}
 /* The day and night switch, as on the other sites: a track with the sun and the moon, a knob under the current one. */
-.theme{position:relative;display:block;width:84px;height:42px;margin-top:calc(30*var(--px));padding:0;border:0;border-radius:21px;background:var(--chipbg);color:var(--faint);cursor:pointer;-webkit-appearance:none;appearance:none}
+.theme{position:relative;display:block;width:84px;height:42px;padding:0;border:0;border-radius:21px;background:var(--chipbg);color:var(--faint);cursor:pointer;-webkit-appearance:none;appearance:none}
 .theme::before{content:"";position:absolute;top:5px;left:5px;width:32px;height:32px;border-radius:50%;background:var(--orange);transform:translateX(42px);transition:transform .2s}
 :root[data-theme="light"] .theme::before{transform:none}
 .theme svg{position:absolute;top:12px;width:18px;height:18px;overflow:visible;pointer-events:none}
 .theme .sun{left:12px} .theme .moon{left:54px;color:var(--ink)}
 :root[data-theme="light"] .theme .sun{color:#fff} :root[data-theme="light"] .theme .moon{color:var(--faint)}
-/* The home page's hatch reaches below its cards and slips behind the panel. */
-.page.home .foot{padding-top:calc(230*var(--px))}
+/* The home page's hatch reaches below its cards. */
+.page.home .foot{padding-top:calc(340*var(--px))}
 
 /* A phone: one column, the claim first; the menu is an overlay behind three dots, as on the other sites. */
 @media (max-width:860px){
@@ -137,13 +134,9 @@ h2{font-weight:800;font-size:var(--t60);line-height:1.2;text-transform:uppercase
   .head{min-height:0;margin:8px 0 4px;gap:18px}
   .tabs{gap:8px}
   .hatch{display:none}
-  .foot,.page.home .foot{padding:56px 16px 24px}
-  .fpanel{grid-template-columns:1fr;gap:32px;padding:32px var(--pad)}
-  .foot h3{margin-bottom:14px}
-  .foot ul{gap:14px}
-  .foot p{margin-bottom:14px}
-  .foot .copy{padding-top:20px}
-  .foot .lang{gap:22px}
+  .foot,.page.home .foot{padding:56px 16px 32px}
+  .foot>div{gap:22px}
+  .lang{gap:22px}
 }
 @media (min-width:861px){.nav .icons{display:contents}}
 @media (prefers-reduced-motion:reduce){.btn,.theme::before{transition:none}}
