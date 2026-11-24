@@ -140,6 +140,8 @@ h1{font-weight:800;font-size:110px;line-height:0.9455;text-transform:uppercase}
 @media (hover:hover){.btn:hover{filter:brightness(1.1);box-shadow:0 0 28px rgba(var(--br),.4)}} /* --br: the button colour, --blue, as r,g,b */
 @media (hover:hover){.btn.mint:hover{box-shadow:0 0 28px rgba(var(--xm),.36)}}
 .btn:active{filter:brightness(.95);box-shadow:none;transition-duration:.06s}
+/* without a mouse, a press is the hover: the finger shows the glow while it is down, where a mouse's press dims it */
+@media (hover:none){.btn:active{filter:brightness(1.1);box-shadow:0 0 28px rgba(var(--br),.4)}.btn.mint:active{box-shadow:0 0 28px rgba(var(--xm),.36)}}
 .btn:focus-visible{outline:none;box-shadow:0 0 0 3px var(--page),0 0 0 6px var(--x)}
 .btn.mint{background:var(--xg);color:var(--on-x)}
 /* a button's arrow after its text: the send button's on every site, a link's out of the site (.ext) */
