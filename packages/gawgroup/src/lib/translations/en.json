@@ -3,10 +3,10 @@
     "email": "Email",
     "topic": "Topic",
     "message": "Message",
-    "send": "SEND",
+    "send": "Send",
     "verification": "Verification",
     "privacy_note": "We use your email and message only to answer you. Nothing is stored on this site. See <a class=\"ln\" href=\"{{p}}/privacy\">Privacy</a> for more.",
-    "thank_you": "THANK YOU.",
+    "thank_you": "Thank you.",
     "reply": "We’ll reply to your email.",
     "required_empty": "Required, not filled in yet.",
     "company": "Company",
@@ -46,11 +46,11 @@
   },
   "error": {
     "kicker": "Error {{status}}",
-    "title_404": "NOT FOUND.",
-    "title": "SOMETHING WENT WRONG.",
+    "title_404": "Not found.",
+    "title": "Something went wrong.",
     "text_404": "There is no page at this address. It may have moved, or the link may be mistyped.",
     "text": "The page could not be shown. Please try again in a moment.",
-    "home": "BACK HOME",
+    "home": "Back home",
     "page_title": "Not found · G.A.W.Group",
     "page_title_other": "Error · G.A.W.Group"
   }

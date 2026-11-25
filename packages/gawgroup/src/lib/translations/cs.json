@@ -3,10 +3,10 @@
     "email": "E-mail",
     "topic": "Téma",
     "message": "Zpráva",
-    "send": "ODESLAT",
+    "send": "Odeslat",
     "verification": "Ověření",
     "privacy_note": "Váš e-mail a zprávu použijeme jen k tomu, abychom vám odpověděli. Na tomto webu se nic neukládá. Podrobnosti najdete na stránce <a class=\"ln\" href=\"{{p}}/privacy\">Ochrana soukromí</a>.",
-    "thank_you": "DĚKUJEME.",
+    "thank_you": "Děkujeme.",
     "reply": "Odpovíme vám e-mailem.",
     "required_empty": "Povinné pole, zatím nevyplněné.",
     "company": "Společnost",
@@ -46,11 +46,11 @@
   },
   "error": {
     "kicker": "Chyba {{status}}",
-    "title_404": "STRÁNKA NENALEZENA.",
-    "title": "NĚCO SE POKAZILO.",
+    "title_404": "Stránka nenalezena.",
+    "title": "Něco se pokazilo.",
     "text_404": "Na této adrese žádná stránka není. Možná se přestěhovala, nebo je v odkazu překlep.",
     "text": "Stránku se nepodařilo zobrazit. Zkuste to prosím za chvíli znovu.",
-    "home": "ZPĚT DOMŮ",
+    "home": "Zpět domů",
     "page_title": "Stránka nenalezena · G.A.W.Group",
     "page_title_other": "Chyba · G.A.W.Group"
   }

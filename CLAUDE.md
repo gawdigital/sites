@@ -25,6 +25,7 @@ so Bun, not Node, executes them; `serve` (`wrangler dev`) alone needs Node, sinc
 - Commit message prefix = the area: `gawdigital:`, `gawgroup:`, `common:`, `ci:`, `docs:`.
 - English for every committed artifact. All page copy lives in the translation files (`en` is the approved
   design copy; `de` and `cs` are AI-checked, awaiting a native speaker's review).
+- Uppercase comes from CSS `text-transform:uppercase`, never typed into the copy (acronyms and names excepted).
 - Pages are prerendered with `csr = false`; behaviour comes from small inline scripts and must work without
   JavaScript (Turnstile excepted). `/api/contact` is the only server route.
 - English paths in every locale: `/de/contact`, never `/de/kontakt`. English is unprefixed.

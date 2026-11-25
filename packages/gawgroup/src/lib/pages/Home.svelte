@@ -32,7 +32,7 @@
   <section class="ghero">
     <HatchPills id="he" bold width={80} box={[760, 1300]} pills={[[380, 190, 430], [520, 80, 540], [660, 160, 460]]} class="eq" />
     <div class="kicker">{t('common.group')}</div>
-    <!-- The Czech claim (`home/cs.json`, "HRAJ A BUDE TI HRÁNO.") is provisional: still open in issue #22. -->
+    <!-- The Czech claim (`home/cs.json`, "Hraj a bude ti hráno.") is provisional: still open in issue #22. -->
     <h1>{@html t('home.claim')}</h1>
     <p class="lead">{t('home.lead')}</p>
     <div class="cta"><a class="btn" href="#brands">{t('home.our_brands')}<span class="arr down" aria-hidden="true">{@html ARROW}</span></a><a class="btn ghost" href={contact}>{t('home.get_in_touch')}</a></div>

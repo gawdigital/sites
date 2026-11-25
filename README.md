@@ -79,6 +79,11 @@ All copy lives in `packages/gawdigital/src/lib/translations`: the shared strings
 its folder. English is the approved design copy. The German and Czech texts have been checked by AI; **a native speaker's review is
 still pending**, the privacy policy most of all. Company data is not translated.
 
+Copy is written in normal case: English and Czech in sentence case, German with its nouns capitalised. Uppercase
+comes only from CSS (`text-transform:uppercase` on the headings, labels, tags, pills, buttons and menus), never from
+the text itself; acronyms and names keep their own case (MIDI, RME, USB, FAQ, EQ, IČO, FireWire, TotalMix, Fireface,
+G.A.W., macOS). A string that must not be uppercased in its place gets `text-transform:none` there.
+
 ### Contact form
 
 The form posts to `/api/contact`, which validates the fields, applies the rate limit, verifies Turnstile and sends the
@@ -147,9 +152,9 @@ pages and copy are its own.
 - **Shared with gawdigital.cz**: the company's details and the brand list (`common/company`), the contact endpoint
   (`common/contact`), the header, footer, menus, form spec, company rows, copy buttons, dividers, brand cards and
   hatched pills (`common/ui`). The gold theme is `common/ui/src/styles/gawgroup.css`, applied over the shared base.
-- **Copy**: `packages/gawgroup/src/lib/translations`, as on gawdigital.cz. English is the
-  approved design copy. German and Czech have been checked by AI and await a native speaker's review. The Czech
-  home page claim ("HRAJ A BUDE TI HRÁNO.") is **provisional**: it is still open in issue #22.
+- **Copy**: `packages/gawgroup/src/lib/translations`, as on gawdigital.cz: normal case, the uppercase from CSS.
+  English is the approved design copy. German and Czech have been checked by AI and await a native speaker's
+  review. The Czech home page claim ("Hraj a bude ti hráno.") is **provisional**: it is still open in issue #22.
 - **Contact form**: the form asks for an address, a topic (Digital, Studio or General) and a message; the topic
   leads the mail's subject (`[gawgroup.cz] G.A.W.Studio`). The endpoint, its secrets and its bindings are the ones
   described for gawdigital.cz, set on the Worker `gawgroup` (`bunx --bun wrangler secret put <NAME>` in

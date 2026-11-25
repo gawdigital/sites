@@ -1,10 +1,10 @@
 {
   "page_title": "Web · G.A.W.Digital",
-  "web": "WEB",
+  "web": "Web",
   "lead": "Open-source nástroje a partnerské weby.",
   "open_source": "Open source",
-  "open_source_tag": "OPEN SOURCE",
-  "parsers_tag": "5 PARSERŮ",
+  "open_source_tag": "Open source",
+  "parsers_tag": "5 parserů",
   "i18n_text": "Internacionalizace pro SvelteKit. Jedna instalace a překlady fungují v celé aplikaci, na serveru i v prohlížeči.",
   "i18n_runes": "Runy Svelte 5",
   "i18n_typed": "Typované klíče a hodnoty",
@@ -12,10 +12,10 @@
   "curly_text": "Jednoduchá syntaxe pro texty překladů. Množná čísla, čísla a data se píšou přímo do textu, ve všech jazycích stejně.",
   "parsers": "Parsery",
   "partner_projects": "Partnerské projekty",
-  "partner_tag": "PARTNERSKÝ PROJEKT",
+  "partner_tag": "Partnerský projekt",
   "cesta_text": "Vaše cesta ke zprávám: články českých vydavatelů v jednom přehledu, s lajky, komentáři a autory, které sledujete. Podílíme se na jeho designu a vývoji.",
   "cesta_design": "Design",
   "cesta_development": "Vývoj",
-  "visit": "NAVŠTÍVIT",
+  "visit": "Navštívit",
   "visit_name": "Navštívit {{name}} (otevře se v nové kartě)"
 }
