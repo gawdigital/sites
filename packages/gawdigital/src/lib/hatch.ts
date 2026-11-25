@@ -12,6 +12,10 @@ type Pins = readonly HatchPin[];
 // searched around each language's text, so a page may hang different groups, or the same ones elsewhere, in Czech or
 // German. The blocks are `main`'s children that are not dividers. The phone hangs its own groups from the cards
 // (`PHONE_PINS`); pages listed in neither place theirs by the script's search.
+// No two groups in a row may sit on the centre line (720 px, the gap between two columns), one under the other: a
+// pill showing in the gap time after time reads as a column. One group on it is fine; the next goes left or right of
+// it, so a pill peeks out from behind one card or the other, with varied offsets (`hatch.test.ts` checks the pins;
+// the same holds for the phone's groups and the script's search on the pages without pins).
 const same = (pins: Pins): Record<Locale, Pins> => ({ en: pins, cs: pins, de: pins });
 
 export const HATCH_PINS: Partial<Record<PageName, Record<Locale, Pins>>> = {
@@ -55,26 +59,26 @@ export const HATCH_PINS: Partial<Record<PageName, Record<Locale, Pins>>> = {
     de: [[2, 1, 0, 1, -371, 1, 1, 0, -59]],
   },
   // above the first card, at its right; Czech: inside the first card, at its left, and over the second row's bottom
-  // edge, at its right. Then under each row of two cards, across the columns' gap, into the space above the next
-  // row's headings (Czech: from the third row on, as its second row already has one)
+  // edge, at its right. Then under each row of two cards, into the space above the next row's headings (Czech: from
+  // the third row on, as its second row already has one), off the columns' gap: left of it, then right, then left
   privacy: {
     en: [
       [2, 1, -1, 0, -463, 1, -1, 1, -400],
-      [3, 2, -1, 1, -415, 2, 1, 0, -210],
-      [2, 3, -1, 1, -762, 3, 1, 0, -76],
-      [1, 4, -1, 1, -377, 4, 1, 0, -210],
+      [3, 2, -1, 1, -415, 2, 1, 0, -255],
+      [2, 3, -1, 1, -762, 3, 1, 0, -31],
+      [1, 4, -1, 1, -377, 4, 1, 0, -300],
     ],
     cs: [
       [2, 1, -1, 0, 111, 1, -1, 0, 208],
       [1, 2, -1, 1, -190, 2, -1, 1, -432],
-      [2, 3, -1, 1, -762, 3, 1, 0, -76],
-      [1, 4, -1, 1, -377, 4, 1, 0, -210],
+      [2, 3, -1, 1, -762, 3, 1, 0, -31],
+      [1, 4, -1, 1, -377, 4, 1, 0, -300],
     ],
     de: [
       [2, 1, -1, 0, -463, 1, -1, 1, -400],
-      [3, 2, -1, 1, -415, 2, 1, 0, -210],
-      [2, 3, -1, 1, -762, 3, 1, 0, -76],
-      [1, 4, -1, 1, -377, 4, 1, 0, -210],
+      [3, 2, -1, 1, -415, 2, 1, 0, -255],
+      [2, 3, -1, 1, -762, 3, 1, 0, -31],
+      [1, 4, -1, 1, -377, 4, 1, 0, -300],
     ],
   },
   // under the overview card, the features, the app windows and the compatibility card, at the columns' gap; under

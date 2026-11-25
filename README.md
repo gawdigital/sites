@@ -42,6 +42,10 @@ frame is scaled to the window by a transform (`common/ui/src/scripts/fit-head.js
 ladder of `zoom` steps (`common/ui/src/styles.ts`). The transform is the one to rely on: WebKit keeps zoomed text
 at 9 px or more while the layout around it goes on shrinking.
 
+The background hatch is pinned per page and language in `packages/gawdigital/src/lib/hatch.ts` (gawgroup.cz: the
+`HatchPills` in its pages). Groups never sit on the centre line (the gap between two columns) one under another, as a
+column: alternate them left and right of it (`hatch.test.ts` checks the desktop pins).
+
 | Route | Page |
 |-------|------|
 | `/` | Home |
