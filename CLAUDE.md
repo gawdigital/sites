@@ -29,6 +29,8 @@ so Bun, not Node, executes them; `serve` (`wrangler dev`) alone needs Node, sinc
 - Pages are prerendered with `csr = false`; behaviour comes from small inline scripts and must work without
   JavaScript (Turnstile excepted). `/api/contact` is the only server route.
 - English paths in every locale: `/de/contact`, never `/de/kontakt`. English is unprefixed.
+- Background hatch groups never sit on the page's centre line (the gap between two columns) one under another: one
+  on it is fine, two in a row look like a column. Alternate them left and right (see `hatch.ts`, `hatch.test.ts`).
 - `src/params.ts` is loaded by the runtime directly: it must not import anything that pulls in CSS.
 - The language redirect is an inline script in the `<head>` of the English pages (`common/i18n/src/scripts`); the
   switch's choice is kept in localStorage `lang`, like the theme. No cookie, no Worker of our own, no language bar.

@@ -1,6 +1,7 @@
 // Hatched pills as the design places them behind the phone's cards: a group is given as the design gives it, in the
 // 390 px frame's coordinates, `[x, top, bottom]` per pill, and becomes a drawing with its own origin, hung from the
-// box it belongs to.
+// box it belongs to. No two groups in a row sit on the page's centre line (the gap between two columns, or the
+// phone's middle), one under the other: that reads as a column, so alternate them left and right of it.
 export type Pill = readonly [x: number, top: number, bottom: number];
 
 export interface Group {
