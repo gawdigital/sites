@@ -24,7 +24,7 @@
 .qa{justify-content:flex-start;padding:64px 80px 56px}
 .qg{display:grid;grid-template-columns:240px 1fr;column-gap:60px}
 .qg + .qg{margin-top:52px}
-.qg h3{font-weight:800;font-size:15px;line-height:2;letter-spacing:.14em;color:var(--xt);padding-top:26px}
+.qg h3{font-weight:800;font-size:15px;line-height:2;letter-spacing:.14em;text-transform:uppercase;color:var(--xt);padding-top:26px}
 .qg .ql{border-top:2px solid var(--line)}
 .qa details{border-bottom:2px solid var(--line)}
 .qa summary{display:flex;align-items:center;justify-content:space-between;gap:32px;padding:24px 0;cursor:pointer;list-style:none;

@@ -12,6 +12,7 @@
 .proj h2{font-size:52px;line-height:1.0769;margin-bottom:18px;text-transform:none}
 .proj .tags{margin-bottom:4px}
 .tag.soft{background:color-mix(in srgb,var(--text) 10%,var(--card));color:var(--text)}
+.tag.name{text-transform:none}
 .proj .row{margin-top:auto;padding-top:36px}
 .burl{font-weight:500;font-size:18px;color:var(--dim);overflow-wrap:anywhere}
 .facts{list-style:none;display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:24px;font-weight:800;font-size:18px;line-height:1.3333}

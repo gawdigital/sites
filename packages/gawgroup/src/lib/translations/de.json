@@ -3,10 +3,10 @@
     "email": "E-Mail",
     "topic": "Thema",
     "message": "Nachricht",
-    "send": "SENDEN",
+    "send": "Senden",
     "verification": "Sicherheitsprüfung",
     "privacy_note": "Wir verwenden Ihre E-Mail-Adresse und Ihre Nachricht nur, um Ihnen zu antworten. Auf dieser Website wird nichts gespeichert. Mehr dazu in unserer <a class=\"ln\" href=\"{{p}}/privacy\">Datenschutzerklärung</a>.",
-    "thank_you": "DANKE.",
+    "thank_you": "Danke.",
     "reply": "Wir antworten Ihnen per E-Mail.",
     "required_empty": "Pflichtfeld, noch nicht ausgefüllt.",
     "company": "Unternehmen",
@@ -46,11 +46,11 @@
   },
   "error": {
     "kicker": "Fehler {{status}}",
-    "title_404": "NICHT GEFUNDEN.",
-    "title": "ETWAS IST SCHIEFGEGANGEN.",
+    "title_404": "Nicht gefunden.",
+    "title": "Etwas ist schiefgegangen.",
     "text_404": "Unter dieser Adresse gibt es keine Seite. Vielleicht ist sie umgezogen, oder im Link steckt ein Tippfehler.",
     "text": "Die Seite konnte nicht angezeigt werden. Bitte versuchen Sie es in einem Moment noch einmal.",
-    "home": "ZUR STARTSEITE",
+    "home": "Zur Startseite",
     "page_title": "Nicht gefunden · G.A.W.Group",
     "page_title_other": "Fehler · G.A.W.Group"
   }

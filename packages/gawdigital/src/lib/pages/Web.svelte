@@ -62,7 +62,7 @@
         <div class="out"><span class="c">$</span> npx sv add @sveltekit-i18n</div>
       </div></div><div class="fade"></div>
       <div class="content">
-        <div class="tags"><span class="tag hl">{t('web.open_source_tag')}</span><span class="tag soft">SvelteKit</span></div>
+        <div class="tags"><span class="tag hl">{t('web.open_source_tag')}</span><span class="tag soft name">SvelteKit</span></div>
         <h2>sveltekit-i18n</h2>
         <p>{t('web.i18n_text')}</p>
         <ul class="facts"><li>{t('web.i18n_runes')}</li><li>{t('web.i18n_typed')}</li><li>{t('web.i18n_loaders')}</li></ul>
