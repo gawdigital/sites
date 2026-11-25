@@ -13,8 +13,13 @@
 .hdc.d1{right:-40px;margin-top:-124px;height:370px}
 .hdc.d2{left:110px;margin-top:-110px;height:370px}
 .hdc.d3{right:70px;margin-top:-110px;height:440px}
-/* Every language hangs the groups the same distance below the cards' bottom edges, so the hatch shows below the
-   taller Czech and German cards as far as below the English ones. */
+/* The Czech and German cards are taller: their groups hang a little higher than the English ones, but still stick
+   out clearly below the cards' bottom edges (about 150 px). */
+:is(:lang(cs),:lang(de)) .hx-bot{margin-top:-168px}
+:is(:lang(cs),:lang(de)) .hdc.d0{margin-top:-178px}
+:is(:lang(cs),:lang(de)) .hdc.d1{margin-top:-220px}
+:is(:lang(cs),:lang(de)) .hdc.d2{margin-top:-220px}
+:is(:lang(cs),:lang(de)) .hdc.d3{margin-top:-270px}
 .hp.hmc{display:none;z-index:-1}
 main{position:relative;z-index:2}
 @media (max-width:768px){
